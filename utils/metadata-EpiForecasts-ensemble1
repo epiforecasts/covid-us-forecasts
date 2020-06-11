@@ -1,5 +1,5 @@
-team_name: EpiForecasts at the London School of Hygiene & Tropical Medicine
-team_abbr: EpiForecasts
+team_name: EpiForecasts group at the London School of Hygiene & Tropical Medicine
+team_abbr: epiforecasts
 institution_affil: London School of Hygiene & Tropical Medicine
 team_funding: Wellcome Trust
 team_experience: 
@@ -20,11 +20,11 @@ forecast_frequency: weekly
 data_inputs_known: 
 data_source_known: 
 
-this_model_is_an_ensemble: true
+this_model_is_an_ensemble: false
 this_model_is_unconditional: true
 
 methods: >-
-    An ensemble forecast combining two models based on reported deaths data (Rt-based models and time series models).
+    A deaths forecast using the renewal equation and time-series forecasts of the time-varying reproduction number.
 
 methods_long: >-
-    June 10: This ensemble forecast combines (1) Rt-based forecasts derived from reported deaths (Rt is estimated using EpiEstim and forecast using time series models; these forecasts of Rt are transformed into forcasted deaths using the renewal eqution), and (2) ARIMA time series models using reported deaths.
+    2020-06-15: A deaths forecast using the renewal equation and time-series forecasts of the time-varying reproduction number.
