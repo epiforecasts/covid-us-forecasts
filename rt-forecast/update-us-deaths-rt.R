@@ -89,7 +89,7 @@ EpiNow::regional_rt_pipeline(
   cases = deaths_regional, 
   delay_defs = delay_dists,
   incubation_defs = incubation_defs,
-  target_folder = "rt-forecast/regional", 
+  target_folder = "rt-forecast/state", 
   target_date = target_date,
   nowcast_lag = nowcast_lag,
   min_forecast_cases = 0,
@@ -111,7 +111,7 @@ EpiNow::regional_summary(results_dir = "rt-forecast/national",
                          region_scale = "Country")
 
 
-EpiNow::regional_summary(results_dir = "rt-forecast/regional", 
-                         summary_dir = "rt-forecast/regional-summary",
+EpiNow::regional_summary(results_dir = "rt-forecast/state", 
+                         summary_dir = "rt-forecast/state-summary",
                          target_date = "latest",
-                         region_scale = "Region")
+                         region_scale = "State")
