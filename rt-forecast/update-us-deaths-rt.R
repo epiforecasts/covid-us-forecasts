@@ -56,12 +56,12 @@ setup_future <- function(jobs) {
        gc = TRUE, earlySignal = TRUE)
 }
 
-setup_future(length(unique(deaths_national$region)))
-
-
 # Estimate Rt and forecast death counts ----------------------------------------------------------------
 
 ## National
+
+setup_future(length(unique(deaths_national$region)))
+
 EpiNow::regional_rt_pipeline(
   # Settings to estimate Rt
   cases = deaths_national,
@@ -79,9 +79,11 @@ EpiNow::regional_rt_pipeline(
     model_params = list(models = "aefz", weights = "equal"),
     forecast_params = list(PI.combination = "mean"), ...)})
 
-setup_future(length(unique(deaths_regional$region)))
 
 ## Regional 
+
+setup_future(length(unique(deaths_regional$region)))
+
 EpiNow::regional_rt_pipeline(
   # Settings to estimate Rt
   cases = deaths_regional, 
