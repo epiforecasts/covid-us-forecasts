@@ -25,13 +25,9 @@ source(here::here("utils/format_submission.R"))
 region_forecasts <- purrr::map2_dfr(forecasts, names(forecasts),
                                     ~ format_forecast(loc = .x, loc_name = .y, 
                                                       forecast_date = forecast_date,
-                                                      forecast_adjustment = 5 + 9,
-                                                      forecast_value = "wk ahead cum death"))
+                                                      forecast_adjustment = 5 + 9))
 
 # Save forecast -----------------------------------------------------------
 
 readr::write_csv(region_forecasts, 
                  paste0("death-forecast/epiforecasts-ensemble1/", forecast_date, "-epiforecasts-ensemble1.csv"))
-
-
-
