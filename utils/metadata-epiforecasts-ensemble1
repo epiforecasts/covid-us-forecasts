@@ -11,7 +11,7 @@ model_repo: https://github.com/epiforecasts/covid-us-deaths
 
 model_contributors: Katharine Sherratt, Nikos Bosse, Sam Abbott, Joel Hellewell, Sophie Meakin, James Munday, Sebastian Funk
 Model_targets: time-varying reproduction number (Rt), deaths
-Target_loc: US state + national
+Target_loc: some US states + national
 time_horizon: 4 weeks ahead
 Data_format: all requested quantiles
 forecast_startdate: 2020-06-15
@@ -27,4 +27,4 @@ methods: >-
     A deaths forecast using the renewal equation and time-series forecasts of the time-varying reproduction number.
 
 methods_long: >-
-    2020-06-15: A deaths forecast using the renewal equation and time-series forecasts of the time-varying reproduction number.
+    2020-06-15: A deaths forecast using the renewal equation and time-series forecasts of the time-varying reproduction number; to be updated as an ensemble forecast.
