@@ -40,7 +40,7 @@ format_forecast <- function(loc = NULL, loc_name = NULL,
     .$cum_week_deaths
   
   ## Check if latest folder exists; if not, return NULL
-  if (!dir.exists(paste0(loc, "/latest/")) | last_week_deaths < 25){
+  if (!dir.exists(paste0(loc, "/latest/")) | last_week_deaths < 100){
     
     return(NULL)
     
