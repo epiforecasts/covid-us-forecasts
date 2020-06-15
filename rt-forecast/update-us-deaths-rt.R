@@ -1,6 +1,12 @@
 # Forecast deaths from estimated infections (Rt) 
 # 
 # Packages -----------------------------------------------------------------
+# 
+require(drat)
+drat::addRepo("epiforecasts")
+require(devtools)
+devtools::install_deps()
+
 require(EpiNow)
 require(data.table)
 require(forecastHybrid)
