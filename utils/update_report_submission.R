@@ -25,7 +25,7 @@ source(here::here("utils/format_submission.R"))
 region_forecasts <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts),
                                     ~ format_forecast(loc = .x, loc_name = .y, 
                                                       forecast_date = forecast_date,
-                                                      forecast_adjustment = 5 + 9))
+                                                      forecast_adjustment = 11 + 5))
 
 # Save forecast -----------------------------------------------------------
 
