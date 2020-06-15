@@ -2,10 +2,12 @@
 # 
 # Packages -----------------------------------------------------------------
 # 
-require(drat)
+# require(drat)
 drat::addRepo("epiforecasts")
+# install.packages("EpiSoon")
 require(devtools)
 devtools::install_deps()
+devtools::install_deps(repos = "https://epiforecasts.io/drat/")
 
 require(EpiNow)
 require(data.table)
@@ -76,6 +78,7 @@ EpiNow::regional_rt_pipeline(
   target_folder = "rt-forecast/national",
   target_date = target_date,
   nowcast_lag = nowcast_lag,
+  case_limit = 1,
   min_forecast_cases = 0,
   approx_delay = TRUE,
   # Settings for forecasting
@@ -98,6 +101,7 @@ EpiNow::regional_rt_pipeline(
   target_folder = "rt-forecast/state", 
   target_date = target_date,
   nowcast_lag = nowcast_lag,
+  case_limit = 1,
   min_forecast_cases = 0,
   approx_delay = TRUE,
   # Settings for forecasting
