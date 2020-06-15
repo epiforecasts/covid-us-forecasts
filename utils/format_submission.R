@@ -22,11 +22,16 @@ format_forecast <- function(loc = NULL, loc_name = NULL,
     dplyr::mutate(week = lubridate::floor_date(date, unit = "week", week_start = 7)) %>%
     dplyr::group_by(state, week) %>%
     dplyr::summarise(week_deaths = sum(deaths, na.rm = TRUE))
-  cumulative_deaths_data <- deaths_data %>%
+  deaths_data <- deaths_data %>%
     bind_rows(deaths_data %>%
                 dplyr::group_by(week) %>%
                 dplyr::summarise(week_deaths = sum(week_deaths, na.rm = TRUE)) %>%
-                dplyr::mutate(state = "US")) %>%
+                dplyr::mutate(state = "US"))
+  last_week_deaths <- deaths_data %>%
+    dplyr::filter(week == floor_date(forecast_date, unit = "week", week_start = 7)-7,
+                  state == loc_name) %>%
+    .$week_deaths
+  cumulative_deaths_data <- deaths_data %>%
     dplyr::group_by(state) %>%
     dplyr::mutate(cum_week_deaths = cumsum(week_deaths)) %>%
     dplyr::select(-week_deaths) %>%
@@ -35,7 +40,7 @@ format_forecast <- function(loc = NULL, loc_name = NULL,
     .$cum_week_deaths
   
   ## Check if latest folder exists; if not, return NULL
-  if (!dir.exists(paste0(loc, "/latest/"))){
+  if (!dir.exists(paste0(loc, "/latest/")) | last_week_deaths < 25){
     
     return(NULL)
     
