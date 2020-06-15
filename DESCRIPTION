@@ -1,0 +1,46 @@
+Package: covid-us-deaths
+Title: Forecasting US deaths from COVID-19
+Version: 0.1.0
+Authors@R: c(
+    person(given = "Sam Abbott",
+           role = c("aut", "cre"),
+           email = "contact@samabbott.co.uk",
+           comment = c(ORCID = "0000-0001-8057-8037")),
+    person("Katharine", "Sherratt",
+           email = "katharine.sherratt@lshtm.ac.uk", 
+           role = c("aut")),
+    person("Sophie", "Meakin", 
+           email = "sophie.meaking@lshtm.ac.uk", 
+           role = c("aut")), 
+    person("Nikos", "Bosse", 
+           role = c("aut")), 
+    person("Sebastian", "Funk", 
+            email = "sebastian.funk@lshtm.ac.uk", 
+            role = c("aut")))
+Description: Forecast deaths from COVID-19 in the US by state.
+Imports:
+    EpiNow,
+    EpiSoon,
+    NCoVUtils,
+    data.table,
+    dplyr,
+    tidyr,
+    readr,
+    stringr,
+    purrr,
+    magrittr,
+    furrr, 
+    future, 
+    future.apply,
+    here,
+    sf,
+    distill,
+    knitr,
+    kableExtra,
+    forecastHybrid
+Remotes: 
+    epiforecasts/EpiNow,
+    epiforecasts/EpiSoon,
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
