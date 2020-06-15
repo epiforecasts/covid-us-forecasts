@@ -1,6 +1,6 @@
 library(tidyverse)
 
-plot_forecasts = function(national = TRUE, states = NULL){
+plot_forecasts = function(national = TRUE, states = NULL, cutoff = 25){
   
   ## Load current observed deaths data
   deaths_data <- readRDS(here::here("rt-forecast/data/deaths_data.rds")) %>%
@@ -17,6 +17,12 @@ plot_forecasts = function(national = TRUE, states = NULL){
     mutate(type = "observed_data") %>%
     filter(week_beginning < max(week_beginning),
            week_beginning >= as.Date("2020-05-01"))
+  
+  high_states <- deaths_data %>%
+    dplyr::filter(week_beginning == lubridate::floor_date(forecast_date, unit = "week", week_start = 7)-7) %>%
+    filter(value > cutoff,
+           state != "US") %>%
+    .$state
   
   ## Load most recent forecast data
   forecast_data <- read.csv(here::here("death-forecast/epiforecasts-ensemble1/2020-06-15-epiforecasts-ensemble1.csv")) %>%
@@ -49,12 +55,14 @@ plot_forecasts = function(national = TRUE, states = NULL){
   } else if (!national & !is.null(states)) {
     
     plotting_data <- plotting_data %>%
-      filter(state %in% states)
+      filter(state %in% states,
+             state %in% high_states)
     
   } else {
     
     plotting_data <- plotting_data %>%
-      filter(state != "US")
+      filter(state != "US",
+             state %in% high_states)
     
   }
   
