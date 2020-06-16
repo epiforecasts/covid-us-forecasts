@@ -30,7 +30,7 @@ delay_dists <- readRDS(here::here("rt-forecast", "data", "onset_to_death_delay.r
 incubation_defs <- readRDS(here::here("rt-forecast", "data", "incubation.rds"))
 
 # Get and reshape deaths data ---------------------------------------------------------------
-source(here::here("utils", "get_us_deaths.R"))
+deaths <- readRDS(here::here("data", "deaths_data.rds"))
 
 deaths_national <- deaths %>%
   dplyr::group_by(date) %>%
