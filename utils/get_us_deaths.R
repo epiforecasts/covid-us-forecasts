@@ -21,7 +21,7 @@ library(magrittr)
       dplyr::ungroup() %>%
       dplyr::filter(!state %in% c("Diamond Princess", "Grand Princess"))
 
-    saveRDS(deaths, here::here("rt-forecast", "data", "deaths_data.rds"))
+    saveRDS(deaths, here::here("data", "deaths_data.rds"))
     
     
 # Cases data --------------------------------------------------------------
