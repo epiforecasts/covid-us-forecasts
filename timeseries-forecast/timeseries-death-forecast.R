@@ -1,6 +1,16 @@
 # Forecasting using timeseries models from daily US deaths data
 library(magrittr); library(dplyr); library(tidyr); library(EpiSoon); library(forecastHybrid)
 
+# Function to return an ensemble of time-series forecasts of deaths 
+# This function only includes autoregressive methods (no external predictors)
+# 
+# Arguments
+# data : dataframe - columns should be date, state, and death count
+# horizon_days : numeric - number of days to forecast over
+# models : character - vector of model names as in forecastHybrid e.g. "aetz"
+# format : logical - to return forecast formatted in quantiles appropriate for US forecast submission
+# quantiles_out : numeric - if format == TRUE, vector of quantile probabilities to return
+
 # Function to forecast ----------------------------------------------------
 
 timeseries_death_forecast <- function(data, sample_count, horizon_days, models, format, quantiles_out){
