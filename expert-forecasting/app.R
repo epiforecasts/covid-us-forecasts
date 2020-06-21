@@ -5,7 +5,13 @@
 
 library(shiny)
 library(tidyverse)
+library(googledrive)
 library(googlesheets4)
+
+## Set auth
+options(gargle_oauth_cache = ".secrets")
+drive_auth(cache = ".secrets", email = "sophie.meakin.00@gmail.com")
+sheets_auth(token = drive_token())
 
 ## Load data
 submission_sheet <- "https://docs.google.com/spreadsheets/d/1J2aOqv8NQ2Hl6GVyTmZbkZxH4tORwGAGrqW3S2K_PRw/edit#gid=0"
@@ -19,7 +25,20 @@ load_addr <- "https://raw.githubusercontent.com/epiforecasts/covid-us-forecasts/
 raw_data <- readr::read_csv(file = paste0(load_addr, load_date, "-epiforecasts-ensemble1.csv"))
 
 # Load and process most daily reported deaths data
-source("../utils/get_us_deaths.R", local = TRUE)
+deaths <- readr::read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv") %>% 
+    dplyr::select(Province_State, dplyr::matches("^\\d")) %>%
+    tidyr::pivot_longer(cols = -Province_State, names_to = "date", values_to = "deaths") %>%
+    dplyr::mutate(date = lubridate::mdy(date)) %>%
+    dplyr::group_by(Province_State, date) %>%
+    dplyr::summarise(deaths = sum(deaths)) %>%
+    dplyr::rename(state = Province_State) %>%
+    # De-cumulate to daily
+    dplyr::arrange(date) %>% 
+    dplyr::group_by(state) %>% 
+    dplyr::mutate(deaths = c(0, diff(deaths)))%>%
+    dplyr::mutate(deaths = replace(deaths, deaths < 0 , 0)) %>% 
+    dplyr::ungroup() %>%
+    dplyr::filter(!state %in% c("Diamond Princess", "Grand Princess"))
 deaths_data <- deaths %>%
     dplyr::mutate(week = lubridate::floor_date(date, unit = "week", week_start = 7)) %>%
     dplyr::group_by(state, week) %>%
