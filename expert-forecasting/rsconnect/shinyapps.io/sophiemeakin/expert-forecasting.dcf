@@ -5,9 +5,8 @@ account: sophiemeakin
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2483232
-bundleId: 3301346
+bundleId: 3303051
 url: https://sophiemeakin.shinyapps.io/expert-forecasting/
-when: 1592822129.36816
+when: 1592849431.89351
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: .secrets/.DS_Store
