@@ -72,10 +72,35 @@ df <- raw_data %>%
 ## Define some inputs for the shiny app
 
 # List of locations
-list_states <- df %>%
-    filter(q_type == "quantile0.5") %>%
-    .$state_name %>%
-    unique()
+check_state_list <- googlesheets4::read_sheet(ss = submission_sheet,
+                                              sheet = "states") %>%
+    mutate(forecast_date = as.character(forecast_date),
+           list_states = as.character(list_states))
+
+if(load_date %in% check_state_list$forecast_date){
+    
+    list_states <- check_state_list$list_states
+    list_states <- unlist(str_split(list_states, pattern = ","))
+    
+} else {
+    
+    list_states <- df %>%
+        filter(q_type == "quantile0.5") %>%
+        .$state_name %>%
+        unique()
+    list_states <- c(sample(setdiff(list_states, "US"), 5), "US")
+    list_states <- list_states[order(list_states)]
+    
+    to_append <- cbind(load_date, paste(list_states, collapse = ",")) %>%
+        data.frame() %>%
+        set_names("forecast_date", "list_states")
+    
+    googlesheets4::sheet_append(data = to_append,
+                                ss = submission_sheet,
+                                sheet = "states")
+    
+}
+
 
 # Initial value for the quantiles (forecast model quantiles)
 get_state_init <- function(state = "US"){
@@ -182,10 +207,11 @@ server <- function(input, output, session) {
                 rbind(cbind(as.character(unique(raw_data$target_end_date)), rep(input$location, 4), rep("ee0.95", 4), c(input$qt_wk1[2], input$qt_wk2[2], input$qt_wk3[2], input$qt_wk4[2]))) %>%
                 data.frame() %>%
                 set_names(colnames(df)) %>%
-                mutate(submit_time = Sys.time(),
+                mutate(submit_id = input$f_id,
+                       submit_time = Sys.time(),
                        forecast_date = load_date) %>%
-                select(submit_time, forecast_date, target_end_date, state_name, q_type, value) %>%
-                pivot_wider(id_cols = c(submit_time, forecast_date, target_end_date, state_name), names_from = q_type, values_from = value)
+                select(submit_id, submit_time, forecast_date, target_end_date, state_name, q_type, value) %>%
+                pivot_wider(id_cols = c(submit_id, submit_time, forecast_date, target_end_date, state_name), names_from = q_type, values_from = value)
             
             showNotification("Thank you for your submission!", duration = 3, type = "message")
             
