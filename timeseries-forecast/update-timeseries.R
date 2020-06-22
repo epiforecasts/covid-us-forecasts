@@ -5,19 +5,29 @@ library(magrittr); library(dplyr)
 source(here::here("utils", "get_us_data.R"))
 source(here::here("timeseries-forecast", "deaths-only", "ts-deaths-only-forecast.R"))
 source(here::here("timeseries-forecast", "deaths-on-cases", "ts-deaths-on-cases-forecast.R"))
-source(here::here("timeseries-forecast", "format-timeseries-forecast.R"))
 
-deaths_state <- get_us_deaths(data = "daily")
+
+deaths_state <- get_us_deaths(data = "daily") %>%
+  mutate(week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 6))) %>%
+  filter(week < max(week))
+
 deaths_national <- deaths_state %>%
   group_by(date) %>%
   summarise(deaths = sum(deaths)) %>%
-  mutate(state = "US")
+  mutate(state = "US",
+         week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 6))) %>%
+  filter(week < max(week))
 
-cases_state <- get_us_cases(data = "daily")
+cases_state <- get_us_cases(data = "daily")  %>%
+  mutate(week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 6))) %>%
+  filter(week < max(week))
+
 cases_national <- cases_state %>%
   group_by(date) %>%
   summarise(cases = sum(cases)) %>%
-  mutate(state = "US")
+  mutate(state = "US",
+         week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 6))) %>%
+  filter(week < max(week))
 
 
 # Set forecast parameters -------------------------------------------------
@@ -79,13 +89,5 @@ national_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cas
 deaths_on_cases_forecast <- bind_rows(national_deaths_on_cases_forecast, state_deaths_on_cases_forecast)
 saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-cases", paste0(Sys.Date(), "-weekly-deaths-on-cases.rds")))
 saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-cases", "latest-weekly-deaths-on-cases.rds"))
-
-# Format to weekly and save for ensemble
-
-# incident_deaths_on_cases <- format_timeseries_forecast(model_type = "deaths-on-cases", weekly_count = "incident")
-# readr::write_csv(incident_deaths_on_cases, here::here("timeseries-forecast", "deaths-on-cases", "latest-weekly-inc-deaths-on-cases.csv"))
-# 
-# cumulative_deaths_on_cases <- format_timeseries_forecast(model_type = "deaths-on-cases", weekly_count = "cumulative")
-# readr::write_csv(cumulative_deaths_on_cases, here::here("timeseries-forecast", "deaths-on-cases", "latest-weekly-cum-deaths-on-cases.csv"))
 
 
