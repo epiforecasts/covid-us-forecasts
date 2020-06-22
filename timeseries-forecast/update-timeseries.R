@@ -3,8 +3,9 @@ library(magrittr); library(dplyr)
 
 # Set up functions and data -----------------------------------------------
 source(here::here("utils", "get_us_data.R"))
-source(here::here("timeseries-forecast", "deaths-only", "ts_deaths_only_forecast.R"))
-source(here::here("timeseries-forecast", "deaths-on-cases", "ts_deaths_on_cases_forecast.R"))
+source(here::here("timeseries-forecast", "deaths-only", "ts-deaths-only-forecast.R"))
+source(here::here("timeseries-forecast", "deaths-on-cases", "ts-deaths-on-cases-forecast.R"))
+source(here::here("timeseries-forecast", "format-timeseries-forecast.R"))
 
 deaths_state <- get_us_deaths(data = "daily")
 deaths_national <- deaths_state %>%
@@ -21,8 +22,8 @@ cases_national <- cases_state %>%
 
 # Set forecast parameters -------------------------------------------------
 
-sample_count = 10
-horizon_days = 7
+sample_count = 1000
+horizon_days = 40
 models = "aez"
 quantiles_out <- c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99)
 
@@ -44,10 +45,18 @@ national_forecast <- ts_deaths_only_forecast(data = deaths_national,
                                                format = TRUE,
                                                quantiles_out = quantiles_out)
 
-# Bind and save
-latest_deaths_only <- bind_rows(national_forecast, state_forecast)
-saveRDS(latest_deaths_only, paste0("timeseries-forecast/deaths-only/", Sys.Date(), ".rds"))
-saveRDS(latest_deaths_only, "timeseries-forecast/deaths-only/latest.rds")
+# Bind and save daily forecast
+daily_forecast_deaths_only <- bind_rows(national_forecast, state_forecast)
+saveRDS(daily_forecast_deaths_only, here::here("timeseries-forecast", "deaths-only", paste0(Sys.Date(), "-daily-deaths-only.rds")))
+saveRDS(daily_forecast_deaths_only, here::here("timeseries-forecast", "deaths-only", "latest-daily-deaths-only.rds"))
+
+# Format to weekly and save for ensemble
+incident_deaths_only <- format_timeseries_forecast(model_type = "deaths-only", weekly_count = "incident")
+readr::write_csv(incident_deaths_only, here::here("timeseries-forecast", "deaths-only", "latest-weekly-inc-deaths-only.csv"))
+
+cumulative_deaths_only <- format_timeseries_forecast(model_type = "deaths-only", weekly_count = "cumulative")
+readr::write_csv(cumulative_deaths_only, here::here("timeseries-forecast", "deaths-only", "latest-weekly-cum-deaths-only.csv"))
+
 
 # Forecast with case regressor --------------------------------------------
 
@@ -72,6 +81,16 @@ national_forecast_xreg <- ts_deaths_on_cases_forecast(case_data = cases_national
                                                       quantiles_out = quantiles_out)
 
 # Bind and save
-latest_deaths_on_cases <- bind_rows(national_forecast_xreg, state_forecast_xreg)
-saveRDS(latest_deaths_on_cases, paste0("timeseries-forecast/deaths-on-cases/", Sys.Date(), ".rds"))
-saveRDS(latest_deaths_on_cases, "timeseries-forecast/deaths-on-cases/latest.rds")
+daily_forecast_deaths_on_cases <- bind_rows(national_forecast_xreg, state_forecast_xreg)
+saveRDS(daily_forecast_deaths_on_cases, here::here("timeseries-forecast", "deaths-on-cases", paste0(Sys.Date(), "-daily-deaths-on-cases.rds")))
+saveRDS(daily_forecast_deaths_on_cases, here::here("timeseries-forecast", "deaths-on-cases", "latest-daily-deaths-on-cases.rds"))
+
+# Format to weekly and save for ensemble
+
+incident_deaths_on_cases <- format_timeseries_forecast(model_type = "deaths-on-cases", weekly_count = "incident")
+readr::write_csv(incident_deaths_on_cases, here::here("timeseries-forecast", "deaths-on-cases", "latest-weekly-inc-deaths-on-cases.csv"))
+
+cumulative_deaths_on_cases <- format_timeseries_forecast(model_type = "deaths-on-cases", weekly_count = "cumulative")
+readr::write_csv(cumulative_deaths_on_cases, here::here("timeseries-forecast", "deaths-on-cases", "latest-weekly-cum-deaths-on-cases.csv"))
+
+
