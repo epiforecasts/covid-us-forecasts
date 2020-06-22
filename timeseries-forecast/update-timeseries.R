@@ -47,12 +47,12 @@ deaths_only_forecast <- bind_rows(national_deaths_only_forecast, state_deaths_on
 saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", paste0(Sys.Date(), "-weekly-deaths-only.rds")))
 saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "latest-weekly-deaths-only.rds"))
 
-# Format to weekly and save for ensemble
-incident_deaths_only <- format_timeseries_forecast(model_type = "deaths-only", weekly_count = "incident")
-readr::write_csv(incident_deaths_only, here::here("timeseries-forecast", "deaths-only", "latest-weekly-inc-deaths-only.csv"))
-
-cumulative_deaths_only <- format_timeseries_forecast(model_type = "deaths-only", weekly_count = "cumulative")
-readr::write_csv(cumulative_deaths_only, here::here("timeseries-forecast", "deaths-only", "latest-weekly-cum-deaths-only.csv"))
+# # Format to weekly and save for ensemble
+# incident_deaths_only <- format_timeseries_forecast(model_type = "deaths-only", weekly_count = "incident")
+# readr::write_csv(incident_deaths_only, here::here("timeseries-forecast", "deaths-only", "latest-weekly-inc-deaths-only.csv"))
+# 
+# cumulative_deaths_only <- format_timeseries_forecast(model_type = "deaths-only", weekly_count = "cumulative")
+# readr::write_csv(cumulative_deaths_only, here::here("timeseries-forecast", "deaths-only", "latest-weekly-cum-deaths-only.csv"))
 
 
 # Forecast with case regressor --------------------------------------------
@@ -82,10 +82,10 @@ saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-c
 
 # Format to weekly and save for ensemble
 
-incident_deaths_on_cases <- format_timeseries_forecast(model_type = "deaths-on-cases", weekly_count = "incident")
-readr::write_csv(incident_deaths_on_cases, here::here("timeseries-forecast", "deaths-on-cases", "latest-weekly-inc-deaths-on-cases.csv"))
-
-cumulative_deaths_on_cases <- format_timeseries_forecast(model_type = "deaths-on-cases", weekly_count = "cumulative")
-readr::write_csv(cumulative_deaths_on_cases, here::here("timeseries-forecast", "deaths-on-cases", "latest-weekly-cum-deaths-on-cases.csv"))
+# incident_deaths_on_cases <- format_timeseries_forecast(model_type = "deaths-on-cases", weekly_count = "incident")
+# readr::write_csv(incident_deaths_on_cases, here::here("timeseries-forecast", "deaths-on-cases", "latest-weekly-inc-deaths-on-cases.csv"))
+# 
+# cumulative_deaths_on_cases <- format_timeseries_forecast(model_type = "deaths-on-cases", weekly_count = "cumulative")
+# readr::write_csv(cumulative_deaths_on_cases, here::here("timeseries-forecast", "deaths-on-cases", "latest-weekly-cum-deaths-on-cases.csv"))
 
 
