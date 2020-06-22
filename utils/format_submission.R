@@ -18,7 +18,7 @@ format_forecast <- function(loc = NULL, loc_name = NULL,
   print(loc_name)
   
   ## Get cumulative case counts for the end of the previous week
-  deaths_data <- readRDS(here::here("rt-forecast/data/deaths_data.rds")) %>%
+  deaths_data <- readRDS(here::here("data/deaths_data.rds")) %>%
     dplyr::mutate(week = lubridate::floor_date(date, unit = "week", week_start = 7)) %>%
     dplyr::group_by(state, week) %>%
     dplyr::summarise(week_deaths = sum(deaths, na.rm = TRUE))
