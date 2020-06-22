@@ -152,14 +152,32 @@ paths <- list()
 
 # get path of rt-submission
 rt_files <- list.files(here::here("rt-forecast", "submission-files"))
-rt_file <- sort(files, decreasing = TRUE)[1]
+rt_file <- sort(rt_files, decreasing = TRUE)[1]
 paths[["rt-forecast"]] <- here::here("rt-forecast", "submission-files", rt_file)
 
-# get path of timeseries-submission
-timeseries_files <- list.files(here::here("timeseries-forecast", "submission-files"))
-timeseries_file <- sort(files, decreasing = TRUE)[1]
-paths[["timeseries-forecast"]] <- here::here("timeseries-forecast", "submission-files", rt_file)
+# quick hack: set back to old path
+paths[["rt-forecast"]] <- here::here("death-forecast", 
+                                     "epiforecasts-ensemble1", 
+                                     "2020-06-22-epiforecasts-ensemble1.csv")
 
+
+## get path of timeseries-submissions
+
+# deaths-on-cases
+#timeseries_files <- list.files(here::here("timeseries-forecast", "deaths-on-cases"))
+# timeseries_file <- sort(timeseries_files, decreasing = TRUE)[1]
+paths[["timeseries-deaths-on-cases"]] <- here::here("timeseries-forecast", 
+                                                    "deaths-on-cases",
+                                                    "submission-files",
+                                                    "latest-weekly-deaths-on-cases.csv")
+
+paths[["timeseries-deaths-only"]] <- here::here("timeseries-forecast", 
+                                                "deaths-only", 
+                                                "submission-files",
+                                                "latest-weekly-deaths-only.csv")
+
+
+# deaths
 # get forecast_date
 forecast_date <- stringr::str_remove(rt_file, "-rt-forecast-submission.csv")
 
@@ -178,8 +196,13 @@ n_models <- length(models)
 
 # pivot into wide format
 data <- data %>%
+  dplyr::mutate(quantile = round(quantile, digits = 2)) %>%
   tidyr::pivot_wider(names_from = model, 
                      values_from = value)
+
+# data %>%
+#   dplyr::filter(quantile == 0.2, 
+#                 location == "US") 
 
 
 # get / set weights
@@ -187,7 +210,7 @@ data <- data %>%
 w <- rep(1/n_models, n_models)
 
 # take row means (replace with weighted mean in the futurue)
-data <- as.data.table(data)[, ensemble := .(value = rowMeans(.SD)), .SDcols = models]
+data <- as.data.table(data)[, ensemble := .(value = rowMeans(.SD, na.rm = TRUE)), .SDcols = models]
 
 # deselect all old model columns and rename ensemble to value
 data <- data %>%
@@ -198,3 +221,6 @@ data <- data %>%
 # store as csv submission ------------------------------------------------------
 data.table::fwrite(data, here::here("final-submissions", "death-forecast", 
                                     paste0(forecast_date, "-epiforecasts-ensemble1.csv")))
+
+# filter 
+# to be done
