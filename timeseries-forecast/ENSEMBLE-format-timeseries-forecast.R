@@ -12,8 +12,9 @@ format_timeseries_forecast <- function(model_type){
     rbind(c("US", "US"))
   
   # Read in forecast
+  # quick hack: changed name to weekly - needs update in the future
   daily_forecast <- readRDS(here::here("timeseries-forecast", model_type,
-                                       paste0("latest-daily-", model_type, ".rds")))
+                                       paste0("latest-weekly-", model_type, ".rds")))
 
 # Incident counts ---------------------------------------------------------
 
