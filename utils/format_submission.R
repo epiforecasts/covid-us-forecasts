@@ -10,7 +10,7 @@ require(lubridate)
 # loc_name: name of region
 # forecast_date: date forecast is made
 # forecast_adjustment: 
-format_forecast <- function(loc = NULL, loc_name = NULL,
+format_rt_forecast <- function(loc = NULL, loc_name = NULL,
                             forecast_date = NULL,
                             forecast_adjustment = 4, 
                             version = "1.0"){
