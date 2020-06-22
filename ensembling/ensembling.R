@@ -156,9 +156,9 @@ rt_file <- sort(rt_files, decreasing = TRUE)[1]
 paths[["rt-forecast"]] <- here::here("rt-forecast", "submission-files", rt_file)
 
 # quick hack: set back to old path
-paths[["rt-forecast"]] <- here::here("death-forecast", 
-                                     "epiforecasts-ensemble1", 
-                                     "2020-06-22-epiforecasts-ensemble1.csv")
+# paths[["rt-forecast"]] <- here::here("death-forecast", 
+#                                      "epiforecasts-ensemble1", 
+#                                      "2020-06-22-epiforecasts-ensemble1.csv")
 
 
 ## get path of timeseries-submissions
@@ -194,6 +194,12 @@ models <- data$model %>%
   unique() 
 n_models <- length(models)
 
+# locations to submit --> take from rt forecast
+locations <- data %>%
+  dplyr::filter(model == "rt-forecast") %>%
+  .$location %>%
+  unique()
+
 # pivot into wide format
 data <- data %>%
   dplyr::mutate(quantile = round(quantile, digits = 2)) %>%
@@ -217,10 +223,11 @@ data <- data %>%
   dplyr::select(!any_of(models)) %>%
   dplyr::rename(value = ensemble)
 
+# filter out locations
+data <- dplyr::filter(data, 
+                      location %in% locations)
 
 # store as csv submission ------------------------------------------------------
 data.table::fwrite(data, here::here("final-submissions", "death-forecast", 
                                     paste0(forecast_date, "-epiforecasts-ensemble1.csv")))
 
-# filter 
-# to be done
