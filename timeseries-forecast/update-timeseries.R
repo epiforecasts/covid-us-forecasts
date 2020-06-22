@@ -33,7 +33,7 @@ cases_national <- cases_state %>%
 # Set forecast parameters -------------------------------------------------
 
 sample_count = 1000
-horizon_weeks = 5
+horizon_weeks = 6
 quantiles_out <- c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99)
 
 # Forecast with deaths only -----------------------------------------------
