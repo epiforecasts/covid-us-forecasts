@@ -52,7 +52,7 @@ deaths_data <- deaths_data %>%
     mutate(state_name = state,
            type = "observed_data",
            target_end_date = week_beginning + 6) %>%
-    filter(week_beginning < max(week_beginning),
+    filter(week_beginning < as.Date(load_date) - 1,
            week_beginning >= as.Date("2020-05-01"))
 
 # Combine model forecasts and deaths data
@@ -107,7 +107,7 @@ init_vals <- get_state_init("US")
 ui <- fluidPage(
     
     # Application title
-    titlePanel("Tool to develop expert elicitation forecasts"),
+    titlePanel("Expert elicitation forecasting for COVID-19 in the United States"),
     
     singleton(tags$head(tags$script(src = "message-handler.js"))),
     
