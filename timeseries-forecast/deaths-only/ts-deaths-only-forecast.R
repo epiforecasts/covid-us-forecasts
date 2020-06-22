@@ -6,25 +6,34 @@ library(magrittr); library(dplyr); library(tidyr); library(EpiSoon); library(for
 # This function only includes autoregressive methods (no external predictors)
 # 
 # Arguments
-# data : dataframe - columns should be date, state, and death count
-# horizon_days : numeric - number of days to forecast over
-# models : character - string of model names as in forecastHybrid:  a, e, n, s, t = auto.arima, ets, nnetar, stlm and tbats
+# data : dataframe - daily data including date, state, and death count
+# horizon_weeks : numeric - number of days to forecast over
 # format : logical - to return forecast formatted in quantiles appropriate for US forecast submission
 # quantiles_out : numeric - if format == TRUE, vector of quantile probabilities to return
 
 # Function to forecast ----------------------------------------------------
 
 ts_deaths_only_forecast <- function(data, 
-                                      sample_count, horizon_days, models, 
+                                      sample_count, horizon_weeks, 
                                       format = FALSE, quantiles_out = NULL){
   
+  data_weekly <- data %>%
+    mutate(week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 6))) %>%
+    group_by(state, week) %>%
+    summarise(deaths = sum(deaths)) %>%
+    filter(week < max(week))
+    
+  
+  y = data_weekly$deaths
+  
   # Forecast
-  death_forecast <- data %>%
+  death_forecast <- data_weekly %>%
     group_by(state) %>%
-    group_modify(~ EpiSoon::forecastHybrid_model(y = .x$deaths,
+    group_modify(~ EpiSoon::forecastHybrid_model(y = y[max(1, length(y) - 6):length(y)],
                                                  samples = sample_count, 
-                                                 horizon = horizon_days,
-                                                 model_params = list(models = models))) %>%
+                                                 horizon = horizon_weeks,
+                                                 model_params = list(models = "aefz", weights = "equal"),
+                                                 forecast_params = list(PI.combination = "mean"))) %>%
     mutate(sample = rep(1:sample_count)) %>%
     pivot_longer(cols = starts_with("..."), names_to = "date")
  
@@ -42,11 +51,12 @@ ts_deaths_only_forecast <- function(data,
   
   # Format
   dates_from <- unique(quantile$date)
-  forecast_dates <- seq(max(data$date)+1, by = 1, to = as.Date(max(data$date)+horizon_days))
+  forecast_weeks <- seq.Date(from = as.Date(max(data_weekly$week)+7), by = 7, length.out = horizon_weeks)
+  
   
   out <- quantile %>%
     select(state, date, quantile, "deaths" = 3) %>%
-    mutate(date = recode(date, !!! setNames(forecast_dates, dates_from)),
+    mutate(date = recode(date, !!! setNames(forecast_weeks, dates_from)),
            deaths = ifelse(deaths < 0, 0, deaths),
            deaths = round(deaths),
            model_type = "deaths_only",
