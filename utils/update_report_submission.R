@@ -8,7 +8,7 @@ require(purrr)
 # Control parameters ------------------------------------------------------
 
 forecast_date <- Sys.Date()
-forecast_dir <- here::here("rt-forecast")  # Assumes forecasts are in national and regional subfolders
+forecast_dir <- here::here("rt-forecast", "rt-forecast")  # Assumes forecasts are in national and regional subfolders
 
 # Find forecasts ----------------------------------------------------------
 
@@ -31,3 +31,4 @@ region_forecasts <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts),
 
 readr::write_csv(region_forecasts, 
                  paste0("rt-forecast/submission-files/", forecast_date, "-rt-forecast-submission.csv"))
+
