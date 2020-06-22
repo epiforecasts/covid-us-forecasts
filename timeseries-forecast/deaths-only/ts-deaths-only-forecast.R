@@ -20,8 +20,7 @@ ts_deaths_only_forecast <- function(data,
   data_weekly <- data %>%
     mutate(week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 6))) %>%
     group_by(state, week) %>%
-    summarise(deaths = sum(deaths)) %>%
-    filter(week < max(week))
+    summarise(deaths = sum(deaths))
     
   
   y = data_weekly$deaths

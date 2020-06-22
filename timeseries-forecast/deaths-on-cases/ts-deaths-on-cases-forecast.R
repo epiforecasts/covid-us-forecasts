@@ -28,8 +28,7 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
   case_data_weekly <- case_data %>%
     mutate(week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 6))) %>%
     group_by(state, week) %>%
-    summarise(cases = sum(cases)) %>%
-    filter(week < max(week))
+    summarise(cases = sum(cases)) 
   
   
   y = case_data_weekly$cases
@@ -75,8 +74,7 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
         mutate(week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 6)),
                date = NULL) %>%
         group_by(state, week) %>%
-        summarise(deaths = sum(deaths)) %>%
-        filter(week < max(week))
+        summarise(deaths = sum(deaths))
       
       cases_deaths <- dplyr::bind_rows(case_data_weekly, case_forecast) %>%
         full_join(deaths_data_weekly, by = c("state", "week")) %>%
