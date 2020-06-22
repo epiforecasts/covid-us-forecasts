@@ -12,15 +12,15 @@ format_timeseries_forecast <- function(model_type, weekly_count){
     rbind(c("US", "US"))
   
   # Read in forecast
-  daily_forecast <- readRDS(here::here("timeseries-forecast", model_type,
-                                       paste0("latest-daily-", model_type, ".rds")))
+  weekly_forecast <- readRDS(here::here("timeseries-forecast", model_type,
+                                       paste0("latest-weekly-", model_type, ".rds")))
 
 # Incident counts ---------------------------------------------------------
 
   incident <- daily_forecast %>%
-    mutate(week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 7))) %>%
-    group_by(week, state, quantile, model_type, date_created) %>%
-    summarise(deaths = sum(deaths)) %>%
+    # mutate(week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 7))) %>%
+    # group_by(week, state, quantile, model_type, date_created) %>%
+    # summarise(deaths = sum(deaths)) %>%
     left_join(state_codes, by = c("state" = "state_name")) %>%
     mutate(weekly_count = "incident") %>%
     select(week, state, state_code, date_created, model_type, weekly_count, quantile, deaths)
