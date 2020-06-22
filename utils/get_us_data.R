@@ -51,7 +51,8 @@ get_us_deaths <- function(data = c("cumulative", "daily")){
 get_us_cases <- function(data = c("cumulative", "daily")){
   
     # Get & reshape data
-      cumulative <- readr::read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv") %>%
+      cumulative <- read.csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv",
+                             check.names = FALSE) %>%
         dplyr::select(Province_State, dplyr::matches("^\\d")) %>%
         tidyr::pivot_longer(cols = -Province_State, names_to = "date", values_to = "cases") %>%
         dplyr::mutate(date = lubridate::mdy(date)) %>%
