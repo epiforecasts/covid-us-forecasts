@@ -5,7 +5,7 @@ plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Da
   forecast_date <- lubridate::floor_date(forecast_date, unit = "week", week_start = 1)
 
   ## Load current observed deaths data
-  source("utils/get_us_deaths.R")
+  # source("utils/get_us_deaths.R")
   deaths_data <- readRDS(here::here("data/deaths_data.rds")) %>%
     dplyr::mutate(week = lubridate::floor_date(date, unit = "week", week_start = 7)) %>%
     dplyr::group_by(state, week) %>%
@@ -17,7 +17,8 @@ plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Da
                 dplyr::summarise(week_deaths = sum(week_deaths, na.rm = TRUE)) %>%
                 dplyr::mutate(state = "US")) %>%
     select(week_beginning = week, state, value = week_deaths) %>%
-    mutate(type = "observed_data") %>%
+    mutate(type = "observed_data",
+           model = "observed_data") %>%
     filter(week_beginning < forecast_date-1,
            week_beginning >= as.Date("2020-05-01"))
   
@@ -43,18 +44,20 @@ plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Da
   
   ## Load most recent deaths time-series forecast
   # ts_deaths_file <- paste0("timeseries-forecast/deaths-only/", "2020-06-22", ".rds")
-  ts_deaths_file <- "https://raw.githubusercontent.com/epiforecasts/covid-us-forecasts/timeseries/timeseries-forecast/deaths-only/latest-weekly-inc-deaths-only.csv"
+  ts_deaths_file <- here::here("timeseries-forecast/deaths-only/latest-weekly-inc-deaths-only.csv")
   ts_deaths <- read.csv(ts_deaths_file) %>%
     select(week_beginning = week, state, type = model_type, quantile, value = deaths) %>%
     mutate(week_beginning = as.Date(week_beginning),
            model = "timeseries_deaths_only",
-           type = "quantile")
-  ts_cases_file <- "https://raw.githubusercontent.com/epiforecasts/covid-us-forecasts/timeseries/timeseries-forecast/deaths-on-cases/latest-weekly-inc-deaths-on-cases.csv"
+           type = "quantile") %>%
+    filter(week_beginning <= max(forecast_data$week_beginning))
+  ts_cases_file <- here::here("timeseries-forecast/deaths-on-cases/latest-weekly-inc-deaths-on-cases.csv")
   ts_cases <- read.csv(ts_cases_file) %>%
     select(week_beginning = week, state, type = model_type, quantile, value = deaths) %>%
     mutate(week_beginning = as.Date(week_beginning),
            model = "timeseries_deaths_cases",
-           type = "quantile")
+           type = "quantile") %>%
+    filter(week_beginning <= max(forecast_data$week_beginning))
   
   
   # Combine and reshape for plotting
@@ -92,15 +95,18 @@ plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Da
   plotting_data %>%
     ggplot(aes(x = week_beginning,  col = model, fill = model)) +
     ## Observed data
-    geom_point(aes(y = observed_data), size = 2, col = "black") +
-    geom_line(aes(y = observed_data), lwd = 1, col = "black") +
+    geom_point(aes(y = observed_data), size = 2) +
+    geom_line(aes(y = observed_data), lwd = 1) +
     ## Forecasts (50% CI)
     geom_point(aes(y = quantile0.5), size = 2) +
     geom_line(aes(y = quantile0.5), lwd = 1) +
-    geom_ribbon(aes(ymin = quantile0.25, ymax = quantile0.75), color = NA, alpha = 0.2) +
+    geom_ribbon(aes(ymin = quantile0.25, ymax = quantile0.75), color = NA, alpha = 0.15) +
     ##
+    scale_fill_manual(values = c("white", brewer.pal(3, name = "Set2"))) +
+    scale_color_manual(values = c("black", brewer.pal(3, name = "Set2"))) +
     facet_wrap(.~ state, scales = "free_y") +
-    labs(x = "Week beginning", y = "Weekly incident deaths") +
+    labs(x = "Week beginning", y = "Weekly incident deaths",
+         col = "Model", fill = "Model") +
     cowplot::theme_cowplot() +
     theme(legend.position = "top")
   
