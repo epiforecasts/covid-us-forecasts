@@ -1,4 +1,4 @@
-Package: covid-us-deaths
+Package: covidUS
 Title: Forecasting US deaths from COVID-19
 Version: 0.1.0
 Authors@R: c(
@@ -19,28 +19,32 @@ Authors@R: c(
             role = c("aut")))
 Description: Forecast deaths from COVID-19 in the US by state.
 Imports:
+    data.table,
+    distill,
+    dplyr,
     EpiNow,
     EpiSoon,
-    NCoVUtils,
-    data.table,
-    dplyr,
-    tidyr,
-    readr,
-    stringr,
-    purrr,
-    magrittr,
     furrr, 
     future, 
     future.apply,
+    forecastHybrid, 
     here,
-    sf,
-    distill,
     knitr,
     kableExtra,
-    forecastHybrid
+    lubridate,
+    magrittr,
+    NCoVUtils,
+    purrr,
+    qra,
+    sf,
+    tidyr,
+    readr,
+    stringr
 Remotes: 
     epiforecasts/EpiNow,
     epiforecasts/EpiSoon,
+    epiforecasts/qra
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 7.1.0

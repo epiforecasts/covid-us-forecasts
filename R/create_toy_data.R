@@ -1,3 +1,36 @@
+#' @title Create Toy Data
+#' @details
+#' Creates toy data with some predictions vs. true values
+#' 
+#' @param forecast_dates dates for which to create forecasts
+#' @param y_true allows to pass a vector with true values that can be used to 
+#' replace the randomly generated ones. Useful if you want true values to match
+#' across different toy data sets
+#' @param horizons horizons to "forecast"
+#' @param regions names of regions
+#' @param samples number of samples 
+#' @param models names for the toy models 
+#' 
+#' @return data.frame with toy predictions
+#'
+#' @export
+#' @examples
+#' # make toy 1
+#' toy1 <- make_toy_data(samples = 500, 
+#'                       models = "model1")
+#' data.table::fwrite(toy1, here::here("evaluation", "observed_vs_forecast", "toy1-forecast-vs-obs.csv"))
+#' 
+#' # make toy 2
+#' true_values <- toy1$true_values
+#' toy2 <- make_toy_data(samples = 500, 
+#'                       models = "model2", 
+#'                       y_true = true_values)
+#' #write toy data to file
+#' data.table::fwrite(toy2, here::here("evaluation", "observed_vs_forecast", "toy2-forecast-vs-obs.csv"))
+#' 
+
+
+
 
 # create toy data and save as csv
 make_toy_data <- function(forecast_dates = NULL, 
@@ -36,18 +69,4 @@ make_toy_data <- function(forecast_dates = NULL,
       dplyr::ungroup()
   }
 }
-
-# make toy 1
-toy1 <- make_toy_data(samples = 500, 
-                      models = "model1")
-data.table::fwrite(toy1, here::here("evaluation", "observed_vs_forecast", "toy1-forecast-vs-obs.csv"))
-
-# make toy 2
-true_values <- toy1$true_values
-toy2 <- make_toy_data(samples = 500, 
-                      models = "model2", 
-                      y_true = true_values)
-
-data.table::fwrite(toy2, here::here("evaluation", "observed_vs_forecast", "toy2-forecast-vs-obs.csv"))
-
 

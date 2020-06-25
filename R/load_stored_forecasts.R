@@ -1,11 +1,18 @@
-library(data.table)
-library(magrittr)
+#' @title Load in Raw Case Forecasts from Rt model
+#' 
+#' @details 
+#' Loads raw case forecasts made by the Rt model for a single date. 
+#' Function is adapted from EpiNow::get_timeseries()
+#' 
+#' @param results_dir directory to the results
+#' @param date date for which to get the raw case forecasts
+#' 
+#' @return data.frame with raw case forecasts
+#'
+#' @export
+#' @examples
+#' 
 
-# ============================================================================ # 
-# get forecasts from rt-forecast model
-# ============================================================================ # 
-
-## function adopted from EpiNow::get_timeseries
 get_raw_case_forecasts <- function (results_dir = NULL, date = NULL) {
   if (is.null(date)) {
     date <- "latest"
@@ -23,7 +30,25 @@ get_raw_case_forecasts <- function (results_dir = NULL, date = NULL) {
 
 
 
-## load all rt forecasts into one data.table
+
+#' @title Load in Complete Set of Raw Case Forecasts from Rt model
+#' 
+#' @details 
+#' loads in national and subnational case forecasts from the Rt model and 
+#' formats them
+#' 
+#' @param forecast_dates specify the forecast dates for which to load corresponding
+#' forecasts. If \code{forecast_dates = NULL} all dates for which there are
+#' US forecasts available will be loaded
+#' @param forecast_adjustment shift dates for the forecasts by a certain amount
+#' @param weekly return weekly instead of daily data
+#' 
+#' @return data.frame with all Rt model forecasts
+#'
+#' @export
+#' @examples
+#'
+
 load_all_rt_forecasts <- function(forecast_dates = NULL, 
                                   forecast_adjustment = 16, 
                                   weekly = FALSE) {
@@ -120,23 +145,24 @@ load_all_rt_forecasts <- function(forecast_dates = NULL,
 
 
 
-# ============================================================================ # 
-# get forecasts from timeseries model
-# ============================================================================ # 
 
 
-## missing
+#' @title Load Observed Deaths 
+#' 
+#' @details 
+#' Loads death data from file and returns a data.table
+#' 
+#' @param weekly return data in a weekly format
+#' 
+#' @return data.frame with obsered deaths
+#'
+#' @export
+#' @examples
+#' 
 
-
-
-# ============================================================================ # 
-# get observed values
-# ============================================================================ # 
-
-# function to load all true observed deaths
-load_all_true_deaths <- function(weekly = FALSE) {
+load_observed_deaths <- function(weekly = FALSE) {
   true_deaths <- (readRDS(here::here("data", "deaths_data.rds"))) %>%
-    dplyr::rename(region = state) %>%y
+    dplyr::rename(region = state) %>%
     dplyr::mutate(week = lubridate::floor_date(date, unit = "week", week_start = 7))
   
   true_deaths_national <- true_deaths %>%
@@ -158,7 +184,29 @@ load_all_true_deaths <- function(weekly = FALSE) {
 
 
 
-# combine deaths and forecasts to one data.frame
+
+
+#' @title Load Observed Deaths Together With Past Forecasts
+#' 
+#' @details 
+#' Loads death data from file and the forecasts made by the different models
+#' 
+#' @param forecast_dates forecast_dates specify the forecast dates for which to load corresponding
+#' forecasts. If \code{forecast_dates = NULL} all dates for which there are
+#' US forecasts available will be loaded
+#' 
+#' @return data.frame with obsered deaths
+#'
+#' @export
+#' @examples
+#' df <- get_true_and_forecast()
+#' 
+#' data.table::fwrite(df, here::here("evaluation", "observed_vs_forecast", "rt-forecast-vs-obs.csv"))
+
+
+
+
+
 get_true_and_forecast <- function(forecast_dates = NULL) {
   
   # add functionality for the dates here
@@ -171,7 +219,7 @@ get_true_and_forecast <- function(forecast_dates = NULL) {
   
   forecasts <- data.table::rbindlist(list(rt_forecast))
   
-  true_values <- load_all_true_deaths() %>%
+  true_values <- load_observed_deaths() %>%
     dplyr::rename(id = date, 
                   true_values = deaths)
   
@@ -180,33 +228,29 @@ get_true_and_forecast <- function(forecast_dates = NULL) {
   return(combined)
 }
 
-df <- get_true_and_forecast()
-
-data.table::fwrite(df, here::here("evaluation", "observed_vs_forecast", "rt-forecast-vs-obs.csv"))
 
 
-
-
-
-
-
-## =============================================================================
-## TEST ZONE
-
-
-testdf %>% 
-  dplyr::filter(horizon == 1, 
-                region == "Idaho") %>%
-scoringutils::eval_forecasts()
-
-debugonce(scoringutils::eval_forecasts)
-
-## there is some issue with the dates. This becomes apparent in Idaho 
-# where there are forecasts for dates where there shouldn't be any. 
-
-testdf %>%
-  dplyr::group_by(horizon, region) %>%
-  tidyr::nest() %>%
-  dplyr::mutate(scores = purrr::map(data, function(x) scoringutils::eval_forecasts(x)))
-
+# 
+# 
+# 
+# 
+# ## =============================================================================
+# ## TEST ZONE
+# 
+# 
+# testdf %>% 
+#   dplyr::filter(horizon == 1, 
+#                 region == "Idaho") %>%
+# scoringutils::eval_forecasts()
+# 
+# debugonce(scoringutils::eval_forecasts)
+# 
+# ## there is some issue with the dates. This becomes apparent in Idaho 
+# # where there are forecasts for dates where there shouldn't be any. 
+# 
+# testdf %>%
+#   dplyr::group_by(horizon, region) %>%
+#   tidyr::nest() %>%
+#   dplyr::mutate(scores = purrr::map(data, function(x) scoringutils::eval_forecasts(x)))
+# 
 

@@ -1,9 +1,16 @@
-# Get & reshape JHU data
-# Source: https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data
-  
-library(magrittr)
-  
-# Deaths data -------------------------------------------------------------
+#' @title Get US Death Data
+#' 
+#' @details
+#' Get & reshape JHU data
+#' Source: https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data
+#' 
+#' @data data type. Can be either "daily" or "cumulative"
+#' 
+#' @return data.frame with Deaths Data
+#'
+#' @export
+#' @examples
+
 get_us_deaths <- function(data = c("cumulative", "daily")){  
 
    # Get & reshape data
@@ -47,6 +54,25 @@ get_us_deaths <- function(data = c("cumulative", "daily")){
 #     dplyr::filter(week == TRUE & week_count >= last_week_min)
 #   state_deaths <- dplyr::filter(daily, state %in% state_count$state)  
 # Cases data --------------------------------------------------------------
+
+
+
+
+
+
+
+#' @title Get US Case Data
+#' 
+#' @details
+#' Get & reshape JHU data
+#' Source: https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data
+#' 
+#' @data data type. Can be either "daily" or "cumulative"
+#' 
+#' @return data.frame with Deaths Data
+#'
+#' @export
+#' @examples
 
 get_us_cases <- function(data = c("cumulative", "daily")){
   

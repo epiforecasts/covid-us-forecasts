@@ -1,18 +1,20 @@
+#' @title Format Rt forecasts to Submission Format
+#' @details
+#' loads Rt forecasts and converts them to the correct format
+#' 
+#' @param loc path to folder
+#' @param loc_name name of region
+#' @param forecast_date date forecast is made
+#' @param forecast_adjustment shift forecasts by a certain number of dates
+#' 
+#' @return data.frame with forecats in submission format
+#'
+#' @export
+#' @examples
 
-# Packages ----------------------------------------------------------------
-
-require(here)
-require(dplyr)
-require(lubridate)
-
-## Arguments
-# loc: path to folder
-# loc_name: name of region
-# forecast_date: date forecast is made
-# forecast_adjustment: 
 format_rt_forecast <- function(loc = NULL, loc_name = NULL,
                             forecast_date = NULL,
-                            forecast_adjustment = 4, 
+                            forecast_adjustment = 16, 
                             version = "1.0"){
   
   print(loc_name)
