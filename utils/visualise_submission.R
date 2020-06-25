@@ -3,7 +3,7 @@ library(tidyverse)
 plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Date(), cutoff = 25){
   
   forecast_date <- lubridate::floor_date(forecast_date, unit = "week", week_start = 1)
-
+  
   ## Load current observed deaths data
   # source("utils/get_us_deaths.R")
   deaths_data <- readRDS(here::here("data/deaths_data.rds")) %>%
@@ -29,7 +29,7 @@ plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Da
     .$state
   
   ## Load most recent Rt forecast data
-  forecast_file <- paste0("death-forecast/epiforecasts-ensemble1/", forecast_date, "-epiforecasts-ensemble1.csv")
+  forecast_file <- paste0("rt-forecast/submission-files/", forecast_date, "-rt-forecast-submission.csv")
   forecast_data <- read.csv(here::here(forecast_file)) %>%
     tibble() %>%
     mutate(week = as.Date(target_end_date) - 6) %>%
@@ -44,20 +44,33 @@ plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Da
   
   ## Load most recent deaths time-series forecast
   # ts_deaths_file <- paste0("timeseries-forecast/deaths-only/", "2020-06-22", ".rds")
-  ts_deaths_file <- here::here("timeseries-forecast/deaths-only/latest-weekly-inc-deaths-only.csv")
+  ts_deaths_file <- here::here("timeseries-forecast/deaths-only/submission-files/latest-weekly-deaths-only.csv")
   ts_deaths <- read.csv(ts_deaths_file) %>%
-    select(week_beginning = week, state, type = model_type, quantile, value = deaths) %>%
-    mutate(week_beginning = as.Date(week_beginning),
-           model = "timeseries_deaths_only",
-           type = "quantile") %>%
-    filter(week_beginning <= max(forecast_data$week_beginning))
-  ts_cases_file <- here::here("timeseries-forecast/deaths-on-cases/latest-weekly-inc-deaths-on-cases.csv")
+    tibble() %>%
+    left_join(tigris::fips_codes %>%
+                dplyr::select(state_code, state_name) %>%
+                unique() %>%
+                rbind(c("US", "US")),
+              by = c("location" = "state_code")) %>%
+    filter(target_end_date > forecast_date,
+           state_name %in% forecast_states) %>%
+    mutate(week = as.Date(target_end_date) - 6) %>%
+    select(week_beginning = week, state = state_name, target, type, quantile, value) %>%
+    mutate(model = "timeseries_deaths_only") %>%
+  filter(week_beginning <= max(forecast_data$week_beginning)) %>% View()
+  ts_cases_file <- here::here("timeseries-forecast/deaths-on-cases/submission-files/latest-weekly-deaths-on-cases.csv")
   ts_cases <- read.csv(ts_cases_file) %>%
-    select(week_beginning = week, state, type = model_type, quantile, value = deaths) %>%
-    mutate(week_beginning = as.Date(week_beginning),
-           model = "timeseries_deaths_cases",
-           type = "quantile") %>%
-    filter(week_beginning <= max(forecast_data$week_beginning))
+    tibble() %>%
+    left_join(tigris::fips_codes %>%
+                dplyr::select(state_code, state_name) %>%
+                unique() %>%
+                rbind(c("US", "US")),
+              by = c("location" = "state_code")) %>%
+    filter(target_end_date > forecast_date,
+           state_name %in% forecast_states) %>%
+    mutate(week = as.Date(target_end_date) - 6) %>%
+    select(week_beginning = week, state = state_name, target, type, quantile, value) %>%
+    mutate(model = "timeseries_deaths_cases")
   
   
   # Combine and reshape for plotting
@@ -102,8 +115,8 @@ plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Da
     geom_line(aes(y = quantile0.5), lwd = 1) +
     geom_ribbon(aes(ymin = quantile0.25, ymax = quantile0.75), color = NA, alpha = 0.15) +
     ##
-    scale_fill_manual(values = c("white", brewer.pal(3, name = "Set2"))) +
-    scale_color_manual(values = c("black", brewer.pal(3, name = "Set2"))) +
+    scale_fill_manual(values = c("white", brewer.pal(4, name = "Set2"))) +
+    scale_color_manual(values = c("black", brewer.pal(4, name = "Set2"))) +
     facet_wrap(.~ state, scales = "free_y") +
     labs(x = "Week beginning", y = "Weekly incident deaths",
          col = "Model", fill = "Model") +
