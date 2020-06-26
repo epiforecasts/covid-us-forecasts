@@ -53,7 +53,7 @@ load_all_rt_forecasts <- function(forecast_dates = NULL,
                                   forecast_adjustment = 16, 
                                   weekly = FALSE) {
   
-  avail_dates <- list.files(here::here("rt-forecast", "national", "US"))
+  avail_dates <- list.files(here::here("rt-forecast", "rt-forecast", "national", "US"))
   avail_dates <- avail_dates[avail_dates != "latest"]
   names(avail_dates) <- avail_dates
   
@@ -68,7 +68,7 @@ load_all_rt_forecasts <- function(forecast_dates = NULL,
   }
   
   ## get national forecast
-  dir <- here::here("rt-forecast", "national")
+  dir <- here::here("rt-forecast", "rt-forecast", "national")
   deaths_national <- purrr::map_dfr(forecast_dates, ~ get_raw_case_forecasts(results_dir = dir, 
                                                                     date = .), 
                                     .id = "forecast_date") %>%
@@ -81,7 +81,7 @@ load_all_rt_forecasts <- function(forecast_dates = NULL,
   
   
   ## get subnational forecasts
-  dir <- here::here("rt-forecast", "state")
+  dir <- here::here("rt-forecast", "rt-forecast", "state")
   deaths_subnational <- purrr::map_dfr(forecast_dates, ~ get_raw_case_forecasts(results_dir = dir, 
                                                                           date = .), 
                                     .id = "forecast_date") %>%
@@ -142,47 +142,6 @@ load_all_rt_forecasts <- function(forecast_dates = NULL,
   
   return(forecasts)
 }
-
-
-
-
-
-#' @title Load Observed Deaths 
-#' 
-#' @details 
-#' Loads death data from file and returns a data.table
-#' 
-#' @param weekly return data in a weekly format
-#' 
-#' @return data.frame with obsered deaths
-#'
-#' @export
-#' @examples
-#' 
-
-load_observed_deaths <- function(weekly = FALSE) {
-  true_deaths <- (readRDS(here::here("data", "deaths_data.rds"))) %>%
-    dplyr::rename(region = state) %>%
-    dplyr::mutate(week = lubridate::floor_date(date, unit = "week", week_start = 7))
-  
-  true_deaths_national <- true_deaths %>%
-    dplyr::group_by(date, week) %>%
-    dplyr::summarise(deaths = sum(deaths)) %>%
-    dplyr::mutate(region = "US")
-  
-  
-  true_deaths <- rbindlist(list(true_deaths, 
-                                true_deaths_national), 
-                           use.names = TRUE)
-  
-  if (weekly) {
-    true_deaths <- true_deaths[, .(deaths = sum(deaths)), by = c("region", "week")]
-  }
-  
-  return(true_deaths)
-}
-
-
 
 
 
