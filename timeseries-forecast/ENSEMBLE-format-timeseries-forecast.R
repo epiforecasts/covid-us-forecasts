@@ -52,9 +52,9 @@ format_timeseries_forecast <- function(model_type){
   source(here::here("utils", "get_us_data.R"))
   
   cum_deaths_state <- get_us_deaths(data = "cumulative") %>%
-    mutate(week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 7))) %>%
-    mutate(sunday = ifelse(date == week, T, F)) %>%
-    filter(sunday == TRUE)
+    mutate(week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 6))) %>%
+    mutate(saturday = ifelse(date == week, T, F)) %>%
+    filter(saturday == TRUE)
   
   cum_deaths_latest <- cum_deaths_state %>%
     # add in national level
@@ -81,8 +81,8 @@ format_timeseries_forecast <- function(model_type){
     select(-last_week_deaths)
   
   # combine
-  full <- rbind(incident, cumulative) %>%
-    dplyr::select(-state)
+  full <- rbind(incident, cumulative) 
+  full$state = NULL
   
   # Return
   return(full)
