@@ -6,35 +6,32 @@ source(here::here("utils", "get_us_data.R"))
 source(here::here("timeseries-forecast", "deaths-only", "ts-deaths-only-forecast.R"))
 source(here::here("timeseries-forecast", "deaths-on-cases", "ts-deaths-on-cases-forecast.R"))
 
-
-deaths_state <- get_us_deaths(data = "daily") %>%
-  mutate(week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 6))) %>%
-  filter(week < max(week))
+# Get data
+deaths_state <- get_us_deaths(data = "daily")
 
 deaths_national <- deaths_state %>%
   group_by(date) %>%
   summarise(deaths = sum(deaths)) %>%
-  mutate(state = "US",
-         week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 6))) %>%
-  filter(week < max(week))
+  mutate(state = "US")
 
-cases_state <- get_us_cases(data = "daily")  %>%
-  mutate(week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 6))) %>%
-  filter(week < max(week))
+
+cases_state <- get_us_cases(data = "daily")
 
 cases_national <- cases_state %>%
   group_by(date) %>%
   summarise(cases = sum(cases)) %>%
-  mutate(state = "US",
-         week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 6))) %>%
-  filter(week < max(week))
+  mutate(state = "US")
+
 
 
 # Set forecast parameters -------------------------------------------------
 
-sample_count = 1000
-horizon_weeks = 6
+sample_count <- 1000
+horizon_weeks <- 6
+right_truncate_weeks <- 1
+format = TRUE
 quantiles_out <- c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99)
+  
 
 # Forecast with deaths only -----------------------------------------------
 
@@ -42,6 +39,7 @@ quantiles_out <- c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99)
 state_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_state, 
                                             sample_count = sample_count, 
                                             horizon_weeks = horizon_weeks,
+                                            right_truncate_weeks = right_truncate_weeks,
                                             format = TRUE,
                                             quantiles_out = quantiles_out)
 
@@ -49,6 +47,7 @@ state_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_state,
 national_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_national, 
                                              sample_count = sample_count, 
                                              horizon_weeks = horizon_weeks,
+                                             right_truncate_weeks = right_truncate_weeks,
                                              format = TRUE,
                                              quantiles_out = quantiles_out)
 
@@ -73,6 +72,7 @@ state_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cases_
                                                    case_quantile = 0.5,
                                                    sample_count = sample_count, 
                                                    horizon_weeks = horizon_weeks,
+                                                   right_truncate_weeks = right_truncate_weeks,
                                                    format = TRUE, 
                                                    quantiles_out = quantiles_out)
 
@@ -82,6 +82,7 @@ national_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cas
                                                       case_quantile = 0.5,
                                                       sample_count = sample_count, 
                                                       horizon_weeks = horizon_weeks,
+                                                      right_truncate_weeks = right_truncate_weeks,
                                                       format = TRUE, 
                                                       quantiles_out = quantiles_out)
 
