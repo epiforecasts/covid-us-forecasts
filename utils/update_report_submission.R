@@ -4,6 +4,7 @@ require(here)
 require(stringr)
 require(dplyr)
 require(purrr)
+require(lubridate)
 
 # Control parameters ------------------------------------------------------
 
@@ -19,8 +20,6 @@ names(forecasts) <- forecasts %>%
   stringr::str_remove(file.path(forecast_dir, "national/"))
 
 # Extract forecasts -------------------------------------------------------
-
-source(here::here("utils/format_submission.R"))
 
 region_forecasts <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts),
                                     ~ format_rt_forecast(loc = .x, loc_name = .y, 

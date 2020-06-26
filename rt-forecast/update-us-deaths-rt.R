@@ -152,3 +152,6 @@ run_rt_forecast <- function(target_date = NULL) {
 }
 
 
+# run forecasts
+run_rt_forecast()
+

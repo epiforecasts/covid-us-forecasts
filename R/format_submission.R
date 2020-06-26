@@ -160,15 +160,6 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
 #' @export
 #' @examples
 #' 
-#' deaths_on_cases <- format_timeseries_forecast(model_type = "deaths-on-cases")
-#' readr::write_csv(deaths_on_cases, here::here("timeseries-forecast", "deaths-on-cases", 
-#'                                              "submission-files",
-#'                                              "latest-weekly-deaths-on-cases.csv"))
-#' 
-#' deaths_only <- format_timeseries_forecast(model_type = "deaths-only")
-#' readr::write_csv(deaths_only, here::here("timeseries-forecast", "deaths-only", 
-#'                                          "submission-files",
-#'                                          "latest-weekly-deaths-only.csv"))
 
 format_timeseries_forecast <- function(model_type){
   # Get state codes
@@ -215,9 +206,8 @@ format_timeseries_forecast <- function(model_type){
   
   # Cumulative counts -------------------------------------------------------
   # Get cumulative data
-  source(here::here("utils", "get_us_data.R"))
   
-  cum_deaths_state <- get_us_deaths(data = "cumulative") %>%
+  cum_deaths_state <- covidUS::get_us_deaths(data = "cumulative") %>%
     mutate(week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 7))) %>%
     mutate(sunday = ifelse(date == week, T, F)) %>%
     filter(sunday == TRUE)
@@ -253,12 +243,5 @@ format_timeseries_forecast <- function(model_type){
   # Return
   return(full)
 }
-
-
-
-
-
-
-
 
 

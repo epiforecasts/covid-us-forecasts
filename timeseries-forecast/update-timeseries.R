@@ -2,7 +2,8 @@
 library(magrittr); library(dplyr)
 
 # Set up functions and data -----------------------------------------------
-source(here::here("utils", "get_us_data.R"))
+covidUS::get_us_cases()
+covidUS::get_us_deaths()
 source(here::here("timeseries-forecast", "deaths-only", "ts-deaths-only-forecast.R"))
 source(here::here("timeseries-forecast", "deaths-on-cases", "ts-deaths-on-cases-forecast.R"))
 

@@ -165,4 +165,8 @@ get_us_cases <- function(data = c("cumulative", "daily")){
       }
 }
     
-  
+
+
+# load data once
+covidUS::get_us_deaths()
+covidUS::get_us_cases()

@@ -3,6 +3,9 @@
 # ============================================================================ #
 
 library(magrittr)
+library(data.table)
+
+source(here::here("R", "get_us_data.R"))
 
 # load deaths data -------------------------------------------------------------
 death_data_inc <- load_observed_deaths(weekly = TRUE) %>%
