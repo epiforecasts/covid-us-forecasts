@@ -24,20 +24,22 @@ get_us_deaths <- function(data = c("cumulative", "daily")){
       dplyr::arrange(date) %>%
      dplyr::filter(!state %in% c("Diamond Princess", "Grand Princess"))
    
-   if(data == "cumulative"){
+   saveRDS(cumulative, here::here("data", "cum_deaths_data.rds"))
+   
+   daily <- cumulative %>%
+     # De-cumulate to daily
+     dplyr::group_by(state) %>% 
+     dplyr::mutate(deaths = c(0, diff(deaths)),
+                   deaths = replace(deaths, deaths < 0 , 0)) %>% 
+     dplyr::ungroup() 
+   # Save daily deaths in all states
+   saveRDS(daily, here::here("data", "deaths_data.rds"))
+   
+   
+   if(data[1] == "cumulative"){
      return(cumulative)
    }
-   
-   if(data == "daily"){
-     daily <- cumulative %>%
-     # De-cumulate to daily
-       dplyr::group_by(state) %>% 
-       dplyr::mutate(deaths = c(0, diff(deaths)),
-                     deaths = replace(deaths, deaths < 0 , 0)) %>% 
-       dplyr::ungroup() 
-   # Save daily deaths in all states
-    saveRDS(daily, here::here("data", "deaths_data.rds"))
-    
+   if(data[1] == "daily"){  
     return(daily)
    }
 }
@@ -56,6 +58,64 @@ get_us_deaths <- function(data = c("cumulative", "daily")){
 # Cases data --------------------------------------------------------------
 
 
+
+
+
+#' @title Load Observed Deaths 
+#' 
+#' @details 
+#' Loads death data from file and returns a data.table
+#' 
+#' @param weekly return data in a weekly format
+#' @param cumulative return cumulative data instead of incidence data
+#' 
+#' @return data.frame with obsered deaths
+#'
+#' @export
+#' @examples
+#' 
+
+load_observed_deaths <- function(weekly = FALSE, 
+                                 cumulative = FALSE) {
+  
+  # download newest data
+  get_us_deaths()
+  
+  true_deaths <- (readRDS(here::here("data", "deaths_data.rds"))) %>%
+    dplyr::rename(region = state) %>%
+    dplyr::mutate(week = lubridate::floor_date(date, unit = "week", week_start = 7))
+  
+  true_deaths_national <- true_deaths %>%
+    dplyr::group_by(date, week) %>%
+    dplyr::summarise(deaths = sum(deaths)) %>%
+    dplyr::mutate(region = "US")
+  
+  
+  true_deaths <- data.table::rbindlist(list(true_deaths, 
+                                            true_deaths_national), 
+                                       use.names = TRUE) %>%
+    dplyr::mutate(period = "daily", 
+                  data_type = "incidence")
+  
+  if (weekly) {
+    true_deaths[, date := NULL]
+    true_deaths[, `:=` (deaths = sum(deaths),
+                        period = "weekly"), by = c("region", "week")]
+  }
+  
+  if (cumulative) {
+    if (weekly) {
+      true_deaths[, `:=` (deaths = cumsum(deaths),
+                          data_type = "cumulative"), by = c("region", "week")]
+    } else {
+      true_deaths[, `:=` (deaths = cumsum(deaths),
+                          data_type = "cumulative"), by = c("region", "date")]
+    }
+    
+  }
+  
+  return(true_deaths)
+}
 
 
 
