@@ -4,12 +4,12 @@
 #' Get & reshape JHU data
 #' Source: https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data
 #' 
-#' @data data type. Can be either "daily" or "cumulative"
+#' @param data type. Can be either "daily" or "cumulative"
 #' 
 #' @return data.frame with Deaths Data
 #'
 #' @export
-#' @examples
+#' 
 
 get_us_deaths <- function(data = c("cumulative", "daily")){  
 
@@ -72,7 +72,6 @@ get_us_deaths <- function(data = c("cumulative", "daily")){
 #' @return data.frame with obsered deaths
 #'
 #' @export
-#' @examples
 #' 
 
 load_observed_deaths <- function(weekly = FALSE, 
@@ -127,12 +126,12 @@ load_observed_deaths <- function(weekly = FALSE,
 #' Get & reshape JHU data
 #' Source: https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data
 #' 
-#' @data data type. Can be either "daily" or "cumulative"
+#' @param data type. Can be either "daily" or "cumulative"
 #' 
 #' @return data.frame with Deaths Data
 #'
 #' @export
-#' @examples
+#' 
 
 get_us_cases <- function(data = c("cumulative", "daily")){
   

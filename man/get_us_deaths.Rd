@@ -6,6 +6,9 @@
 \usage{
 get_us_deaths(data = c("cumulative", "daily"))
 }
+\arguments{
+\item{data}{type. Can be either "daily" or "cumulative"}
+}
 \value{
 data.frame with Deaths Data
 }

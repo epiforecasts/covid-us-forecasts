@@ -10,7 +10,7 @@
 #' @return data.frame with forecats in submission format
 #'
 #' @export
-#' @examples
+#' 
 
 format_rt_forecast <- function(loc = NULL, loc_name = NULL,
                             forecast_date = NULL,

@@ -2,28 +2,40 @@
 # ============================================================================ #
 # Update data used for the forecasts
 # ============================================================================ #
-source("utils/get_us_deaths.R")
-
-
-
-# ============================================================================ #
-# load in function to prepare submissions
-# ============================================================================ #
-source("utils/format_submission.R")
-
-
+invisible(covidUS::get_us_deaths())
 
 
 # update delays (not run)
-# source("rt-forecast/update-delays.R")
-
+# covidUS::upate_delays()
 
 # ============================================================================ #
 # Run all models, format submission, do plotting
 # ============================================================================ #
+# target_dates <- seq(lubridate::ymd('2020-06-01'), 
+#                     lubridate::ymd(Sys.Date()), by = '1 day')
+
+target_dates <- Sys.Date()
+
+# run rt forecasts for target_dates
+# current issue: forecasts will all be stored as latest I think --> only use for current date right now!
+purrr::map(target_dates, covidUS::run_rt_forecast)
+
+# run deaths-only forecasts for target_dates
 
 
-target_dates <- seq(ymd('2020-05-15'), ymd(Sys.Date()), by = '1 day')
+# run deaths-on-cases forecasts for target_dates
+
+
+
+
+
+
+
+
+
+
+
+
 
 for (t in target_dates) {
   target_date <- t

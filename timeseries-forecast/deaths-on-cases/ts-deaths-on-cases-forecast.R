@@ -1,6 +1,14 @@
-# Forecast deaths from cases using timeseries
-# See <timeseries_death_forecast> for arguments
-# 
+#' @title Forecast deaths from cases using timeseries
+#' 
+#' @details 
+#' See <timeseries_death_forecast> for arguments
+#' 
+#' 
+#' @return NULL
+#'
+#' @export
+#' 
+
 # Additional arguments:
 # case_data : dataframe with case data
 # deaths_data : dataframe with deaths data
