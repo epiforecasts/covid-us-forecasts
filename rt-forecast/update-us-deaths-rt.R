@@ -23,13 +23,6 @@
 # devtools::install_deps()
 # devtools::install_deps(repos = "https://epiforecasts.io/drat/")
 # 
-# require(EpiNow)
-# require(data.table)
-# require(forecastHybrid)
-# require(future)
-# require(dplyr)
-# require(tidyr)
-# require(magrittr)
 
 
 run_rt_forecast <- function(target_date = NULL) {
@@ -47,7 +40,7 @@ run_rt_forecast <- function(target_date = NULL) {
   incubation_defs <- readRDS(here::here("rt-forecast", "data", "incubation.rds"))
   
   # Get and reshape deaths data ---------------------------------------------------------------
-  source(here::here("utils", "get_us_data.R"))
+  # source(here::here("utils", "get_us_data.R"))
   
   # deaths <- readRDS(here::here("data", "deaths_data.rds"))
   deaths <- get_us_deaths(data = "daily")
@@ -58,13 +51,13 @@ run_rt_forecast <- function(target_date = NULL) {
     dplyr::rename(local = deaths) %>% 
     dplyr::mutate(imported = 0, region = "US") %>% 
     tidyr::gather(key = "import_status", value = "confirm", local, imported) %>%
-    dplyr::filter(deaths <= target_date)
+    dplyr::filter(date <= target_date)
   
   deaths_regional <- deaths %>%
     dplyr::rename(local = deaths, region = state) %>% 
     dplyr::mutate(imported = 0) %>% 
     tidyr::gather(key = "import_status", value = "confirm", local, imported) %>%
-    dplyr::filter(deaths <= target_date)
+    dplyr::filter(date <= target_date)
   
   max_date <- min(data.table::as.data.table(deaths_national)[, .SD[date == max(date)], by = region]$date)
   
@@ -153,5 +146,13 @@ run_rt_forecast <- function(target_date = NULL) {
 
 
 # run forecasts
+require(EpiNow)
+require(data.table)
+require(forecastHybrid)
+require(future)
+require(dplyr)
+require(tidyr)
+require(magrittr)
+
 run_rt_forecast()
 
