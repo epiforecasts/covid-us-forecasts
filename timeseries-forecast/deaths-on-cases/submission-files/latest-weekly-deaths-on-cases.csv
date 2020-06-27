@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 forecast_date,target,target_end_date,location,type,quantile,value
 2020-06-26,-2 wk ahead inc death,2020-06-06,US,quantile,0.01,2831
 2020-06-26,-2 wk ahead inc death,2020-06-06,US,quantile,0.025,3413
@@ -13679,3 +13680,6 @@ forecast_date,target,target_end_date,location,type,quantile,value
 2020-06-26,3 wk ahead cum death,2020-07-11,54,point,NA,114
 2020-06-26,3 wk ahead cum death,2020-07-11,55,point,NA,980
 2020-06-26,3 wk ahead cum death,2020-07-11,56,point,NA,30
+=======
+forecast_date,target,target_end_date,location,type,quantile,value,state
+>>>>>>> master
