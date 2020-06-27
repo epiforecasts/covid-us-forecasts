@@ -1,136 +1,3 @@
-#' @title Forecast deaths from estimated infections (Rt) 
-#' 
-#' @details 
-#' to be expanded
-#' 
-#' @param forecast_date date for which to to the forecasting. Will be the 
-#' current date if NULL
-#' 
-#' @return NULL
-#'
-#' @export
-#' 
-#' 
-
-run_rt_forecast <- function(target_date = NULL) {
-  
-  if(is.null(target_date)) {
-    target_date <- Sys.Date()
-  }
-  
-  # Read in delay from onset to death --------------------------------------------------------
-  
-  delay_dists <- readRDS(here::here("rt-forecast", "data", "onset_to_death_delay.rds"))
-  
-  # Read in incubation period -----------------------------------------------
-  
-  incubation_defs <- readRDS(here::here("rt-forecast", "data", "incubation.rds"))
-  
-  # Get and reshape deaths data ---------------------------------------------------------------
-  # source(here::here("utils", "get_us_data.R"))
-  
-  # deaths <- readRDS(here::here("data", "deaths_data.rds"))
-  deaths <- get_us_deaths(data = "daily")
-  
-  deaths_national <- deaths %>%
-    dplyr::group_by(date) %>%
-    dplyr::summarise(deaths = sum(deaths)) %>%
-    dplyr::rename(local = deaths) %>% 
-    dplyr::mutate(imported = 0, region = "US") %>% 
-    tidyr::gather(key = "import_status", value = "confirm", local, imported) %>%
-    dplyr::filter(date <= target_date)
-  
-  deaths_regional <- deaths %>%
-    dplyr::rename(local = deaths, region = state) %>% 
-    dplyr::mutate(imported = 0) %>% 
-    tidyr::gather(key = "import_status", value = "confirm", local, imported) %>%
-    dplyr::filter(date <= target_date)
-  
-  max_date <- min(data.table::as.data.table(deaths_national)[, .SD[date == max(date)], by = region]$date)
-  
-  
-  # Define nowcast lag at the 40% quantile ----------------------------------
-  
-  nowcast_lag <- 9 + 5 # Delay from death -> onset + onset -> infection
-  
-  # # Set up cores -----------------------------------------------------
-  setup_future <- function(jobs) {
-    if (!interactive()) {
-      ## If running as a script enable this
-      options(future.fork.enable = TRUE)
-    }
-    
-    
-    plan(list(tweak(multiprocess, workers = min(future::availableCores(), jobs)),
-              tweak(multiprocess, workers = max(1, round(future::availableCores() / jobs)))),
-         gc = TRUE, earlySignal = TRUE)
-  }
-  
-  # Estimate Rt and forecast death counts ----------------------------------------------------------------
-  
-  ## National
-  
-  setup_future(length(unique(deaths_national$region)))
-  
-  EpiNow::regional_rt_pipeline(
-    # Settings to estimate Rt
-    cases = deaths_national,
-    delay_defs = delay_dists,
-    incubation_defs = incubation_defs,
-    target_folder = "rt-forecast/national",
-    target_date = target_date,
-    nowcast_lag = nowcast_lag,
-    case_limit = 0,
-    min_forecast_cases = 0,
-    approx_delay = TRUE,
-    # Settings for forecasting
-    horizon = 40, report_forecast = TRUE,
-    forecast_model = function(y, ...){EpiSoon::forecastHybrid_model(
-      y = y[max(1, length(y) - 40):length(y)],
-      model_params = list(models = "aefz", weights = "equal"),
-      forecast_params = list(PI.combination = "mean"), ...)})
-  
-  
-  ## Regional 
-  
-  setup_future(length(unique(deaths_regional$region)))
-  
-  EpiNow::regional_rt_pipeline(
-    # Settings to estimate Rt
-    cases = deaths_regional, 
-    delay_defs = delay_dists,
-    incubation_defs = incubation_defs,
-    target_folder = "rt-forecast/state", 
-    target_date = target_date,
-    nowcast_lag = nowcast_lag,
-    case_limit = 0,
-    min_forecast_cases = 0,
-    approx_delay = TRUE,
-    # Settings for forecasting
-    horizon = 40, report_forecast = TRUE,
-    forecast_model = function(y, ...){
-      EpiSoon::forecastHybrid_model(
-        y = y[max(1, length(y) - 40):length(y)],
-        model_params = list(models = "aefz", weights = "equal"),
-        forecast_params = list(PI.combination = "mean"), ...)})
-  
-  # Summarise results -------------------------------------------------------
-  
-  
-  EpiNow::regional_summary(results_dir = "rt-forecast/national", 
-                           summary_dir = "rt-forecast/national-summary",
-                           target_date = "latest",
-                           region_scale = "Country")
-  
-  
-  EpiNow::regional_summary(results_dir = "rt-forecast/state", 
-                           summary_dir = "rt-forecast/state-summary",
-                           target_date = "latest",
-                           region_scale = "State")
-  
-  return(invisible(NULL))  
-}
-
 
 
 # install.packages("drat")
@@ -147,6 +14,19 @@ require(dplyr)
 require(tidyr)
 require(magrittr)
 
+
+# Update delays -----------------------------------------------------------
+
+# source(here::here("rt-forecast", "utils", "update-delays.R"))
+
+# Run Rt ------------------------------------------------------------------
+
+source(here::here("rt-forecast", "utils", "run-rt-forecast.R"))
+
 # run forecasts
 run_rt_forecast()
 
+
+# Format for submission ---------------------------------------------------
+
+source(here::here("utils", "format-for-submission.R"))
