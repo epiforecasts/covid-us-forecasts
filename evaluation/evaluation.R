@@ -1,13 +1,18 @@
 library(magrittr)
 library(data.table)
+library(purrr)
 
+
+# This script switches between data.table and tidyverse in a not very clean way
+# it would be less confusing if it stuck to one (there is very little data.table so perhaps
+# these should be recoded.)
 # ============================================================================ #
 # load all submissions
 # ============================================================================ #
 
 # rt submissions ---------------------------------------------------------------
 rt_files <- list.files(here::here("rt-forecast", "submission-files"))
-rt_paths <- paste("rt-forecast/submission-files/", rt_files, sep = "")
+rt_paths <- paste0("rt-forecast/submission-files/", rt_files)
 
 rt_forecasts <- purrr::map_dfr(rt_paths, 
                                .f = data.table::fread) %>%
@@ -15,8 +20,8 @@ rt_forecasts <- purrr::map_dfr(rt_paths,
 
 # deaths-only forecasts --------------------------------------------------------
 deaths_only_files <- list.files(here::here("timeseries-forecast", "deaths-only", "submission-files"))
-deaths_only_paths <- paste("timeseries-forecast/deaths-only/submission-files/", 
-                           deaths_only_files, sep = "")
+deaths_only_paths <- paste0("timeseries-forecast/deaths-only/submission-files/", 
+                           deaths_only_files)
 
 deaths_only_forecasts <- purrr::map_dfr(deaths_only_paths, 
                                         .f = data.table::fread) %>%
@@ -25,8 +30,8 @@ deaths_only_forecasts <- purrr::map_dfr(deaths_only_paths,
 
 # deaths-on-cases forecasts ----------------------------------------------------
 deaths_on_cases_files <- list.files(here::here("timeseries-forecast", "deaths-on-cases", "submission-files"))
-deaths_on_cases_paths <- paste("timeseries-forecast/deaths-on-cases/submission-files/", 
-                               deaths_on_cases_files, sep = "")
+deaths_on_cases_paths <- paste0("timeseries-forecast/deaths-on-cases/submission-files/", 
+                               deaths_on_cases_files)
 
 deaths_on_cases_forecasts <- purrr::map_dfr(deaths_on_cases_paths, 
                                             .f = data.table::fread) %>%
@@ -35,8 +40,8 @@ deaths_on_cases_forecasts <- purrr::map_dfr(deaths_on_cases_paths,
 
 # qra-ensemble forecasts ----------------------------------------------------
 qra_files <- list.files(here::here("ensemble-forecast", "qra-ensemble", "submission-files"))
-qra_paths <- paste("ensemble-forecast/qra-ensemble/submission-files/", 
-                   deaths_on_cases_files, sep = "")
+qra_paths <- paste0("ensemble-forecast/qra-ensemble/submission-files/", 
+                   deaths_on_cases_files)
 
 qra_forecasts <- purrr::map_dfr(deaths_on_cases_paths, 
                                             .f = data.table::fread) %>%
@@ -44,7 +49,7 @@ qra_forecasts <- purrr::map_dfr(deaths_on_cases_paths,
 
 
 
-# bind together 
+# bind together
 forecasts <- data.table::rbindlist(list(rt_forecasts, deaths_only_forecasts, 
                                         deaths_on_cases_forecasts, 
                                         qra_forecasts)) %>%

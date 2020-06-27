@@ -22,7 +22,7 @@ get_us_deaths <- function(data = c("cumulative", "daily")){
       dplyr::summarise(deaths = sum(deaths)) %>%
       dplyr::rename(state = Province_State) %>%
       dplyr::arrange(date) %>%
-     dplyr::filter(!state %in% c("Diamond Princess", "Grand Princess"))
+      dplyr::filter(!state %in% c("Diamond Princess", "Grand Princess"))
    
    saveRDS(cumulative, here::here("data", "cum_deaths_data.rds"))
    
