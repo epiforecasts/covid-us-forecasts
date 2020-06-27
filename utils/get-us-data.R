@@ -103,19 +103,36 @@ load_observed_deaths <- function(weekly = FALSE,
   if (weekly) {
     true_deaths[, date := NULL]
     true_deaths[, `:=` (deaths = sum(deaths),
-                        period = "weekly"), by = c("region", "week")]
+                        period = "weekly"), by = c("region", "week", "data_type")]
+    true_deaths <- unique(true_deaths)
   }
+  
+  
   
   if (cumulative) {
     if (weekly) {
-      true_deaths[, `:=` (deaths = cumsum(deaths),
-                          data_type = "cumulative"), by = c("region", "week")]
+      true_deaths <- true_deaths[,  .(deaths = cumsum(deaths),
+                                      data_type = "cumulative", 
+                                      period = period), by = c("region", "week")]
     } else {
       true_deaths[, `:=` (deaths = cumsum(deaths),
                           data_type = "cumulative"), by = c("region", "date")]
     }
     
   }
+  
+  
+  
+  # merge with state codes 
+  state_codes <- tigris::fips_codes %>%
+    dplyr::select(state_code, state_name) %>%
+    unique() %>%
+    rbind(c("US", "US")) %>%
+    dplyr::rename(region = state_name)
+  
+  
+  true_deaths <- true_deaths %>%
+    dplyr::left_join(state_codes)
   
   return(true_deaths)
 }
