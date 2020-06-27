@@ -29,8 +29,9 @@ cases_national <- cases_state %>%
 sample_count <- 1000
 horizon_weeks <- 6
 right_truncate_weeks <- 1
-format = TRUE
+format <- TRUE
 quantiles_out <- c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99)
+case_quantile <- 0.5
   
 
 # Forecast with deaths only -----------------------------------------------
@@ -69,7 +70,7 @@ saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "
 # State forecast
 state_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cases_state,
                                                    deaths_data = deaths_state,
-                                                   case_quantile = 0.5,
+                                                   case_quantile = case_quantile,
                                                    sample_count = sample_count, 
                                                    horizon_weeks = horizon_weeks,
                                                    right_truncate_weeks = right_truncate_weeks,
@@ -79,7 +80,7 @@ state_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cases_
 # National forecast
 national_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cases_national,
                                                       deaths_data = deaths_national,
-                                                      case_quantile = 0.5,
+                                                      case_quantile = case_quantile,
                                                       sample_count = sample_count, 
                                                       horizon_weeks = horizon_weeks,
                                                       right_truncate_weeks = right_truncate_weeks,
