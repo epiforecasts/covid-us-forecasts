@@ -40,42 +40,5 @@ source(here::here("utils", "format-submission-rt.R"))
 
 source(here::here("ensemble-forecast", "qra-ensemble", "quantile-ensembling.R"))
 
-# ============================================================================ #
-# plotting
-# ============================================================================ #
 
 
-
-
-
-
-
-
-# for (t in target_dates) {
-#   target_date <- t
-#   # make new rt forecasts for US deaths
-#   source(here::here("rt-forecast", "update-us-deaths-rt.R"))
-#   
-#   # format submission
-#   forecast_date <- t
-#   source(here::here("utils", "update_report_submission.R"))
-#   
-#   dir.create(here::here("visualisation", t), showWarnings = FALSE)
-#   source(here::here("utils", "visualise_submission.R"))
-#   
-#   # visualise national death forecast
-#   national <- plot_forecasts(national = TRUE, states = NULL, cutoff = 25) + 
-#     theme(text = element_text(family = "Sans Serif"))
-#   
-#   ggsave(plot = national, path = here::here("visualisation", t), 
-#          filename = "death_national.png")
-#   
-#   # visualise subnational death forecast
-#   subnational <- plot_forecasts(national = FALSE, states = NULL, cutoff = 25) + 
-#     theme(text = element_text(family = "Sans Serif"))
-#   
-#   ggsave(plot = subnational, path = here::here("visualisation", t), 
-#          filename = "death_subnational.png", height = 30, width = 30)
-# }
-# 
-# 
