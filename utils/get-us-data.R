@@ -75,10 +75,14 @@ get_us_deaths <- function(data = c("cumulative", "daily")){
 #' 
 
 load_observed_deaths <- function(weekly = FALSE, 
-                                 cumulative = FALSE) {
+                                 cumulative = FALSE, 
+                                 download_newest = FALSE) {
   
   # download newest data
-  get_us_deaths()
+  if (download_newest) {
+    get_us_deaths()
+  }
+  
   
   true_deaths <- (readRDS(here::here("data", "deaths_data.rds"))) %>%
     dplyr::rename(region = state) %>%
@@ -147,11 +151,11 @@ get_us_cases <- function(data = c("cumulative", "daily")){
         dplyr::arrange(date) %>%
         dplyr::filter(!state %in% c("Diamond Princess", "Grand Princess"))
       
-      if(data == "cumulative"){
+      if(data[1] == "cumulative"){
         return(cumulative)
       }
       
-      if(data == "daily"){
+      if(data[1] == "daily"){
         daily <- cumulative %>%
           # De-cumulate to daily
           dplyr::group_by(state) %>% 
@@ -167,6 +171,7 @@ get_us_cases <- function(data = c("cumulative", "daily")){
     
 
 
-# load data once
-covidUS::get_us_deaths()
-covidUS::get_us_cases()
+library(magrittr)
+
+get_us_deaths()
+get_us_cases()

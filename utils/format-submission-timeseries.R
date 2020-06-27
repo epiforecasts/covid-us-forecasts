@@ -1,3 +1,4 @@
+library(dplyr)
 
 
 deaths_on_cases <- format_timeseries_forecast(model_type = "deaths-on-cases")

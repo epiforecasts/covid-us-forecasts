@@ -61,3 +61,5 @@ update_delays <- function() {
   
   return(NULL)
 }
+
+update_delays()

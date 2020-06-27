@@ -12,19 +12,6 @@
 #' 
 #' 
 
-
-# can be deleted? 
-# # Packages -----------------------------------------------------------------
-# # 
-# # require(drat)
-# drat::addRepo("epiforecasts")
-# # install.packages("EpiSoon")
-# require(devtools)
-# devtools::install_deps()
-# devtools::install_deps(repos = "https://epiforecasts.io/drat/")
-# 
-
-
 run_rt_forecast <- function(target_date = NULL) {
   
   if(is.null(target_date)) {
@@ -145,7 +132,17 @@ run_rt_forecast <- function(target_date = NULL) {
 }
 
 
-# run forecasts
+# can be deleted? 
+# # 
+# # require(drat)
+# drat::addRepo("epiforecasts")
+# # install.packages("EpiSoon")
+# require(devtools)
+# devtools::install_deps()
+# devtools::install_deps(repos = "https://epiforecasts.io/drat/")
+# 
+
+# # Packages -----------------------------------------------------------------
 require(EpiNow)
 require(data.table)
 require(forecastHybrid)
@@ -154,5 +151,6 @@ require(dplyr)
 require(tidyr)
 require(magrittr)
 
+# run forecasts
 run_rt_forecast()
 

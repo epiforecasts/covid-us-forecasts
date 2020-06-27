@@ -3,12 +3,11 @@
 # Update data used for the forecasts
 # ============================================================================ #
 
-source(here::here("R", "get_us_data.R"))
+source(here::here("utils", "get-us-data.R"))
 
 
 # update delays (not run)
 # source(here::here("rt-forecast", "update-delays.R"))
-# update_delays()
 
 # ============================================================================ #
 # Run all models
@@ -26,20 +25,20 @@ source(here::here("timeseries-forecast", "update-timeseries.R"))
 # ============================================================================ #
 
 # source functions
-source(here::here("R", "format_submission.R"))
+source(here::here("utils", "format-submission-functions.R"))
 
 # format timeseries forecasts
 source(here::here("utils", "format-submission-timeseries.R"))
 
 # format rt forecasts
-source(here::here("utils", "update_report_submission.R"))
+source(here::here("utils", "format-submission-rt.R"))
 
 
 # ============================================================================ #
 # ensembling
 # ============================================================================ #
 
-source(here::here("ensemble-forecast", "qra-ensemble", "quantile_ensembling.R"))
+source(here::here("ensemble-forecast", "qra-ensemble", "quantile-ensembling.R"))
 
 # ============================================================================ #
 # plotting
