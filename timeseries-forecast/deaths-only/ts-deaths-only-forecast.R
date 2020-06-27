@@ -20,39 +20,40 @@ ts_deaths_only_forecast <- function(data,
   
   # Set up data and truncate
   data_weekly_full <- data %>%
-    mutate(week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 6)),
+    mutate(epiweek = lubridate::epiweek(date),
            date = NULL) %>%
-    group_by(state, week) %>%
+    group_by(state, epiweek) %>%
     summarise(deaths = sum(deaths))
-    
-  right_truncate_date <- max(data_weekly_full$week) - 7 * right_truncate_weeks
+  
+  right_truncate_date <- max(data_weekly_full$epiweek) - right_truncate_weeks
   
   data_weekly <- data_weekly_full %>%
-    filter(week <= right_truncate_date)
+    filter(epiweek <= right_truncate_date)
   
   # Set up forecasting vs historical dates
   # Forecasting = next week + horizon_weeks
-  forecast_weeks <- seq.Date(from = as.Date(max(data_weekly$week)+7), by = 7, length.out = horizon_weeks)
+  forecast_weeks <- seq(from = max(data_weekly$epiweek) + 1, by = 1, length.out = horizon_weeks)
   # Historical = last 6 weeks of data
   historical_weeks <- data_weekly %>%
     ungroup() %>%
-    filter(!week %in% forecast_weeks) %>%
-    select(week) %>%
-    filter(week > max(week) - 42) %>%
+    filter(!epiweek %in% forecast_weeks) %>%
+    select(epiweek) %>%
+    filter(epiweek > max(epiweek) - 6) %>%
     unique() %>%
-    pull(week)
+    pull(epiweek)
   
   
   # Forecast 
   death_forecast <- data_weekly %>%
     group_by(state) %>%
-    group_modify(~ EpiSoon::forecastHybrid_model(y = filter(.x, week %in% historical_weeks) %>% pull("deaths"),
+    group_modify(~ EpiSoon::forecastHybrid_model(y = filter(.x, epiweek %in% historical_weeks) %>%
+                                                   pull("deaths"),
                                                  samples = sample_count, 
                                                  horizon = horizon_weeks,
                                                  model_params = list(models = "aefz", weights = "equal"),
                                                  forecast_params = list(PI.combination = "mean"))) %>%
     mutate(sample = rep(1:sample_count)) %>%
-    pivot_longer(cols = starts_with("..."), names_to = "week")
+    pivot_longer(cols = starts_with("..."), names_to = "epiweek")
  
   if(format == FALSE){
   return(death_forecast)
@@ -61,17 +62,17 @@ ts_deaths_only_forecast <- function(data,
   if(format == TRUE){
   # Get quantiles
   quantile <- death_forecast %>%
-    group_by(state, week) %>%
+    group_by(state, epiweek) %>%
     group_modify( ~ as.data.frame(quantile(.x$value, probs = quantiles_out, na.rm = T))) %>%
     mutate(quantile = quantiles_out) %>%
     ungroup()
   
   # Format
-  dates_from <- unique(quantile$week)
+  dates_from <- unique(quantile$epiweek)
   
   out <- quantile %>%
-    select(state, week, quantile, "deaths" = 3) %>%
-    mutate(week = recode(week, !!! setNames(forecast_weeks, dates_from)),
+    select(state, epiweek_target = epiweek, quantile, "deaths" = 3) %>%
+    mutate(epiweek_target = recode(epiweek_target, !!! setNames(forecast_weeks, dates_from)),
            deaths = ifelse(deaths < 0, 0, deaths),
            deaths = round(deaths),
            model_type = "deaths_only",
