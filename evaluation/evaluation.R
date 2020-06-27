@@ -6,6 +6,7 @@ library(purrr)
 # This script switches between data.table and tidyverse in a not very clean way
 # it would be less confusing if it stuck to one (there is very little data.table so perhaps
 # these should be recoded.)
+## Script doesn't run as functions used aren't called
 # ============================================================================ #
 # load all submissions
 # ============================================================================ #
@@ -55,8 +56,6 @@ forecasts <- data.table::rbindlist(list(rt_forecasts, deaths_only_forecasts,
                                         qra_forecasts)) %>%
   dplyr::mutate(target_end_date = as.Date(target_end_date), 
                 quantile = round(quantile, digits = 3))
-
-
 
 
 # ============================================================================ #

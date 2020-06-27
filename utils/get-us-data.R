@@ -74,6 +74,8 @@ get_us_deaths <- function(data = c("cumulative", "daily")){
 #' @export
 #' 
 
+## Here again there is an odd mix of tidyverse and data.table
+## See note on epiweek
 load_observed_deaths <- function(weekly = FALSE, 
                                  cumulative = FALSE, 
                                  download_newest = FALSE) {
