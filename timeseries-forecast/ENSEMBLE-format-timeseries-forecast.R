@@ -49,7 +49,7 @@ format_timeseries_forecast <- function(model_type){
   
 # Cumulative counts -------------------------------------------------------
       # Get cumulative data
-  source(here::here("utils", "get_us_data.R"))
+  source(here::here("utils", "get-us-data.R"))
   
   cum_deaths_state <- get_us_deaths(data = "cumulative") %>%
     mutate(week = as.Date(lubridate::floor_date(date, unit = "week", week_start = 6))) %>%

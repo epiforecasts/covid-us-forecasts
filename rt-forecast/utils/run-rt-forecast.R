@@ -27,7 +27,8 @@ run_rt_forecast <- function(target_date = NULL) {
   incubation_defs <- readRDS(here::here("rt-forecast", "data", "incubation.rds"))
   
   # Get and reshape deaths data ---------------------------------------------------------------
-  source(here::here("utils", "get_us_data.R"))
+  # I strongly dislike function calls like this buried in functions
+  source(here::here("utils", "get-us-data.R"))
   
   # deaths <- readRDS(here::here("data", "deaths_data.rds"))
   deaths <- get_us_deaths(data = "daily")

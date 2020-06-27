@@ -44,7 +44,7 @@ score_timeseries <- function(data, sample_count, models, day_lag){
 # Score new forecasts ---------------------------------------------------------
 # Get functions and data
 source(here::here("timeseries-forecast", "timeseries-death-forecast.R"))
-source(here::here("utils", "get_us_data.R"))
+source(here::here("utils", "get-us-data.R"))
 
 # National forecast scores
 data_national <- get_us_deaths(data = "daily") %>%

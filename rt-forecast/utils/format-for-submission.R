@@ -6,6 +6,11 @@ require(dplyr)
 require(purrr)
 require(lubridate)
 
+
+# Functions ---------------------------------------------------------------
+
+source(here::here("rt-forecast", "utils", "format-rt-forecast.R"))
+
 # Control parameters ------------------------------------------------------
 
 forecast_date <- Sys.Date()

@@ -22,7 +22,11 @@ get_us_deaths <- function(data = c("cumulative", "daily")){
       dplyr::summarise(deaths = sum(deaths)) %>%
       dplyr::rename(state = Province_State) %>%
       dplyr::arrange(date) %>%
-      dplyr::filter(!state %in% c("Diamond Princess", "Grand Princess"))
+      dplyr::filter(!state %in% c("Diamond Princess", "Grand Princess")) %>%
+      dplyr::mutate(epiweek = lubridate::epiweek(date),
+            day = ordered(weekdays(as.Date(date)), 
+                          levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")),
+            epiweek = as.numeric(paste0(epiweek, ".", as.numeric(day))))
    
    saveRDS(cumulative, here::here("data", "cum_deaths_data.rds"))
    
@@ -43,23 +47,6 @@ get_us_deaths <- function(data = c("cumulative", "daily")){
     return(daily)
    }
 }
-
-   
-# Argument for last_week_min
-# 
-# if(!is.null(last_week_min)){
-#   # Filter to states meeting minimum threshold
-#   state_count <- daily %>%
-#     dplyr::mutate(week = date >= (max(date)-7)) %>%
-#     dplyr::group_by(state, week) %>%
-#     dplyr::summarise(week_count = sum(deaths)) %>%
-#     dplyr::filter(week == TRUE & week_count >= last_week_min)
-#   state_deaths <- dplyr::filter(daily, state %in% state_count$state)  
-# Cases data --------------------------------------------------------------
-
-
-
-
 
 #' @title Load Observed Deaths 
 #' 
@@ -88,24 +75,28 @@ load_observed_deaths <- function(weekly = FALSE,
   
   true_deaths <- (readRDS(here::here("data", "deaths_data.rds"))) %>%
     dplyr::rename(region = state) %>%
-    dplyr::mutate(week = lubridate::floor_date(date, unit = "week", week_start = 7))
+    dplyr::mutate(week = lubridate::floor_date(date, unit = "week", week_start = 7))  %>% 
+    dplyr::mutate(epiweek = lubridate::epiweek(date),
+                  day = ordered(weekdays(as.Date(date)),
+                                levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")),
+                  epiweek = as.numeric(paste0(epiweek, ".", as.numeric(day))))
   
   true_deaths_national <- true_deaths %>%
-    dplyr::group_by(date, week) %>%
+    dplyr::group_by(date, epiweek) %>%
     dplyr::summarise(deaths = sum(deaths)) %>%
     dplyr::mutate(region = "US")
   
-  
+  ## switch to dplyr
   true_deaths <- data.table::rbindlist(list(true_deaths, 
                                             true_deaths_national), 
                                        use.names = TRUE) %>%
     dplyr::mutate(period = "daily", 
                   data_type = "incidence")
-  
+  ## dplyr
   if (weekly) {
     true_deaths[, date := NULL]
     true_deaths[, `:=` (deaths = sum(deaths),
-                        period = "weekly"), by = c("region", "week", "data_type")]
+                        period = "weekly"), by = c("region", "epiweek", "data_type")]
     true_deaths <- unique(true_deaths)
   }
   
@@ -115,7 +106,7 @@ load_observed_deaths <- function(weekly = FALSE,
     if (weekly) {
       true_deaths <- true_deaths[,  .(deaths = cumsum(deaths),
                                       data_type = "cumulative", 
-                                      period = period), by = c("region", "week")]
+                                      period = period), by = c("region", "epiweek")]
     } else {
       true_deaths[, `:=` (deaths = cumsum(deaths),
                           data_type = "cumulative"), by = c("region", "date")]
@@ -168,7 +159,11 @@ get_us_cases <- function(data = c("cumulative", "daily")){
         dplyr::summarise(cases = sum(cases)) %>%
         dplyr::rename(state = Province_State) %>%
         dplyr::arrange(date) %>%
-        dplyr::filter(!state %in% c("Diamond Princess", "Grand Princess"))
+        dplyr::filter(!state %in% c("Diamond Princess", "Grand Princess")) %>% 
+        dplyr::mutate(epiweek = lubridate::epiweek(date),
+                      day = ordered(weekdays(as.Date(date)), 
+                                    levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")),
+                      epiweek = as.numeric(paste0(epiweek, ".", as.numeric(day))))
       
       if(data[1] == "cumulative"){
         return(cumulative)

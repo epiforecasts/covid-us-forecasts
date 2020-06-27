@@ -2,8 +2,8 @@
 library(magrittr); library(dplyr)
 
 # Set up functions and data -----------------------------------------------
-covidUS::get_us_cases()
-covidUS::get_us_deaths()
+
+source(here::here("utils", "get-us-data.R"))
 source(here::here("timeseries-forecast", "deaths-only", "ts-deaths-only-forecast.R"))
 source(here::here("timeseries-forecast", "deaths-on-cases", "ts-deaths-on-cases-forecast.R"))
 
@@ -22,8 +22,6 @@ cases_national <- cases_state %>%
   group_by(date) %>%
   summarise(cases = sum(cases)) %>%
   mutate(state = "US")
-
-
 
 # Set forecast parameters -------------------------------------------------
 
@@ -54,7 +52,7 @@ national_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_national,
                                              quantiles_out = quantiles_out)
 
 # Bind and save daily forecast
-deaths_only_forecast <- bind_rows(national_deaths_only_forecast, state_deaths_only_forecast)
+deaths_only_forecast <- dplyr::bind_rows(national_deaths_only_forecast, state_deaths_only_forecast)
 saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", paste0(Sys.Date(), "-weekly-deaths-only.rds")))
 saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "latest-weekly-deaths-only.rds"))
 

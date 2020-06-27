@@ -3,7 +3,7 @@ library(ggplot2); library(dplyr); library(tidyr); library(stringr)
 
 
 # Get data and forecasts
-source(here::here("utils", "get_us_data.R"))
+source(here::here("utils", "get-us-data.R"))
 
 model_type <- "deaths-on-cases"
 right_truncate_weeks = 1
@@ -11,27 +11,14 @@ right_truncate_weeks = 1
 weekly_forecast <- readRDS(here::here("timeseries-forecast", model_type,
                                       paste0("latest-weekly-", model_type, ".rds")))
 
-# epiweek_date <- select(daily_deaths_state, date) %>%
-#   mutate(epiweek = lubridate::epiweek(date),
-#          day = ordered(weekdays(as.Date(date)), 
-#                        levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")),
-#          epiweek_day = as.numeric(paste0(epiweek, ".", as.numeric(day)))) %>%
-#   distinct()
-#   
-
 # States ------------------------------------------------------------------
 
 # Get data
-daily_deaths_state <- get_us_deaths(data = "daily") %>%
-  mutate(epiweek = lubridate::epiweek(date),
-         day = ordered(weekdays(as.Date(date)), 
-                       levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")),
-         epiweek = as.numeric(paste0(epiweek, ".", as.numeric(day))))
+daily_deaths_state <- get_us_deaths(data = "daily")
 
   
 weekly_deaths_state <- daily_deaths_state %>%
-  mutate(epiweek = lubridate::epiweek(date),
-         date = NULL) %>%
+  mutate(date = NULL) %>%
   group_by(state, epiweek) %>%
   summarise(deaths = sum(deaths))
 

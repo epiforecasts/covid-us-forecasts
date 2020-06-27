@@ -13,10 +13,11 @@ horizon_days = 14
 models = "aez"
 single_quantile = 0.5
 
+## This function is never called but it looks like the output is used below. I think its a wrapper we don't need
 forecast_case_regressor <- function(data, sample_count, horizon_days, models, single_quantile){
   
-# # Get cases ------------------------------------------------------
-#   source(here::here("utils", "get_us_data.R"))
+# Get cases ------------------------------------------------------
+source(here::here("utils", "get-us-data.R"))
 
 
 # Forecast cases ----------------------------------------------------------------
