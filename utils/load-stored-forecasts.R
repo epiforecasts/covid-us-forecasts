@@ -13,6 +13,8 @@
 #' @examples
 #' 
 
+## Move these to ensembling
+
 get_raw_case_forecasts <- function (results_dir = NULL, date = NULL) {
   if (is.null(date)) {
     date <- "latest"
@@ -91,22 +93,6 @@ load_all_rt_forecasts <- function(forecast_dates = NULL,
     dplyr::group_by(sample, date) %>%
     dplyr::slice(1) %>%
     dplyr::ungroup()
-  
-  
-  # something is broken: 
-  # deaths_subnational %>%
-  #     dplyr::filter(region == "Idaho",
-  #                   date == "2020-05-27") %>%
-  #     .$sample %>%
-  #     unique()
-  
-  # a <- deaths_subnational %>%
-  #   dplyr::filter(region == "Maine", 
-  #                 date == "2020-05-27") %>%
-  #   .$sample %>%
-  #   unique()
-  # 
-  # (1:1000)[!(1:1000 %in% a)]
   
   
   # summarise cases to weekly cases
@@ -188,28 +174,4 @@ get_true_and_forecast <- function(forecast_dates = NULL) {
 }
 
 
-
-# 
-# 
-# 
-# 
-# ## =============================================================================
-# ## TEST ZONE
-# 
-# 
-# testdf %>% 
-#   dplyr::filter(horizon == 1, 
-#                 region == "Idaho") %>%
-# scoringutils::eval_forecasts()
-# 
-# debugonce(scoringutils::eval_forecasts)
-# 
-# ## there is some issue with the dates. This becomes apparent in Idaho 
-# # where there are forecasts for dates where there shouldn't be any. 
-# 
-# testdf %>%
-#   dplyr::group_by(horizon, region) %>%
-#   tidyr::nest() %>%
-#   dplyr::mutate(scores = purrr::map(data, function(x) scoringutils::eval_forecasts(x)))
-# 
 
