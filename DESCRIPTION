@@ -20,7 +20,6 @@ Authors@R: c(
 Description: Forecast deaths from COVID-19 in the US by state.
 Imports:
     data.table,
-    distill,
     dplyr,
     EpiNow,
     EpiSoon,
@@ -39,7 +38,8 @@ Imports:
     sf,
     tidyr,
     readr,
-    stringr
+    stringr,
+    qra
 Remotes: 
     epiforecasts/EpiNow,
     epiforecasts/EpiSoon,
