@@ -5,6 +5,10 @@
 library(magrittr)
 library(data.table)
 
+
+## again mixture of dplyr and data.table 
+## see dplyr::bind_rows and do.call(dplyr::bind_rows)
+## replace paste -> paste0 ideally use here to keep with all other scripts in this repo
 # load deaths data -------------------------------------------------------------
 death_data_inc <- load_observed_deaths(weekly = TRUE) %>%
   dplyr::rename(geography = region, 
