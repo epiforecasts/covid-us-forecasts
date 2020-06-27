@@ -30,7 +30,10 @@ delay_dists <- readRDS(here::here("rt-forecast", "data", "onset_to_death_delay.r
 incubation_defs <- readRDS(here::here("rt-forecast", "data", "incubation.rds"))
 
 # Get and reshape deaths data ---------------------------------------------------------------
-deaths <- readRDS(here::here("data", "deaths_data.rds"))
+source(here::here("utils", "get_us_data.R"))
+
+# deaths <- readRDS(here::here("data", "deaths_data.rds"))
+deaths <- get_us_deaths(data = "daily")
 
 deaths_national <- deaths %>%
   dplyr::group_by(date) %>%
@@ -78,7 +81,7 @@ EpiNow::regional_rt_pipeline(
   target_folder = "rt-forecast/national",
   target_date = target_date,
   nowcast_lag = nowcast_lag,
-  case_limit = 1,
+  case_limit = 0,
   min_forecast_cases = 0,
   approx_delay = TRUE,
   # Settings for forecasting
@@ -101,7 +104,7 @@ EpiNow::regional_rt_pipeline(
   target_folder = "rt-forecast/state", 
   target_date = target_date,
   nowcast_lag = nowcast_lag,
-  case_limit = 1,
+  case_limit = 0,
   min_forecast_cases = 0,
   approx_delay = TRUE,
   # Settings for forecasting
