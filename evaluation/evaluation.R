@@ -7,6 +7,7 @@ library(purrr)
 # it would be less confusing if it stuck to one (there is very little data.table so perhaps
 # these should be recoded.)
 ## Script doesn't run as functions used aren't called
+##  Use here not paste. 
 # ============================================================================ #
 # load all submissions
 # ============================================================================ #
