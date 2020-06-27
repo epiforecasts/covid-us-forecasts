@@ -1,6 +1,8 @@
 library(dplyr)
 
 
+source(here::here("timeseries-forecast", "utils", "format-timeseries-submission.R"))
+
 deaths_on_cases <- format_timeseries_forecast(model_type = "deaths-on-cases")
 readr::write_csv(deaths_on_cases, here::here("timeseries-forecast", "deaths-on-cases",
                                              "submission-files",

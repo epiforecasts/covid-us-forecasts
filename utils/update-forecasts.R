@@ -13,9 +13,6 @@ source(here::here("rt-forecast", "update-us-deaths-rt.R"))
 
 source(here::here("timeseries-forecast", "update-timeseries.R"))
 
-# format timeseries forecasts
-source(here::here("utils", "format-submission-timeseries.R"))
-
 # Ensemble ----------------------------------------------------------------
 
 source(here::here("ensemble-forecast", "qra-ensemble", "quantile-ensembling.R"))

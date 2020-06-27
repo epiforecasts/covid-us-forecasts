@@ -1,7 +1,3 @@
-
-
-
-
 #' @title Format timeseries forecasts to Submission Format
 #' @details
 #' loads timeseries forecasts and converts them to the correct format
@@ -96,5 +92,4 @@ format_timeseries_forecast <- function(model_type){
   # Return
   return(full)
 }
-
 

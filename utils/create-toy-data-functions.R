@@ -29,7 +29,7 @@
 #' data.table::fwrite(toy2, here::here("evaluation", "observed_vs_forecast", "toy2-forecast-vs-obs.csv"))
 #' 
 
-
+# If this is for ensembling it needs to be in the ensembling folder
 
 
 # create toy data and save as csv

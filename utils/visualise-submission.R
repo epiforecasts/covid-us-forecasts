@@ -1,5 +1,5 @@
 library(tidyverse)
-
+# Link to the script in which this is called
 plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Date(), cutoff = 25){
   
   forecast_date <- lubridate::floor_date(forecast_date, unit = "week", week_start = 1)
