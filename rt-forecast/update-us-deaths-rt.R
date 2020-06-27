@@ -132,15 +132,11 @@ run_rt_forecast <- function(target_date = NULL) {
 }
 
 
-# can be deleted? 
-# # 
-# # require(drat)
+
+# install.packages("drat")
 # drat::addRepo("epiforecasts")
-# # install.packages("EpiSoon")
-# require(devtools)
-# devtools::install_deps()
-# devtools::install_deps(repos = "https://epiforecasts.io/drat/")
-# 
+# devtools::install_dev_deps()
+
 
 # # Packages -----------------------------------------------------------------
 require(EpiNow)
