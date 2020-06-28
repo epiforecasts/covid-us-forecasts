@@ -82,7 +82,7 @@ load_observed_deaths <- function(weekly = FALSE,
                   epiweek = as.numeric(paste0(epiweek, ".", as.numeric(day))))
   
   true_deaths_national <- true_deaths %>%
-    dplyr::group_by(date, epiweek) %>%
+    dplyr::group_by(date, epiweek, day, week) %>%
     dplyr::summarise(deaths = sum(deaths)) %>%
     dplyr::mutate(region = "US")
   
@@ -95,6 +95,7 @@ load_observed_deaths <- function(weekly = FALSE,
   ## dplyr
   if (weekly) {
     true_deaths[, date := NULL]
+    true_deaths[, day := NULL]
     true_deaths[, `:=` (deaths = sum(deaths),
                         period = "weekly"), by = c("region", "epiweek", "data_type")]
     true_deaths <- unique(true_deaths)
@@ -106,7 +107,7 @@ load_observed_deaths <- function(weekly = FALSE,
     if (weekly) {
       true_deaths <- true_deaths[,  .(deaths = cumsum(deaths),
                                       data_type = "cumulative", 
-                                      period = period), by = c("region", "epiweek")]
+                                      period = period), by = c("region", "epiweek", "week")]
     } else {
       true_deaths[, `:=` (deaths = cumsum(deaths),
                           data_type = "cumulative"), by = c("region", "date")]
@@ -129,6 +130,8 @@ load_observed_deaths <- function(weekly = FALSE,
   
   return(true_deaths)
 }
+
+
 
 
 

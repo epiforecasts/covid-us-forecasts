@@ -4,7 +4,8 @@
 
 library(magrittr)
 library(data.table)
-
+library(dplyr)
+source(here::here("utils", "get-us-data.R"))
 
 ## again mixture of dplyr and data.table 
 ## see dplyr::bind_rows and do.call(dplyr::bind_rows)
@@ -29,8 +30,13 @@ death_data_cum <- load_observed_deaths(weekly = TRUE, cumulative = TRUE) %>%
   dplyr::select(-week, -period, -data_type)
 
 
-death_data <- data.table::rbindlist(list(death_data_inc, death_data_cum))
+death_data <- data.table::rbindlist(list(death_data_inc, death_data_cum), 
+                                    use.names = TRUE)
 
+# remove epiweek column --> ensembling is based on the target_date
+death_data <- death_data %>%
+  dplyr::select(-epiweek) %>%
+  dplyr::rename(location = state_code)
 
 # load previous forecasts ------------------------------------------------------
 # rt files
@@ -110,6 +116,8 @@ qra_forecast <- res$ensemble %>%
                 type = "quantile") %>%
   dplyr::select(forecast_date, target, target_end_date, location, type, quantile, value)
 
+forecast_date <- qra_forecast$forecast_date %>%
+  unique()
 
 data.table::fwrite(qra_forecast, here::here("ensemble-forecast", "qra-ensemble", "submission-files",
                                     paste0(forecast_date, "-epiforecasts-ensemble1.csv")))
@@ -129,86 +137,3 @@ data.table::fwrite(qra_forecast, here::here("ensemble-forecast", "qra-ensemble",
 
 
 
-
-
-# old code
-
-
-
-# 
-# 
-# 
-# # read in csvs ----------------------------------------------------------------- 
-# # list all submissions and take the most recent one
-# # alternatively switch to using a date in the future?
-# paths <- list()
-# 
-# 
-# ## get path of rt-submission
-# rt_files <- list.files(here::here("rt-forecast", "submission-files"))
-# rt_file <- sort(rt_files, decreasing = TRUE)[1]
-# paths[["rt-forecast"]] <- here::here("rt-forecast", "submission-files", rt_file)
-# 
-# ## get path of timeseries-submissions
-# # deaths-on-cases
-# paths[["timeseries-deaths-on-cases"]] <- here::here("timeseries-forecast", 
-#                                                     "deaths-on-cases",
-#                                                     "submission-files",
-#                                                     "latest-weekly-deaths-on-cases.csv")
-# 
-# # deaths only
-# paths[["timeseries-deaths-only"]] <- here::here("timeseries-forecast",
-#                                                 "deaths-only",
-#                                                 "submission-files",
-#                                                 "latest-weekly-deaths-only.csv")
-# 
-# # get forecast_date
-# forecast_date <- stringr::str_remove(rt_file, "-rt-forecast-submission.csv")
-# 
-# # load in all csvs
-# data <- purrr::map_dfr(paths, 
-#                        .f = data.table::fread, 
-#                        .id = "model")
-# 
-# 
-# # average quantiles ------------------------------------------------------------
-# 
-# # store models as strings
-# models <- data$model %>% 
-#   unique() 
-# n_models <- length(models)
-# 
-# # locations to submit --> take from rt forecast
-# locations <- data %>%
-#   dplyr::filter(model == "rt-forecast") %>%
-#   .$location %>%
-#   unique()
-# 
-# # pivot into wide format
-# data <- data %>%
-#   dplyr::mutate(quantile = round(quantile, digits = 2)) %>%
-#   tidyr::pivot_wider(names_from = model, 
-#                      values_from = value)
-# 
-# # get / set weights
-# w <- rep(1/n_models, n_models)
-# 
-# # take row means (replace with weighted mean in the futurue)
-# data <- as.data.table(data)[, ensemble := .(matrixStats::rowWeightedMeans(as.matrix(.SD), 
-#                                                                           na.rm = TRUE, 
-#                                                                           w = w)), 
-#                             .SDcols = models]
-# 
-# # deselect all old model columns and rename ensemble to value
-# data <- data %>%
-#   dplyr::select(!any_of(models)) %>%
-#   dplyr::rename(value = ensemble)
-# 
-# # filter out locations
-# data <- dplyr::filter(data, 
-#                       location %in% locations)
-# 
-# # store as csv submission ------------------------------------------------------
-# data.table::fwrite(data, here::here("final-submissions", "death-forecast", 
-#                                     paste0(forecast_date, "-epiforecasts-ensemble1.csv")))
-# 
