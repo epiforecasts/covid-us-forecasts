@@ -129,7 +129,9 @@ plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Da
 library(RColorBrewer)
 
 submission_date <- Sys.Date()
-submission_plot <- plot_forecasts()
+national_plot <- plot_forecasts()
+subnational_plot <- plot_forecasts(national = FALSE)
+
 
 if(!dir.exists(here::here("visualise-submission", "submission-plots", 
                           submission_date))) {
@@ -138,5 +140,10 @@ if(!dir.exists(here::here("visualise-submission", "submission-plots",
 }
 
 ggsave(here::here("visualise-submission", "submission-plots", 
-                  submission_date, "submission_plot.png"), 
-       plot = submission_plot)
+                  submission_date, "submission_national.png"), 
+       plot = national_plot)
+
+ggsave(here::here("visualise-submission", "submission-plots", 
+                  submission_date, "submission_subnational.png"), 
+       plot = subnational_plot, 
+       width = 20, height = 20)
