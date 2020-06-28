@@ -36,11 +36,16 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
   cumulative_deaths_national <- cumulative_data %>%
     dplyr::group_by(epiweek) %>%
     dplyr::filter(date == max(date)) %>%
-    suppressMessages(dplyr::summarise(deaths = sum(deaths)))
+    dplyr::summarise(deaths = sum(deaths),
+                     state = "US")
 
   cumulative_deaths <- dplyr::bind_rows(cumulative_deaths_state, cumulative_deaths_national)
 
-
+  last_week_cumulative_deaths <- cumulative_deaths %>%
+    dplyr::filter(epiweek == lubridate::epiweek(forecast_date-1),
+                  state == loc_name) %>%
+    .$deaths
+  
 
   # Weekly
   weekly_data <- readRDS(here::here("data", "deaths-data-daily.rds")) %>%
@@ -48,12 +53,12 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
   
   weekly_deaths_state <- weekly_data %>%
     dplyr::group_by(state, epiweek) %>%
-    suppressMessages(dplyr::summarise(deaths = sum(deaths))) %>%
+    dplyr::summarise(deaths = sum(deaths)) %>%
     dplyr::ungroup()
   
   weekly_deaths_national <- weekly_data %>%
     dplyr::group_by(epiweek) %>%
-    suppressMessages(dplyr::summarise(deaths = sum(deaths)))
+    dplyr::summarise(deaths = sum(deaths))
   
   weekly_deaths <- dplyr::bind_rows(weekly_deaths_state, weekly_deaths_national)
   
@@ -117,8 +122,8 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
                       epiweek = lubridate::epiweek(date)) %>% 
         dplyr::filter(epiweek >= forecast_date_epiweek) %>%
         dplyr::group_by(sample, epiweek) %>%
-        suppressMessages(dplyr::summarise(epiweek_cases = sum(cases, na.rm = TRUE),
-                         epiweek_end_date = max(date))) %>%
+        dplyr::summarise(epiweek_cases = sum(cases, na.rm = TRUE),
+                         epiweek_end_date = max(date)) %>%
         dplyr::ungroup()
 
 # Cumulative results ------------------------------------------------------
@@ -194,6 +199,7 @@ require(here)
 require(stringr)
 require(dplyr)
 require(purrr)
+require(tigris)
 
 # Control parameters ------------------------------------------------------
 
@@ -215,18 +221,23 @@ saveRDS(deaths_data_daily, file = here::here("data", "deaths-data-daily.rds"))
 # Find forecasts ----------------------------------------------------------
 
 forecasts <- c(list.dirs(file.path(forecast_dir, "state"), recursive = FALSE),
-               list.dirs(file.path(forecast_dir, "national"), recursive = FALSE))
+                     list.dirs(file.path(forecast_dir, "national"), recursive = FALSE))
+
 
 names(forecasts) <- forecasts %>%
   stringr::str_remove(file.path(forecast_dir, "state/")) %>%
   stringr::str_remove(file.path(forecast_dir, "national/"))
+                    
 
+                      
+                      
 # Extract forecasts -------------------------------------------------------
 
 region_forecasts <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts),
                                     ~ format_rt_forecast(loc = .x, loc_name = .y,
                                                          forecast_date = forecast_date,
                                                          forecast_adjustment = 11 + 5))
+
 
 # Add state codes
 
