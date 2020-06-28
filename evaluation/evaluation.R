@@ -63,7 +63,7 @@ forecasts <- data.table::rbindlist(list(rt_forecasts, deaths_only_forecasts,
 # load death data
 # ============================================================================ #
 
-source(here::here("utils", "load-stored-forecasts.R"))
+source(here::here("utils", "load-observed-deaths.R"))
 
 # load incidence data ----------------------------------------------------------
 death_data_inc <- load_observed_deaths(weekly = TRUE) %>%
@@ -86,7 +86,8 @@ death_data_cum <- load_observed_deaths(weekly = TRUE, cumulative = TRUE) %>%
   dplyr::select(-week, -period, -data_type)
 
 # bind together ----------------------------------------------------------------
-death_data <- data.table::rbindlist(list(death_data_inc, death_data_cum)) %>%
+death_data <- data.table::rbindlist(list(death_data_inc, death_data_cum), 
+                                    use.names = TRUE) %>%
   dplyr::rename(location = state_code) 
 
 
@@ -120,7 +121,7 @@ combined <- combined %>%
 data <- combined %>%
   tidyr::pivot_wider(values_from = value, names_from = c(boundary), 
                      id_cols = c(forecast_date, target, target_end_date, 
-                                 location, model, range, geography, obs_deaths)) %>%
+                                 location, model, range, geography, obs_deaths, epiweek)) %>%
   as.data.table()
 
 
@@ -152,7 +153,11 @@ plotdf %>%
   theme(text = element_text(family = "Sans Serif"))
 
 
+eval_date <- Sys.Date()
 
+if(!dir.exists(here::here("evaluation-plots", eval_date))) {
+  dir.create(here::here("evaluation-plots", eval_date))
+}
 
 
 
