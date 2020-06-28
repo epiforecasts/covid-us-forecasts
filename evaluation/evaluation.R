@@ -141,7 +141,7 @@ library(ggplot2)
 plotdf <- summarised_scores %>%
   dplyr::filter(grepl("inc", target)) 
 
-plotdf %>%
+plot <- plotdf %>%
   ggplot(aes(x = interval_score, y = model, 
              color = model)) +
   geom_linerange(aes(xmin = quantile(interval_score, 0.25), 
@@ -155,10 +155,12 @@ plotdf %>%
 
 eval_date <- Sys.Date()
 
-if(!dir.exists(here::here("evaluation-plots", eval_date))) {
-  dir.create(here::here("evaluation-plots", eval_date))
+if(!dir.exists(here::here("evaluation", "evaluation-plots", eval_date))) {
+  dir.create(here::here("evaluation", "evaluation-plots", eval_date))
 }
 
+ggsave(here::here("evaluation", "evaluation-plots", eval_date, "interval_scores.png"), 
+       plot = plot)
 
 
 
