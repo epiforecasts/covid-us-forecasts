@@ -63,6 +63,8 @@ forecasts <- data.table::rbindlist(list(rt_forecasts, deaths_only_forecasts,
 # load death data
 # ============================================================================ #
 
+source(here::here("utils", "load-stored-forecasts.R"))
+
 # load incidence data ----------------------------------------------------------
 death_data_inc <- load_observed_deaths(weekly = TRUE) %>%
   dplyr::rename(geography = region, 
@@ -115,11 +117,6 @@ combined <- combined %>%
 
 
 # pivot wider
-combined <- combined %>%
-  tidyr::pivot_wider(values_from = value, names_from = c(boundary, range), 
-                     id_cols = c(forecast_date, target, target_end_date, location, model))
-
-
 data <- combined %>%
   tidyr::pivot_wider(values_from = value, names_from = c(boundary), 
                      id_cols = c(forecast_date, target, target_end_date, 
@@ -127,9 +124,35 @@ data <- combined %>%
   as.data.table()
 
 
-
+# score and summarise
 data[, `:=`("Interval_Score", scoringutils::interval_score(obs_deaths, 
                                                            lower, upper, range))]
+
+summarised_scores <- data %>%
+  dplyr::group_by(forecast_date, target, geography, model) %>%
+  dplyr::summarise(interval_score = mean(Interval_Score, na.rm = TRUE)) 
+
+
+## plotting
+# currently not working as intended I think
+library(ggplot2)
+
+plotdf <- summarised_scores %>%
+  dplyr::filter(grepl("inc", target)) 
+
+plotdf %>%
+  ggplot(aes(x = interval_score, y = model, 
+             color = model)) +
+  geom_linerange(aes(xmin = quantile(interval_score, 0.25), 
+                 xmax = quantile(interval_score, 0.75))) +
+  geom_point(aes(x = median(interval_score))) + 
+  # facet_wrap(~target) + 
+  cowplot::theme_cowplot() +
+  coord_cartesian(xlim=c(0, quantile(plotdf$interval_score, 0.8))) + 
+  theme(text = element_text(family = "Sans Serif"))
+
+
+
 
 
 
