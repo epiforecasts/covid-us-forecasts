@@ -57,7 +57,8 @@ plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Da
     mutate(week = as.Date(target_end_date) - 6) %>%
     select(week_beginning = week, state = state_name, target, type, quantile, value) %>%
     mutate(model = "timeseries_deaths_only") %>%
-  filter(week_beginning <= max(forecast_data$week_beginning)) %>% View()
+  filter(week_beginning <= max(forecast_data$week_beginning)) 
+  
   ts_cases_file <- here::here("timeseries-forecast/deaths-on-cases/submission-files/latest-weekly-deaths-on-cases.csv")
   ts_cases <- read.csv(ts_cases_file) %>%
     tibble() %>%
@@ -124,3 +125,18 @@ plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Da
     theme(legend.position = "top")
   
 }
+
+library(RColorBrewer)
+
+submission_date <- Sys.Date()
+submission_plot <- plot_forecasts()
+
+if(!dir.exists(here::here("visualise-submission", "submission-plots", 
+                          submission_date))) {
+  dir.create(here::here("visualise-submission", "submission-plots", 
+                        submission_date))
+}
+
+ggsave(here::here("visualise-submission", "submission-plots", 
+                  submission_date, "submission_plot.png"), 
+       plot = submission_plot)
