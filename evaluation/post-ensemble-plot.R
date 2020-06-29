@@ -25,29 +25,38 @@ weekly_deaths_national <- weekly_deaths_state %>%
 # Get forecasts -----------------------------------------------------------
 
 ## Get most recent Rt forecast 
-rt_files <- list.files(here::here("rt-forecast", "submission-files"))
-latest_rt_file <- sort(rt_files, decreasing = TRUE)[1]
-rt_path <- paste("rt-forecast/submission-files/", latest_rt_file, sep = "")
-
-rt_forecasts <- readr::read_csv(rt_path) %>%
+rt_forecasts <- readr::read_csv(here::here("rt-forecast", "submission-files",
+                                           "latest-rt-forecast-submission.csv")) %>%
   dplyr::mutate(model = "Rt")
 
 ## Get timeseries forecasts
-ts_deaths_only <- readr::read_csv(here::here("timeseries-forecast", "deaths-only", "latest-weekly-deaths-only.csv")) %>%
+ts_deaths_only <- readr::read_csv(here::here("timeseries-forecast", "deaths-only",
+                                             "submission-files",
+                                             "latest-weekly-deaths-only.csv")) %>%
   dplyr::mutate(model = "TS deaths")
-ts_deaths_on_cases <- readr::read_csv(here::here("timeseries-forecast", "deaths-on-cases", "latest-weekly-deaths-on-cases.csv")) %>%
+
+ts_deaths_on_cases <- readr::read_csv(here::here("timeseries-forecast", "deaths-on-cases",
+                                                 "submission-files", 
+                                                 "latest-weekly-deaths-on-cases.csv")) %>%
   dplyr::mutate(model = "TS deaths on cases")
 
-## Get ensemble
-ensemble_files <- list.files(here::here("ensembling", "qra-ensemble", "submission-files"))
-latest_ensemble <- sort(ensemble_files, decreasing = TRUE)[1]
-ensemble_path <- paste("ensembling/qra-ensemble/submission-files/", latest_ensemble, sep = "")
+## Get QRA ensemble
+qra_ensemble <- readr::read_csv(here::here("ensembling", "qra-ensemble",
+                                       "submission-files",
+                                       "latest-epiforecasts-ensemble1-qra.csv")) %>%
+  dplyr::mutate(model = "QRA ensemble")
 
-ensemble <- readr::read_csv(ensemble_path) %>%
-  dplyr::mutate(model = "Ensemble")
+## Get mean average ensemble
+mean_ensemble <- readr::read_csv(here::here("ensembling", "quantile-average",
+                                       "submission-files",
+                                       "latest-epiforecasts-ensemble1-qa.csv")) %>%
+  dplyr::mutate(model = "Mean ensemble")
 
-# Join and add state names
-forecasts <- dplyr::bind_rows(rt_forecasts, ts_deaths_only, ts_deaths_on_cases, ensemble) %>%
+
+# Join forecasts ----------------------------------------------------------
+# and add state names
+forecasts <- dplyr::bind_rows(rt_forecasts, ts_deaths_only, ts_deaths_on_cases, 
+                              qra_ensemble, mean_ensemble) %>%
   dplyr::left_join(tigris::fips_codes %>%
               dplyr::select(state_code, state = state_name) %>%
               unique() %>%
@@ -55,38 +64,17 @@ forecasts <- dplyr::bind_rows(rt_forecasts, ts_deaths_only, ts_deaths_on_cases, 
               by = c("location" = "state_code"))
 
 
-
-# # Select which states to keep -------------------------------------------
-
-# over 100 cases in the last week
-keep_states <- dplyr::filter(weekly_deaths_state, epiweek == max(epiweek)-1 & deaths > 99) %>%
-  dplyr::pull(state)
-
-observed_deaths_state <- dplyr::filter(weekly_deaths_state, state %in% keep_states) %>%
-  dplyr::mutate(model = "Observed") %>%
-  dplyr::select(-epiweek, c0.5 = deaths)
-
-observed_deaths_national <- weekly_deaths_national %>%
-  dplyr::mutate(model = "Observed") %>%
-  dplyr::select(-epiweek, c0.5 = deaths)
-
-
 # Reshape forecasts and add observed data --------------------------------------------------------------------
-
+# Filter to incidence forecasts and pivot forecasts for plotting
 forecasts_state <- forecasts %>%
-  filter(state %in% keep_states,
-         grepl("inc", target)) %>%
+  filter(grepl("inc", target)) %>%
   group_by(state, target_end_date, model) %>%
   mutate(quantile = stringr::str_c("c", quantile)) %>%
   filter(quantile %in% c("c0.05", "c0.25", "c0.5", "c0.75", "c0.95")) %>%
-  tidyr::pivot_wider(id_cols = c(state, target_end_date, model), names_from = quantile, values_from = value) %>%
+  tidyr::pivot_wider(id_cols = c(state, target_end_date, model), 
+                     names_from = quantile, values_from = value) %>%
   ungroup() 
   
-plot_state <- bind_rows(forecasts_state, observed_deaths_state) %>%
-  mutate(model = factor(model, levels = c("Observed", "Ensemble", "Rt", "TS deaths", "TS deaths on cases")))
-
-
-
 forecasts_national <- forecasts %>%
   filter(state %in% "US",
          grepl("inc", target)) %>%
@@ -96,9 +84,34 @@ forecasts_national <- forecasts %>%
   tidyr::pivot_wider(id_cols = c(state, target_end_date, model), names_from = quantile, values_from = value) %>%
   ungroup()
 
+# Set observed data to match format
+observed_deaths_state <- dplyr::filter(weekly_deaths_state) %>%
+  dplyr::mutate(model = "Observed") %>%
+  dplyr::select(-epiweek, c0.5 = deaths)
+
+observed_deaths_national <- weekly_deaths_national %>%
+  dplyr::mutate(model = "Observed") %>%
+  dplyr::select(-epiweek, c0.5 = deaths)
+
+# Identify and filter which states to keep -------------------------------------------
+
+# Identify over 100 cases in the last week
+source(here::here("utils", "states-min-last-week.R"))
+keep_states <- states_min_last_week(min_last_week = 100, last_week = 1)
+
+
+plot_state <- dplyr::bind_rows(forecasts_state, observed_deaths_state) %>%
+  dplyr::filter(state %in% keep_states$state) %>%
+  dplyr::mutate(model = factor(model, levels = c("Observed", "Mean ensemble", "QRA ensemble",
+                                          "Rt", "TS deaths", "TS deaths on cases")))
+
+
 plot_national <- bind_rows(forecasts_national, observed_deaths_national) %>%
   mutate(state = "US",
-    model = factor(model, levels = c("Observed", "Ensemble", "Rt", "TS deaths", "TS deaths on cases")))
+         model = factor(model, 
+                        levels = c("Observed", "Mean ensemble", "QRA ensemble", 
+                                   "Rt", "TS deaths", "TS deaths on cases")))
+
 
 
 # Plot --------------------------------------------------------------------
@@ -120,7 +133,8 @@ plot_state %>%
   cowplot::theme_cowplot() +
   theme(legend.position = "bottom")
 
-ggsave(filename = "ensemble-plot-state.png", path = here::here("evaluation"))
+ggsave(filename = "ensemble-plot-state.png", path = here::here("evaluation"),
+      width = 10, height = 6, dpi = 300)
 
 
 plot_national %>%

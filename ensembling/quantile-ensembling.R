@@ -11,6 +11,8 @@
 library(magrittr)
 library(data.table)
 library(dplyr)
+library(qra)
+
 source(here::here("utils", "get-us-data.R"))
 source(here::here("ensembling", "load-observed-deaths.R"))
 
@@ -47,16 +49,17 @@ death_data <- death_data %>%
 
 # load previous forecasts ------------------------------------------------------
 # rt files
-rt_files <- list.files(here::here("rt-forecast", "submission-files"))
-rt_paths <- paste("rt-forecast/submission-files/", rt_files, sep = "")
+rt_files <- list.files(here::here("rt-forecast", "submission-files", "dated"))
+rt_paths <- paste("rt-forecast/submission-files/dated/", rt_files, sep = "")
 
 rt_forecasts <- purrr::map_dfr(rt_paths, 
                                .f = data.table::fread) %>%
   dplyr::mutate(model = "Rt forecast")
 
 # timeseries forecasts
-deaths_only_files <- list.files(here::here("timeseries-forecast", "deaths-only", "submission-files"))
-deaths_only_paths <- paste("timeseries-forecast/deaths-only/submission-files/", 
+deaths_only_files <- list.files(here::here("timeseries-forecast", "deaths-only", 
+                                           "submission-files", "dated"))
+deaths_only_paths <- paste("timeseries-forecast/deaths-only/submission-files/dated/", 
                            deaths_only_files, sep = "")
 
 deaths_only_forecasts <- purrr::map_dfr(deaths_only_paths, 
@@ -65,8 +68,9 @@ deaths_only_forecasts <- purrr::map_dfr(deaths_only_paths,
 
 
 # timeseries forecasts
-deaths_on_cases_files <- list.files(here::here("timeseries-forecast", "deaths-on-cases", "submission-files"))
-deaths_on_cases_paths <- paste("timeseries-forecast/deaths-on-cases/submission-files/", 
+deaths_on_cases_files <- list.files(here::here("timeseries-forecast", "deaths-on-cases", 
+                                               "submission-files", "dated"))
+deaths_on_cases_paths <- paste("timeseries-forecast/deaths-on-cases/submission-files/dated/", 
                                deaths_on_cases_files, sep = "")
 
 
@@ -106,9 +110,14 @@ forecasts <- forecasts %>%
 
 
 # do quantile regression and format output -------------------------------------
+library(future)
+library(future.apply)
+library(purrr)
+library(scoringutils)
 
-res <- qra::qra(forecasts, death_data, pool = c("horizon", "geography"),
-                min_date = max(forecasts$creation_date) - 13)
+res <- qra::qra(forecasts, death_data, pool = c("horizon", "geography", "value_type"),
+                min_date = max(forecasts$creation_date) - 13, 
+                enforce_normalisation = FALSE)
 
 # format results
 # weekly incidences
@@ -126,6 +135,13 @@ qra_forecast <- res$ensemble %>%
 forecast_date <- qra_forecast$forecast_date %>%
   unique()
 
-data.table::fwrite(forecasts, here::here("ensembling", "qra-ensemble", "submission-files",
-                                            paste0(forecast_date, "-epiforecasts-ensemble1.csv")))
+# Save --------------------------------------------------------------------
 
+# Save in QRA folder
+# Dated
+data.table::fwrite(qra_forecast, here::here("ensembling", "qra-ensemble", 
+                                         "submission-files", "dated", 
+                                          paste0(forecast_date, "-epiforecasts-ensemble1-qra.csv")))
+# Latest
+data.table::fwrite(qra_forecast, here::here("ensembling", "qra-ensemble", "submission-files",
+                                         "latest-epiforecasts-ensemble1-qra.csv"))
