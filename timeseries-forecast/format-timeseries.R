@@ -136,6 +136,7 @@ deaths_only <- format_timeseries(right_truncate_weeks = 1, model_type = model_ty
 forecast_date <- unique(deaths_only$forecast_date)
 # Save under "latest"
 readr::write_csv(deaths_only, here::here("timeseries-forecast", model_type, 
+                                         "submission-files",
                                          paste0("latest-weekly-", model_type, ".csv")))
 # Save under forecast date
 readr::write_csv(deaths_only, here::here("timeseries-forecast", model_type, "submission-files", 
@@ -150,6 +151,7 @@ forecast_date <- unique(deaths_on_cases$forecast_date)
 
 # Save under "latest"
 readr::write_csv(deaths_on_cases, here::here("timeseries-forecast", model_type, 
+                                             "submission-files",
                                              paste0("latest-weekly-", model_type, ".csv")))
 # Save under forecast date
 readr::write_csv(deaths_on_cases, here::here("timeseries-forecast", model_type, "submission-files", 

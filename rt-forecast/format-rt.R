@@ -250,9 +250,12 @@ region_forecasts <- region_forecasts %>%
   dplyr::select(-state_name, -state_code)
 
 # Save forecast -----------------------------------------------------------
-
+# Dated
 readr::write_csv(region_forecasts,
-                 paste0("rt-forecast/submission-files/", forecast_date, "-rt-forecast-submission.csv"))
+                 paste0("rt-forecast/submission-files/dated/", forecast_date, "-rt-forecast-submission.csv"))
+#Latest
+readr::write_csv(region_forecasts,
+                 paste0("rt-forecast/submission-files/latest-rt-forecast-submission.csv"))
 
 
 
