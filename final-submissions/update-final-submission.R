@@ -11,7 +11,7 @@ submit_ensemble <- readr::read_csv(here::here("ensembling", "quantile-average", 
 source(here::here("utils", "states-min-last-week.R"))
 keep_states <- states_min_last_week(min_last_week = 100, last_week = 1)
 
-submit_ensemble <- dplyr::filter(submit_ensemble, location %in% keep_states$state_code)
+submit_ensemble <- dplyr::filter(submit_ensemble, location %in% c(keep_states$state_code, "US"))
 
 # Set forecast date
 forecast_date <- unique(dplyr::pull(submit_ensemble, forecast_date))
