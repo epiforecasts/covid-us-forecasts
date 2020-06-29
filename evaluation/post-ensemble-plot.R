@@ -41,10 +41,10 @@ ts_deaths_on_cases <- readr::read_csv(here::here("timeseries-forecast", "deaths-
   dplyr::mutate(model = "TS deaths on cases")
 
 ## Get QRA ensemble
-qra_ensemble <- readr::read_csv(here::here("ensembling", "qra-ensemble",
-                                       "submission-files",
-                                       "latest-epiforecasts-ensemble1-qra.csv")) %>%
-  dplyr::mutate(model = "QRA ensemble")
+# qra_ensemble <- readr::read_csv(here::here("ensembling", "qra-ensemble",
+#                                        "submission-files",
+#                                        "latest-epiforecasts-ensemble1-qra.csv")) %>%
+#   dplyr::mutate(model = "QRA ensemble")
 
 ## Get mean average ensemble
 mean_ensemble <- readr::read_csv(here::here("ensembling", "quantile-average",
@@ -55,8 +55,8 @@ mean_ensemble <- readr::read_csv(here::here("ensembling", "quantile-average",
 
 # Join forecasts ----------------------------------------------------------
 # and add state names
-forecasts <- dplyr::bind_rows(rt_forecasts, ts_deaths_only, ts_deaths_on_cases, 
-                              qra_ensemble, mean_ensemble) %>%
+forecasts <- dplyr::bind_rows(rt_forecasts, ts_deaths_only, ts_deaths_on_cases, #qra_ensemble
+                              mean_ensemble) %>%
   dplyr::left_join(tigris::fips_codes %>%
               dplyr::select(state_code, state = state_name) %>%
               unique() %>%
@@ -102,14 +102,14 @@ keep_states <- states_min_last_week(min_last_week = 100, last_week = 1)
 
 plot_state <- dplyr::bind_rows(forecasts_state, observed_deaths_state) %>%
   dplyr::filter(state %in% keep_states$state) %>%
-  dplyr::mutate(model = factor(model, levels = c("Observed", "Mean ensemble", "QRA ensemble",
+  dplyr::mutate(model = factor(model, levels = c("Observed", "Mean ensemble", #"QRA ensemble",
                                           "Rt", "TS deaths", "TS deaths on cases")))
 
 
 plot_national <- bind_rows(forecasts_national, observed_deaths_national) %>%
   mutate(state = "US",
          model = factor(model, 
-                        levels = c("Observed", "Mean ensemble", "QRA ensemble", 
+                        levels = c("Observed", "Mean ensemble", #"QRA ensemble", 
                                    "Rt", "TS deaths", "TS deaths on cases")))
 
 

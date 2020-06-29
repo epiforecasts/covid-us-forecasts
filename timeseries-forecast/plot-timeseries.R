@@ -7,9 +7,14 @@ source(here::here("utils", "get-us-data.R"))
 
 model_type <- "deaths-only"
 right_truncate_weeks = 1
+date <- "2020-06-08-"
+
+# weekly_forecast <- readRDS(here::here("timeseries-forecast", model_type,
+#                                       paste0("latest-weekly-", model_type, ".rds")))
 
 weekly_forecast <- readRDS(here::here("timeseries-forecast", model_type,
-                                      paste0("latest-weekly-", model_type, ".rds")))
+                                      "raw-rds",
+                                      paste0(date, model_type, ".rds")))
 
 
 # States ------------------------------------------------------------------
@@ -62,7 +67,7 @@ plot_state <- fc_state %>%
   
   
 ggplot2::ggsave(filename = paste0("state-forecast-", model_type, ".png"), plot = plot_state, 
-                path = here::here("timeseries-forecast", model_type),
+                path = here::here("timeseries-forecast", model_type, "raw-rds"),
                 width = 12, height = 6, dpi = 300)
 
 # National ----------------------------------------------------------------
@@ -105,5 +110,5 @@ plot_national <- fc_national %>%
                 title = paste0("Incident deaths in US states, from ", model_type, " model"))
 
 ggplot2::ggsave(filename = paste0("national-forecast-", model_type, ".png"), plot = plot_national, 
-                path = here::here("timeseries-forecast", model_type))
+                path = here::here("timeseries-forecast", model_type, "raw-rds"))
   

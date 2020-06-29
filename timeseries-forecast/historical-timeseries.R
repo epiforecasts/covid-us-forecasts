@@ -23,12 +23,15 @@ cases_national <- cases_state %>%
   mutate(state = "US")
 
 
+weeks_into_past <- 1
+right_truncation <- 1
 
 # Set forecast parameters -------------------------------------------------
+right_truncate_weeks <- weeks_into_past + right_truncation
 
 sample_count <- 1000
 horizon_weeks <- 6
-right_truncate_weeks <- 2
+
 format <- TRUE
 quantiles_out <- c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99)
 case_quantile <- 0.5
@@ -54,7 +57,7 @@ national_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_national,
 
 # Bind and save daily forecast
 deaths_only_forecast <- bind_rows(national_deaths_only_forecast, state_deaths_only_forecast) %>%
-  mutate(date_created = date_created - (7 * right_truncate_weeks))
+  mutate(date_created = date_created - (7 * weeks_into_past))
 
 date_created <- pull(deaths_only_forecast, date_created)[1]
 
@@ -87,7 +90,7 @@ national_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cas
 
 # Bind and save
 deaths_on_cases_forecast <- bind_rows(national_deaths_on_cases_forecast, state_deaths_on_cases_forecast) %>%
-  mutate(date_created = date_created - (7 * right_truncate_weeks))
+  mutate(date_created = date_created - (7 * weeks_into_past))
 
 date_created <- pull(deaths_on_cases_forecast, date_created)[1]
 
@@ -99,7 +102,7 @@ saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-on-cases
 
 # Format ------------------------------------------------------------------
 
-format_timeseries <- function(model_type, right_truncate_weeks){
+format_timeseries <- function(model_type, right_truncate_weeks, date_created){
   
 # Raw data set up -------------------------------------------------------------
 
@@ -227,7 +230,9 @@ return(out)
 # Deaths only
 
 model_type <- "deaths-only"
-deaths_only <- format_timeseries(right_truncate_weeks = 1, model_type = model_type)
+deaths_only <- format_timeseries(right_truncate_weeks = right_truncate_weeks, 
+                                 model_type = model_type,
+                                 date_created = date_created)
 forecast_date <- unique(deaths_only$forecast_date)
 
 # Save under forecast date
@@ -239,7 +244,9 @@ readr::write_csv(deaths_only, here::here("timeseries-forecast", model_type,
 # Deaths on cases
 
 model_type <- "deaths-on-cases"
-deaths_on_cases <- format_timeseries(right_truncate_weeks = 1, model_type = model_type)
+deaths_on_cases <- format_timeseries(right_truncate_weeks = right_truncate_weeks, 
+                                     model_type = model_type,
+                                     date_created = date_created)
 forecast_date <- unique(deaths_on_cases$forecast_date)
 
 # Save under forecast date
