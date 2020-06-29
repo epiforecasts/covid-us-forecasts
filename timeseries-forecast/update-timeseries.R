@@ -2,7 +2,7 @@
 library(magrittr); library(dplyr)
 
 # Set up functions and data -----------------------------------------------
-source(here::here("utils", "get_us_data.R"))
+source(here::here("utils", "get-us-data.R"))
 source(here::here("timeseries-forecast", "deaths-only", "ts-deaths-only-forecast.R"))
 source(here::here("timeseries-forecast", "deaths-on-cases", "ts-deaths-on-cases-forecast.R"))
 
@@ -57,13 +57,6 @@ deaths_only_forecast <- bind_rows(national_deaths_only_forecast, state_deaths_on
 saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", paste0(Sys.Date(), "-weekly-deaths-only.rds")))
 saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "latest-weekly-deaths-only.rds"))
 
-# # Format to weekly and save for ensemble
-# incident_deaths_only <- format_timeseries_forecast(model_type = "deaths-only", weekly_count = "incident")
-# readr::write_csv(incident_deaths_only, here::here("timeseries-forecast", "deaths-only", "latest-weekly-inc-deaths-only.csv"))
-# 
-# cumulative_deaths_only <- format_timeseries_forecast(model_type = "deaths-only", weekly_count = "cumulative")
-# readr::write_csv(cumulative_deaths_only, here::here("timeseries-forecast", "deaths-only", "latest-weekly-cum-deaths-only.csv"))
-
 
 # Forecast with case regressor --------------------------------------------
 
@@ -93,3 +86,5 @@ saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-c
 saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-cases", "latest-weekly-deaths-on-cases.rds"))
 
 
+# For immediate plotting of rds files, go to "plot-timeseries.R"
+# To format forecasts ready for ensembling and submission, go to "format-timeseries.R"

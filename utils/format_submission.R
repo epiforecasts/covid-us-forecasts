@@ -5,11 +5,15 @@ require(here)
 require(dplyr)
 require(lubridate)
 
+
+# Format Rt forecast ------------------------------------------------------
+
 ## Arguments
-# loc: path to folder
+# loc: path to folder: e.g. loc <- here::here("rt-forecast", "rt-forecast", "state")
 # loc_name: name of region
 # forecast_date: date forecast is made
 # forecast_adjustment: 
+
 format_rt_forecast <- function(loc = NULL, loc_name = NULL,
                             forecast_date = NULL,
                             forecast_adjustment = 4, 
@@ -17,25 +21,28 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
   
   print(loc_name)
   
-  ## Get cumulative case counts for the end of the previous week
+  ## Get cumulative case counts for the previous epiweek
   deaths_data <- readRDS(here::here("data/deaths_data.rds")) %>%
-    dplyr::mutate(week = lubridate::floor_date(date, unit = "week", week_start = 7)) %>%
-    dplyr::group_by(state, week) %>%
-    dplyr::summarise(week_deaths = sum(deaths, na.rm = TRUE))
+    dplyr::mutate(epiweek = lubridate::epiweek(date)) %>%
+    dplyr::group_by(state, epiweek) %>%
+epiweeks    dplyr::summarise(week_deaths = sum(deaths, na.rm = TRUE))
+  
   deaths_data <- deaths_data %>%
     bind_rows(deaths_data %>%
-                dplyr::group_by(week) %>%
+                dplyr::group_by(epiweek) %>%
                 dplyr::summarise(week_deaths = sum(week_deaths, na.rm = TRUE)) %>%
                 dplyr::mutate(state = "US"))
+  
   last_week_deaths <- deaths_data %>%
-    dplyr::filter(week == floor_date(forecast_date, unit = "week", week_start = 7)-7,
+    dplyr::filter(epiweek == lubridate::epiweek(forecast_date)-1,
                   state == loc_name) %>%
     .$week_deaths
+  
   cumulative_deaths_data <- deaths_data %>%
     dplyr::group_by(state) %>%
     dplyr::mutate(cum_week_deaths = cumsum(week_deaths)) %>%
     dplyr::select(-week_deaths) %>%
-    dplyr::filter(week == floor_date(forecast_date, unit = "week", week_start = 7)-7,
+    dplyr::filter(epiweek == epiweek(forecast_date)-1,
                   state == loc_name) %>%
     .$cum_week_deaths
   
@@ -69,7 +76,7 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
       
       forecast_date <- as.Date(forecast_date)
       int_forecast_date <- dplyr::case_when(weekdays(forecast_date) == "Sunday" ~ forecast_date,
-                                            TRUE ~ as.Date(lubridate::floor_date(forecast_date, unit = "week", week_start = 7)))
+                                            TRUE ~ as.Date(lubridate::epiweek(forecast_date)))
       
       state_codes <- tigris::fips_codes %>%
         dplyr::select(state_code, state_name) %>%
@@ -87,7 +94,7 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
         #
         dplyr::bind_rows(nowcast) %>%
         dplyr::mutate(date = date + lubridate::days(forecast_adjustment),
-                      week = lubridate::floor_date(date, unit = "week", week_start = 7)) %>% 
+                      week = lubridate::epiweek(date)) %>% 
         dplyr::filter(date >= int_forecast_date) %>%
         dplyr::group_by(sample, week) %>%
         dplyr::summarise(week_cases = sum(cases, na.rm = TRUE)) %>%
@@ -142,3 +149,26 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
   }
   
 }
+
+
+# Format timeseries forecast ----------------------------------------------
+## Arguments
+# loc: path to folder
+# loc_name: name of region
+# forecast_date: date forecast is made
+
+format_rt_forecast <- function(loc = NULL,
+                               forecast_date = NULL,
+                               forecast_adjustment = 4, 
+                               version = "1.0")
+  
+format_ts_forecast <- function(loc = NULL,
+                               forecast_date = NULL){
+
+  
+  
+}
+
+  
+
+

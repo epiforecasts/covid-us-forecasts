@@ -50,7 +50,7 @@ ts_deaths_only_forecast <- function(data,
                                                    pull("deaths"),
                                                  samples = sample_count, 
                                                  horizon = horizon_weeks,
-                                                 model_params = list(models = "aefz", weights = "equal"),
+                                                 model_params = list(models = "aez", weights = "equal"),
                                                  forecast_params = list(PI.combination = "mean"))) %>%
     mutate(sample = rep(1:sample_count)) %>%
     pivot_longer(cols = starts_with("..."), names_to = "epiweek")
