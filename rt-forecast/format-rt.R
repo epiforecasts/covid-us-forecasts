@@ -18,6 +18,7 @@ require(lubridate)
 format_rt_forecast <- function(loc = NULL, loc_name = NULL,
                                 forecast_date = NULL,
                                 forecast_adjustment = 0,
+                                horizon_weeks = 5,
                                 version = "1.0"){
 
   print(loc_name)
@@ -160,13 +161,14 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
                         target_end_date = epiweek_end_date,
                         location = loc_name,
                         type = "quantile",
-                        target = paste((target_epiweek - forecast_date_epiweek) + 1,
+                        horizon = target_epiweek - forecast_date_epiweek + 1,
+                        target = paste(horizon,
                                        "wk ahead",
                                        name,
                                        "death",
                                        sep = " ")) %>%
           dplyr::ungroup() %>%
-          #dplyr::filter(horizon <= 4) %>%
+          dplyr::filter(horizon <= horizon_weeks) %>%
           dplyr::select(forecast_date, target, target_end_date, location, type, quantile, value)
         
         df <- df %>%
@@ -231,7 +233,8 @@ names(forecasts) <- forecasts %>%
 region_forecasts <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts),
                                     ~ format_rt_forecast(loc = .x, loc_name = .y,
                                                          forecast_date = forecast_date,
-                                                         forecast_adjustment = 11 + 5))
+                                                         forecast_adjustment = 11 + 5,
+                                                         horizon_weeks = 5))
 
 # Add state codes
 

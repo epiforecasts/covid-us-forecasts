@@ -126,6 +126,6 @@ qra_forecast <- res$ensemble %>%
 forecast_date <- qra_forecast$forecast_date %>%
   unique()
 
-data.table::fwrite(qra_forecast, here::here("ensemble-forecast", "qra-ensemble", "submission-files",
+data.table::fwrite(forecasts, here::here("ensembling", "qra-ensemble", "submission-files",
                                             paste0(forecast_date, "-epiforecasts-ensemble1.csv")))
 

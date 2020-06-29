@@ -5,8 +5,8 @@ plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Da
   forecast_date <- lubridate::floor_date(forecast_date, unit = "week", week_start = 1)
   
   ## Load current observed deaths data
-  # source("utils/get_us_deaths.R")
-  deaths_data <- readRDS(here::here("data/deaths_data.rds")) %>%
+  # source("utils/get-us-deaths.R")
+  deaths_data <- readRDS(here::here("data/deaths-data-daily.rds")) %>%
     dplyr::mutate(week = lubridate::floor_date(date, unit = "week", week_start = 7)) %>%
     dplyr::group_by(state, week) %>%
     dplyr::summarise(week_deaths = sum(deaths, na.rm = TRUE))
