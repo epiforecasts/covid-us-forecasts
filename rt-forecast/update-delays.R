@@ -28,7 +28,7 @@ plan(multiprocess)
 # 
 # Fit delay from onset to deaths ------------------------------------------
 
-deaths_delay <- readRDS(here::here("rt-forecast", "data", "deaths_delay.rds"))
+deaths_delay <- readRDS(here::here("rt-forecast", "data", "deaths-delay.rds"))
 
 onset_to_death_delay <- 
   EpiNow::get_dist_def(deaths_delay,
