@@ -10,10 +10,10 @@
 # Example parameters:
 # deaths_data <- get_us_deaths(data = "daily")
 # case_data <- get_us_cases(data = "daily")
-# sample_count = 10
-# horizon_weeks = 7
-# models = "az"
 # case_quantile = 0.5
+# sample_count = 1000
+# horizon_weeks = 7
+# right_truncate_weeks = 1
 # quantiles_out <- c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99)
 
 library(magrittr); library(dplyr); library(tidyr); library(EpiSoon); library(forecastHybrid)
@@ -35,7 +35,7 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
   right_truncate_date <- max(case_data_weekly_full$epiweek) - right_truncate_weeks
   
   case_data_weekly <- case_data_weekly_full %>%
-    filter(epiweek <= right_truncate_date)
+    filter(epiweek <= right_truncate_date) 
   
 
 # Set up dates -----------------------------------------------------------
@@ -54,13 +54,14 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
   
 
 # Forecast cases ---------------------------------------------------------
-
-    case_forecast <- case_data_weekly %>%
+    
+  case_forecast <- case_data_weekly %>%
       group_by(state) %>%
       group_modify(~ EpiSoon::forecastHybrid_model(y = filter(.x, epiweek %in% historical_weeks) %>% pull("cases"),
                                                    samples = sample_count, 
                                                    horizon = horizon_weeks,
-                                                   model_params = list(models = "aefz", weights = "equal"),
+                                                   model_params = list(models = "aez", weights = "equal",
+                                                                       a.args = list()),
                                                    forecast_params = list(PI.combination = "mean"))) %>%
       mutate(sample = rep(1:sample_count)) %>%
       pivot_longer(cols = starts_with("..."), names_to = "epiweek")
@@ -106,7 +107,7 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
                                                        pull("deaths"),
                                                      samples = sample_count, 
                                                      horizon = horizon_weeks,
-                                                     model_params = list(models = "aefz", weights = "equal",
+                                                     model_params = list(models = "aez", weights = "equal",
                                                                          a.args = list(
                                                                          xreg = filter(.x, epiweek %in% historical_weeks) %>%
                                                                            pull("cases"))

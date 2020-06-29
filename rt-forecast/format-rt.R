@@ -42,7 +42,7 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
   cumulative_deaths <- dplyr::bind_rows(cumulative_deaths_state, cumulative_deaths_national)
 
   last_week_cumulative_deaths <- cumulative_deaths %>%
-    dplyr::filter(epiweek == lubridate::epiweek(forecast_date-1),
+    dplyr::filter(epiweek == lubridate::epiweek(forecast_date)-1,
                   state == loc_name) %>%
     .$deaths
   
@@ -58,13 +58,14 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
   
   weekly_deaths_national <- weekly_data %>%
     dplyr::group_by(epiweek) %>%
-    dplyr::summarise(deaths = sum(deaths))
+    dplyr::summarise(deaths = sum(deaths),
+                     state = "US")
   
   weekly_deaths <- dplyr::bind_rows(weekly_deaths_state, weekly_deaths_national)
   
     # Previous epiweek  count per state (loc)
   last_week_incident_deaths <- weekly_deaths %>%
-    dplyr::filter(epiweek == lubridate::epiweek(forecast_date-1),
+    dplyr::filter(epiweek == lubridate::epiweek(forecast_date)-1,
                   state == loc_name) %>%
     .$deaths
 
@@ -212,32 +213,25 @@ forecast_dir <- here::here("rt-forecast")  # Assumes forecasts are in national a
 source(here::here("utils", "get-us-data.R"))
 
 deaths_data_cumulative <- get_us_deaths(data = "cumulative")
-saveRDS(deaths_data_cumulative, file = here::here("data", "deaths-data-cumulative.rds"))
 
 deaths_data_daily <- get_us_deaths(data = "daily")
-saveRDS(deaths_data_daily, file = here::here("data", "deaths-data-daily.rds"))
 
 
 # Find forecasts ----------------------------------------------------------
 
 forecasts <- c(list.dirs(file.path(forecast_dir, "state"), recursive = FALSE),
-                     list.dirs(file.path(forecast_dir, "national"), recursive = FALSE))
-
+               list.dirs(file.path(forecast_dir, "national"), recursive = FALSE))
 
 names(forecasts) <- forecasts %>%
-  stringr::str_remove(file.path(forecast_dir, "state/")) %>%
-  stringr::str_remove(file.path(forecast_dir, "national/"))
-                    
-
-                      
-                      
+  stringr::str_remove(file.path(forecast_dir, "state//")) %>%
+  stringr::str_remove(file.path(forecast_dir, "national//"))
+                   
 # Extract forecasts -------------------------------------------------------
 
 region_forecasts <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts),
                                     ~ format_rt_forecast(loc = .x, loc_name = .y,
                                                          forecast_date = forecast_date,
                                                          forecast_adjustment = 11 + 5))
-
 
 # Add state codes
 
