@@ -21,7 +21,7 @@ check_ids <- googlesheets4::read_sheet(ss = submission_sheet,
 # Current model forecasts (from most recent Monday)
 load_date <- lubridate::floor_date(Sys.Date(), unit = "week", week_start = 1) %>%
     as.character()
-load_addr <- "https://raw.githubusercontent.com/epiforecasts/covid-us-forecasts/master/rt-forecast/submission-files/"
+load_addr <- "https://raw.githubusercontent.com/epiforecasts/covid-us-forecasts/master/rt-forecast/submission-files/dated/"
 raw_data <- readr::read_csv(file = paste0(load_addr, load_date, "-rt-forecast-submission.csv"))
 
 # Load and process most daily reported deaths data
@@ -55,18 +55,37 @@ deaths_data <- deaths_data %>%
     filter(week_beginning < as.Date(load_date) - 1,
            week_beginning >= as.Date("2020-05-01"))
 
-# Combine model forecasts and deaths data
-df <- raw_data %>%
+states_100 <- deaths_data %>%
+    filter(week_beginning == max(week_beginning),
+           value > 100) %>%
+    .$state
+
+horizon_dates <- seq.Date(from = lubridate::floor_date(Sys.Date(), unit = "week", week_start = 6)+7,
+                          by = "week",
+                          length.out = 4)
+
+plot_dates <- seq.Date(from = min(deaths_data$target_end_date),
+                       to = max(horizon_dates),
+                       by = "week")
+
+# Filter rt forecasts
+rt_data <- raw_data %>%
     left_join(tigris::fips_codes %>%
                   select(location = state_code, state_name) %>%
                   unique() %>%
                   rbind(c("US", "US")),
               by = "location") %>%
     filter(grepl("inc", target),
-           quantile %in% c(0.05, 0.5, 0.95)) %>%
+           quantile %in% c(0.05, 0.5, 0.95),
+           target_end_date %in% horizon_dates,
+           state_name %in% states_100)
+
+# Combine model forecasts and deaths data
+df <- rt_data %>%
     bind_rows(deaths_data) %>%
     mutate(q_type = ifelse(type %in% c("point", "observed_data"), type, paste0(type, quantile))) %>%
-    select(target_end_date, state_name, q_type, value)
+    select(target_end_date, state_name, q_type, value) %>%
+    filter(state_name %in% states_100)
 
 
 ## Define some inputs for the shiny app
@@ -79,15 +98,14 @@ check_state_list <- googlesheets4::read_sheet(ss = submission_sheet,
 
 if(load_date %in% check_state_list$forecast_date){
     
-    list_states <- check_state_list$list_states
+    list_states <- check_state_list %>%
+        filter(forecast_date == load_date) %>%
+        .$list_states
     list_states <- unlist(str_split(list_states, pattern = ","))
     
 } else {
     
-    list_states <- df %>%
-        filter(q_type == "quantile0.5") %>%
-        .$state_name %>%
-        unique()
+    list_states <- states_100
     list_states <- c(sample(setdiff(list_states, "US"), 5), "US")
     list_states <- list_states[order(list_states)]
     
@@ -122,7 +140,7 @@ get_state_init <- function(state = "US"){
                quantile_max = round(median_max*max(upper_p), -3)) %>%
         select(state_name, week = target_end_date, quantile0.05, quantile0.5, quantile0.95, lower_p, upper_p, median_max, quantile_max)
     
-    return(out)
+    return(out[1:4,])
     
 }
 
@@ -199,12 +217,12 @@ ui <- fluidPage(
 server <- function(input, output, session) {
     
     observeEvent(input$submit, {
-        
+
         if(input$f_id %in% check_ids$id){
-            
-            submit_df <- cbind(as.character(unique(raw_data$target_end_date)), rep(input$location, 4), rep("ee0.5", 4), c(input$pt_wk1, input$pt_wk2, input$pt_wk3, input$pt_wk4)) %>%
-                rbind(cbind(as.character(unique(raw_data$target_end_date)), rep(input$location, 4), rep("ee0.05", 4), c(input$qt_wk1[1], input$qt_wk2[1], input$qt_wk3[1], input$qt_wk4[1]))) %>%
-                rbind(cbind(as.character(unique(raw_data$target_end_date)), rep(input$location, 4), rep("ee0.95", 4), c(input$qt_wk1[2], input$qt_wk2[2], input$qt_wk3[2], input$qt_wk4[2]))) %>%
+
+            submit_df <- cbind(as.character(unique(rt_data$target_end_date)), rep(input$location, 4), rep("ee0.5", 4), c(input$pt_wk1, input$pt_wk2, input$pt_wk3, input$pt_wk4)) %>%
+                rbind(cbind(as.character(unique(rt_data$target_end_date)), rep(input$location, 4), rep("ee0.05", 4), c(input$qt_wk1[1], input$qt_wk2[1], input$qt_wk3[1], input$qt_wk4[1]))) %>%
+                rbind(cbind(as.character(unique(rt_data$target_end_date)), rep(input$location, 4), rep("ee0.95", 4), c(input$qt_wk1[2], input$qt_wk2[2], input$qt_wk3[2], input$qt_wk4[2]))) %>%
                 data.frame() %>%
                 set_names(colnames(df)) %>%
                 mutate(submit_id = input$f_id,
@@ -212,72 +230,72 @@ server <- function(input, output, session) {
                        forecast_date = load_date) %>%
                 select(submit_id, submit_time, forecast_date, target_end_date, state_name, q_type, value) %>%
                 pivot_wider(id_cols = c(submit_id, submit_time, forecast_date, target_end_date, state_name), names_from = q_type, values_from = value)
-            
+
             showNotification("Thank you for your submission!", duration = 3, type = "message")
-            
+
             googlesheets4::sheet_append(data = submit_df,
                                         ss = submission_sheet,
                                         sheet = check_ids$name[check_ids$id == input$f_id])
-            
-            
+
+
         } else {
-            
+
             showNotification("Please submit a valid ID number.", duration = 3, type = "error")
-            
+
         }
-        
+
     })
-    
+
     observeEvent(input$location, {
-        
+
         init_vals <- get_state_init(input$location)
-        
+
         updateSliderInput(session, "pt_wk1", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[1])
         updateSliderInput(session, "pt_wk2", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[2])
         updateSliderInput(session, "pt_wk3", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[3])
         updateSliderInput(session, "pt_wk4", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[4])
-        
+
         updateSliderInput(session, "qt_wk1", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[1],init_vals$quantile0.95[1]))
         updateSliderInput(session, "qt_wk2", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[2],init_vals$quantile0.95[2]))
         updateSliderInput(session, "qt_wk3", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[3],init_vals$quantile0.95[3]))
         updateSliderInput(session, "qt_wk4", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[4],init_vals$quantile0.95[4]))
-        
-        
+
+
     })
-    
+
     observeEvent(input$pt_wk1, {
-        
+
         init_vals <- get_state_init(input$location)
         updateSliderInput(session, "qt_wk1", min = 0, max = init_vals$quantile_max[1], value = input$pt_wk1*c(init_vals$lower_p[1], init_vals$upper_p[1]))
-        
+
     })
-    
+
     observeEvent(input$pt_wk2, {
-        
+
         init_vals <- get_state_init(input$location)
         updateSliderInput(session, "qt_wk2", min = 0, max = init_vals$quantile_max[2], value = input$pt_wk2*c(init_vals$lower_p[2], init_vals$upper_p[2]))
-        
+
     })
-    
+
     observeEvent(input$pt_wk3, {
-        
+
         init_vals <- get_state_init(input$location)
         updateSliderInput(session, "qt_wk3", min = 0, max = init_vals$quantile_max[3], value = input$pt_wk3*c(init_vals$lower_p[3], init_vals$upper_p[3]))
-        
+
     })
-    
+
     observeEvent(input$pt_wk4, {
-        
+
         init_vals <- get_state_init(input$location)
         updateSliderInput(session, "qt_wk4", min = 0, max = init_vals$quantile_max[4], value = input$pt_wk4*c(init_vals$lower_p[4], init_vals$upper_p[4]))
-        
+
     })
     
     output$distPlot <- renderPlot({
         
-        input_df <- cbind(as.character(unique(raw_data$target_end_date)), rep(input$location, 4), rep("ee0.5", 4), c(input$pt_wk1, input$pt_wk2, input$pt_wk3, input$pt_wk4)) %>%
-            rbind(cbind(as.character(unique(raw_data$target_end_date)), rep(input$location, 4), rep("ee0.05", 4), c(input$qt_wk1[1], input$qt_wk2[1], input$qt_wk3[1], input$qt_wk4[1]))) %>%
-            rbind(cbind(as.character(unique(raw_data$target_end_date)), rep(input$location, 4), rep("ee0.95", 4), c(input$qt_wk1[2], input$qt_wk2[2], input$qt_wk3[2], input$qt_wk4[2]))) %>%
+        input_df <- cbind(as.character(unique(rt_data$target_end_date)), rep(input$location, 4), rep("ee0.5", 4), c(input$pt_wk1, input$pt_wk2, input$pt_wk3, input$pt_wk4)) %>%
+            rbind(cbind(as.character(unique(rt_data$target_end_date)), rep(input$location, 4), rep("ee0.05", 4), c(input$qt_wk1[1], input$qt_wk2[1], input$qt_wk3[1], input$qt_wk4[1]))) %>%
+            rbind(cbind(as.character(unique(rt_data$target_end_date)), rep(input$location, 4), rep("ee0.95", 4), c(input$qt_wk1[2], input$qt_wk2[2], input$qt_wk3[2], input$qt_wk4[2]))) %>%
             data.frame() %>%
             set_names(colnames(df))
         
@@ -306,7 +324,8 @@ server <- function(input, output, session) {
             geom_ribbon(aes(ymin = quantile0.05, ymax = quantile0.95), alpha = 0.2, fill = "grey") +
             geom_text(aes(y = 0, label = quantile0.5), col = "grey40", vjust = "bottom") +
             #
-            labs(x = "Week end", y = "Weekly incident deaths") +
+            scale_x_date(breaks = plot_dates, date_labels = "%d %b") +
+            labs(x = "Week ending", y = "Weekly incident deaths") +
             cowplot::theme_cowplot()
         
         g
