@@ -46,7 +46,7 @@ plot_expert = function(for_forecast_date, individual = FALSE){
     select(-quantile0.5)
   
   ## Load expert forecasts
-  agg_expert <- readRDS(file = paste0("expert-forecast/raw-rds/latest-agg-expert.rds")) %>%
+  agg_expert <- readRDS(file = paste0("expert-forecast/raw-rds/latest-agg-expert.rds")) %>% 
     filter(forecast_date == as.Date(for_forecast_date))
   ind_expert <- readRDS(file = paste0("expert-forecast/raw-rds/latest-ind-expert.rds")) %>%
     filter(forecast_date == as.Date(for_forecast_date))
