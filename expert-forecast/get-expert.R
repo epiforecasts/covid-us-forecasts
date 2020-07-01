@@ -1,5 +1,3 @@
-library(tidyverse); library(googlesheets4)
-
 # Download expert elicitation forecasts
 
 get_expert_elicitation = function(){

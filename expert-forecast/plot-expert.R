@@ -1,5 +1,3 @@
-library(tidyverse); library(RColorBrewer)
-
 # Plot results of weekly expert elicitation
 #
 # Arguments:

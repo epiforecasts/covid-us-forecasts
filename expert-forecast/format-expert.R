@@ -1,12 +1,8 @@
-library(tidyverse); library(SHELF)
-
 # Format results of weekly expert elicitation for submission/ensembling
 #
 # Arguments:
 # for_forecast_date = character string "YYYY-MM-DD", date (Monday) of forecast submission to plot
 # submission quantiles = numeric vector of quantiles needed for submission/ensembling
-
-source("expert-forecast/get-expert-elicitation.R")
 
 format_expert_elicitation = function(for_forecast_date,
                                      submission_quantiles = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99)){
