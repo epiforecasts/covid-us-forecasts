@@ -6,7 +6,7 @@ source("expert-forecast/plot-expert.R")
 
 
 ## Define forecast submission date (Monday)
-def_date <- "2020-06-22"
+def_date <- "2020-06-29"
 
 ## Update expert elicitation data
 raw_data <- get_expert_elicitation()
