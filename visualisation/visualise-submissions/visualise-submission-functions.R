@@ -1,144 +1,142 @@
-plot_forecasts = function(national = TRUE, 
-                          states = NULL, 
-                          forecast_date = Sys.Date(), 
-                          cutoff = 25){
+plot_forecasts = function(national = TRUE,
+                          cutoff = 0){
   
-  forecast_date <- lubridate::floor_date(forecast_date, unit = "week", week_start = 1)
+  # Get observed data ------------------------------------------------------------------
+  source(here::here("utils", "get-us-data.R"))
   
-  ## Load current observed deaths data
-  # source("utils/get-us-deaths.R")
-  deaths_data <- readRDS(here::here("data/deaths-data-daily.rds")) %>%
-    dplyr::mutate(week = lubridate::floor_date(date, unit = "week", week_start = 7)) %>%
-    dplyr::group_by(state, week) %>%
-    dplyr::summarise(week_deaths = sum(deaths, na.rm = TRUE))
-  # Add national total
-  deaths_data <- deaths_data %>%
-    bind_rows(deaths_data %>%
-                dplyr::group_by(week) %>%
-                dplyr::summarise(week_deaths = sum(week_deaths, na.rm = TRUE)) %>%
-                dplyr::mutate(state = "US")) %>%
-    select(week_beginning = week, state, value = week_deaths) %>%
-    mutate(type = "observed_data",
-           model = "observed_data") %>%
-    filter(week_beginning < forecast_date-1,
-           week_beginning >= as.Date("2020-05-01"))
-  
-  high_states <- deaths_data %>%
-    dplyr::filter(week_beginning == lubridate::floor_date(forecast_date, unit = "week", week_start = 7)-7) %>%
-    filter(value > cutoff,
-           state != "US") %>%
-    .$state
-  
-  ## Load most recent Rt forecast data
-  # can also switch to using the "latest" instead of 
-  # extracting the date if we are all fine with it
-  files <- list.files(here::here("rt-forecast/submission-files", 
-                                 "dated"))
-  latest_date <- sort(files, decreasing = TRUE)[1]
-  latest_date <- gsub("-rt.*", "", forecast_date[1]) %>%
-    as.Date()
-    
-  
-  forecast_file <- paste0("rt-forecast/submission-files/dated/", latest_date, "-rt-forecast-submission.csv")
-  forecast_data <- read.csv(here::here(forecast_file)) %>%
-    tibble() %>%
-    mutate(week = as.Date(target_end_date) - 6) %>%
-    left_join(tigris::fips_codes %>%
-                dplyr::select(state_code, state_name) %>%
-                unique() %>%
-                rbind(c("US", "US")),
-              by = c("location" = "state_code")) %>%
-    select(week_beginning = week, state = state_name, target, type, quantile, value) %>%
-    mutate(model = "rt_forecast")
-  forecast_states = unique(forecast_data$state)
-  
-  "timeseries-forecast/deaths-on-cases/submission-files/dated/"
-  
-  ## Load most recent deaths time-series forecast
-  # ts_deaths_file <- paste0("timeseries-forecast/deaths-only/", "2020-06-22", ".rds")
-  ts_deaths_file <- here::here("timeseries-forecast/deaths-only/submission-files/dated/", 
-                               paste0(latest_date, "-deaths-only.csv"))
-  ts_deaths <- read.csv(ts_deaths_file) %>%
-    tibble() %>%
-    left_join(tigris::fips_codes %>%
-                dplyr::select(state_code, state_name) %>%
-                unique() %>%
-                rbind(c("US", "US")),
-              by = c("location" = "state_code")) %>%
-    filter(target_end_date > forecast_date,
-           state_name %in% forecast_states) %>%
-    mutate(week = as.Date(target_end_date) - 6) %>%
-    select(week_beginning = week, state = state_name, target, type, quantile, value) %>%
-    mutate(model = "timeseries_deaths_only") %>%
-  filter(week_beginning <= max(forecast_data$week_beginning)) 
+  daily_deaths_state <- get_us_deaths(data = "daily") %>%
+    dplyr::mutate(day = ordered(weekdays(as.Date(date)), 
+                                levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")),
+                  epiweek_day = as.numeric(paste0(epiweek, ".", as.numeric(day)))) %>%
+    # filter out data from the last incomplete week
+    filter(epiweek_day < max(epiweek))
   
   
-  ts_cases_file <- here::here("timeseries-forecast/deaths-on-cases/submission-files/dated/", 
-                              paste0(latest_date, "-deaths-on-cases.csv"))
-  ts_cases <- read.csv(ts_cases_file) %>%
-    tibble() %>%
-    left_join(tigris::fips_codes %>%
-                dplyr::select(state_code, state_name) %>%
-                unique() %>%
-                rbind(c("US", "US")),
-              by = c("location" = "state_code")) %>%
-    filter(target_end_date > forecast_date,
-           state_name %in% forecast_states) %>%
-    mutate(week = as.Date(target_end_date) - 6) %>%
-    select(week_beginning = week, state = state_name, target, type, quantile, value) %>%
-    mutate(model = "timeseries_deaths_cases")
+  weekly_deaths_state <- daily_deaths_state %>%
+    dplyr::mutate(epiweek = lubridate::epiweek(date)) %>%
+    dplyr::group_by(state, epiweek) %>%
+    dplyr::summarise(deaths = sum(deaths),
+                     target_end_date = max(date)) %>%
+    dplyr::ungroup()
+  
+  weekly_deaths_national <- weekly_deaths_state %>%
+    dplyr::group_by(epiweek, target_end_date) %>%
+    dplyr::summarise(deaths = sum(deaths)) %>%
+    dplyr::ungroup()
   
   
-  # Combine and reshape for plotting
-  plotting_data <- forecast_data %>%
-    bind_rows(deaths_data %>% filter(state %in% forecast_states)) %>%
-    bind_rows(ts_deaths %>% filter(state %in% forecast_states)) %>%
-    bind_rows(ts_cases %>% filter(state %in% forecast_states)) %>%
-    filter(grepl("inc", target) | is.na(target)) %>%
-    select(-target) %>%
-    mutate(q_type = ifelse(type %in% c("point", "observed_data"), type, paste0(type, quantile))) %>%
-    select(week_beginning, state, model, q_type, value) %>%
-    pivot_wider(id_cols = c(week_beginning, state, model), names_from = q_type, values_from = value)
+  # Get forecasts -----------------------------------------------------------
   
-  ##
+  ## Get most recent Rt forecast 
+  rt_forecasts <- readr::read_csv(here::here("rt-forecast", "submission-files",
+                                             "latest-rt-forecast-submission.csv")) %>%
+    dplyr::mutate(model = "Rt")
+  
+  ## Get timeseries forecasts
+  ts_deaths_only <- readr::read_csv(here::here("timeseries-forecast", "deaths-only",
+                                               "submission-files",
+                                               "latest-weekly-deaths-only.csv")) %>%
+    dplyr::mutate(model = "TS deaths")
+  
+  ts_deaths_on_cases <- readr::read_csv(here::here("timeseries-forecast", "deaths-on-cases",
+                                                   "submission-files", 
+                                                   "latest-weekly-deaths-on-cases.csv")) %>%
+    dplyr::mutate(model = "TS deaths on cases")
+  
+  ## Get mean average ensemble
+  mean_ensemble <- readr::read_csv(here::here("ensembling", "quantile-average",
+                                              "submission-files",
+                                              "latest-epiforecasts-ensemble1-qa.csv")) %>%
+    dplyr::mutate(model = "Mean ensemble")
+  
+  ## Get QRA ensemble
+  # qra_ensemble <- readr::read_csv(here::here("ensembling", "qra-ensemble",
+  #                                        "submission-files",
+  #                                        "latest-epiforecasts-ensemble1-qra.csv")) %>%
+  #   dplyr::mutate(model = "QRA ensemble")  
+  
+  
+  # Join forecasts ----------------------------------------------------------
+  # and add state names
+  forecasts <- dplyr::bind_rows(rt_forecasts, ts_deaths_only, ts_deaths_on_cases, #qra_ensemble
+                                mean_ensemble) %>%
+    dplyr::left_join(tigris::fips_codes %>%
+                       dplyr::select(state_code, state = state_name) %>%
+                       unique() %>%
+                       rbind(c("US", "US")),
+                     by = c("location" = "state_code"))
+  
+  
+  # Reshape forecasts and add observed data --------------------------------------------------------------------
+  # Filter to incidence forecasts and pivot forecasts for plotting
+  forecasts_state <- forecasts %>%
+    filter(grepl("inc", target)) %>%
+    group_by(state, target_end_date, model) %>%
+    mutate(quantile = stringr::str_c("c", quantile)) %>%
+    filter(quantile %in% c("c0.05", "c0.25", "c0.5", "c0.75", "c0.95")) %>%
+    tidyr::pivot_wider(id_cols = c(state, target_end_date, model), 
+                       names_from = quantile, values_from = value) %>%
+    ungroup() 
+  
+  forecasts_national <- forecasts %>%
+    filter(state %in% "US",
+           grepl("inc", target)) %>%
+    group_by(state, target_end_date, model) %>%
+    mutate(quantile = stringr::str_c("c", quantile)) %>%
+    filter(quantile %in% c("c0.05", "c0.25", "c0.5", "c0.75", "c0.95")) %>%
+    tidyr::pivot_wider(id_cols = c(state, target_end_date, model), names_from = quantile, values_from = value) %>%
+    ungroup()
+  
+  
+  
+  # Set observed data to match format
+  observed_deaths_state <- dplyr::filter(weekly_deaths_state) %>%
+    dplyr::mutate(model = "Observed") %>%
+    dplyr::select(-epiweek, c0.5 = deaths)
+  
+  observed_deaths_national <- weekly_deaths_national %>%
+    dplyr::mutate(model = "Observed") %>%
+    dplyr::select(-epiweek, c0.5 = deaths)
+  
+  # Identify and filter which states to keep -------------------------------------------
+  
+  # Identify over 100 cases in the last week
+  source(here::here("utils", "states-min-last-week.R"))
+  keep_states <- states_min_last_week(min_last_week = cutoff, last_week = 1)
+  
+  
+  plot_state <- dplyr::bind_rows(forecasts_state, observed_deaths_state) %>%
+    dplyr::filter(state %in% keep_states$state) %>%
+    dplyr::mutate(model = factor(model, levels = c("Observed", "Mean ensemble", #"QRA ensemble",
+                                                   "Rt", "TS deaths", "TS deaths on cases")))
+  
+  
+  plot_national <- bind_rows(forecasts_national, observed_deaths_national) %>%
+    mutate(state = "US",
+           model = factor(model, 
+                          levels = c("Observed", "Mean ensemble", #"QRA ensemble", 
+                                     "Rt", "TS deaths", "TS deaths on cases")))
+  
+  plot_df <- 
   if (national) {
-    
-    plotting_data <- plotting_data %>%
-      filter(state %in% "US")
-    
-  } else if (!national & !is.null(states)) {
-    
-    plotting_data <- plotting_data %>%
-      filter(state %in% states,
-             state %in% high_states)
-    
+    plot_df <- plot_national
   } else {
-    
-    plotting_data <- plotting_data %>%
-      filter(state != "US",
-             state %in% high_states)
-    
+    plot_df <- plot_state
   }
   
-  ## Plotting!
-  plotting_data %>%
-    ggplot(aes(x = week_beginning,  col = model, fill = model)) +
-    ## Observed data
-    geom_point(aes(y = observed_data), size = 2) +
-    geom_line(aes(y = observed_data), lwd = 1) +
-    ## Forecasts (50% CI)
-    geom_point(aes(y = quantile0.5), size = 2) +
-    geom_line(aes(y = quantile0.5), lwd = 1) +
-    geom_ribbon(aes(ymin = quantile0.25, ymax = quantile0.75), color = NA, alpha = 0.15) +
+  plot_df %>%
+    ggplot(aes(x = target_end_date, col = model, fill = model)) +
+    geom_point(aes(y = c0.5), size = 2) +
+    geom_line(aes(y = c0.5), lwd = 1) +
+    geom_ribbon(aes(ymin = c0.25, ymax = c0.75), color = NA, alpha = 0.15) +
     ##
-    scale_fill_manual(values = c("white", brewer.pal(4, name = "Set2"))) +
-    scale_color_manual(values = c("black", brewer.pal(4, name = "Set2"))) +
+    scale_fill_manual(values = c("grey", brewer.pal(4, name = "Set2"))) +
+    scale_color_manual(values = c("dark grey", brewer.pal(4, name = "Set2"))) +
     facet_wrap(.~ state, scales = "free_y") +
-    labs(x = "Week beginning", y = "Weekly incident deaths",
+    labs(x = "Week ending", y = "Weekly incident deaths",
          col = "Model", fill = "Model") +
     cowplot::theme_cowplot() +
     theme(legend.position = "bottom", 
           text = element_text(family = "Sans Serif"))
-  
 }
 
