@@ -1,6 +1,7 @@
-library(tidyverse)
-
-plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Date(), cutoff = 25){
+plot_forecasts = function(national = TRUE, 
+                          states = NULL, 
+                          forecast_date = Sys.Date(), 
+                          cutoff = 25){
   
   forecast_date <- lubridate::floor_date(forecast_date, unit = "week", week_start = 1)
   
@@ -29,7 +30,16 @@ plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Da
     .$state
   
   ## Load most recent Rt forecast data
-  forecast_file <- paste0("rt-forecast/submission-files/", forecast_date, "-rt-forecast-submission.csv")
+  # can also switch to using the "latest" instead of 
+  # extracting the date if we are all fine with it
+  files <- list.files(here::here("rt-forecast/submission-files", 
+                                 "dated"))
+  latest_date <- sort(files, decreasing = TRUE)[1]
+  latest_date <- gsub("-rt.*", "", forecast_date[1]) %>%
+    as.Date()
+    
+  
+  forecast_file <- paste0("rt-forecast/submission-files/dated/", latest_date, "-rt-forecast-submission.csv")
   forecast_data <- read.csv(here::here(forecast_file)) %>%
     tibble() %>%
     mutate(week = as.Date(target_end_date) - 6) %>%
@@ -42,9 +52,12 @@ plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Da
     mutate(model = "rt_forecast")
   forecast_states = unique(forecast_data$state)
   
+  "timeseries-forecast/deaths-on-cases/submission-files/dated/"
+  
   ## Load most recent deaths time-series forecast
   # ts_deaths_file <- paste0("timeseries-forecast/deaths-only/", "2020-06-22", ".rds")
-  ts_deaths_file <- here::here("timeseries-forecast/deaths-only/submission-files/latest-weekly-deaths-only.csv")
+  ts_deaths_file <- here::here("timeseries-forecast/deaths-only/submission-files/dated/", 
+                               paste0(latest_date, "-deaths-only.csv"))
   ts_deaths <- read.csv(ts_deaths_file) %>%
     tibble() %>%
     left_join(tigris::fips_codes %>%
@@ -57,8 +70,11 @@ plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Da
     mutate(week = as.Date(target_end_date) - 6) %>%
     select(week_beginning = week, state = state_name, target, type, quantile, value) %>%
     mutate(model = "timeseries_deaths_only") %>%
-  filter(week_beginning <= max(forecast_data$week_beginning)) %>% View()
-  ts_cases_file <- here::here("timeseries-forecast/deaths-on-cases/submission-files/latest-weekly-deaths-on-cases.csv")
+  filter(week_beginning <= max(forecast_data$week_beginning)) 
+  
+  
+  ts_cases_file <- here::here("timeseries-forecast/deaths-on-cases/submission-files/dated/", 
+                              paste0(latest_date, "-deaths-on-cases.csv"))
   ts_cases <- read.csv(ts_cases_file) %>%
     tibble() %>%
     left_join(tigris::fips_codes %>%
@@ -121,6 +137,8 @@ plot_forecasts = function(national = TRUE, states = NULL, forecast_date = Sys.Da
     labs(x = "Week beginning", y = "Weekly incident deaths",
          col = "Model", fill = "Model") +
     cowplot::theme_cowplot() +
-    theme(legend.position = "top")
+    theme(legend.position = "bottom", 
+          text = element_text(family = "Sans Serif"))
   
 }
+
