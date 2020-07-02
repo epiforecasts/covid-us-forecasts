@@ -10,13 +10,13 @@ library(googlesheets4)
 
 ## Set auth
 options(gargle_oauth_cache = ".secrets")
-drive_auth(cache = ".secrets", email = "sophie.meakin.00@gmail.com")
+drive_auth(cache = ".secrets", email = "epiforecasts@gmail.com")
 sheets_auth(token = drive_token())
 
 ## Load data
-submission_sheet <- "https://docs.google.com/spreadsheets/d/1J2aOqv8NQ2Hl6GVyTmZbkZxH4tORwGAGrqW3S2K_PRw/edit#gid=0"
+submission_sheet <- "1CIdhu6OIZ5YA2pSHHYkrr1n9xMhPujuvFNrE1kyCcuQ"
 check_ids <- googlesheets4::read_sheet(ss = submission_sheet,
-                                      sheet = "ids")
+                                       sheet = "ids")
 
 # Current model forecasts (from most recent Monday)
 load_date <- lubridate::floor_date(Sys.Date(), unit = "week", week_start = 1) %>%
@@ -217,9 +217,9 @@ ui <- fluidPage(
 server <- function(input, output, session) {
     
     observeEvent(input$submit, {
-
+        
         if(input$f_id %in% check_ids$id){
-
+            
             submit_df <- cbind(as.character(unique(rt_data$target_end_date)), rep(input$location, 4), rep("ee0.5", 4), c(input$pt_wk1, input$pt_wk2, input$pt_wk3, input$pt_wk4)) %>%
                 rbind(cbind(as.character(unique(rt_data$target_end_date)), rep(input$location, 4), rep("ee0.05", 4), c(input$qt_wk1[1], input$qt_wk2[1], input$qt_wk3[1], input$qt_wk4[1]))) %>%
                 rbind(cbind(as.character(unique(rt_data$target_end_date)), rep(input$location, 4), rep("ee0.95", 4), c(input$qt_wk1[2], input$qt_wk2[2], input$qt_wk3[2], input$qt_wk4[2]))) %>%
@@ -230,65 +230,65 @@ server <- function(input, output, session) {
                        forecast_date = load_date) %>%
                 select(submit_id, submit_time, forecast_date, target_end_date, state_name, q_type, value) %>%
                 pivot_wider(id_cols = c(submit_id, submit_time, forecast_date, target_end_date, state_name), names_from = q_type, values_from = value)
-
+            
             showNotification("Thank you for your submission!", duration = 3, type = "message")
-
+            
             googlesheets4::sheet_append(data = submit_df,
                                         ss = submission_sheet,
                                         sheet = check_ids$name[check_ids$id == input$f_id])
-
-
+            
+            
         } else {
-
+            
             showNotification("Please submit a valid ID number.", duration = 3, type = "error")
-
+            
         }
-
+        
     })
-
+    
     observeEvent(input$location, {
-
+        
         init_vals <- get_state_init(input$location)
-
+        
         updateSliderInput(session, "pt_wk1", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[1])
         updateSliderInput(session, "pt_wk2", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[2])
         updateSliderInput(session, "pt_wk3", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[3])
         updateSliderInput(session, "pt_wk4", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[4])
-
+        
         updateSliderInput(session, "qt_wk1", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[1],init_vals$quantile0.95[1]))
         updateSliderInput(session, "qt_wk2", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[2],init_vals$quantile0.95[2]))
         updateSliderInput(session, "qt_wk3", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[3],init_vals$quantile0.95[3]))
         updateSliderInput(session, "qt_wk4", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[4],init_vals$quantile0.95[4]))
-
-
+        
+        
     })
-
+    
     observeEvent(input$pt_wk1, {
-
+        
         init_vals <- get_state_init(input$location)
         updateSliderInput(session, "qt_wk1", min = 0, max = init_vals$quantile_max[1], value = input$pt_wk1*c(init_vals$lower_p[1], init_vals$upper_p[1]))
-
+        
     })
-
+    
     observeEvent(input$pt_wk2, {
-
+        
         init_vals <- get_state_init(input$location)
         updateSliderInput(session, "qt_wk2", min = 0, max = init_vals$quantile_max[2], value = input$pt_wk2*c(init_vals$lower_p[2], init_vals$upper_p[2]))
-
+        
     })
-
+    
     observeEvent(input$pt_wk3, {
-
+        
         init_vals <- get_state_init(input$location)
         updateSliderInput(session, "qt_wk3", min = 0, max = init_vals$quantile_max[3], value = input$pt_wk3*c(init_vals$lower_p[3], init_vals$upper_p[3]))
-
+        
     })
-
+    
     observeEvent(input$pt_wk4, {
-
+        
         init_vals <- get_state_init(input$location)
         updateSliderInput(session, "qt_wk4", min = 0, max = init_vals$quantile_max[4], value = input$pt_wk4*c(init_vals$lower_p[4], init_vals$upper_p[4]))
-
+        
     })
     
     output$distPlot <- renderPlot({
