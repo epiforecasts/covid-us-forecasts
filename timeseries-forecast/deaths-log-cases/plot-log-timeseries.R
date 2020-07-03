@@ -6,8 +6,10 @@ library(ggplot2); library(dplyr); library(tidyr); library(stringr)
 # Get data & forecasts ----------------------------------------------------
 
 source(here::here("utils", "get-us-data.R"))
+daily_deaths_state <- get_us_deaths(data = "daily")
 
-model_type <- "raw" # or "log-lin" or "log-log"
+
+model_type <- "raw" # "raw", "log-lin", or "log-log"
 right_truncate_weeks = 1
 
 weekly_forecast <- readRDS(here::here("timeseries-forecast", "deaths-log-cases",
@@ -57,5 +59,6 @@ plot_national <- fc_national %>%
 
 # Save
 ggplot2::ggsave(filename = paste0("national-forecast-", model_type, ".png"), plot = plot_national, 
-                path = here::here("timeseries-forecast", "deaths-log-cases"))
+                path = here::here("timeseries-forecast", "deaths-log-cases"),
+                height = 5, width = 7)
   

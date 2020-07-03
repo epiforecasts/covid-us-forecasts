@@ -81,7 +81,7 @@ week_lag <- 4
     dplyr::inner_join(test_data, by = "epiweek") %>%
     dplyr::select(id = epiweek, 
                   true_values = deaths, predictions = value, sample) %>%
-    dplyr::mutate(model = "linear")
+    dplyr::mutate(model = paste0("linear(raw) ", week_lag - right_truncate_weeks, "wk lag"))
  
 # Log cases / raw deaths -----------------------------------------------------------------
 
@@ -102,7 +102,7 @@ week_lag <- 4
    dplyr::inner_join(test_data, by = "epiweek") %>%
    dplyr::select(id = epiweek, 
                  true_values = deaths, predictions = value, sample) %>%
-   dplyr::mutate(model = "loglin")
+   dplyr::mutate(model = paste0("loglin ", week_lag - right_truncate_weeks, "wk lag"))
  
 # Log cases / log deaths -----------------------------------------------------------------
 
@@ -123,7 +123,7 @@ week_lag <- 4
    dplyr::inner_join(test_data, by = "epiweek") %>%
    dplyr::select(id = epiweek, 
                  true_values = deaths, predictions = value, sample) %>%
-   dplyr::mutate(model = "loglog")
+   dplyr::mutate(model = paste0("loglog ", week_lag - right_truncate_weeks, "wk lag"))
  
 # Combine and score -----------------------------------------------------------------
 

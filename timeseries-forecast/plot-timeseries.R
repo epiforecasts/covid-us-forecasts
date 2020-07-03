@@ -5,17 +5,11 @@ library(ggplot2); library(dplyr); library(tidyr); library(stringr)
 # Get data and forecasts
 source(here::here("utils", "get-us-data.R"))
 
-model_type <- "deaths-only"
+model_type <- "deaths-only" # or "deaths-on-cases"
 right_truncate_weeks = 1
-date <- "2020-06-08-"
-
-# weekly_forecast <- readRDS(here::here("timeseries-forecast", model_type,
-#                                       paste0("latest-weekly-", model_type, ".rds")))
 
 weekly_forecast <- readRDS(here::here("timeseries-forecast", model_type,
-                                      "raw-rds",
-                                      paste0(date, model_type, ".rds")))
-
+                                      paste0("latest-weekly-", model_type, ".rds")))
 
 # States ------------------------------------------------------------------
 
@@ -53,10 +47,10 @@ fc_state <- weekly_forecast %>%
 plot_state <- fc_state %>%
   ggplot2::ggplot(ggplot2::aes(x = epiweek_target)) +
   ggplot2::geom_line(ggplot2::aes(y = c0.5)) +
+  ggplot2::geom_ribbon(alpha = 0.2, ggplot2::aes(ymin = c0.05, ymax = c0.05)) +
+  ggplot2::geom_ribbon(alpha = 0.2, ggplot2::aes(ymin = c0.25, ymax = c0.75)) +
   ggplot2::geom_line(data = weekly_deaths_state, ggplot2::aes(x = epiweek, y = deaths), col = "blue") +
   ggplot2::geom_line(data = daily_deaths_state, ggplot2::aes(x = epiweek, y = deaths), col = "light blue") +
-  ggplot2::geom_ribbon(alpha = 0.2, ggplot2::aes(ymin = c0.05, ymax = c0.5)) +
-  ggplot2::geom_ribbon(alpha = 0.2, ggplot2::aes(ymin = c0.25, ymax = c0.75)) +
   ggplot2::facet_wrap("state", scales = "free_y") +
   cowplot::theme_cowplot() +
   ggplot2::ylab("Incident deaths") +
@@ -97,10 +91,10 @@ fc_national <- weekly_forecast %>%
 plot_national <- fc_national %>%
   ggplot2::ggplot(ggplot2::aes(x = epiweek_target)) +
   ggplot2::geom_line(ggplot2::aes(y = c0.5)) +
+  ggplot2::geom_ribbon(alpha = 0.2, ggplot2::aes(ymin = c0.05, ymax = c0.95)) +
+  ggplot2::geom_ribbon(alpha = 0.2, ggplot2::aes(ymin = c0.25, ymax = c0.75)) +
   ggplot2::geom_line(data = weekly_deaths_national, ggplot2::aes(x = epiweek, y = deaths), col = "blue") +
   ggplot2::geom_line(data = daily_deaths_national, ggplot2::aes(x = epiweek, y = deaths), col = "light blue") +
-  ggplot2::geom_ribbon(alpha = 0.2, ggplot2::aes(ymin = c0.05, ymax = c0.5)) +
-  ggplot2::geom_ribbon(alpha = 0.2, ggplot2::aes(ymin = c0.25, ymax = c0.75)) +
   ggplot2::facet_wrap("state", scales = "free_y") +
   cowplot::theme_cowplot() +
   ggplot2::ylab("Incident deaths") +
@@ -109,6 +103,7 @@ plot_national <- fc_national %>%
   ggplot2::labs(caption = "--- is date of data truncation",
                 title = paste0("Incident deaths in US states, from ", model_type, " model"))
 
-ggplot2::ggsave(filename = paste0("national-forecast-", model_type, ".png"), plot = plot_national, 
+ggplot2::ggsave(filename = paste0("national-forecast-", model_type, ".png"), plot = plot_national,
                 path = here::here("timeseries-forecast", model_type, "raw-rds"))
+
   
