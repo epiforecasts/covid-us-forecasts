@@ -87,4 +87,4 @@ saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-c
 
 
 # For immediate plotting of rds files, go to "plot-timeseries.R"
-# To format forecasts ready for ensembling and submission, go to "format-timeseries.R"
+# To format forecasts ready for ensembling and submission, go to "run-format-timeseries.R"
