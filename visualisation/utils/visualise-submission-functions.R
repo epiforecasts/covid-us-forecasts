@@ -1,8 +1,8 @@
 plot_forecasts = function(national = TRUE,
-                          cutoff = 0){
+                          cutoff = 25){
   
   # Get observed data ------------------------------------------------------------------
-  source(here::here("utils", "get-us-data.R"))
+  # needs the following function to work: source(here::here("utils", "get-us-data.R"))
   
   daily_deaths_state <- get_us_deaths(data = "daily") %>%
     dplyr::mutate(day = ordered(weekdays(as.Date(date)), 
@@ -101,7 +101,7 @@ plot_forecasts = function(national = TRUE,
   # Identify and filter which states to keep -------------------------------------------
   
   # Identify over 100 cases in the last week
-  source(here::here("utils", "states-min-last-week.R"))
+  # source(here::here("utils", "states-min-last-week.R"))
   keep_states <- states_min_last_week(min_last_week = cutoff, last_week = 1)
   
   
@@ -117,26 +117,27 @@ plot_forecasts = function(national = TRUE,
                           levels = c("Observed", "Mean ensemble", #"QRA ensemble", 
                                      "Rt", "TS deaths", "TS deaths on cases")))
   
-  plot_df <- 
   if (national) {
     plot_df <- plot_national
   } else {
     plot_df <- plot_state
   }
-  
-  plot_df %>%
-    ggplot(aes(x = target_end_date, col = model, fill = model)) +
-    geom_point(aes(y = c0.5), size = 2) +
-    geom_line(aes(y = c0.5), lwd = 1) +
-    geom_ribbon(aes(ymin = c0.25, ymax = c0.75), color = NA, alpha = 0.15) +
+    
+  plot <- plot_df %>%
+    ggplot2::ggplot(aes(x = target_end_date, col = model, fill = model)) +
+    ggplot2::geom_point(aes(y = c0.5), size = 2) +
+    ggplot2::geom_line(aes(y = c0.5), lwd = 1) +
+    ggplot2::geom_ribbon(aes(ymin = c0.25, ymax = c0.75), color = NA, alpha = 0.15) +
     ##
-    scale_fill_manual(values = c("grey", brewer.pal(4, name = "Set2"))) +
-    scale_color_manual(values = c("dark grey", brewer.pal(4, name = "Set2"))) +
-    facet_wrap(.~ state, scales = "free_y") +
-    labs(x = "Week ending", y = "Weekly incident deaths",
+    ggplot2::scale_fill_manual(values = c("grey", brewer.pal(4, name = "Set2"))) +
+    ggplot2::scale_color_manual(values = c("dark grey", brewer.pal(4, name = "Set2"))) +
+    ggplot2::facet_wrap(.~ state, scales = "free_y") +
+    ggplot2::labs(x = "Week ending", y = "Weekly incident deaths",
          col = "Model", fill = "Model") +
     cowplot::theme_cowplot() +
     theme(legend.position = "bottom", 
-          text = element_text(family = "Sans Serif"))
+          text = ggplot2::element_text(family = "Sans Serif"))
+  
+  return(plot)
 }
 
