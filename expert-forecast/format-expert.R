@@ -92,7 +92,7 @@ format_expert_elicitation = function(for_forecast_date,
   
   
   # Save output and return
-  readr::write_csv(out, path = paste0("expert-forecast/submission-files/", for_forecast_date, "-expert.csv"))
+  readr::write_csv(out, path = paste0("expert-forecast/submission-files/dated/", for_forecast_date, "-expert.csv"))
   readr::write_csv(out, path = paste0("expert-forecast/submission-files/latest-expert.csv"))
   
   return(out)
