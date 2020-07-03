@@ -3,7 +3,7 @@
 get_expert_elicitation = function(){
   
   # Google sheet
-  submission_sheet <- "https://docs.google.com/spreadsheets/d/1J2aOqv8NQ2Hl6GVyTmZbkZxH4tORwGAGrqW3S2K_PRw/edit#gid=191588196"
+  submission_sheet <- "1CIdhu6OIZ5YA2pSHHYkrr1n9xMhPujuvFNrE1kyCcuQ"
   
   # Get all names of sheets
   ss_metadata <- googlesheets4::gs4_get(ss = submission_sheet)
