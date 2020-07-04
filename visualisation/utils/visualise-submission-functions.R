@@ -49,16 +49,16 @@ plot_forecasts = function(national = TRUE,
                                               "latest-epiforecasts-ensemble1-qa.csv")) %>%
     dplyr::mutate(model = "Mean ensemble")
   
-  ## Get QRA ensemble
-  # qra_ensemble <- readr::read_csv(here::here("ensembling", "qra-ensemble",
-  #                                        "submission-files",
-  #                                        "latest-epiforecasts-ensemble1-qra.csv")) %>%
-  #   dplyr::mutate(model = "QRA ensemble")  
+  # Get QRA ensemble
+  qra_ensemble <- readr::read_csv(here::here("ensembling", "qra-ensemble",
+                                         "submission-files",
+                                         "latest-epiforecasts-ensemble1-qra.csv")) %>%
+    dplyr::mutate(model = "QRA ensemble")
   
   
   # Join forecasts ----------------------------------------------------------
   # and add state names
-  forecasts <- dplyr::bind_rows(rt_forecasts, ts_deaths_only, ts_deaths_on_cases, #qra_ensemble
+  forecasts <- dplyr::bind_rows(rt_forecasts, ts_deaths_only, ts_deaths_on_cases, qra_ensemble,
                                 mean_ensemble) %>%
     dplyr::left_join(tigris::fips_codes %>%
                        dplyr::select(state_code, state = state_name) %>%
@@ -107,14 +107,14 @@ plot_forecasts = function(national = TRUE,
   
   plot_state <- dplyr::bind_rows(forecasts_state, observed_deaths_state) %>%
     dplyr::filter(state %in% keep_states$state) %>%
-    dplyr::mutate(model = factor(model, levels = c("Observed", "Mean ensemble", #"QRA ensemble",
+    dplyr::mutate(model = factor(model, levels = c("Observed", "Mean ensemble", "QRA ensemble",
                                                    "Rt", "TS deaths", "TS deaths on cases")))
   
   
   plot_national <- bind_rows(forecasts_national, observed_deaths_national) %>%
     mutate(state = "US",
            model = factor(model, 
-                          levels = c("Observed", "Mean ensemble", #"QRA ensemble", 
+                          levels = c("Observed", "Mean ensemble", "QRA ensemble", 
                                      "Rt", "TS deaths", "TS deaths on cases")))
   
   if (national) {
@@ -129,8 +129,8 @@ plot_forecasts = function(national = TRUE,
     ggplot2::geom_line(aes(y = c0.5), lwd = 1) +
     ggplot2::geom_ribbon(aes(ymin = c0.25, ymax = c0.75), color = NA, alpha = 0.15) +
     ##
-    ggplot2::scale_fill_manual(values = c("grey", brewer.pal(4, name = "Set2"))) +
-    ggplot2::scale_color_manual(values = c("dark grey", brewer.pal(4, name = "Set2"))) +
+    ggplot2::scale_fill_manual(values = c("grey", brewer.pal(5, name = "Set2"))) +
+    ggplot2::scale_color_manual(values = c("dark grey", brewer.pal(5, name = "Set2"))) +
     ggplot2::facet_wrap(.~ state, scales = "free_y") +
     ggplot2::labs(x = "Week ending", y = "Weekly incident deaths",
          col = "Model", fill = "Model") +
