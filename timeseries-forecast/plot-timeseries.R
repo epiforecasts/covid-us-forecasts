@@ -7,14 +7,15 @@ source(here::here("utils", "get-us-data.R"))
 
 model_type <- "deaths-only"
 right_truncate_weeks = 1
-date <- "2020-06-08-"
 
-# weekly_forecast <- readRDS(here::here("timeseries-forecast", model_type,
-#                                       paste0("latest-weekly-", model_type, ".rds")))
-
+# To plot latest:
 weekly_forecast <- readRDS(here::here("timeseries-forecast", model_type,
-                                      "raw-rds",
-                                      paste0(date, model_type, ".rds")))
+                                      paste0("latest-weekly-", model_type, ".rds")))
+# To plot for specific date:
+# date <- "2020-06-08-"
+# weekly_forecast <- readRDS(here::here("timeseries-forecast", model_type,
+#                                       "raw-rds",
+#                                       paste0(date, model_type, ".rds")))
 
 
 # States ------------------------------------------------------------------
@@ -55,7 +56,7 @@ plot_state <- fc_state %>%
   ggplot2::geom_line(ggplot2::aes(y = c0.5)) +
   ggplot2::geom_line(data = weekly_deaths_state, ggplot2::aes(x = epiweek, y = deaths), col = "blue") +
   ggplot2::geom_line(data = daily_deaths_state, ggplot2::aes(x = epiweek, y = deaths), col = "light blue") +
-  ggplot2::geom_ribbon(alpha = 0.2, ggplot2::aes(ymin = c0.05, ymax = c0.5)) +
+  ggplot2::geom_ribbon(alpha = 0.2, ggplot2::aes(ymin = c0.05, ymax = c0.95)) +
   ggplot2::geom_ribbon(alpha = 0.2, ggplot2::aes(ymin = c0.25, ymax = c0.75)) +
   ggplot2::facet_wrap("state", scales = "free_y") +
   cowplot::theme_cowplot() +
@@ -99,7 +100,7 @@ plot_national <- fc_national %>%
   ggplot2::geom_line(ggplot2::aes(y = c0.5)) +
   ggplot2::geom_line(data = weekly_deaths_national, ggplot2::aes(x = epiweek, y = deaths), col = "blue") +
   ggplot2::geom_line(data = daily_deaths_national, ggplot2::aes(x = epiweek, y = deaths), col = "light blue") +
-  ggplot2::geom_ribbon(alpha = 0.2, ggplot2::aes(ymin = c0.05, ymax = c0.5)) +
+  ggplot2::geom_ribbon(alpha = 0.2, ggplot2::aes(ymin = c0.05, ymax = c0.95)) +
   ggplot2::geom_ribbon(alpha = 0.2, ggplot2::aes(ymin = c0.25, ymax = c0.75)) +
   ggplot2::facet_wrap("state", scales = "free_y") +
   cowplot::theme_cowplot() +

@@ -13,7 +13,7 @@ readr::write_csv(deaths_only, here::here("timeseries-forecast", model_type,
                                          "submission-files",
                                          paste0("latest-weekly-", model_type, ".csv")))
 # Save under forecast date
-readr::write_csv(deaths_only, here::here("timeseries-forecast", model_type, "submission-files", 
+readr::write_csv(deaths_only, here::here("timeseries-forecast", model_type, "submission-files", "dated",
                                          paste0(forecast_date, "-", model_type, ".csv")))
                 
 
@@ -28,7 +28,7 @@ readr::write_csv(deaths_on_cases, here::here("timeseries-forecast", model_type,
                                              "submission-files",
                                              paste0("latest-weekly-", model_type, ".csv")))
 # Save under forecast date
-readr::write_csv(deaths_on_cases, here::here("timeseries-forecast", model_type, "submission-files", 
+readr::write_csv(deaths_on_cases, here::here("timeseries-forecast", model_type, "submission-files", "dated",
                                              paste0(forecast_date, "-", model_type, ".csv")))
 
 

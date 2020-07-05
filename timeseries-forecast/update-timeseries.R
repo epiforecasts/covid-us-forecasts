@@ -54,8 +54,8 @@ national_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_national,
 
 # Bind and save daily forecast
 deaths_only_forecast <- bind_rows(national_deaths_only_forecast, state_deaths_only_forecast)
-saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", paste0(Sys.Date(), "-weekly-deaths-only.rds")))
-saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "latest-weekly-deaths-only.rds"))
+saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "raw-rds", paste0(Sys.Date(), "-weekly-deaths-only.rds")))
+saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "raw-rds", "latest-weekly-deaths-only.rds"))
 
 
 # Forecast with case regressor --------------------------------------------
@@ -82,9 +82,9 @@ national_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cas
 
 # Bind and save
 deaths_on_cases_forecast <- bind_rows(national_deaths_on_cases_forecast, state_deaths_on_cases_forecast)
-saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-cases", paste0(Sys.Date(), "-weekly-deaths-on-cases.rds")))
-saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-cases", "latest-weekly-deaths-on-cases.rds"))
+saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-cases", "raw-rds", paste0(Sys.Date(), "-weekly-deaths-on-cases.rds")))
+saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-cases", "raw-rds", "latest-weekly-deaths-on-cases.rds"))
 
 
-# For immediate plotting of rds files, go to "plot-timeseries.R"
+# For immediate plotting of rds files, go to "run-plot-timeseries.R"
 # To format forecasts ready for ensembling and submission, go to "run-format-timeseries.R"
