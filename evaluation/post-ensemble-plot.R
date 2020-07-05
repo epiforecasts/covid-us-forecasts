@@ -1,3 +1,6 @@
+# Set the number of observation weeks to plot
+obs_weeks <- 8
+
 # Plot timeseries, Rt, ensemble, and observed data
 
 library(magrittr)
@@ -14,13 +17,12 @@ weekly_deaths_state <- daily_deaths_state %>%
   dplyr::mutate(epiweek = lubridate::epiweek(date)) %>%
   dplyr::group_by(state, epiweek) %>%
   dplyr::summarise(deaths = sum(deaths),
-                   target_end_date = max(date)) %>%
-  dplyr::ungroup()
+                   target_end_date = max(date),
+                   .groups = "drop") 
 
 weekly_deaths_national <- weekly_deaths_state %>%
   dplyr::group_by(epiweek, target_end_date) %>%
-  dplyr::summarise(deaths = sum(deaths)) %>%
-  dplyr::ungroup()
+  dplyr::summarise(deaths = sum(deaths), .groups = "drop") 
 
 # Get forecasts -----------------------------------------------------------
 
@@ -39,12 +41,6 @@ ts_deaths_on_cases <- readr::read_csv(here::here("timeseries-forecast", "deaths-
                                                  "submission-files", 
                                                  "latest-weekly-deaths-on-cases.csv")) %>%
   dplyr::mutate(model = "TS deaths on cases")
-
-## Get QRA ensemble
-# qra_ensemble <- readr::read_csv(here::here("ensembling", "qra-ensemble",
-#                                        "submission-files",
-#                                        "latest-epiforecasts-ensemble1-qra.csv")) %>%
-#   dplyr::mutate(model = "QRA ensemble")
 
 ## Get mean average ensemble
 mean_ensemble <- readr::read_csv(here::here("ensembling", "quantile-average",
@@ -87,10 +83,12 @@ forecasts_national <- forecasts %>%
 # Set observed data to match format
 observed_deaths_state <- dplyr::filter(weekly_deaths_state) %>%
   dplyr::mutate(model = "Observed") %>%
+  dplyr::filter(epiweek >= (max(epiweek) - obs_weeks)) %>% 
   dplyr::select(-epiweek, c0.5 = deaths)
 
 observed_deaths_national <- weekly_deaths_national %>%
   dplyr::mutate(model = "Observed") %>%
+  dplyr::filter(epiweek >= (max(epiweek) - obs_weeks)) %>% 
   dplyr::select(-epiweek, c0.5 = deaths)
 
 # Identify and filter which states to keep -------------------------------------------
@@ -119,7 +117,7 @@ library(ggplot2)
 library(RColorBrewer)
 
 
-plot_state %>%
+state_plot <- plot_state %>%
   ggplot(aes(x = target_end_date, col = model, fill = model)) +
   geom_point(aes(y = c0.5), size = 1) +
   geom_line(aes(y = c0.5), lwd = 1) +
@@ -133,11 +131,13 @@ plot_state %>%
   cowplot::theme_cowplot() +
   theme(legend.position = "bottom")
 
-ggsave(filename = "ensemble-plot-state.png", path = here::here("evaluation"),
-      width = 10, height = 6, dpi = 300)
+ggsave(filename = "ensemble-plot-state.png",
+       path = here::here("evaluation", "plots"),
+       state_plot,
+      width = 12, height = 12, dpi = 300)
 
 
-plot_national %>%
+national_plot <- plot_national %>%
   ggplot(aes(x = target_end_date, col = model, fill = model)) +
   geom_point(aes(y = c0.5), size = 2) +
   geom_line(aes(y = c0.5), lwd = 1) +
@@ -151,4 +151,6 @@ plot_national %>%
   cowplot::theme_cowplot() +
   theme(legend.position = "bottom")
 
-ggsave(filename = "ensemble-plot-national.png", path = here::here("evaluation"))
+ggsave(filename = "ensemble-plot-national.png", path = here::here("evaluation", "plots"),
+       width = 8, height = 8,
+       national_plot)
