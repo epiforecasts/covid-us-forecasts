@@ -12,10 +12,11 @@ format_timeseries <- function(model_type, right_truncate_weeks){
 state_codes <- tigris::fips_codes %>%
   dplyr::select(state_code, state_name) %>%
   unique() %>%
-  rbind(c("US", "US"))
+  rbind(c("US", "US")) %>%
+  mutate(state_name = ifelse(state_name == "U.S. Virgin Islands", "Virgin Islands", state_name))
 
 # Read in forecast
-raw_weekly_forecast <- readRDS(here::here("timeseries-forecast", model_type,
+raw_weekly_forecast <- readRDS(here::here("timeseries-forecast", model_type, "raw-rds",
                                      paste0("latest-weekly-", model_type, ".rds")))
 
 forecast_date <- unique(raw_weekly_forecast$date_created)
