@@ -1,17 +1,19 @@
 # Plot timeseries forecasts
 # Arguments:
 # model_type <- "deaths-only"
-# date <- "latest-weekly"
+# date <- "2020-07-06"
 # right_truncate_weeks = 1
+# xlim_min = max(fc_state$epiweek_target)-12
+# id = NULL
+
+library(ggplot2); library(dplyr); library(tidyr); library(stringr)
 
 plot_timeseries <- function(model_type, date = "latest-weekly", right_truncate_weeks = 1, 
                             xlim_min = 10, id = NULL){
-  
-  library(ggplot2); library(dplyr); library(tidyr); library(stringr)
-  
+
   # Read in forecast
   weekly_forecast <- readRDS(here::here("timeseries-forecast", model_type, "raw-rds",
-                                        paste0(date, "-", model_type, ".rds")))
+                                        paste0(date, "-weekly-", model_type, ".rds")))
   
   # Get data
   source(here::here("utils", "get-us-data.R"))
@@ -29,7 +31,7 @@ plot_timeseries <- function(model_type, date = "latest-weekly", right_truncate_w
     group_by(state, epiweek) %>%
     summarise(deaths = sum(deaths))
   
-  keep_states <- filter(weekly_deaths_state, epiweek == max(epiweek)-1 & deaths > 99) %>%
+  keep_states <- filter(weekly_deaths_state, epiweek == max(epiweek)-1 & deaths > 50) %>%
     pull(state)
   
   weekly_deaths_state <- filter(weekly_deaths_state, state %in% keep_states)
@@ -63,7 +65,7 @@ plot_timeseries <- function(model_type, date = "latest-weekly", right_truncate_w
                   title = paste0("Incident deaths in US states, from ", model_type, " model"))
   
   
-  ggplot2::ggsave(filename = paste0(id, "latest-state-", model_type, ".png"), plot = plot_state, 
+  ggplot2::ggsave(filename = paste0(id, date, "-state-", model_type, ".png"), plot = plot_state, 
                   path = here::here("timeseries-forecast", "figures"),
                   width = 12, height = 6, dpi = 300)
   
@@ -107,7 +109,7 @@ plot_timeseries <- function(model_type, date = "latest-weekly", right_truncate_w
     ggplot2::labs(caption = "--- is date of data truncation",
                   title = paste0("Incident deaths in US states, from ", model_type, " model"))
   
-  ggplot2::ggsave(filename = paste0(id, "latest-national-", model_type, ".png"), plot = plot_national, 
+  ggplot2::ggsave(filename = paste0(id, date, "-national-", model_type, ".png"), plot = plot_national, 
                   path = here::here("timeseries-forecast", "figures"))
   
 }

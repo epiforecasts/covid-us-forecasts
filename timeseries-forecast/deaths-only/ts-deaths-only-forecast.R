@@ -53,7 +53,7 @@ ts_deaths_only_forecast <- function(data,
                                                  model_params = list(models = "aez", weights = "equal"),
                                                  forecast_params = list(PI.combination = "mean"))) %>%
     mutate(sample = rep(1:sample_count)) %>%
-    pivot_longer(cols = starts_with("..."), names_to = "epiweek")
+    tidyr::pivot_longer(cols = starts_with("..."), names_to = "epiweek")
  
   if(format == FALSE){
   return(death_forecast)

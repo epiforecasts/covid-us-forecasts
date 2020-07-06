@@ -6,7 +6,7 @@ library(magrittr)
 # data = c("cumulative", "daily")
   
 # Deaths data -------------------------------------------------------------
-get_us_deaths <- function(data = "daily"){  
+get_us_deaths <- function(data = "daily", anomaly_threshold = 100){  
 
    # Get & reshape data
    cumulative <- readr::read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv") %>% 
@@ -30,12 +30,20 @@ get_us_deaths <- function(data = "daily"){
      # De-cumulate to daily
        dplyr::group_by(state) %>% 
        dplyr::mutate(deaths = c(0, diff(deaths)),
-                     deaths = replace(deaths, deaths < 0 , 0)) %>% 
-       dplyr::ungroup() 
-   # Save daily deaths in all states
-    saveRDS(daily, here::here("data", "deaths-data-daily.rds"))
-    
-    return(daily)
+                     deaths = replace(deaths, deaths < 0 , 0),
+                     p_diff = deaths / lag(deaths),
+                     p_diff = ifelse(p_diff == "Inf", 0, p_diff),
+                     extreme_diff = ifelse(p_diff > 10, TRUE, FALSE),
+                     adjusted = ifelse(extreme_diff == TRUE & deaths > anomaly_threshold, TRUE, FALSE),
+                     raw_deaths = deaths,
+                     deaths = ifelse(adjusted == TRUE,
+                                      lag(deaths),
+                                      deaths)) %>%
+       dplyr::ungroup() %>%
+      select(-extreme_diff, -p_diff)
+     # Save daily deaths in all states
+     saveRDS(daily, here::here("data", "deaths-data-daily.rds"))
+     return(daily)
    }
 }
 
