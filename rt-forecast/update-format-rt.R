@@ -30,8 +30,8 @@ forecasts <- c(list.dirs(file.path(forecast_dir, "state"), recursive = FALSE),
                list.dirs(file.path(forecast_dir, "national"), recursive = FALSE))
 
 names(forecasts) <- forecasts %>%
-  stringr::str_remove(file.path(forecast_dir, "state/")) %>%
-  stringr::str_remove(file.path(forecast_dir, "national/"))
+  stringr::str_remove(file.path(forecast_dir, "state//")) %>%
+  stringr::str_remove(file.path(forecast_dir, "national//"))
 
 
 # Load formatting function ------------------------------------------------
@@ -58,6 +58,7 @@ region_forecasts <- region_forecasts %>%
   dplyr::left_join(state_codes, by = "state_name") %>%
   dplyr::mutate(location = state_code) %>%
   dplyr::select(-state_name, -state_code)
+
 
 # Save forecast -----------------------------------------------------------
 # Dated

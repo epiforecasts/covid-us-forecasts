@@ -25,9 +25,10 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
 
 # Get case count --------------------------------------------------
 
+  source(here::here("utils", "get-us-data.R"))
+  
   # Cumulative
-  cumulative_data <- readRDS(here::here("data", "deaths-data-cumulative.rds")) %>%
-    dplyr::mutate(epiweek = lubridate::epiweek(date))
+  cumulative_data <- get_us_deaths(data = "cumulative")
   
   cumulative_deaths_state <- cumulative_data %>%
     dplyr::group_by(epiweek) %>%
@@ -49,7 +50,7 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
   
 
   # Weekly
-  weekly_data <- readRDS(here::here("data", "deaths-data-daily.rds")) %>%
+  weekly_data <- get_us_deaths(data = "daily") %>%
     dplyr::mutate(epiweek = lubridate::epiweek(date))
   
   weekly_deaths_state <- weekly_data %>%
@@ -135,7 +136,7 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
         dplyr::mutate(epiweek_cases = cumsum(epiweek_cases)) %>%
         dplyr::ungroup()
       
-      cumulative_forecast$epiweek_cases <- cumulative_forecast$epiweek_cases + last_week_cumulative_deaths
+     cumulative_forecast$epiweek_cases <- cumulative_forecast$epiweek_cases + last_week_cumulative_deaths[1]
       
 
 # Process forecasts into quantiles ---------------------------------------------------

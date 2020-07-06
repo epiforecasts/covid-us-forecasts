@@ -9,12 +9,21 @@ submit_ensemble <- readr::read_csv(here::here("ensembling", "quantile-average", 
 
 # Filter to states with 100+ deaths in last week
 source(here::here("utils", "states-min-last-week.R"))
-keep_states <- states_min_last_week(min_last_week = 100, last_week = 1)
+keep_states <- states_min_last_week(min_last_week = 50, last_week = 1)
 
 submit_ensemble <- dplyr::filter(submit_ensemble, location %in% c(keep_states$state_code, "US"))
 
 # Set forecast date
 forecast_date <- unique(dplyr::pull(submit_ensemble, forecast_date))
+
+# Filter to forecasts within Rt forecast
+rt_max_date <- readr::read_csv(here::here("rt-forecast/submission-files/latest-rt-forecast-submission.csv")) %>%
+  dplyr::pull(target_end_date) %>%
+  unique() %>%
+  max()
+
+submit_ensemble <- dplyr::filter(submit_ensemble, target_end_date <= rt_max_date)
+
   
 # Save in final-submissions
 

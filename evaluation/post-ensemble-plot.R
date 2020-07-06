@@ -95,7 +95,7 @@ observed_deaths_national <- weekly_deaths_national %>%
 
 # Identify over 100 cases in the last week
 source(here::here("utils", "states-min-last-week.R"))
-keep_states <- states_min_last_week(min_last_week = 100, last_week = 1)
+keep_states <- states_min_last_week(min_last_week = 50, last_week = 1)
 
 
 plot_state <- dplyr::bind_rows(forecasts_state, observed_deaths_state) %>%
