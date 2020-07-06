@@ -18,14 +18,8 @@ get_us_deaths <- function(data = "daily", anomaly_threshold = 100){
       dplyr::rename(state = Province_State) %>%
       dplyr::mutate(epiweek = lubridate::epiweek(date)) %>%
       dplyr::arrange(date) %>%
-     dplyr::filter(!state %in% c("Diamond Princess", "Grand Princess"))
+      dplyr::filter(!state %in% c("Diamond Princess", "Grand Princess"))
    
-   if(data == "cumulative"){
-     saveRDS(cumulative, here::here("data", "deaths-data-cumulative.rds"))
-     return(cumulative)
-   }
-   
-   if(data == "daily"){
      daily <- cumulative %>%
      # De-cumulate to daily
        dplyr::group_by(state) %>% 
@@ -41,10 +35,26 @@ get_us_deaths <- function(data = "daily", anomaly_threshold = 100){
                                       deaths)) %>%
        dplyr::ungroup() %>%
       select(-extreme_diff, -p_diff)
+     
+     # Re-accumulate over adjusted data
+     cumulative_adj <- daily %>%
+       dplyr::group_by(state) %>% 
+       dplyr::mutate(deaths = cumsum(deaths),
+                     raw_deaths = cumsum(raw_deaths)
+                     )
+     
+# Return data
+     if(data == "daily"){
      # Save daily deaths in all states
      saveRDS(daily, here::here("data", "deaths-data-daily.rds"))
      return(daily)
    }
+   
+   if(data == "cumulative"){
+     saveRDS(cumulative_adj, here::here("data", "deaths-data-cumulative.rds"))
+     return(cumulative_adj)
+   }
+   
 }
 
 

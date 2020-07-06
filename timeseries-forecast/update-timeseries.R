@@ -37,7 +37,7 @@ case_quantile <- 0.5
 # Forecast with deaths only -----------------------------------------------
 
 # State forecast
-state_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_state_adj, 
+state_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_state, 
                                             sample_count = sample_count, 
                                             horizon_weeks = horizon_weeks,
                                             right_truncate_weeks = right_truncate_weeks,
@@ -45,7 +45,7 @@ state_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_state_adj,
                                             quantiles_out = quantiles_out)
 
 # National forecast
-national_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_national_adj, 
+national_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_national, 
                                              sample_count = sample_count, 
                                              horizon_weeks = horizon_weeks,
                                              right_truncate_weeks = right_truncate_weeks,
@@ -62,7 +62,7 @@ saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "
 
 # State forecast
 state_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cases_state,
-                                                   deaths_data = deaths_state_adj,
+                                                   deaths_data = deaths_state,
                                                    case_quantile = case_quantile,
                                                    sample_count = sample_count, 
                                                    horizon_weeks = horizon_weeks,
@@ -72,7 +72,7 @@ state_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cases_
 
 # National forecast
 national_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cases_national,
-                                                      deaths_data = deaths_national_adj,
+                                                      deaths_data = deaths_national,
                                                       case_quantile = case_quantile,
                                                       sample_count = sample_count, 
                                                       horizon_weeks = horizon_weeks,
