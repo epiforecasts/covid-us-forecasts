@@ -27,7 +27,7 @@ adjust_data_anomalies <- function(data, variable_name, threshold = 100){
            extreme_diff = ifelse(p_diff > 10, TRUE, FALSE),
            adjusted = ifelse(extreme_diff == TRUE & variable > threshold, TRUE, FALSE),
            variable = ifelse(adjusted == TRUE,
-                                    lead(variable),
+                                    lag(variable),
                                     variable)) %>%
     select(-extreme_diff, -p_diff)
   
