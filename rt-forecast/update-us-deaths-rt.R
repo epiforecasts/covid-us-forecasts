@@ -32,9 +32,10 @@ incubation_defs <- readRDS(here::here("rt-forecast", "data", "incubation.rds"))
 # Get and reshape deaths data ---------------------------------------------------------------
 source(here::here("utils", "get-us-data.R"))
 
-# deaths <- readRDS(here::here("data", "deaths_data.rds"))
+# Get raw data
 deaths <- get_us_deaths(data = "daily")
 
+# Format for Epinow
 deaths_national <- deaths %>%
   dplyr::group_by(date) %>%
   dplyr::summarise(deaths = sum(deaths)) %>%
