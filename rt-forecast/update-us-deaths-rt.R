@@ -31,10 +31,15 @@ incubation_defs <- readRDS(here::here("rt-forecast", "data", "incubation.rds"))
 
 # Get and reshape deaths data ---------------------------------------------------------------
 source(here::here("utils", "get-us-data.R"))
+source(here::here("utils", "adjust-data-anomalies.R"))
 
-# deaths <- readRDS(here::here("data", "deaths_data.rds"))
-deaths <- get_us_deaths(data = "daily")
+# Get raw data
+raw_deaths <- get_us_deaths(data = "daily")
 
+# Adjust deaths for massive anomalies (1000% change)
+deaths <- adjust_data_anomalies(data = raw_deaths, variable_name = "deaths", threshold = 100)
+
+# Format for Epinow
 deaths_national <- deaths %>%
   dplyr::group_by(date) %>%
   dplyr::summarise(deaths = sum(deaths)) %>%

@@ -1,5 +1,5 @@
 # Saves plots for timeseries forecasts
-# Figures saved to "timeseries-forecast/figures"
+# Plots saved to "timeseries-forecast/figures"
 
 source(here::here("timeseries-forecast", "plot-timeseries-fn.R"))
 
@@ -16,3 +16,13 @@ plot_timeseries(model_type = "deaths-only", date = "latest-weekly", right_trunca
                 xlim_min = recent, id = "recent-")
 plot_timeseries(model_type = "deaths-on-cases", date = "latest-weekly", right_truncate_weeks = 1, 
                 xlim_min = recent, id = "recent-")
+
+# Today's forecast
+date <- as.character(Sys.Date())
+
+plot_timeseries(model_type = "deaths-only", date = date, right_truncate_weeks = 1, 
+                xlim_min = recent, id = "recent-")
+
+plot_timeseries(model_type = "deaths-on-cases", date = date, right_truncate_weeks = 1, 
+                xlim_min = recent, id = "recent-")
+
