@@ -22,14 +22,7 @@ cases_national <- cases_state %>%
   summarise(cases = sum(cases)) %>%
   mutate(state = "US")
 
-# Adjusted data
-# Note - cases data seems to have too much weekly periodicity to make this work?
-source(here::here("utils", "adjust-data-anomalies.R"))
-deaths_state_adj <- adjust_data_anomalies(data = deaths_state, variable_name = "deaths", threshold = 100)
-deaths_national_adj <- deaths_state_adj %>%
-  group_by(date) %>%
-  summarise(deaths = sum(deaths)) %>%
-  mutate(state = "US")
+
 
 # Set forecast parameters -------------------------------------------------
 
