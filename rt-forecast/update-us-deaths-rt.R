@@ -4,11 +4,12 @@
 # 
 # require(drat)
 drat::addRepo("epiforecasts")
-# install.packages("EpiSoon")
+install.packages("EpiSoon")
 require(devtools)
 devtools::install_deps()
 devtools::install_deps(repos = "https://epiforecasts.io/drat/")
 
+require(EpiSoon)
 require(EpiNow)
 require(data.table)
 require(forecastHybrid)
@@ -93,13 +94,17 @@ EpiNow::regional_rt_pipeline(
     forecast_params = list(PI.combination = "mean"), ...)})
 
 
+
 ## Regional 
+
+# New Jersey
+# newjersey <- filter(deaths_regional, region == "New Jersey")
 
 setup_future(length(unique(deaths_regional$region)))
 
 EpiNow::regional_rt_pipeline(
   # Settings to estimate Rt
-  cases = deaths_regional, 
+  cases = newjersey, 
   delay_defs = delay_dists,
   incubation_defs = incubation_defs,
   target_folder = "rt-forecast/state", 
