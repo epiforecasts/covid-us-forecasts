@@ -22,7 +22,14 @@ cases_national <- cases_state %>%
   summarise(cases = sum(cases)) %>%
   mutate(state = "US")
 
-
+# Adjusted data
+# Note - cases data seems to have too much weekly periodicity to make this work?
+source(here::here("utils", "adjust-data-anomalies.R"))
+deaths_state_adj <- adjust_data_anomalies(data = deaths_state, variable_name = "deaths", threshold = 100)
+deaths_national_adj <- deaths_state_adj %>%
+  group_by(date) %>%
+  summarise(deaths = sum(deaths)) %>%
+  mutate(state = "US")
 
 # Set forecast parameters -------------------------------------------------
 
@@ -37,7 +44,7 @@ case_quantile <- 0.5
 # Forecast with deaths only -----------------------------------------------
 
 # State forecast
-state_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_state, 
+state_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_state_adj, 
                                             sample_count = sample_count, 
                                             horizon_weeks = horizon_weeks,
                                             right_truncate_weeks = right_truncate_weeks,
@@ -45,7 +52,7 @@ state_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_state,
                                             quantiles_out = quantiles_out)
 
 # National forecast
-national_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_national, 
+national_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_national_adj, 
                                              sample_count = sample_count, 
                                              horizon_weeks = horizon_weeks,
                                              right_truncate_weeks = right_truncate_weeks,
@@ -62,7 +69,7 @@ saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "
 
 # State forecast
 state_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cases_state,
-                                                   deaths_data = deaths_state,
+                                                   deaths_data = deaths_state_adj,
                                                    case_quantile = case_quantile,
                                                    sample_count = sample_count, 
                                                    horizon_weeks = horizon_weeks,
@@ -72,7 +79,7 @@ state_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cases_
 
 # National forecast
 national_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cases_national,
-                                                      deaths_data = deaths_national,
+                                                      deaths_data = deaths_national_adj,
                                                       case_quantile = case_quantile,
                                                       sample_count = sample_count, 
                                                       horizon_weeks = horizon_weeks,
