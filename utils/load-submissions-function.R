@@ -1,8 +1,12 @@
 # load submission files
 
+# dates = "all" loads all submission files
+# num_last allows you to load only the last x files
+
 # maybe add functionality to read only specific dates later?
 
 load_submission_files <- function(dates = c("latest", "all"), 
+                                  num_last = NULL,
                                   models = c("rt", 
                                              "deaths-only", 
                                              "deaths-on-cases", 
@@ -16,6 +20,11 @@ load_submission_files <- function(dates = c("latest", "all"),
   if ("all" %in% models | "rt" %in% models) {
     if (dates[1] == "all") {
       rt_files <- list.files(here::here("rt-forecast", "submission-files", "dated"))
+      
+      if (!is.null(num_last)) {
+        rt_files <- sort(rt_files, decreasing = TRUE)[1:num_last]
+      }
+      
       rt_paths <- here::here("rt-forecast", "submission-files", "dated", rt_files)
     } else {
       rt_paths <- here::here("rt-forecast", "submission-files",
@@ -34,6 +43,12 @@ load_submission_files <- function(dates = c("latest", "all"),
                                                  "submission-files", "dated"))
       deaths_only_paths <- here::here("timeseries-forecast", "deaths-only", 
                                       "submission-files", "dated", deaths_only_files)
+      
+      if (!is.null(num_last)) {
+        deaths_only_files <- sort(deaths_only_files, decreasing = TRUE)[1:num_last]
+      }
+      
+      
     } else {
       deaths_only_paths <- here::here("timeseries-forecast", "deaths-only", 
                                       "submission-files",
@@ -51,6 +66,11 @@ load_submission_files <- function(dates = c("latest", "all"),
                                                  "submission-files", "dated"))
       deaths_on_cases_paths <- here::here("timeseries-forecast", "deaths-on-cases", 
                                       "submission-files", "dated", deaths_on_cases_files)
+      
+      if (!is.null(num_last)) {
+        deaths_on_cases_files <- sort(deaths_on_cases_files, decreasing = TRUE)[1:num_last]
+      }
+      
     } else {
       deaths_on_cases_paths <- here::here("timeseries-forecast", "deaths-on-cases", 
                                       "submission-files",
@@ -69,6 +89,11 @@ load_submission_files <- function(dates = c("latest", "all"),
                                                      "submission-files", "dated"))
       mean_ensemble_paths <- here::here("ensembling", "quantile-average", 
                                           "submission-files", "dated", mean_ensemble_files)
+      
+      if (!is.null(num_last)) {
+        mean_ensemble_files <- sort(mean_ensemble_files, decreasing = TRUE)[1:num_last]
+      }
+      
     } else {
       mean_ensemble_paths <- here::here("ensembling", "quantile-average",
                                           "submission-files",
@@ -85,6 +110,11 @@ load_submission_files <- function(dates = c("latest", "all"),
                                                    "submission-files", "dated"))
       qra_ensemble_paths <- here::here("ensembling", "qra-ensemble", 
                                         "submission-files", "dated", mean_ensemble_files)
+      
+      if (!is.null(num_last)) {
+        qra_ensemble_files <- sort(qra_ensemble_files, decreasing = TRUE)[1:num_last]
+      }
+      
     } else {
       qra_ensemble_paths <- here::here("ensembling", "qra-ensemble",
                                         "submission-files",
