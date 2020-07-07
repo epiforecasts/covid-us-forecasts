@@ -1,0 +1,12 @@
+name: expert-forecast-app
+title: expert-forecast-app
+username:
+account: epiforecasts
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2530633
+bundleId: 3357136
+url: https://epiforecasts.shinyapps.io/expert-forecast-app/
+when: 1594028294.09658
+asMultiple: FALSE
+asStatic: FALSE
