@@ -59,6 +59,7 @@ region_forecasts <- region_forecasts %>%
   dplyr::mutate(location = state_code) %>%
   dplyr::select(-state_name, -state_code)
 
+region_forecasts$forecast_date <- as.Date("2020-07-06")
 
 # Save forecast -----------------------------------------------------------
 # Dated
