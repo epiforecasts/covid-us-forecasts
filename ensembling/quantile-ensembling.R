@@ -73,7 +73,8 @@ weekly_deaths_cum <- weekly_deaths %>%
 
 ###
 death_data <- bind_rows(weekly_deaths, weekly_deaths_cum) %>%
-  dplyr::select(-epiweek, value_date = target_end_date)
+  dplyr::select(-epiweek, value_date = target_end_date, -geography_scale) %>%
+  dplyr::filter(value_type == "inc")
 
 # load previous forecasts ------------------------------------------------------
 # rt files
@@ -129,21 +130,26 @@ forecasts_for_qra <- forecasts %>%
   dplyr::rename(creation_date = forecast_date, 
                 value_date = target_end_date,
                 geography = state_name) %>%
-  dplyr::mutate(geography_scale = ifelse(geography == "US", "country", "region"), 
-                geography = ifelse(geography == "US", "country", geography), 
+  dplyr::mutate(geography_scale = ifelse(geography == "US", "nation", "region"), 
                 inc = ifelse(grepl("inc", target), "inc", "cum"), 
                 value_date = as.Date(value_date), 
                 creation_date = as.Date(creation_date), 
                 value_type = inc) %>%
-  dplyr::filter(type == "quantile") %>%
-  dplyr::select(-target, -type, -inc)
+  dplyr::filter(type == "quantile", 
+                value_type == "inc") %>%
+  dplyr::select(-target, -type, -inc, -location) %>%
+  dplyr::mutate(quantile = round(quantile, digits = 3), 
+                value_date = as.Date(value_date))
 
 
 # do quantile regression and format output -------------------------------------
 
 res <- qra::qra(forecasts_for_qra, death_data, pool = c("horizon", "geography"),
                 min_date = max(forecasts_for_qra$creation_date) - 20, 
-                enforce_normalisation = FALSE)
+                enforce_normalisation = TRUE)
+
+
+death_data %>% saveRDS("death_data.rds")
 
 # format results
 # weekly incidences
@@ -155,11 +161,12 @@ qra_forecast <- res$ensemble %>%
                                value_type,
                                "death",
                                sep = " "), 
-                type = "quantile") %>%
+                type = "quantile", 
+                geography = ifelse(geography == "country", "US", geography)) %>%
+  dplyr::inner_join(state_codes %>%
+                      dplyr::rename(geography = state_name)) %>%
   dplyr::select(forecast_date, target, target_end_date, location, type, quantile, value)
 
-forecast_date <- qra_forecast$forecast_date %>%
-  unique()
 
 # Save --------------------------------------------------------------------
 
