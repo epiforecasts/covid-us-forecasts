@@ -25,9 +25,10 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
 
 # Get case count --------------------------------------------------
 
+  source(here::here("utils", "get-us-data.R"))
+  
   # Cumulative
-  cumulative_data <- readRDS(here::here("data", "deaths-data-cumulative.rds")) %>%
-    dplyr::mutate(epiweek = lubridate::epiweek(date))
+  cumulative_data <- get_us_deaths(data = "cumulative")
   
   cumulative_deaths_state <- cumulative_data %>%
     dplyr::group_by(epiweek) %>%
@@ -38,7 +39,7 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
     dplyr::group_by(epiweek) %>%
     dplyr::filter(date == max(date)) %>%
     dplyr::summarise(deaths = sum(deaths),
-                     state = "US")
+                     state = "US", .groups = "drop_last")
 
   cumulative_deaths <- dplyr::bind_rows(cumulative_deaths_state, cumulative_deaths_national)
 
@@ -49,18 +50,18 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
   
 
   # Weekly
-  weekly_data <- readRDS(here::here("data", "deaths-data-daily.rds")) %>%
+  weekly_data <- get_us_deaths(data = "daily") %>%
     dplyr::mutate(epiweek = lubridate::epiweek(date))
   
   weekly_deaths_state <- weekly_data %>%
     dplyr::group_by(state, epiweek) %>%
-    dplyr::summarise(deaths = sum(deaths)) %>%
+    dplyr::summarise(deaths = sum(deaths), .groups = "drop_last") %>%
     dplyr::ungroup()
   
   weekly_deaths_national <- weekly_data %>%
     dplyr::group_by(epiweek) %>%
     dplyr::summarise(deaths = sum(deaths),
-                     state = "US")
+                     state = "US", .groups = "drop_last")
   
   weekly_deaths <- dplyr::bind_rows(weekly_deaths_state, weekly_deaths_national)
   
@@ -98,7 +99,7 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
       
     } 
       
-
+ 
 
 # Set up data and dates ---------------------------------------------------
 
@@ -135,7 +136,7 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
         dplyr::mutate(epiweek_cases = cumsum(epiweek_cases)) %>%
         dplyr::ungroup()
       
-      cumulative_forecast$epiweek_cases <- cumulative_forecast$epiweek_cases + last_week_cumulative_deaths
+     cumulative_forecast$epiweek_cases <- cumulative_forecast$epiweek_cases + last_week_cumulative_deaths[1]
       
 
 # Process forecasts into quantiles ---------------------------------------------------
