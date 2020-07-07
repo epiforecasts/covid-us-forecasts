@@ -41,12 +41,12 @@ load_submission_files <- function(dates = c("latest", "all"),
       
       deaths_only_files <- list.files(here::here("timeseries-forecast", "deaths-only", 
                                                  "submission-files", "dated"))
-      deaths_only_paths <- here::here("timeseries-forecast", "deaths-only", 
-                                      "submission-files", "dated", deaths_only_files)
-      
       if (!is.null(num_last)) {
         deaths_only_files <- sort(deaths_only_files, decreasing = TRUE)[1:num_last]
       }
+      
+      deaths_only_paths <- here::here("timeseries-forecast", "deaths-only", 
+                                      "submission-files", "dated", deaths_only_files)
       
       
     } else {
@@ -64,12 +64,13 @@ load_submission_files <- function(dates = c("latest", "all"),
       
       deaths_on_cases_files <- list.files(here::here("timeseries-forecast", "deaths-on-cases", 
                                                  "submission-files", "dated"))
-      deaths_on_cases_paths <- here::here("timeseries-forecast", "deaths-on-cases", 
-                                      "submission-files", "dated", deaths_on_cases_files)
       
       if (!is.null(num_last)) {
         deaths_on_cases_files <- sort(deaths_on_cases_files, decreasing = TRUE)[1:num_last]
       }
+      
+      deaths_on_cases_paths <- here::here("timeseries-forecast", "deaths-on-cases", 
+                                      "submission-files", "dated", deaths_on_cases_files)
       
     } else {
       deaths_on_cases_paths <- here::here("timeseries-forecast", "deaths-on-cases", 
@@ -87,12 +88,13 @@ load_submission_files <- function(dates = c("latest", "all"),
       
       mean_ensemble_files <- list.files(here::here("ensembling", "quantile-average",
                                                      "submission-files", "dated"))
-      mean_ensemble_paths <- here::here("ensembling", "quantile-average", 
-                                          "submission-files", "dated", mean_ensemble_files)
       
       if (!is.null(num_last)) {
         mean_ensemble_files <- sort(mean_ensemble_files, decreasing = TRUE)[1:num_last]
       }
+      
+      mean_ensemble_paths <- here::here("ensembling", "quantile-average", 
+                                          "submission-files", "dated", mean_ensemble_files)
       
     } else {
       mean_ensemble_paths <- here::here("ensembling", "quantile-average",
@@ -108,12 +110,14 @@ load_submission_files <- function(dates = c("latest", "all"),
       
       qra_ensemble_files <- list.files(here::here("ensembling", "qra-ensemble",
                                                    "submission-files", "dated"))
-      qra_ensemble_paths <- here::here("ensembling", "qra-ensemble", 
-                                        "submission-files", "dated", mean_ensemble_files)
       
       if (!is.null(num_last)) {
         qra_ensemble_files <- sort(qra_ensemble_files, decreasing = TRUE)[1:num_last]
       }
+      
+      qra_ensemble_paths <- here::here("ensembling", "qra-ensemble", 
+                                        "submission-files", "dated", mean_ensemble_files)
+      
       
     } else {
       qra_ensemble_paths <- here::here("ensembling", "qra-ensemble",
