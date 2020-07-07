@@ -3,9 +3,8 @@
 # ============================================================================ #
 library(magrittr)
 
-
 # function for loading past submissions
-source(here::here("utils", "load-submission-files.R"))
+source(here::here("utils", "load-submissions-function.R"))
 
 # function for loading past data
 source(here::here("utils", "get-us-data.R"))
@@ -40,49 +39,52 @@ full <- dplyr::bind_rows(combined,
                            dplyr::filter(quantile == 0.5) %>%
                            dplyr::mutate(boundary = "upper")) %>%
   # weird unexplicable rounding error?
-  dplyr::mutate(range = round(range, digits = 0)) %>%
-  dplyr::filter(range %in% c(0, 25, 50, 90)) %>%
-  dplyr::select(-target, -target_end_date, -quantile)
+  dplyr::mutate(range = round(range, digits = 0), 
+                horizon = as.numeric(substring(target, 1, 1))) %>%
+  dplyr::filter(range %in% c(0, 20, 50, 90)) %>%
+  dplyr::select(-target, -target_end_date, -quantile, -type, -location)
 
 
 # ============================================================================ #
-# evaluate forecasts
+# evaluate forecasts and plot
 # ============================================================================ #
 
-scores <- scoringutils::eval_forecasts(full, summarise = FALSE)
-
-plots <- scoringutils::plot_scores(scores, facet_formula = ~ range)
-
-plots$bias_plot
+scores <- scoringutils::eval_forecasts(full, summarise = TRUE, 
+                                       by = c("model", "state", 
+                                              "horizon"))
 
 
-# # also add median and iqr and ci
-# # this is done to use pre-existing plotting functions
-# missing_scores <- df %>%
-#   dplyr::group_by(forecast_date, id, region, model) %>%
-#   dplyr::summarise(median = median(predictions), 
-#                    iqr = IQR(predictions), 
-#                    ci = scoringutils::interval_score(true_values = predictions, 
-#                                                      lower = quantile(predictions, prop = 0.025), 
-#                                                      upper = quantile(predictions, prop = 0.975), 
-#                                                      95))
-# 
-# # join together to obtain all scores and forecasts
-# full <- dplyr::inner_join(scored_forecasts, missing_scores) %>%
-#   dplyr::rename(dss = DSS, 
-#                 crps = CRPS, 
-#                 calibration = pit_p_val) %>%
-#   dplyr::mutate(logs = NA)
-# 
-# # summarise scores
-# summarised_scores <- EpiSoon::summarise_scores(full)
+# source plotting function
+source(here::here("evaluation", "utils", "evaluation-plots-function.R"))
 
+plots <- plot_scores(scores)
 
+current_date <- Sys.Date()
 
-# ============================================================================ #
-# plot evaluation
-# ============================================================================ #
+if(!dir.exists(here::here("evaluation", "plots", 
+                          current_date))) {
+  dir.create(here::here("evaluation", "plots", 
+                        current_date))
+}
 
-# use pre-existing functions
+ggplot2::ggsave(here::here("evaluation", "plots", 
+                  current_date, "interval_scores.png"), 
+       plot = plots$interval_score_plot, 
+       width = 10, height = 10, dpi = 300)
+
+ggplot2::ggsave(here::here("evaluation", "plots", 
+                           current_date, "calibration.png"), 
+                plot = plots$calibration_plot, 
+                width = 10, height = 10, dpi = 300)
+
+ggplot2::ggsave(here::here("evaluation", "plots", 
+                           current_date, "bias.png"), 
+                plot = plots$bias_plot, 
+                width = 10, height = 10, dpi = 300)
+
+ggplot2::ggsave(here::here("evaluation", "plots", 
+                           current_date, "sharpness.png"), 
+                plot = plots$sharpness_plot, 
+                width = 10, height = 10, dpi = 300)
 
 
