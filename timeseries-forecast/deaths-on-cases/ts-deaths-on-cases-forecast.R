@@ -57,14 +57,15 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
     
   case_forecast <- case_data_weekly %>%
       group_by(state) %>%
-      group_modify(~ EpiSoon::forecastHybrid_model(y = filter(.x, epiweek %in% historical_weeks) %>% pull("cases"),
+      group_modify(~ EpiSoon::forecastHybrid_model(y = filter(.x, epiweek %in% historical_weeks) %>%
+                                                     pull("cases"),
                                                    samples = sample_count, 
                                                    horizon = horizon_weeks,
                                                    model_params = list(models = "aez", weights = "equal",
                                                                        a.args = list()),
                                                    forecast_params = list(PI.combination = "mean"))) %>%
       mutate(sample = rep(1:sample_count)) %>%
-      pivot_longer(cols = starts_with("..."), names_to = "epiweek")
+      tidyr::pivot_longer(cols = starts_with("..."), names_to = "epiweek")
     
     # Get quantile
       quantile <- case_forecast %>%
@@ -117,7 +118,7 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
                                                                             PI.combination = "mean")
                                                      )) %>%
         mutate(sample = rep(1:sample_count)) %>%
-        pivot_longer(cols = starts_with("..."), names_to = "epiweek")
+        tidyr::pivot_longer(cols = starts_with("..."), names_to = "epiweek")
       
       
 
