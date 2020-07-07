@@ -2,6 +2,7 @@
 # load data
 # ============================================================================ #
 library(magrittr)
+library(dplyr)
 
 # function for loading past submissions
 source(here::here("utils", "load-submissions-function.R"))
@@ -42,24 +43,37 @@ full <- dplyr::bind_rows(combined,
   dplyr::mutate(range = round(range, digits = 0), 
                 horizon = as.numeric(substring(target, 1, 1))) %>%
   dplyr::filter(range %in% c(0, 20, 50, 90)) %>%
-  dplyr::select(-target, -target_end_date, -quantile, -type, -location)
+  dplyr::select(-target, -target_end_date, -quantile, -type, -location) %>%
+  unique()
 
 
 # ============================================================================ #
 # evaluate forecasts and plot
 # ============================================================================ #
 
+# source plotting function
+source(here::here("evaluation", "utils", "evaluation-plots-function.R"))
+
+
+
+# regular plots
 scores <- scoringutils::eval_forecasts(full, summarise = TRUE, 
                                        by = c("model", "state", 
                                               "horizon"))
 
+plots <- plot_scores(scores, by = c("model", "range", "horizon"))
 
-# source plotting function
-source(here::here("evaluation", "utils", "evaluation-plots-function.R"))
+# state plots
+scores_state <- scoringutils::eval_forecasts(full, summarise = TRUE, 
+                                             by = c("model", "state", 
+                                                    "horizon"))
 
-plots <- plot_scores(scores)
+plots_state <- plot_scores(scores_state, by = c("model", "range", "state"), 
+                           y = "state", 
+                           dodge_width = 0.75)
 
-current_date <- Sys.Date()
+
+current_date <- Sys.Date() - 1
 
 if(!dir.exists(here::here("evaluation", "plots", 
                           current_date))) {
@@ -67,6 +81,7 @@ if(!dir.exists(here::here("evaluation", "plots",
                         current_date))
 }
 
+# regular plots
 ggplot2::ggsave(here::here("evaluation", "plots", 
                   current_date, "interval_scores.png"), 
        plot = plots$interval_score_plot, 
@@ -87,4 +102,26 @@ ggplot2::ggsave(here::here("evaluation", "plots",
                 plot = plots$sharpness_plot, 
                 width = 10, height = 10, dpi = 300)
 
+
+# state plots
+
+ggplot2::ggsave(here::here("evaluation", "plots", 
+                           current_date, "state_interval_scores.png"), 
+                plot = plots_state$interval_score_plot, 
+                width = 10, height = 35, dpi = 300)
+
+ggplot2::ggsave(here::here("evaluation", "plots", 
+                           current_date, "state_calibration.png"), 
+                plot = plots_state$calibration_plot, 
+                width = 10, height = 35, dpi = 300)
+
+ggplot2::ggsave(here::here("evaluation", "plots", 
+                           current_date, "state_bias.png"), 
+                plot = plots_state$bias_plot, 
+                width = 10, height = 35, dpi = 300)
+
+ggplot2::ggsave(here::here("evaluation", "plots", 
+                           current_date, "state_sharpness.png"), 
+                plot = plots_state$sharpness_plot, 
+                width = 10, height = 35, dpi = 300)
 
