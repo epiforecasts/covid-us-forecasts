@@ -2,7 +2,13 @@
 # Takes in summarised scores from eval_forecasts
 # averages over states and displays scores
 
-plot_scores <- function(scores) {
+
+plot_scores <- function(scores, 
+                        y = "horizon", 
+                        colour = "model", 
+                        by = c("model", "range", "horizon"), 
+                        facet_formula = ~ range, 
+                        dodge_width = 0.4) {
   
   data.table::setDT(scores)
   
@@ -26,75 +32,85 @@ plot_scores <- function(scores) {
                         upper75_sharpness = quantile(sharpness, 0.75, na.rm = TRUE),
                         lower05_sharpness = quantile(sharpness, 0.05, na.rm = TRUE),
                         upper95_sharpness = quantile(sharpness, 0.95, na.rm = TRUE), 
-                        sharpness = mean(sharpness)), by = c("model", "range", "horizon")]
+                        sharpness = mean(sharpness)), by = by]
   
-  # make horizon a factor
-  plot_df[, horizon := ordered(horizon, levels = sort(unique(horizon)))]
+  # add grouping variables
+  plot_df[, `:=` (y = forcats::fct_rev(as.factor(get(y))), 
+                  colour = get(colour))]
   
   plots <- list()
   
   plots[["interval_score_plot"]] <- 
-  ggplot2::ggplot(plot_df, ggplot2::aes(y = model, colour =  horizon)) +
+  ggplot2::ggplot(plot_df, ggplot2::aes(y = y, colour =  colour)) +
     ggplot2::geom_linerange(ggplot2::aes(xmin = log(lower25_score), xmax = log(upper75_score)), 
                             size = 2, 
-                            position = ggplot2::position_dodge2(width = 0.4, 
+                            position = ggplot2::position_dodge2(width = dodge_width, 
                                                                 padding = 0)) +
     ggplot2::geom_linerange(ggplot2::aes(xmin = log(lower05_score), xmax = log(upper95_score)),
                             size = 2,
                             alpha = 0.4, 
-                            position = ggplot2::position_dodge2(width = 0.4, 
+                            position = ggplot2::position_dodge2(width = dodge_width, 
                                                                 padding = 0)) +
     ggplot2::geom_point(ggplot2::aes(x = log(Interval_Score)),
                         colour = "black",
-                        position = ggplot2::position_dodge2(width = 0.4, 
+                        shape = 3,
+                        position = ggplot2::position_dodge2(width = dodge_width, 
                                                             padding = 0)) + 
-    ggplot2::facet_grid(~ range, scales = "free",
+    ggplot2::facet_grid(facet_formula, scales = "free",
                         labeller = "label_both") +
     cowplot::theme_cowplot() +
     # ggplot2::coord_flip() + 
     ggplot2::theme(text = ggplot2::element_text(family = "Sans Serif"),
-                   legend.position = "bottom")
+                   legend.position = "bottom") + 
+    ggplot2::labs(colour = colour) + 
+    ggplot2::ylab(y) + 
+    ggplot2::xlab("Log Interval Score")
   
-  plots[["calibration_plot"]] <- 
+  plots[["calibration_plot"]] <-  
   ggplot2::ggplot(plot_df[range != 0, ], 
-                  ggplot2::aes(y = model, colour = (horizon))) +
+                  ggplot2::aes(y = y, colour = colour)) +
     ggplot2::geom_linerange(ggplot2::aes(xmin = (lower25_calibration), xmax = (upper75_calibration)), 
                             size = 2, 
-                            position = ggplot2::position_dodge2(width = 0.4, 
+                            position = ggplot2::position_dodge2(width = dodge_width, 
                                                                 padding = 0)) +
     ggplot2::geom_linerange(ggplot2::aes(xmin = (lower05_calibration), xmax = (upper95_calibration)),
                             size = 2,
                             alpha = 0.4, 
-                            position = ggplot2::position_dodge2(width = 0.4, 
+                            position = ggplot2::position_dodge2(width = dodge_width, 
                                                                 padding = 0)) +
     ggplot2::geom_point(ggplot2::aes(x = calibration),
                         colour = "black",
-                        position = ggplot2::position_dodge2(width = 0.4, 
+                        shape = 3,
+                        position = ggplot2::position_dodge2(width = dodge_width, 
                                                             padding = 0)) + 
     ggplot2::geom_vline(ggplot2::aes(xintercept = range/100), colour = "gray") +
-    ggplot2::facet_grid(~ range, scales = "free",
+    ggplot2::facet_grid(facet_formula, scales = "free",
                         labeller = "label_both") +
     cowplot::theme_cowplot() +
     # ggplot2::coord_flip() + 
     ggplot2::theme(text = ggplot2::element_text(family = "Sans Serif"),
-                   legend.position = "bottom")
+                   legend.position = "bottom") + 
+    ggplot2::labs(colour = colour) + 
+    ggplot2::ylab(y) + 
+    ggplot2::xlab("Calibration")
   
 
   plots[["bias_plot"]] <- 
   ggplot2::ggplot(plot_df[range == 0, ], 
-                  ggplot2::aes(y = model, colour = horizon)) +
+                  ggplot2::aes(y = y, colour = colour)) +
     ggplot2::geom_linerange(ggplot2::aes(xmin = (lower25_bias), xmax = (upper75_bias)), 
                             size = 2, 
-                            position = ggplot2::position_dodge2(width = 0.4, 
+                            position = ggplot2::position_dodge2(width = dodge_width, 
                                                                 padding = 0)) +
     ggplot2::geom_linerange(ggplot2::aes(xmin = (lower05_bias), xmax = (upper95_bias)),
                             size = 2,
                             alpha = 0.4, 
-                            position = ggplot2::position_dodge2(width = 0.4, 
+                            position = ggplot2::position_dodge2(width = dodge_width, 
                                                                 padding = 0)) +
     ggplot2::geom_point(ggplot2::aes(x = bias),
                         colour = "black",
-                        position = ggplot2::position_dodge2(width = 0.4, 
+                        shape = 3,
+                        position = ggplot2::position_dodge2(width = dodge_width, 
                                                             padding = 0)) + 
     ggplot2::facet_grid(scales = "free",
                         labeller = "label_both") +
@@ -102,31 +118,39 @@ plot_scores <- function(scores) {
     cowplot::theme_cowplot() +
     # ggplot2::coord_flip() + 
     ggplot2::theme(text = ggplot2::element_text(family = "Sans Serif"),
-                   legend.position = "bottom")
+                   legend.position = "bottom") + 
+    ggplot2::labs(colour = colour) + 
+    ggplot2::ylab(y) + 
+    ggplot2::xlab("Bias")
   
   plots[["sharpness_plot"]] <- 
     ggplot2::ggplot(plot_df[range == 0, ], 
-                    ggplot2::aes(y = model, colour = horizon)) +
+                    ggplot2::aes(y = y, colour = colour)) +
     ggplot2::geom_linerange(ggplot2::aes(xmin = (lower25_sharpness), xmax = (upper75_sharpness)), 
                             size = 2, 
-                            position = ggplot2::position_dodge2(width = 0.4, 
+                            position = ggplot2::position_dodge2(width = dodge_width, 
                                                                 padding = 0)) +
     ggplot2::geom_linerange(ggplot2::aes(xmin = (lower05_sharpness), xmax = (upper95_sharpness)),
                             size = 2,
                             alpha = 0.4, 
-                            position = ggplot2::position_dodge2(width = 0.4, 
+                            position = ggplot2::position_dodge2(width = dodge_width, 
                                                                 padding = 0)) +
     ggplot2::geom_point(ggplot2::aes(x = sharpness),
                         colour = "black",
-                        position = ggplot2::position_dodge2(width = 0.4, 
+                        shape = 3,
+                        position = ggplot2::position_dodge2(width = dodge_width, 
                                                             padding = 0)) + 
     cowplot::theme_cowplot() +
     # ggplot2::coord_flip() + 
     ggplot2::theme(text = ggplot2::element_text(family = "Sans Serif"),
-                   legend.position = "bottom")
+                   legend.position = "bottom") + 
+      ggplot2::labs(colour = colour) + 
+      ggplot2::ylab(y) + 
+      ggplot2::xlab("Sharpness")
   
   return(plots)
 }
+
 
 
 
