@@ -10,6 +10,7 @@ source(here::here("utils", "load-submissions-function.R"))
 # function for loading past data
 source(here::here("utils", "get-us-data.R"))
 
+# load past forecasts
 past_forecasts <- load_submission_files(dates = "all") %>%
   dplyr::filter(grepl("inc", target), 
                 type == "quantile")
@@ -55,16 +56,15 @@ full <- dplyr::bind_rows(combined,
 source(here::here("evaluation", "utils", "evaluation-plots-function.R"))
 
 
-
 # regular plots
-scores <- scoringutils::eval_forecasts(full, summarise = TRUE, 
+scores <- scoringutils::eval_forecasts(full, summarised = TRUE, 
                                        by = c("model", "state", 
                                               "horizon"))
 
 plots <- plot_scores(scores, by = c("model", "range", "horizon"))
 
 # state plots
-scores_state <- scoringutils::eval_forecasts(full, summarise = TRUE, 
+scores_state <- scoringutils::eval_forecasts(full, summarised = TRUE, 
                                              by = c("model", "state", 
                                                     "horizon"))
 
@@ -73,7 +73,7 @@ plots_state <- plot_scores(scores_state, by = c("model", "range", "state"),
                            dodge_width = 0.75)
 
 
-current_date <- Sys.Date() - 1
+current_date <- Sys.Date()
 
 if(!dir.exists(here::here("evaluation", "plots", 
                           current_date))) {
@@ -104,7 +104,6 @@ ggplot2::ggsave(here::here("evaluation", "plots",
 
 
 # state plots
-
 ggplot2::ggsave(here::here("evaluation", "plots", 
                            current_date, "state_interval_scores.png"), 
                 plot = plots_state$interval_score_plot, 

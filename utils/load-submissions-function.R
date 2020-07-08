@@ -136,7 +136,7 @@ load_submission_files <- function(dates = c("latest", "all"),
                        unique() %>%
                        rbind(c("US", "US")),
                      by = c("location" = "state_code")) %>%
-    # unclear bug
+    # unclear bug where there seems to be a numerical error somewhere
     dplyr::mutate(quantile = round(quantile, 3))
   
   return(forecasts)
