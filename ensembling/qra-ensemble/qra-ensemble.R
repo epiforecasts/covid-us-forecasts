@@ -113,7 +113,8 @@ qra_ensemble <- forecasts_wide %>%
 forecast_date <- Sys.Date()
 data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-ensemble", 
                                             "submission-files","dated",
-                                    paste0(forecast_date, "-epiforecasts-ensemble1-qa.csv")))
+                                    paste0(forecast_date, "-epiforecasts-ensemble1-qra.csv")))
 # write Latest files
 data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-ensemble", "submission-files",
-                                            paste0("latest-epiforecasts-ensemble1-qa.csv")))
+                                            paste0("latest-epiforecasts-ensemble1-qra.csv")))
+
