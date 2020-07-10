@@ -6,7 +6,7 @@ library(dplyr)
 source(here::here("utils", "get-us-data.R"))
 
 # source function for visualisation
-source(here::here("visualisation", "utils", 
+source(here::here("evaluation", "utils", 
                   "visualise-submission-functions.R"))
 source(here::here("utils", "states-min-last-week.R"))
 
@@ -36,4 +36,4 @@ subnational_plot <- plot_forecasts(national = FALSE, cutoff = 25)
 ggsave(here::here("evaluation", "plots", 
                   submission_date, "submission-subnational.png"), 
        plot = subnational_plot, 
-       width = 20, height = 20)
+       width = 20, height = 25)
