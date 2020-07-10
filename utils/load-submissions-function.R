@@ -105,6 +105,7 @@ load_submission_files <- function(dates = c("latest", "all"),
       dplyr::mutate(model = "Mean ensemble")
   }
   
+  # Get qra-ensemble
   if ("all" %in% models | "qra-ensemble" %in% models) {
     if (dates[1] == "all") {
       
@@ -122,9 +123,9 @@ load_submission_files <- function(dates = c("latest", "all"),
     } else {
       qra_ensemble_paths <- here::here("ensembling", "qra-ensemble",
                                         "submission-files",
-                                        "latest-epiforecasts-ensemble1-qa.csv") 
+                                        "latest-epiforecasts-ensemble1-qra.csv") 
     }
-    forecasts[["qra_ensemble"]] <- purrr::map_dfr(mean_ensemble_paths, readr::read_csv) %>%
+    forecasts[["qra_ensemble"]] <- purrr::map_dfr(qra_ensemble_paths, readr::read_csv) %>%
       dplyr::mutate(model = "QRA ensemble")
   }
   
