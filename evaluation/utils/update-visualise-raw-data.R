@@ -1,5 +1,5 @@
-library(RColorBrewer)
-
+library(dplyr)
+library(ggplot2)
 
 # source functions for visualisation functions
 source(here::here("utils", "get-us-data.R"))
@@ -22,7 +22,7 @@ if(!dir.exists(here::here("evaluation", "plots",
 national_plot <- plot_raw_data()
 
 
-ggsave(here::here("evaluation", "plots", 
+ggplot2::ggsave(here::here("evaluation", "plots", 
                   current_date, "raw-data-national.png"), 
        plot = national_plot, 
        width = 10, height = 10)
@@ -32,7 +32,7 @@ ggsave(here::here("evaluation", "plots",
 subnational_plot <- plot_raw_data(national = FALSE, cutoff = 25)
 
 
-ggsave(here::here("evaluation", "plots", 
+ggplot2::ggsave(here::here("evaluation", "plots", 
                   current_date, "raw-data-subnational.png"), 
        plot = subnational_plot, 
        width = 20, height = 20)
