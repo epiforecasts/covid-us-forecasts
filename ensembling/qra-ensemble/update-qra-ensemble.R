@@ -36,6 +36,7 @@ tau <- full_set$quantile %>%
   unique()
 
 # load deaths
+source(here::here("utils", "get-us-data.R"))
 deaths <- get_us_deaths(data = "daily") %>%
   dplyr::group_by(epiweek, state) %>%
   dplyr::summarise(deaths = sum(deaths))
@@ -62,7 +63,7 @@ models <- unique(combined$model)
 
 true_values <- combined %>%
   dplyr::group_by(model) %>%
-  dplyr::mutate(n = 1:n()) %>%
+  dplyr::mutate(n = 1:dplyr::n()) %>%
   dplyr::ungroup() %>%
   dplyr::group_by(n) %>%
   dplyr::summarise(deaths = unique(deaths)) %>%
