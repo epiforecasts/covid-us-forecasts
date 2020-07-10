@@ -39,6 +39,7 @@ plot_raw_data = function(national = TRUE,
   # Identify and filter which states to keep -------------------------------------------
   
   # Identify over 100 cases in the last week
+  source(here::here("utils", "states-min-last-week.R"))
   keep_states <- states_min_last_week(min_last_week = cutoff, last_week = 1)
   
   
@@ -46,7 +47,7 @@ plot_raw_data = function(national = TRUE,
     dplyr::filter(state %in% keep_states$state) 
   
   plot_national <- observed_deaths_national %>%
-    mutate(state = "US")
+    dplyr::mutate(state = "US")
   
   if (national) {
     plot_df <- plot_national
@@ -55,11 +56,11 @@ plot_raw_data = function(national = TRUE,
   }
   
   plot <- plot_df %>%
-    ggplot2::ggplot(aes(x = target_end_date, col = model, fill = model)) +
-    ggplot2::geom_point(aes(y = c0.5), size = 2) +
-    ggplot2::geom_line(aes(y = c0.5), lwd = 1) +
-    ggplot2::scale_fill_manual(values = c("grey", brewer.pal(4, name = "Set2"))) +
-    ggplot2::scale_color_manual(values = c("dark grey", brewer.pal(4, name = "Set2"))) +
+    ggplot2::ggplot(ggplot2::aes(x = target_end_date, col = model, fill = model)) +
+    ggplot2::geom_point(ggplot2::aes(y = c0.5), size = 2) +
+    ggplot2::geom_line(ggplot2::aes(y = c0.5), lwd = 1) +
+    ggplot2::scale_fill_manual(values = c("grey", RColorBrewer::brewer.pal(4, name = "Set2"))) +
+    ggplot2::scale_color_manual(values = c("dark grey", RColorBrewer::brewer.pal(4, name = "Set2"))) +
     ggplot2::facet_wrap(.~ state, scales = "free_y") +
     ggplot2::labs(x = "Week ending", y = "Weekly incident deaths",
          col = "Model", fill = "Model") +

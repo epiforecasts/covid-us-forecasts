@@ -9,7 +9,7 @@ plot_forecasts = function(national = TRUE,
                                 levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")),
                   epiweek_day = as.numeric(paste0(epiweek, ".", as.numeric(day)))) %>%
     # filter out data from the last incomplete week
-    filter(epiweek_day < max(epiweek))
+    dplyr::filter(epiweek_day < max(epiweek))
   
   
   weekly_deaths_state <- daily_deaths_state %>%
@@ -37,22 +37,22 @@ plot_forecasts = function(national = TRUE,
   # Reshape forecasts and add observed data --------------------------------------------------------------------
   # Filter to incidence forecasts and pivot forecasts for plotting
   forecasts_state <- forecasts %>%
-    filter(grepl("inc", target)) %>%
-    group_by(state, target_end_date, model) %>%
-    mutate(quantile = stringr::str_c("c", quantile)) %>%
+    dplyr::filter(grepl("inc", target)) %>%
+    dplyr::group_by(state, target_end_date, model) %>%
+    dplyr::mutate(quantile = stringr::str_c("c", quantile)) %>%
     filter(quantile %in% c("c0.05", "c0.25", "c0.5", "c0.75", "c0.95")) %>%
     tidyr::pivot_wider(id_cols = c(state, target_end_date, model), 
                        names_from = quantile, values_from = value) %>%
-    ungroup() 
+    dplyr::ungroup() 
   
   forecasts_national <- forecasts %>%
-    filter(state %in% "US",
+    dplyr::filter(state %in% "US",
            grepl("inc", target)) %>%
-    group_by(state, target_end_date, model) %>%
-    mutate(quantile = stringr::str_c("c", quantile)) %>%
-    filter(quantile %in% c("c0.05", "c0.25", "c0.5", "c0.75", "c0.95")) %>%
+    dplyr::group_by(state, target_end_date, model) %>%
+    dplyr::mutate(quantile = stringr::str_c("c", quantile)) %>%
+    dplyr::filter(quantile %in% c("c0.05", "c0.25", "c0.5", "c0.75", "c0.95")) %>%
     tidyr::pivot_wider(id_cols = c(state, target_end_date, model), names_from = quantile, values_from = value) %>%
-    ungroup()
+    dplyr::ungroup()
   
   
   
@@ -68,7 +68,7 @@ plot_forecasts = function(national = TRUE,
   # Identify and filter which states to keep -------------------------------------------
   
   # Identify over 100 cases in the last week
-  # source(here::here("utils", "states-min-last-week.R"))
+  source(here::here("utils", "states-min-last-week.R"))
   keep_states <- states_min_last_week(min_last_week = cutoff, last_week = 1)
   
   
@@ -79,10 +79,10 @@ plot_forecasts = function(national = TRUE,
   
   
   plot_national <- bind_rows(forecasts_national, observed_deaths_national) %>%
-    mutate(state = "US",
-           model = factor(model, 
-                          levels = c("Observed", "Mean ensemble", "QRA ensemble", 
-                                     "Rt", "TS deaths", "TS deaths on cases")))
+    dplyr::mutate(state = "US",
+                  model = factor(model, 
+                                 levels = c("Observed", "Mean ensemble", "QRA ensemble", 
+                                            "Rt", "TS deaths", "TS deaths on cases")))
   
   if (national) {
     plot_df <- plot_national
