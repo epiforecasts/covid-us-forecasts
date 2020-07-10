@@ -9,7 +9,7 @@ plot_raw_data = function(national = TRUE,
                                 levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")),
                   epiweek_day = as.numeric(paste0(epiweek, ".", as.numeric(day)))) %>%
     # filter out data from the last incomplete week
-    filter(epiweek_day < max(epiweek))
+    dplyr::filter(epiweek_day < max(epiweek))
   
   
   weekly_deaths_state <- daily_deaths_state %>%

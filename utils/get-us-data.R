@@ -34,7 +34,7 @@ get_us_deaths <- function(data = "daily", anomaly_threshold = 100){
                                       lag(deaths),
                                       deaths)) %>%
        dplyr::ungroup() %>%
-      select(-extreme_diff, -p_diff)
+      dplyr::select(-extreme_diff, -p_diff)
      
      # Re-accumulate over adjusted data
      cumulative_adj <- daily %>%
