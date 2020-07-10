@@ -27,44 +27,11 @@ plot_forecasts = function(national = TRUE,
   
   # Get forecasts -----------------------------------------------------------
   
+  # source function
+  source(here::here("utils", "load-submissions-function.R"))
+  
   ## Get most recent Rt forecast 
-  rt_forecasts <- readr::read_csv(here::here("rt-forecast", "submission-files",
-                                             "latest-rt-forecast-submission.csv")) %>%
-    dplyr::mutate(model = "Rt")
-  
-  ## Get timeseries forecasts
-  ts_deaths_only <- readr::read_csv(here::here("timeseries-forecast", "deaths-only",
-                                               "submission-files",
-                                               "latest-weekly-deaths-only.csv")) %>%
-    dplyr::mutate(model = "TS deaths")
-  
-  ts_deaths_on_cases <- readr::read_csv(here::here("timeseries-forecast", "deaths-on-cases",
-                                                   "submission-files", 
-                                                   "latest-weekly-deaths-on-cases.csv")) %>%
-    dplyr::mutate(model = "TS deaths on cases")
-  
-  ## Get mean average ensemble
-  mean_ensemble <- readr::read_csv(here::here("ensembling", "quantile-average",
-                                              "submission-files",
-                                              "latest-epiforecasts-ensemble1-qa.csv")) %>%
-    dplyr::mutate(model = "Mean ensemble")
-  
-  # Get QRA ensemble
-  qra_ensemble <- readr::read_csv(here::here("ensembling", "qra-ensemble",
-                                         "submission-files",
-                                         "latest-epiforecasts-ensemble1-qra.csv")) %>%
-    dplyr::mutate(model = "QRA ensemble")
-  
-  
-  # Join forecasts ----------------------------------------------------------
-  # and add state names
-  forecasts <- dplyr::bind_rows(rt_forecasts, ts_deaths_only, ts_deaths_on_cases, qra_ensemble,
-                                mean_ensemble) %>%
-    dplyr::left_join(tigris::fips_codes %>%
-                       dplyr::select(state_code, state = state_name) %>%
-                       unique() %>%
-                       rbind(c("US", "US")),
-                     by = c("location" = "state_code"))
+  forecasts <- load_submission_files(dates = "latest")  
   
   
   # Reshape forecasts and add observed data --------------------------------------------------------------------
@@ -124,18 +91,18 @@ plot_forecasts = function(national = TRUE,
   }
     
   plot <- plot_df %>%
-    ggplot2::ggplot(aes(x = target_end_date, col = model, fill = model)) +
-    ggplot2::geom_point(aes(y = c0.5), size = 2) +
-    ggplot2::geom_line(aes(y = c0.5), lwd = 1) +
-    ggplot2::geom_ribbon(aes(ymin = c0.25, ymax = c0.75), color = NA, alpha = 0.15) +
+    ggplot2::ggplot(ggplot2::aes(x = target_end_date, col = model, fill = model)) +
+    ggplot2::geom_point(ggplot2::aes(y = c0.5), size = 2) +
+    ggplot2::geom_line(ggplot2::aes(y = c0.5), lwd = 1) +
+    ggplot2::geom_ribbon(ggplot2::aes(ymin = c0.25, ymax = c0.75), color = NA, alpha = 0.15) +
     ##
-    ggplot2::scale_fill_manual(values = c("grey", brewer.pal(5, name = "Set2"))) +
-    ggplot2::scale_color_manual(values = c("dark grey", brewer.pal(5, name = "Set2"))) +
+    ggplot2::scale_fill_manual(values = c("grey", RColorBrewer::brewer.pal(5, name = "Set2"))) +
+    ggplot2::scale_color_manual(values = c("dark grey", RColorBrewer::brewer.pal(5, name = "Set2"))) +
     ggplot2::facet_wrap(.~ state, scales = "free_y") +
     ggplot2::labs(x = "Week ending", y = "Weekly incident deaths",
          col = "Model", fill = "Model") +
     cowplot::theme_cowplot() +
-    theme(legend.position = "bottom", 
+    ggplot2::theme(legend.position = "bottom", 
           text = ggplot2::element_text(family = "Sans Serif"))
   
   return(plot)
