@@ -117,7 +117,7 @@ load_submission_files <- function(dates = c("latest", "all"),
       }
       
       qra_ensemble_paths <- here::here("ensembling", "qra-ensemble", 
-                                        "submission-files", "dated", mean_ensemble_files)
+                                        "submission-files", "dated", qra_ensemble_files)
       
       
     } else {
