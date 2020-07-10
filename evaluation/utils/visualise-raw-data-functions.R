@@ -2,8 +2,7 @@ plot_raw_data = function(national = TRUE,
                          cutoff = 25){
   
   # Get observed data ------------------------------------------------------------------
-  # needs the following function to work: source(here::here("utils", "get-us-data.R"))
-  
+  source(here::here("utils", "get-us-data.R"))
   daily_deaths_state <- get_us_deaths(data = "daily") %>%
     dplyr::mutate(day = ordered(weekdays(as.Date(date)), 
                                 levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")),
