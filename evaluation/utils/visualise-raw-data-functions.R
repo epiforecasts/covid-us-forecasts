@@ -2,7 +2,6 @@ plot_raw_data = function(national = TRUE,
                          cutoff = 25){
   
   # Get observed data ------------------------------------------------------------------
-  source(here::here("utils", "get-us-data.R"))
   daily_deaths_state <- get_us_deaths(data = "daily") %>%
     dplyr::mutate(day = ordered(weekdays(as.Date(date)), 
                                 levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")),
@@ -38,9 +37,7 @@ plot_raw_data = function(national = TRUE,
   # Identify and filter which states to keep -------------------------------------------
   
   # Identify over 100 cases in the last week
-  source(here::here("utils", "states-min-last-week.R"))
   keep_states <- states_min_last_week(min_last_week = cutoff, last_week = 1)
-  
   
   plot_state <- observed_deaths_state %>%
     dplyr::filter(state %in% keep_states$state) 
