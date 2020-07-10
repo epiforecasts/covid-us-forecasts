@@ -10,7 +10,7 @@ forecasts <- load_submission_files(dates = "latest",
                                    models = c("rt", "deaths-only", "deaths-on-cases"))
 
 # get forecast_date
-forecast_date <- unique(dplyr::pull(data, forecast_date))
+forecast_date <- unique(dplyr::pull(forecasts, forecast_date))
 
 
 # average quantiles ------------------------------------------------------------
