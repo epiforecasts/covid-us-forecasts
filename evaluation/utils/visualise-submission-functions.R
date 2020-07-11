@@ -1,8 +1,10 @@
 plot_forecasts = function(national = TRUE,
-                          cutoff = 25){
+                          state_min_cutoff = NA,
+                          obs_weeks = 8){
+  
   
   # Get observed data ------------------------------------------------------------------
-  # needs the following function to work: source(here::here("utils", "get-us-data.R"))
+  source(here::here("utils", "get-us-data.R"))
   
   daily_deaths_state <- get_us_deaths(data = "daily") %>%
     dplyr::mutate(day = ordered(weekdays(as.Date(date)), 
@@ -59,35 +61,36 @@ plot_forecasts = function(national = TRUE,
   # Set observed data to match format
   observed_deaths_state <- dplyr::filter(weekly_deaths_state) %>%
     dplyr::mutate(model = "Observed") %>%
+    dplyr::filter(epiweek >= (max(epiweek) - obs_weeks)) %>% 
     dplyr::select(-epiweek, c0.5 = deaths)
   
   observed_deaths_national <- weekly_deaths_national %>%
     dplyr::mutate(model = "Observed") %>%
+    dplyr::filter(epiweek >= (max(epiweek) - obs_weeks)) %>% 
     dplyr::select(-epiweek, c0.5 = deaths)
   
   # Identify and filter which states to keep -------------------------------------------
-  
+  if (national) {
+    plot_national <- bind_rows(forecasts_national, observed_deaths_national) %>%
+      dplyr::mutate(state = "US",
+                    model = factor(model, 
+                                   levels = c("Observed", "Mean ensemble", "QRA ensemble", 
+                                              "Rt", "TS deaths", "TS deaths on cases")))
+    
+    plot_df <- plot_national
+    
+  } else { 
+    
   # Identify over 100 cases in the last week
   source(here::here("utils", "states-min-last-week.R"))
-  keep_states <- states_min_last_week(min_last_week = cutoff, last_week = 1)
-  
+  keep_states <- states_min_last_week(min_last_week = state_min_cutoff, last_week = 1)
   
   plot_state <- dplyr::bind_rows(forecasts_state, observed_deaths_state) %>%
     dplyr::filter(state %in% keep_states$state) %>%
     dplyr::mutate(model = factor(model, levels = c("Observed", "Mean ensemble", "QRA ensemble",
                                                    "Rt", "TS deaths", "TS deaths on cases")))
   
-  
-  plot_national <- bind_rows(forecasts_national, observed_deaths_national) %>%
-    dplyr::mutate(state = "US",
-                  model = factor(model, 
-                                 levels = c("Observed", "Mean ensemble", "QRA ensemble", 
-                                            "Rt", "TS deaths", "TS deaths on cases")))
-  
-  if (national) {
-    plot_df <- plot_national
-  } else {
-    plot_df <- plot_state
+  plot_df <- plot_state
   }
     
   plot <- plot_df %>%
@@ -99,7 +102,8 @@ plot_forecasts = function(national = TRUE,
     ggplot2::scale_fill_manual(values = c("grey", RColorBrewer::brewer.pal(5, name = "Set2"))) +
     ggplot2::scale_color_manual(values = c("dark grey", RColorBrewer::brewer.pal(5, name = "Set2"))) +
     ggplot2::facet_wrap(.~ state, scales = "free_y") +
-    ggplot2::labs(x = "Week ending", y = "Weekly incident deaths",
+    ggplot2::labs(x = "Week ending", y = "Weekly incident deaths", 
+                  caption = paste0("States with deaths last week >", state_min_cutoff),
          col = "Model", fill = "Model") +
     cowplot::theme_cowplot() +
     ggplot2::theme(legend.position = "bottom", 
