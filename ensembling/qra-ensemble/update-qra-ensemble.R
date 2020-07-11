@@ -12,17 +12,23 @@ past_forecasts <- load_submission_files(dates = "all",
                                         models = c("rt", "deaths-only", "deaths-on-cases")) 
 
 # create complete set
+## Note: code to remove duplicates has been commented out. 
+## If duplicates exist this is likely to be a near-duplicate forecast,
+## that was made but updated the same/next day.
+## The model producer should move these near-duplicate forecasts -  
+## to the relevant model's "out-of-date" folder - before ensembling.
+
 full_set <- past_forecasts %>%
   # remove complete duplicates
-  dplyr::distinct() %>%
+  # dplyr::distinct() %>%
   # remove point forecasts and cumulative forecasts
   dplyr::filter(type == "quantile", 
                 grepl("inc", target)) %>%
   dplyr::select(-type) %>%
   # filter out duplicate predictions for the exact same target quantile
-  dplyr::group_by(forecast_date, target, target_end_date, location, quantile, model) %>%
-  dplyr::slice(1) %>%
-  dplyr::ungroup() %>%
+  # dplyr::group_by(forecast_date, target, target_end_date, location, quantile, model) %>%
+  # dplyr::slice(1) %>%
+  # dplyr::ungroup() %>%
   # remove targets for which not all models have a forecast
   dplyr::group_by(forecast_date, target, target_end_date, location, quantile) %>%
   dplyr::add_count() %>%
@@ -30,7 +36,7 @@ full_set <- past_forecasts %>%
   dplyr::filter(n == max(n)) %>%
   dplyr::select(-n) 
 
-# store qauntiles available
+# store quantiles available
 tau <- full_set$quantile %>%
   round(digits = 3) %>%
   unique()
@@ -51,8 +57,8 @@ epiweek_to_date <- tibble::tibble(date = seq.Date(from = (as.Date("2020-01-01"))
 
 # join deaths with past forecasts and reformat
 combined <- full_set %>%
-  dplyr::inner_join(epiweek_to_date) %>%
-  dplyr::inner_join(deaths) %>%
+  dplyr::inner_join(epiweek_to_date, by = "target_end_date") %>%
+  dplyr::inner_join(deaths, by = c("state", "epiweek")) %>%
   tidyr::pivot_wider(values_from = value, names_from = quantile, 
                      names_prefix="quantile_") %>%
   dplyr::arrange(forecast_date, target, target_end_date, location, model, epiweek) %>%
@@ -95,7 +101,6 @@ forecasts_wide <- forecasts %>%
   tidyr::pivot_wider(names_from = model,
                      values_from = value)
   
-
 qra_ensemble <- forecasts_wide %>%
   dplyr::mutate(ensemble = forecasts_wide %>% 
                 dplyr::select(dplyr::all_of(models)) %>%

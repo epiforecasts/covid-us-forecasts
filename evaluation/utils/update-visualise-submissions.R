@@ -3,7 +3,7 @@ library(RColorBrewer)
 library(dplyr)
 
 # source functions for visualisation functions
-source(here::here("utils", "get-us-data.R"))
+# source(here::here("utils", "get-us-data.R"))
 
 # source function for visualisation
 source(here::here("evaluation", "utils", 
@@ -20,7 +20,7 @@ if(!dir.exists(here::here("evaluation", "plots",
 }
 
 
-national_plot <- plot_forecasts()
+national_plot <- plot_forecasts(national = TRUE, obs_weeks = 8)
 
 
 ggsave(here::here("evaluation", "plots", 
@@ -30,7 +30,7 @@ ggsave(here::here("evaluation", "plots",
 
 
 
-subnational_plot <- plot_forecasts(national = FALSE, cutoff = 25)
+subnational_plot <- plot_forecasts(national = FALSE, state_min_cutoff = 50, obs_weeks = 8)
 
 
 ggsave(here::here("evaluation", "plots", 

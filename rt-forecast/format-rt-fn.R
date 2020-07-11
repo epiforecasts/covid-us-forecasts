@@ -11,7 +11,6 @@ require(lubridate)
 ## Arguments
 # loc: path to folder: e.g. loc <- here::here("rt-forecast", "state")
 # loc_name: name of region: e.g. loc_name <- "Alabama"
-# last_week_deaths: threshold for only getting estimates from states with minimum cumulative deaths in the last week
 # forecast_date: date forecast is made e.g. forecast_date <- Sys.Date()
 # forecast_adjustment: numeric e.g. 4
 
@@ -19,16 +18,16 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
                                 forecast_date = NULL,
                                 forecast_adjustment = 0,
                                 horizon_weeks = 5,
+                                state_data_cumulative = NULL,
+                                state_data_daily = NULL,
                                 version = "1.0"){
 
   print(loc_name)
 
 # Get case count --------------------------------------------------
 
-  source(here::here("utils", "get-us-data.R"))
-  
   # Cumulative
-  cumulative_data <- get_us_deaths(data = "cumulative")
+  cumulative_data <- state_data_cumulative
   
   cumulative_deaths_state <- cumulative_data %>%
     dplyr::group_by(epiweek) %>%
@@ -50,7 +49,7 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
   
 
   # Weekly
-  weekly_data <- get_us_deaths(data = "daily") %>%
+  weekly_data <- state_data_daily %>%
     dplyr::mutate(epiweek = lubridate::epiweek(date))
   
   weekly_deaths_state <- weekly_data %>%
@@ -126,7 +125,8 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
         dplyr::filter(epiweek >= forecast_date_epiweek) %>%
         dplyr::group_by(sample, epiweek) %>%
         dplyr::summarise(epiweek_cases = sum(cases, na.rm = TRUE),
-                         epiweek_end_date = max(date)) %>%
+                         epiweek_end_date = max(date),
+                         .groups = "drop_last") %>%
         dplyr::ungroup()
 
 # Cumulative results ------------------------------------------------------

@@ -5,9 +5,12 @@
 
 # maybe add functionality to read only specific dates later?
 
+library(magrittr)
+
 load_submission_files <- function(dates = c("latest", "all"), 
                                   num_last = NULL,
-                                  models = c("rt", 
+                                  models = c("all",
+                                             "rt", 
                                              "deaths-only", 
                                              "deaths-on-cases", 
                                              "mean-ensemble", 
