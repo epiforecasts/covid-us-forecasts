@@ -69,6 +69,7 @@ plot_raw_data = function(national = TRUE,
     ggplot2::scale_fill_manual(values = c("grey", RColorBrewer::brewer.pal(4, name = "Set2"))) +
     ggplot2::scale_color_manual(values = c("dark grey", RColorBrewer::brewer.pal(4, name = "Set2"))) +
     ggplot2::facet_wrap(.~ state, scales = "free_y") +
+    ggplot2::expand_limits(y = 0) +
     ggplot2::labs(x = "Week ending", y = "Weekly incident deaths",
          col = "Model", fill = "Model") +
     cowplot::theme_cowplot() +

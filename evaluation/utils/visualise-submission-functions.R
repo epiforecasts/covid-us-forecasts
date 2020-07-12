@@ -102,6 +102,7 @@ plot_forecasts = function(national = TRUE,
     ggplot2::scale_fill_manual(values = c("grey", RColorBrewer::brewer.pal(5, name = "Set2"))) +
     ggplot2::scale_color_manual(values = c("dark grey", RColorBrewer::brewer.pal(5, name = "Set2"))) +
     ggplot2::facet_wrap(.~ state, scales = "free_y") +
+    ggplot2::expand_limits(y = 0) +
     ggplot2::labs(x = "Week ending", y = "Weekly incident deaths", 
                   caption = paste0("States with deaths last week >", state_min_cutoff),
          col = "Model", fill = "Model") +
