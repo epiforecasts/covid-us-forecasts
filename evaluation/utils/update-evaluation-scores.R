@@ -17,7 +17,7 @@ past_forecasts <- load_submission_files(dates = "all") %>%
 
 deaths <- get_us_deaths(data = "daily") %>%
   dplyr::group_by(epiweek, state) %>%
-  dplyr::summarise(deaths = sum(deaths))
+  dplyr::summarise(deaths = sum(deaths), .groups = "drop_last")
 
 # code to get from epiweek to target date copied from Kath
 epiweek_to_date <- tibble::tibble(date = seq.Date(from = (as.Date("2020-01-01")), 
@@ -29,8 +29,8 @@ epiweek_to_date <- tibble::tibble(date = seq.Date(from = (as.Date("2020-01-01"))
 
 # join and reformat for scoring
 combined <- past_forecasts %>%
-  dplyr::inner_join(epiweek_to_date) %>%
-  dplyr::inner_join(deaths) %>%
+  dplyr::inner_join(epiweek_to_date, by = "target_end_date") %>%
+  dplyr::inner_join(deaths, by = c("state", "epiweek")) %>%
   dplyr::rename(true_values = deaths, 
                 predictions = value) %>%
   dplyr::mutate(boundary = ifelse(quantile <= 0.5, "lower", "upper"), 
