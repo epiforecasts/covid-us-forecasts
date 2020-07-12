@@ -6,11 +6,10 @@ library(magrittr)
 # data = c("cumulative", "daily")
   
 # Deaths data -------------------------------------------------------------
-get_us_deaths <- function(data = "daily", anomaly_threshold = 100){  
+get_us_deaths <- function(data = "daily", anomaly_threshold = 1000, check_adjustment = FALSE){  
 
    # Get & reshape data
-   cumulative <- suppressMessages(
-     readr::read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv")) %>% 
+   cumulative <- suppressMessages(readr::read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv")) %>% 
       dplyr::select(Province_State, dplyr::matches("^\\d")) %>%
       tidyr::pivot_longer(cols = -Province_State, names_to = "date", values_to = "deaths") %>%
       dplyr::mutate(date = lubridate::mdy(date)) %>%
@@ -36,6 +35,13 @@ get_us_deaths <- function(data = "daily", anomaly_threshold = 100){
                                       deaths)) %>%
        dplyr::ungroup() %>%
       dplyr::select(-extreme_diff, -p_diff)
+     
+     adjusted_states <- dplyr::filter(daily, adjusted == TRUE) %>%
+       dplyr::pull(state)
+     
+     if(check_adjustment){
+     message(writeLines(text = c("Anomalies detected, data adjusted for:", adjusted_states)))
+     }
      
      # Re-accumulate over adjusted data
      cumulative_adj <- daily %>%
