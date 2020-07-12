@@ -27,7 +27,7 @@ cases_national <- cases_state %>%
 # Set forecast parameters -------------------------------------------------
 
 sample_count <- 1000
-horizon_weeks <- 6
+horizon_weeks <- 5
 right_truncate_weeks <- 1
 format <- TRUE
 quantiles_out <- c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99)

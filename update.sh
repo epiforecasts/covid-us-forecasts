@@ -5,6 +5,9 @@
 # Update the data
 Rscript utils/get-us-data.R
 
+# update visualisation of the data without forecasts
+Rscript evaluation/utils/update-visualise-raw-data.R
+
 # Update Rt forecast
 Rscript rt-forecast/update.R
 

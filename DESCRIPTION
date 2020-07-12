@@ -37,10 +37,15 @@ Imports:
     distill,
     knitr,
     kableExtra,
-    forecastHybrid
+    forecastHybrid, 
+    quantgen,
+    tigris,
+    scoringutils
 Remotes: 
     epiforecasts/EpiNow,
     epiforecasts/EpiSoon,
+    epiforecasts/scoringutils,
+    ryantibs/quantgen/R-package/quantgen
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
