@@ -1,13 +1,14 @@
 # Final submission
 # 
 # Set variable for which ensemble (QRA or QA (mean))
-ensemble = "qa"
+ensemble_dir = "qra-ensemble"
+ensemble = "qra"
 
 # Get ensemble
-submit_ensemble <- readr::read_csv(here::here("ensembling", "quantile-average", "submission-files",
-                                            paste0("latest-epiforecasts-ensemble1-", ensemble, ".csv")))
+submit_ensemble <- suppressMessages(readr::read_csv(here::here("ensembling", ensemble_dir, "submission-files",
+                                            paste0("latest-epiforecasts-ensemble1-", ensemble, ".csv"))))
 
-# Filter to states with 100+ deaths in last week
+# Filter to states with minimum deaths in last week
 source(here::here("utils", "states-min-last-week.R"))
 keep_states <- states_min_last_week(min_last_week = 50, last_week = 1)
 
@@ -17,7 +18,7 @@ submit_ensemble <- dplyr::filter(submit_ensemble, location %in% c(keep_states$st
 forecast_date <- unique(dplyr::pull(submit_ensemble, forecast_date))
 
 # Filter to forecasts within Rt forecast
-rt_max_date <- readr::read_csv(here::here("rt-forecast/submission-files/latest-rt-forecast-submission.csv")) %>%
+rt_max_date <- suppressMessages(readr::read_csv(here::here("rt-forecast/submission-files/latest-rt-forecast-submission.csv"))) %>%
   dplyr::pull(target_end_date) %>%
   unique() %>%
   max()
