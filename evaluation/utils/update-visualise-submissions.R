@@ -2,14 +2,9 @@ library(ggplot2)
 library(RColorBrewer)
 library(dplyr)
 
-# source functions for visualisation functions
-# source(here::here("utils", "get-us-data.R"))
-
 # source function for visualisation
 source(here::here("evaluation", "utils", 
                   "visualise-submission-functions.R"))
-source(here::here("utils", "states-min-last-week.R"))
-
 
 submission_date <- Sys.Date()
 
@@ -23,17 +18,17 @@ if(!dir.exists(here::here("evaluation", "plots",
 national_plot <- plot_forecasts(national = TRUE, obs_weeks = 8)
 
 
-ggsave(here::here("evaluation", "plots", 
+suppressWarnings(ggsave(here::here("evaluation", "plots", 
                   submission_date, "submission-national.png"), 
        plot = national_plot, 
-       width = 10, height = 10, dpi = 300)
+       width = 10, height = 10, dpi = 300))
 
 
 
 subnational_plot <- plot_forecasts(national = FALSE, state_min_cutoff = 50, obs_weeks = 8)
 
 
-ggsave(here::here("evaluation", "plots", 
+suppressWarnings(ggsave(here::here("evaluation", "plots", 
                   submission_date, "submission-subnational.png"), 
        plot = subnational_plot, 
-       width = 20, height = 25)
+       width = 20, height = 25))

@@ -9,12 +9,13 @@ library(magrittr)
 get_us_deaths <- function(data = "daily", anomaly_threshold = 100){  
 
    # Get & reshape data
-   cumulative <- readr::read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv") %>% 
+   cumulative <- suppressMessages(
+     readr::read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv")) %>% 
       dplyr::select(Province_State, dplyr::matches("^\\d")) %>%
       tidyr::pivot_longer(cols = -Province_State, names_to = "date", values_to = "deaths") %>%
       dplyr::mutate(date = lubridate::mdy(date)) %>%
       dplyr::group_by(Province_State, date) %>%
-      dplyr::summarise(deaths = sum(deaths)) %>%
+      dplyr::summarise(deaths = sum(deaths), .groups = "drop_last") %>%
       dplyr::rename(state = Province_State) %>%
       dplyr::mutate(epiweek = lubridate::epiweek(date)) %>%
       dplyr::arrange(date) %>%
@@ -69,7 +70,7 @@ get_us_cases <- function(data = "daily"){
         tidyr::pivot_longer(cols = -Province_State, names_to = "date", values_to = "cases") %>%
         dplyr::mutate(date = lubridate::mdy(date)) %>%
         dplyr::group_by(Province_State, date) %>%
-        dplyr::summarise(cases = sum(cases)) %>%
+        dplyr::summarise(cases = sum(cases), .groups = "drop_last") %>%
         dplyr::rename(state = Province_State) %>%
         dplyr::mutate(epiweek = lubridate::epiweek(date)) %>%
         dplyr::arrange(date) %>%

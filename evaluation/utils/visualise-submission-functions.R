@@ -18,12 +18,12 @@ plot_forecasts = function(national = TRUE,
     dplyr::mutate(epiweek = lubridate::epiweek(date)) %>%
     dplyr::group_by(state, epiweek) %>%
     dplyr::summarise(deaths = sum(deaths),
-                     target_end_date = max(date)) %>%
+                     target_end_date = max(date), .groups = "drop_last") %>%
     dplyr::ungroup()
   
   weekly_deaths_national <- weekly_deaths_state %>%
     dplyr::group_by(epiweek, target_end_date) %>%
-    dplyr::summarise(deaths = sum(deaths)) %>%
+    dplyr::summarise(deaths = sum(deaths), .groups = "drop_last") %>%
     dplyr::ungroup()
   
   
