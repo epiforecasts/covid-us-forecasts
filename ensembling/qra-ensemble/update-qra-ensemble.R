@@ -45,7 +45,7 @@ tau <- full_set$quantile %>%
 source(here::here("utils", "get-us-data.R"))
 deaths <- get_us_deaths(data = "daily") %>%
   dplyr::group_by(epiweek, state) %>%
-  dplyr::summarise(deaths = sum(deaths))
+  dplyr::summarise(deaths = sum(deaths), .groups = "drop_last")
 
 # code to get from epiweek to target date copied from Kath
 epiweek_to_date <- tibble::tibble(date = seq.Date(from = (as.Date("2020-01-01")), 
@@ -72,11 +72,13 @@ true_values <- combined %>%
   dplyr::mutate(n = 1:dplyr::n()) %>%
   dplyr::ungroup() %>%
   dplyr::group_by(n) %>%
-  dplyr::summarise(deaths = unique(deaths)) %>%
+  dplyr::summarise(deaths = unique(deaths), .groups = "drop_last") %>%
   .$deaths
 
 # this should be TRUE
-length(true_values) == (nrow(combined))  / length(models)
+print(paste0(
+  "QRA ensembling: check this is TRUE: ",
+  length(true_values) == (nrow(combined))  / length(models) ))
 
 # extract forecasts as matrices and store as quantgen array
 qarr <- combined %>%
