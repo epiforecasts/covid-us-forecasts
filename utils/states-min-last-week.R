@@ -12,7 +12,7 @@ weekly_deaths_state <- daily_deaths_state %>%
   dplyr::mutate(epiweek = lubridate::epiweek(date)) %>%
   dplyr::group_by(state, epiweek) %>%
   dplyr::summarise(deaths = sum(deaths),
-                   target_end_date = max(date)) %>%
+                   target_end_date = max(date),.groups = "drop_last") %>%
   dplyr::ungroup()
 # over 100 cases in the last week
 keep_states <- dplyr::filter(weekly_deaths_state, epiweek == max(epiweek)-last_week
