@@ -11,17 +11,21 @@ require(tigris)
 
 # Control parameters ------------------------------------------------------
 
+# Updating latest forecast
 forecast_date <- Sys.Date()
 forecast_dir <- here::here("rt-forecast")  # Assumes forecasts are in national and regional subfolders
 
+# Updating old forecasts
+forecast_date <- "2020-06-22"
+forecast_dir <- here::here("rt-forecast", "out-of-date") 
 
 # Update US data saved in /data ----------------------------------------------------------
 
 source(here::here("utils", "get-us-data.R"))
 
-deaths_data_cumulative <- get_us_deaths(data = "cumulative")
+state_data_cumulative <- get_us_deaths(data = "cumulative")
 
-deaths_data_daily <- get_us_deaths(data = "daily")
+state_data_daily <- get_us_deaths(data = "daily")
 
 
 # Find forecasts ----------------------------------------------------------
@@ -44,7 +48,10 @@ region_forecasts <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts),
                                     ~ format_rt_forecast(loc = .x, loc_name = .y,
                                                          forecast_date = forecast_date,
                                                          forecast_adjustment = 11 + 5,
-                                                         horizon_weeks = 5))
+                                                         horizon_weeks = 5,
+                                                         state_data_cumulative = state_data_cumulative,
+                                                         state_data_daily = state_data_daily
+                                                         ))
 
 # Add state codes
 
@@ -59,7 +66,7 @@ region_forecasts <- region_forecasts %>%
   dplyr::mutate(location = state_code) %>%
   dplyr::select(-state_name, -state_code)
 
-region_forecasts$forecast_date <- as.Date("2020-07-06")
+region_forecasts$forecast_date <- forecast_date
 
 # Save forecast -----------------------------------------------------------
 # Dated

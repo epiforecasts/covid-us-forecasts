@@ -25,16 +25,16 @@ get_us_deaths <- function(data = "daily", anomaly_threshold = 100){
        dplyr::group_by(state) %>% 
        dplyr::mutate(deaths = c(0, diff(deaths)),
                      deaths = replace(deaths, deaths < 0 , 0),
-                     p_diff = deaths / lag(deaths),
+                     p_diff = deaths / dplyr::lag(deaths),
                      p_diff = ifelse(p_diff == "Inf", 0, p_diff),
                      extreme_diff = ifelse(p_diff > 10, TRUE, FALSE),
                      adjusted = ifelse(extreme_diff == TRUE & deaths > anomaly_threshold, TRUE, FALSE),
                      raw_deaths = deaths,
                      deaths = ifelse(adjusted == TRUE,
-                                      lag(deaths),
+                                      dplyr::lag(deaths),
                                       deaths)) %>%
        dplyr::ungroup() %>%
-      select(-extreme_diff, -p_diff)
+      dplyr::select(-extreme_diff, -p_diff)
      
      # Re-accumulate over adjusted data
      cumulative_adj <- daily %>%

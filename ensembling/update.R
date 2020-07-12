@@ -1,1 +1,7 @@
-source(here::here("ensembling", "old-quantile-average.R"))
+# run mean ensemble
+source(here::here("ensembling", "quantile-average", 
+                  "update-equal-quantile-average.R"))
+
+# run qra-ensemble
+source(here::here("ensembling", "qra-ensemble", 
+                  "update-qra-ensemble.R"))
