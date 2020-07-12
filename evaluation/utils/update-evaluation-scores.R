@@ -34,7 +34,7 @@ combined <- past_forecasts %>%
   dplyr::rename(true_values = deaths, 
                 predictions = value) %>%
   dplyr::mutate(boundary = ifelse(quantile <= 0.5, "lower", "upper"), 
-                                  range = abs(1 - 2 * quantile) * 100)
+                range = abs(1 - 2 * quantile) * 100)
   
 full <- dplyr::bind_rows(combined, 
                          combined %>%
@@ -42,7 +42,7 @@ full <- dplyr::bind_rows(combined,
                            dplyr::mutate(boundary = "upper")) %>%
   # weird unexplicable rounding error?
   dplyr::mutate(range = round(range, digits = 0), 
-                horizon = as.numeric(substring(target, 1, 1))) %>%
+                horizon = as.numeric(substring(target, 1, 2))) %>%
   dplyr::filter(range %in% c(0, 20, 50, 90)) %>%
   dplyr::select(-target, -target_end_date, -quantile, -type, -location) %>%
   unique()
@@ -76,51 +76,51 @@ plots_state <- plot_scores(scores_state, by = c("model", "range", "state"),
 current_date <- Sys.Date()
 
 if(!dir.exists(here::here("evaluation", "plots", 
-                          current_date))) {
+                          current_date, "scoring"))) {
   dir.create(here::here("evaluation", "plots", 
-                        current_date))
+                        current_date, "scoring"))
 }
 
 # regular plots
-ggplot2::ggsave(here::here("evaluation", "plots", 
-                  current_date, "interval_scores.png"), 
+suppressWarnings(ggplot2::ggsave(here::here("evaluation", "plots", 
+                  current_date, "scoring", "interval_scores.png"), 
        plot = plots$interval_score_plot, 
-       width = 10, height = 10, dpi = 300)
+       width = 10, height = 10, dpi = 300))
 
-ggplot2::ggsave(here::here("evaluation", "plots", 
-                           current_date, "calibration.png"), 
+suppressWarnings(ggplot2::ggsave(here::here("evaluation", "plots", 
+                           current_date, "scoring", "calibration.png"), 
                 plot = plots$calibration_plot, 
-                width = 10, height = 10, dpi = 300)
+                width = 10, height = 10, dpi = 300))
 
-ggplot2::ggsave(here::here("evaluation", "plots", 
-                           current_date, "bias.png"), 
+suppressWarnings(ggplot2::ggsave(here::here("evaluation", "plots", 
+                           current_date,"scoring",  "bias.png"), 
                 plot = plots$bias_plot, 
-                width = 10, height = 10, dpi = 300)
+                width = 10, height = 10, dpi = 300))
 
-ggplot2::ggsave(here::here("evaluation", "plots", 
-                           current_date, "sharpness.png"), 
+suppressWarnings(ggplot2::ggsave(here::here("evaluation", "plots", 
+                           current_date, "scoring", "sharpness.png"), 
                 plot = plots$sharpness_plot, 
-                width = 10, height = 10, dpi = 300)
+                width = 10, height = 10, dpi = 300))
 
 
 # state plots
-ggplot2::ggsave(here::here("evaluation", "plots", 
-                           current_date, "state_interval_scores.png"), 
+suppressWarnings(ggplot2::ggsave(here::here("evaluation", "plots", 
+                           current_date, "scoring", "state_interval_scores.png"), 
                 plot = plots_state$interval_score_plot, 
-                width = 10, height = 35, dpi = 300)
+                width = 10, height = 35, dpi = 300))
 
-ggplot2::ggsave(here::here("evaluation", "plots", 
-                           current_date, "state_calibration.png"), 
+suppressWarnings(ggplot2::ggsave(here::here("evaluation", "plots", 
+                           current_date, "scoring", "state_calibration.png"), 
                 plot = plots_state$calibration_plot, 
-                width = 10, height = 35, dpi = 300)
+                width = 10, height = 35, dpi = 300))
 
-ggplot2::ggsave(here::here("evaluation", "plots", 
-                           current_date, "state_bias.png"), 
+suppressWarnings(ggplot2::ggsave(here::here("evaluation", "plots", 
+                           current_date, "scoring", "state_bias.png"), 
                 plot = plots_state$bias_plot, 
-                width = 10, height = 35, dpi = 300)
+                width = 10, height = 35, dpi = 300))
 
-ggplot2::ggsave(here::here("evaluation", "plots", 
-                           current_date, "state_sharpness.png"), 
+suppressWarnings(ggplot2::ggsave(here::here("evaluation", "plots", 
+                           current_date, "scoring", "state_sharpness.png"), 
                 plot = plots_state$sharpness_plot, 
-                width = 10, height = 35, dpi = 300)
+                width = 10, height = 35, dpi = 300))
 
