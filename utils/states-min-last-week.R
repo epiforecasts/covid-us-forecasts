@@ -1,7 +1,7 @@
 # Get a vector of states with a minimum threshold for last week deaths
 # Returns a global variable
 source(here::here("utils", "get-us-data.R"))
-states_min_last_week <- function(min_last_week, last_week = 1){
+states_min_last_week <- function(min_last_week = 50, last_week = 1){
   
 daily_deaths_state <- get_us_deaths(data = "daily") %>%
   dplyr::mutate(day = ordered(weekdays(as.Date(date)), 

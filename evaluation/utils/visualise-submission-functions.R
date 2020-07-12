@@ -1,6 +1,7 @@
 plot_forecasts = function(national = TRUE,
                           state_min_cutoff = NA,
-                          obs_weeks = 8){
+                          obs_weeks = 8,
+                          exclude_new_epiweek = FALSE){
   
   
   # Get observed data ------------------------------------------------------------------
@@ -9,10 +10,14 @@ plot_forecasts = function(national = TRUE,
   daily_deaths_state <- get_us_deaths(data = "daily") %>%
     dplyr::mutate(day = ordered(weekdays(as.Date(date)), 
                                 levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")),
-                  epiweek_day = as.numeric(paste0(epiweek, ".", as.numeric(day)))) %>%
-    # filter out data from the last incomplete week
-    dplyr::filter(epiweek_day < max(epiweek))
+                  epiweek_day = as.numeric(paste0(epiweek, ".", as.numeric(day))))
   
+  
+    # Optional: filter out data from the last incomplete week
+  if(exclude_new_epiweek){
+    daily_deaths_state <- daily_deaths_state %>%
+      dplyr::filter(epiweek_day < max(epiweek))
+  }
   
   weekly_deaths_state <- daily_deaths_state %>%
     dplyr::mutate(epiweek = lubridate::epiweek(date)) %>%

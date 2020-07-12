@@ -33,7 +33,7 @@ load_submission_files <- function(dates = c("latest", "all"),
       rt_paths <- here::here("rt-forecast", "submission-files",
                              "latest-rt-forecast-submission.csv")
     }
-    forecasts[["rt_forecasts"]] <- purrr::map_dfr(rt_paths, readr::read_csv) %>%
+    forecasts[["rt_forecasts"]] <- suppressMessages(purrr::map_dfr(rt_paths, readr::read_csv)) %>%
       dplyr::mutate(model = "Rt")
   }
   
@@ -57,7 +57,7 @@ load_submission_files <- function(dates = c("latest", "all"),
                                       "submission-files",
                                       "latest-weekly-deaths-only.csv")
     }
-    forecasts[["ts_deaths_only"]] <- purrr::map_dfr(deaths_only_paths, readr::read_csv) %>%
+    forecasts[["ts_deaths_only"]] <- suppressMessages(purrr::map_dfr(deaths_only_paths, readr::read_csv)) %>%
       dplyr::mutate(model = "TS deaths")
   }
   
@@ -80,7 +80,7 @@ load_submission_files <- function(dates = c("latest", "all"),
                                       "submission-files",
                                       "latest-weekly-deaths-on-cases.csv")
     }
-    forecasts[["ts_deaths_on_cases"]] <- purrr::map_dfr(deaths_on_cases_paths, readr::read_csv) %>%
+    forecasts[["ts_deaths_on_cases"]] <- suppressMessages(purrr::map_dfr(deaths_on_cases_paths, readr::read_csv)) %>%
       dplyr::mutate(model = "TS deaths on cases")
   }
   
@@ -104,7 +104,7 @@ load_submission_files <- function(dates = c("latest", "all"),
                                           "submission-files",
                                           "latest-epiforecasts-ensemble1-qa.csv") 
     }
-    forecasts[["mean_ensemble"]] <- purrr::map_dfr(mean_ensemble_paths, readr::read_csv) %>%
+    forecasts[["mean_ensemble"]] <- suppressMessages(purrr::map_dfr(mean_ensemble_paths, readr::read_csv)) %>%
       dplyr::mutate(model = "Mean ensemble")
   }
   
@@ -128,7 +128,7 @@ load_submission_files <- function(dates = c("latest", "all"),
                                         "submission-files",
                                         "latest-epiforecasts-ensemble1-qra.csv") 
     }
-    forecasts[["qra_ensemble"]] <- purrr::map_dfr(qra_ensemble_paths, readr::read_csv) %>%
+    forecasts[["qra_ensemble"]] <- suppressMessages(purrr::map_dfr(qra_ensemble_paths, readr::read_csv)) %>%
       dplyr::mutate(model = "QRA ensemble")
   }
   
