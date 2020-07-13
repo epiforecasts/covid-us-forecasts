@@ -3,11 +3,11 @@
 # Packages -----------------------------------------------------------------
 # 
 # require(drat)
-drat::addRepo("epiforecasts")
-install.packages("EpiSoon")
-require(devtools)
-devtools::install_deps()
-devtools::install_deps(repos = "https://epiforecasts.io/drat/")
+# drat::addRepo("epiforecasts")
+# install.packages("EpiSoon")
+# require(devtools)
+# devtools::install_deps()
+# devtools::install_deps(repos = "https://epiforecasts.io/drat/")
 
 require(EpiSoon)
 require(EpiNow)
@@ -39,7 +39,7 @@ deaths <- get_us_deaths(data = "daily")
 # Format for Epinow
 deaths_national <- deaths %>%
   dplyr::group_by(date) %>%
-  dplyr::summarise(deaths = sum(deaths)) %>%
+  dplyr::summarise(deaths = sum(deaths), .groups = "drop_last") %>%
   dplyr::rename(local = deaths) %>% 
   dplyr::mutate(imported = 0, region = "US") %>% 
   tidyr::gather(key = "import_status", value = "confirm", local, imported) 
@@ -97,14 +97,11 @@ EpiNow::regional_rt_pipeline(
 
 ## Regional 
 
-# New Jersey
-# newjersey <- filter(deaths_regional, region == "New Jersey")
-
 setup_future(length(unique(deaths_regional$region)))
 
 EpiNow::regional_rt_pipeline(
   # Settings to estimate Rt
-  cases = newjersey, 
+  cases = deaths_regional, 
   delay_defs = delay_dists,
   incubation_defs = incubation_defs,
   target_folder = "rt-forecast/state", 

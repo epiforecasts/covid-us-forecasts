@@ -30,7 +30,7 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
     mutate(epiweek = lubridate::epiweek(date),
            date = NULL) %>%
     group_by(state, epiweek) %>%
-    summarise(cases = sum(cases)) 
+    summarise(cases = sum(cases), .groups = "drop_last") 
   
   right_truncate_date <- max(case_data_weekly_full$epiweek) - right_truncate_weeks
   
@@ -92,7 +92,7 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
         mutate(epiweek = lubridate::epiweek(date),
                date = NULL) %>%
         group_by(state, epiweek) %>%
-        summarise(deaths = sum(deaths))
+        summarise(deaths = sum(deaths), .groups = "drop_last")
       
       deaths_data_weekly <- deaths_data_weekly_full %>%
         filter(epiweek <= right_truncate_date)

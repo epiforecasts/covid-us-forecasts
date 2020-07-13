@@ -23,7 +23,7 @@ ts_deaths_only_forecast <- function(data,
     mutate(epiweek = lubridate::epiweek(date),
            date = NULL) %>%
     group_by(state, epiweek) %>%
-    summarise(deaths = sum(deaths))
+    summarise(deaths = sum(deaths), .groups = "drop_last")
   
   right_truncate_date <- max(data_weekly_full$epiweek) - right_truncate_weeks
   

@@ -11,7 +11,7 @@ deaths_state <- get_us_deaths(data = "daily")
 
 deaths_national <- deaths_state %>%
   group_by(date) %>%
-  summarise(deaths = sum(deaths)) %>%
+  summarise(deaths = sum(deaths), .groups = "drop_last") %>%
   mutate(state = "US")
 
 
@@ -19,7 +19,7 @@ cases_state <- get_us_cases(data = "daily")
 
 cases_national <- cases_state %>%
   group_by(date) %>%
-  summarise(cases = sum(cases)) %>%
+  summarise(cases = sum(cases), .groups = "drop_last") %>%
   mutate(state = "US")
 
 
