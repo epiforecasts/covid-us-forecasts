@@ -42,6 +42,8 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
 
   # Forecasting = next week + horizon_weeks
   forecast_weeks <- seq(from = max(case_data_weekly$epiweek)+1, by = 1, length.out = horizon_weeks)
+  case_forecast_weeks <- seq(from = max(case_data_weekly$epiweek)+1, by = 1, length.out = horizon_weeks+2)
+  
   # Historical = last 6 weeks of data
   historical_weeks <- case_data_weekly %>%
     ungroup() %>%
@@ -60,7 +62,7 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
       group_modify(~ EpiSoon::forecastHybrid_model(y = filter(.x, epiweek %in% historical_weeks) %>%
                                                      pull("cases"),
                                                    samples = sample_count, 
-                                                   horizon = horizon_weeks,
+                                                   horizon = horizon_weeks+2,
                                                    model_params = list(models = "aez", weights = "equal",
                                                                        a.args = list()),
                                                    forecast_params = list(PI.combination = "mean"))) %>%
@@ -75,13 +77,13 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
         ungroup()
       
       # Format
-      dates_from <- unique(quantile$epiweek)
+      case_dates_from <- unique(quantile$epiweek)[1:length(case_forecast_weeks)]
        
       case_forecast <- quantile %>%
         select(state, epiweek, "cases" = 3) %>%
-        mutate(epiweek = recode(epiweek, !!! setNames(forecast_weeks, dates_from)),
-               cases = ifelse(cases < 0, 0, cases),
-               cases = round(cases))
+        mutate(cases = ifelse(cases < 0, 0, cases),
+               cases = round(cases)) %>%
+        mutate(epiweek = recode(epiweek, !!! setNames(case_forecast_weeks, case_dates_from)))
 
       
 
@@ -99,6 +101,11 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
       
       # Join deaths and cases
       cases_deaths <- dplyr::bind_rows(case_data_weekly, case_forecast) %>%
+        group_by(state) %>%
+        mutate(cases_lead1 = dplyr::lead(cases, 1),
+               cases_lead2 = dplyr::lead(cases, 2)) %>%
+        filter(epiweek <= max(epiweek)-2) %>%
+        ungroup() %>%
         full_join(deaths_data_weekly, by = c("state", "epiweek"))
       
       # Forecast deaths (y) using cases
@@ -110,11 +117,23 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
                                                      horizon = horizon_weeks,
                                                      model_params = list(models = "aez", weights = "equal",
                                                                          a.args = list(
-                                                                         xreg = filter(.x, epiweek %in% historical_weeks) %>%
-                                                                           pull("cases"))
+                                                                         xreg = 
+                                                                         as.matrix(
+                                                                           filter(.x, epiweek %in% historical_weeks) %>%
+                                                                           pull("cases"),
+                                                                         filter(.x, epiweek %in% historical_weeks) %>%
+                                                                           pull("cases_lead1"),
+                                                                         filter(.x, epiweek %in% historical_weeks) %>%
+                                                                           pull("cases_lead2")))
                                                                          ),
-                                                     forecast_params = list(xreg = filter(.x, epiweek %in% forecast_weeks) %>%
-                                                                            pull("cases"),
+                                                     forecast_params = list(xreg = 
+                                                                            as.matrix(
+                                                                            filter(.x, epiweek %in% forecast_weeks) %>%
+                                                                              pull("cases"),
+                                                                            filter(.x, epiweek %in% historical_weeks) %>%
+                                                                              pull("cases_lead1"),
+                                                                            filter(.x, epiweek %in% historical_weeks) %>%
+                                                                              pull("cases_lead2")),
                                                                             PI.combination = "mean")
                                                      )) %>%
         mutate(sample = rep(1:sample_count)) %>%
@@ -130,13 +149,15 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
       
       if(format == TRUE){
         # Get quantiles
+        deaths_dates_from <- unique(death_forecast$epiweek)[1:length(forecast_weeks)]
+        
         quantile <- death_forecast %>%
           group_by(state, epiweek) %>%
           group_modify( ~ as.data.frame(quantile(.x$value, probs = quantiles_out, na.rm = T))) %>%
           mutate(quantile = quantiles_out) %>%
           ungroup() %>%
           select(state, epiweek_target = epiweek, quantile, "deaths" = 3) %>%
-          mutate(epiweek_target = recode(epiweek_target, !!! setNames(forecast_weeks, dates_from)),
+          mutate(epiweek_target = recode(epiweek_target, !!! setNames(forecast_weeks, deaths_dates_from)),
                  deaths = ifelse(deaths < 0, 0, deaths),
                  deaths = round(deaths),
                  model_type = "deaths_on_cases",

@@ -8,7 +8,7 @@ source(here::here("utils", "load-submissions-function.R"))
 
 # load past forecasts
 past_forecasts <- load_submission_files(dates = "all",
-                                        num_last = 3,
+                                        num_last = 4,
                                         models = c("rt", "deaths-only", "deaths-on-cases")) 
 
 # create complete set
