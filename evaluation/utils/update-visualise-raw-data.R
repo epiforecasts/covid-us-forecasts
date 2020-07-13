@@ -17,7 +17,7 @@ if(!dir.exists(here::here("evaluation", "plots",
 }
 
 
-national_plot <- plot_raw_data(national = TRUE, obs_weeks = 8, exclude_new_epiweek = FALSE)
+national_plot <- plot_raw_data(national = TRUE, obs_weeks = 8, exclude_new_epiweek = TRUE)
 
 
 suppressWarnings(ggplot2::ggsave(here::here("evaluation", "plots", 
@@ -28,7 +28,7 @@ suppressWarnings(ggplot2::ggsave(here::here("evaluation", "plots",
 
 
 subnational_plot <- plot_raw_data(national = FALSE, state_min_cutoff = 50, obs_weeks = 8,
-                                  exclude_new_epiweek = FALSE)
+                                  exclude_new_epiweek = TRUE)
 
 
 suppressWarnings(ggplot2::ggsave(here::here("evaluation", "plots", 
