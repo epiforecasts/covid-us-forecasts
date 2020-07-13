@@ -16,8 +16,8 @@ forecast_date <- Sys.Date()
 forecast_dir <- here::here("rt-forecast")  # Assumes forecasts are in national and regional subfolders
 
 # Updating old forecasts
-forecast_date <- "2020-06-22"
-forecast_dir <- here::here("rt-forecast", "out-of-date") 
+# forecast_date <- "2020-06-22"
+# forecast_dir <- here::here("rt-forecast", "out-of-date") 
 
 # Update US data saved in /data ----------------------------------------------------------
 
@@ -34,8 +34,8 @@ forecasts <- c(list.dirs(file.path(forecast_dir, "state"), recursive = FALSE),
                list.dirs(file.path(forecast_dir, "national"), recursive = FALSE))
 
 names(forecasts) <- forecasts %>%
-  stringr::str_remove(file.path(forecast_dir, "state//")) %>%
-  stringr::str_remove(file.path(forecast_dir, "national//"))
+  stringr::str_remove(file.path(forecast_dir, "state/")) %>%
+  stringr::str_remove(file.path(forecast_dir, "national/"))
 
 
 # Load formatting function ------------------------------------------------
