@@ -53,8 +53,19 @@ region_forecasts <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts),
                                                          state_data_daily = state_data_daily
                                                          ))
 
-# Add state codes
+region_forecasts_samples <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts),
+                                    ~ format_rt_forecast(loc = .x, loc_name = .y,
+                                                         forecast_date = forecast_date,
+                                                         forecast_adjustment = 11 + 5,
+                                                         horizon_weeks = 5,
+                                                         state_data_cumulative = state_data_cumulative,
+                                                         state_data_daily = state_data_daily, 
+                                                         samples = TRUE
+                                    ))
 
+
+
+# Add state codes to csv submission
 state_codes <- tigris::fips_codes %>%
   dplyr::select(state_code, state_name) %>%
   unique() %>%
@@ -76,3 +87,5 @@ readr::write_csv(region_forecasts,
 readr::write_csv(region_forecasts,
                  paste0("rt-forecast/submission-files/latest-rt-forecast-submission.csv"))
 
+saveRDS(region_forecasts_samples, 
+        paste0("rt-forecast/submission-samples/", forecast_date, "-rt-forecast-samples.rds"))
