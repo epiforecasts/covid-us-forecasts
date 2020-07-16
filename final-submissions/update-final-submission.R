@@ -1,8 +1,8 @@
 # Final submission
 # 
 # Set variable for which ensemble (QRA or QA (mean))
-ensemble_dir = "qra-ensemble"
-ensemble = "qra"
+ensemble_dir = "quantile-average"
+ensemble = "qa"
 
 # Get ensemble
 submit_ensemble <- suppressMessages(readr::read_csv(here::here("ensembling", ensemble_dir, "submission-files",

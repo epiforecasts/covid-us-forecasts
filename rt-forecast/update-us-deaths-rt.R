@@ -1,14 +1,6 @@
-# Forecast deaths from estimated infections (Rt) 
-# 
+# Forecast deaths from estimated infections (Rt)
+#
 # Packages -----------------------------------------------------------------
-# 
-# require(drat)
-# drat::addRepo("epiforecasts")
-# install.packages("EpiSoon")
-# require(devtools)
-# devtools::install_deps()
-# devtools::install_deps(repos = "https://epiforecasts.io/drat/")
-
 require(EpiSoon)
 require(EpiNow)
 require(data.table)
@@ -40,14 +32,14 @@ deaths <- get_us_deaths(data = "daily")
 deaths_national <- deaths %>%
   dplyr::group_by(date) %>%
   dplyr::summarise(deaths = sum(deaths), .groups = "drop_last") %>%
-  dplyr::rename(local = deaths) %>% 
-  dplyr::mutate(imported = 0, region = "US") %>% 
-  tidyr::gather(key = "import_status", value = "confirm", local, imported) 
+  dplyr::rename(local = deaths) %>%
+  dplyr::mutate(imported = 0, region = "US") %>%
+  tidyr::gather(key = "import_status", value = "confirm", local, imported)
 
 deaths_regional <- deaths %>%
-  dplyr::rename(local = deaths, region = state) %>% 
-  dplyr::mutate(imported = 0) %>% 
-  tidyr::gather(key = "import_status", value = "confirm", local, imported) 
+  dplyr::rename(local = deaths, region = state) %>%
+  dplyr::mutate(imported = 0) %>%
+  tidyr::gather(key = "import_status", value = "confirm", local, imported)
 
 max_date <- min(data.table::as.data.table(deaths_national)[, .SD[date == max(date)], by = region]$date)
 
@@ -62,8 +54,8 @@ setup_future <- function(jobs) {
     ## If running as a script enable this
     options(future.fork.enable = TRUE)
   }
-  
-  
+
+
   plan(list(tweak(multiprocess, workers = min(future::availableCores(), jobs)),
             tweak(multiprocess, workers = max(1, round(future::availableCores() / jobs)))),
        gc = TRUE, earlySignal = TRUE)
@@ -95,16 +87,16 @@ EpiNow::regional_rt_pipeline(
 
 
 
-## Regional 
+## Regional
 
 setup_future(length(unique(deaths_regional$region)))
 
 EpiNow::regional_rt_pipeline(
   # Settings to estimate Rt
-  cases = deaths_regional, 
+  cases = deaths_regional,
   delay_defs = delay_dists,
   incubation_defs = incubation_defs,
-  target_folder = "rt-forecast/state", 
+  target_folder = "rt-forecast/state",
   target_date = target_date,
   nowcast_lag = nowcast_lag,
   case_limit = 0,
@@ -121,13 +113,13 @@ EpiNow::regional_rt_pipeline(
 # Summarise results -------------------------------------------------------
 
 
-EpiNow::regional_summary(results_dir = "rt-forecast/national", 
+EpiNow::regional_summary(results_dir = "rt-forecast/national",
                          summary_dir = "rt-forecast/national-summary",
                          target_date = "latest",
                          region_scale = "Country")
 
 
-EpiNow::regional_summary(results_dir = "rt-forecast/state", 
+EpiNow::regional_summary(results_dir = "rt-forecast/state",
                          summary_dir = "rt-forecast/state-summary",
                          target_date = "latest",
                          region_scale = "State")
