@@ -97,7 +97,8 @@ region_forecasts_samples <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts
                                                          state_data_daily = state_data_daily, 
                                                          samples = TRUE,
                                                          replace_missing_with_latest = FALSE
-                                    ))
+                                    )) %>%
+  dplyr::mutate(forecast_date = forecast_date)
 
 
 # Save samples
