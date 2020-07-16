@@ -15,9 +15,19 @@ require(tigris)
 forecast_date <- Sys.Date()
 forecast_dir <- here::here("rt-forecast")  # Assumes forecasts are in national and regional subfolders
 
-# Updating old forecasts
-# forecast_date <- "2020-06-22"
+## IGNORE UNLESS NEEDED: Getting and formatting past forecasts
+#
+# The very first submission, 2020-06-15, was saved in a non-standard file structure. To get forecast, set: 
+# forecast_date <- "2020-06-15"
 # forecast_dir <- here::here("rt-forecast", "out-of-date") 
+# 
+# Forecasts later than this (2020-06-22 onwards) are saved in the standard file structure:
+# forecast_date <- c("2020-06-22", "2020-06-28", ...)
+# forecast_dir <- here::here("rt-forecast")
+# 
+# Every forecast (including "2020-06-15" through latest) in "submission-files/dated/...-rt-forecast-submission.csv" 
+# has now been formatted correctly to the standard below.
+
 
 # Update US data saved in /data ----------------------------------------------------------
 
@@ -42,7 +52,7 @@ names(forecasts) <- forecasts %>%
 
 source(here::here("rt-forecast", "format-rt-fn.R"))
 
-# Extract forecasts -------------------------------------------------------
+# Get forecast and format for subsmission -------------------------------------------------------
 
 region_forecasts <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts),
                                     ~ format_rt_forecast(loc = .x, loc_name = .y,
@@ -53,19 +63,7 @@ region_forecasts <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts),
                                                          state_data_daily = state_data_daily
                                                          ))
 
-region_forecasts_samples <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts),
-                                    ~ format_rt_forecast(loc = .x, loc_name = .y,
-                                                         forecast_date = forecast_date,
-                                                         forecast_adjustment = 11 + 5,
-                                                         horizon_weeks = 5,
-                                                         state_data_cumulative = state_data_cumulative,
-                                                         state_data_daily = state_data_daily, 
-                                                         samples = TRUE
-                                    ))
-
-
-
-# Add state codes to csv submission
+# Add state codes
 state_codes <- tigris::fips_codes %>%
   dplyr::select(state_code, state_name) %>%
   unique() %>%
@@ -79,13 +77,29 @@ region_forecasts <- region_forecasts %>%
 
 region_forecasts$forecast_date <- forecast_date
 
-# Save forecast -----------------------------------------------------------
+# Save submission
 # Dated
 readr::write_csv(region_forecasts,
                  paste0("rt-forecast/submission-files/dated/", forecast_date, "-rt-forecast-submission.csv"))
-#Latest
+# Latest
 readr::write_csv(region_forecasts,
                  paste0("rt-forecast/submission-files/latest-rt-forecast-submission.csv"))
 
+
+# Get and save samples ------------------------------------------------------------
+
+region_forecasts_samples <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts),
+                                    ~ format_rt_forecast(loc = .x, loc_name = .y,
+                                                         forecast_date = forecast_date,
+                                                         forecast_adjustment = 11 + 5,
+                                                         horizon_weeks = 5,
+                                                         state_data_cumulative = state_data_cumulative,
+                                                         state_data_daily = state_data_daily, 
+                                                         samples = TRUE,
+                                                         replace_missing_with_latest = FALSE
+                                    ))
+
+
+# Save samples
 saveRDS(region_forecasts_samples, 
         paste0("rt-forecast/submission-samples/", forecast_date, "-rt-forecast-samples.rds"))
