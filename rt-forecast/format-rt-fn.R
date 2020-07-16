@@ -15,12 +15,14 @@ require(lubridate)
 # forecast_adjustment: numeric e.g. 4
 
 format_rt_forecast <- function(loc = NULL, loc_name = NULL,
-                                forecast_date = NULL,
-                                forecast_adjustment = 0,
-                                horizon_weeks = 5,
-                                state_data_cumulative = NULL,
-                                state_data_daily = NULL,
-                                version = "1.0"){
+                               forecast_date = NULL,
+                               forecast_adjustment = 0,
+                               horizon_weeks = 5,
+                               state_data_cumulative = NULL,
+                               state_data_daily = NULL,
+                               version = "1.0", 
+                               samples = FALSE,
+                               replace_missing_with_latest = FALSE){
 
   print(loc_name)
 
@@ -74,28 +76,38 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
 
 # Get estimates ---------------------------------------------------------------
 
+  file_loc <- paste0(loc, "/", forecast_date)
   
-  ## Check if latest folder exists; if not, return NULL
-  if (!dir.exists(paste0(loc, "/latest/")) ){
-    return(NULL)
+  
+  # Optional: if forecast date doesn't exist: default to latest
+  if(replace_missing_with_latest){
+    if(!dir.exists(file_loc)) {
+      file_loc <- paste0(loc, "/latest")
+    print(paste0(loc_name, ": forecast date doesn't exist, defaulting to latest"))
+   }
+  }
+  
+  # If no Rt estimate made, return NULL
+    if (!dir.exists(file_loc) ){
+      print(paste0(loc_name, ": no Rt files"))
+      return(NULL)
+    } 
     
-  } 
 
-    nowcast <- file.path(loc,"/", "latest/nowcast.rds")
+    nowcast <- file.path(file_loc,"nowcast.rds")
     nowcast <- readRDS(nowcast) %>%
       dplyr::select(date, sample, cases, type) %>%
       dplyr::filter(type %in% "infection_upscaled") %>%
       dplyr::select(-type) %>%
       dplyr::mutate(sample = as.integer(sample))
 
-    forecast <- file.path(loc, "/", "latest/time_varying_params.rds")
+    forecast <- file.path(file_loc, "time_varying_params.rds")
     forecast <- readRDS(forecast)
     
     ## Check to see if a forecast is present; if not return NULL
     if (is.null(forecast$raw_case_forecast)) {
-      
+      print(paste0(loc_name, ": no forecast"))
       return(NULL)
-      
     } 
       
  
@@ -128,6 +140,21 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
                          epiweek_end_date = max(date),
                          .groups = "drop_last") %>%
         dplyr::ungroup()
+      
+      
+      if (samples) {
+        
+        incident_forecast <- incident_forecast %>%
+          dplyr::rename(target_end_date = epiweek_end_date, 
+                        deaths = epiweek_cases) %>%
+          dplyr::mutate(model = "EpiSoon Rt", 
+                        location = loc_name, 
+                        forecast_date = forecast_date) %>%
+          dplyr::select(sample, deaths, target_end_date, model, location)
+          
+        
+        return(incident_forecast)
+      }
 
 # Cumulative results ------------------------------------------------------
 
