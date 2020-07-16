@@ -23,11 +23,11 @@ LSHTM, Centre for Mathematical Modelling of Infectious Disease:
 
 ## Technical notes
 > Note: for Epiforecasts team using the met server:
- 1. Check the server is available for the next couple of hours
- 2. Log in with team's credentials
- 3. Check with the last user and delete any existing files on the server. Except for the `kinematic` folder, the storage and environment should be empty
- 4. Open a new R project and clone this repository from Github
- - Caution - when interacting with Github, do not use the RStudio git GUI, as this crashes the server
+> 1. Check the server is available for the next couple of hours
+> 2. Log in with team's credentials
+> 3. Check with the last user and delete any existing files on the server. Except for the `kinematic` folder, the storage and environment should be empty
+> 4. Open a new R project and clone this repository from Github
+> - Caution - when interacting with Github, do not use the RStudio git GUI, as this crashes the server
 
 ### Create fresh forecasts
 For an end-to-end run (including new Rt and timeseries models, mean and QRA ensembles, formatted ready for submission):
