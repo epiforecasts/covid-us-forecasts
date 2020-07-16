@@ -41,8 +41,8 @@ Note that the final submission file is currently the quantile mean average ensem
    - `ensemble_dir <- "qra-ensemble"`
    - `ensemble <- "qra"`
   - If doing this:
-   - _Before running_ `update.sh`: save the script and then run `update.sh`
-   - _After running_ `update.sh`: save and then source the script (and the submission-ready csv will be re-written)
+    - _Before running_ `update.sh`: save the script and then run `update.sh`
+    - _After running_ `update.sh`: save and then source the script (and the submission-ready csv will be re-written)
 
 ### Runtime
 On the Epiforecasts met server (48 core, 64gb), if `update.sh` runs perfectly then the runtime is typically around an hour and a half. This comes from the Rt forecast, which takes ~1h 20 min to run. If needed, all other scripts can be run on a standard laptop in a few minutes.
@@ -53,8 +53,8 @@ On the Epiforecasts met server (48 core, 64gb), if `update.sh` runs perfectly th
 - If ensembling is failing:
   - I have had trouble installing the `quantgen` package on the met server. However I was able to install the package on my laptop.
   - If you run into the same problem and can install `quantgen` locally:
-   - Run the first 4 update commands in `update.sh` (data and forecasts) on the server
-   - Push all changes (i.e. the new forecasts) to github
-   - Clone locally and install `quantgen`
-   - Then run the remaining 3 update commands (ensembling, evaluation and final submission) - this only takes a few minutes on a standard laptop
-   - Push to github, submit csv to Forecast Hub
+    - Run the first 4 update commands in `update.sh` (data and forecasts) on the server
+    - Push all changes (i.e. the new forecasts) to github
+    - Clone locally and install `quantgen`
+    - Then run the remaining 3 update commands (ensembling, evaluation and final submission) - this only takes a few minutes on a standard laptop
+    - Push to github, submit csv to Forecast Hub
