@@ -21,7 +21,8 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
                                state_data_cumulative = NULL,
                                state_data_daily = NULL,
                                version = "1.0", 
-                               samples = FALSE){
+                               samples = FALSE,
+                               replace_missing_with_latest = FALSE){
 
   print(loc_name)
 
@@ -75,19 +76,23 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
 
 # Get estimates ---------------------------------------------------------------
 
-  file_loc <- here::here(loc, forecast_date)
+  file_loc <- paste0(loc, "/", forecast_date)
   
-  # if forecast date doesn't exist: default to latest
-  if(!dir.exists(file_loc)) {
-    file_loc <- paste0(loc, "/latest")
-    warning("forecast date doesn't exist - defaulting to latest")
+  
+  # Optional: if forecast date doesn't exist: default to latest
+  if(replace_missing_with_latest){
+    if(!dir.exists(file_loc)) {
+      file_loc <- paste0(loc, "/latest")
+    print(paste0(loc_name, ": forecast date doesn't exist, defaulting to latest"))
+   }
   }
   
-  ## Check if folder exists; if not, return NULL
-  if (!dir.exists(file_loc) ){
-    return(NULL)
+  # If no Rt estimate made, return NULL
+    if (!dir.exists(file_loc) ){
+      print(paste0(loc_name, ": no Rt files"))
+      return(NULL)
+    } 
     
-  } 
 
     nowcast <- file.path(file_loc,"nowcast.rds")
     nowcast <- readRDS(nowcast) %>%
@@ -101,9 +106,8 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
     
     ## Check to see if a forecast is present; if not return NULL
     if (is.null(forecast$raw_case_forecast)) {
-      
+      print(paste0(loc_name, ": no forecast"))
       return(NULL)
-      
     } 
       
  
