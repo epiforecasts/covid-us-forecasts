@@ -78,8 +78,8 @@ plot_raw_data = function(national = TRUE,
     ggplot2::labs(x = "Week ending", y = "Weekly incident deaths",
          col = "Model", fill = "Model") +
     cowplot::theme_cowplot() +
-    suppressWarnings(ggplot2::theme(legend.position = "bottom", 
-                   text = ggplot2::element_text(family = "Sans Serif")))
+    suppressWarnings(ggplot2::theme(legend.position = "bottom")) 
+                   # text = ggplot2::element_text(family = "Sans Serif")))
   
   return(plot)
 }
