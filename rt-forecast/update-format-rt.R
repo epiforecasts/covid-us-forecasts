@@ -103,4 +103,4 @@ region_forecasts_samples <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts
 
 # Save samples
 saveRDS(region_forecasts_samples, 
-        paste0("rt-forecast/submission-samples/", forecast_date, "-rt-forecast-samples.rds"))
+        paste0("rt-forecast/raw-samples/", forecast_date, "-rt-forecast-samples.rds"))
