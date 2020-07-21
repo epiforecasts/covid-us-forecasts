@@ -45,7 +45,11 @@ full <- dplyr::bind_rows(combined,
                 horizon = as.numeric(substring(target, 1, 2))) %>%
   dplyr::filter(range %in% c(0, 20, 50, 90)) %>%
   dplyr::select(-target, -target_end_date, -quantile, -type, -location) %>%
-  unique()
+  unique() %>%
+  # filter away duplicate forecasts if there are any (if there aren't, this has no effect)
+  dplyr::group_by(forecast_date, model, state, epiweek, boundary, range, horizon) %>%
+  dplyr::slice(1) %>%
+  dplyr::ungroup()
 
 
 # ============================================================================ #
