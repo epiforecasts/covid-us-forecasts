@@ -22,11 +22,16 @@ cases_national <- cases_state %>%
   summarise(cases = sum(cases), .groups = "drop_last") %>%
   mutate(state = "US")
 
-# Set historical paramaters
-submission_date <- "2020-06-15"
-weeks_into_past <- lubridate::epiweek(Sys.Date()) - lubridate::epiweek(submission_date)
+
+
+# Historical submissions --------------------------------------------------
+
+# Set historical timepoint for which to get samples as if forecast on that date
+submission_date <- "2020-07-20"
+
 
 # Set forecast parameters -------------------------------------------------
+weeks_into_past <- lubridate::epiweek(Sys.Date()) - lubridate::epiweek(submission_date)
 right_truncation <- 1 # weeks
 right_truncate_weeks <- weeks_into_past + right_truncation
 
@@ -43,6 +48,7 @@ state_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_state,
                                                       horizon_weeks = horizon_weeks,
                                                       right_truncate_weeks = right_truncate_weeks)
 
+
 # National forecast
 national_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_national, 
                                                          sample_count = sample_count, 
@@ -51,12 +57,10 @@ national_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_national,
 
 # Bind and save daily forecast
 deaths_only_forecast <- bind_rows(national_deaths_only_forecast, state_deaths_only_forecast) %>%
-  mutate(date_created = date_created - (7 * weeks_into_past))
-
-date_created <- pull(deaths_only_forecast, date_created)[1]
+  mutate(submission_date = submission_date)
 
 saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "raw-samples",
-                                         paste0(date_created, "-deaths-only.rds")))
+                                         paste0(submission_date, "-samples-weekly-deaths-only.rds")))
 
 
 
@@ -68,9 +72,7 @@ state_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cases_
                                                               case_quantile = case_quantile,
                                                               sample_count = sample_count, 
                                                               horizon_weeks = horizon_weeks,
-                                                              right_truncate_weeks = right_truncate_weeks,
-                                                              format = TRUE, 
-                                                              quantiles_out = quantiles_out)
+                                                              right_truncate_weeks = right_truncate_weeks)
 
 # National forecast
 national_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cases_national,
@@ -78,52 +80,11 @@ national_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cas
                                                                  case_quantile = case_quantile,
                                                                  sample_count = sample_count, 
                                                                  horizon_weeks = horizon_weeks,
-                                                                 right_truncate_weeks = right_truncate_weeks,
-                                                                 format = TRUE, 
-                                                                 quantiles_out = quantiles_out)
+                                                                 right_truncate_weeks = right_truncate_weeks)
 
 # Bind and save
 deaths_on_cases_forecast <- bind_rows(national_deaths_on_cases_forecast, state_deaths_on_cases_forecast) %>%
-  mutate(date_created = date_created - (7 * weeks_into_past))
+  mutate(submission_date = submission_date)
 
-date_created <- pull(deaths_on_cases_forecast, date_created)[1]
-
-saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-on-cases", "raw-rds",
-                                         paste0(date_created, "-deaths-on-cases.rds")))
-
-
-
-
-# # Format ------------------------------------------------------------------
-# source(here::here("timeseries-forecast", "format-timeseries-fn.R"))
-# quantiles_out <- c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99)
-# 
-# 
-# # Run function for each model type ----------------------------------------
-# 
-# # Deaths only
-# 
-# model_type <- "deaths-only"
-# deaths_only <- format_timeseries(right_truncate_weeks = right_truncate_weeks, 
-#                                  model_type = model_type,
-#                                  quantiles_out = quantiles_out)
-# forecast_date <- unique(deaths_only$forecast_date)
-# 
-# # Save under forecast date
-# readr::write_csv(deaths_only, here::here("timeseries-forecast", model_type, 
-#                                          "submission-files", "dated",
-#                                          paste0(forecast_date, "-", model_type, ".csv")))
-# 
-# 
-# # Deaths on cases
-# 
-# model_type <- "deaths-on-cases"
-# deaths_on_cases <- format_timeseries(right_truncate_weeks = right_truncate_weeks, 
-#                                      model_type = model_type,
-#                                      quantiles_out = quantiles_out)
-# forecast_date <- unique(deaths_on_cases$forecast_date)
-# 
-# # Save under forecast date
-# readr::write_csv(deaths_on_cases, here::here("timeseries-forecast", model_type, 
-#                                              "submission-files", "dated",
-#                                              paste0(forecast_date, "-", model_type, ".csv")))
+saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-on-cases", "raw-samples",
+                                         paste0(submission_date, "-weekly-deaths-on-cases.rds")))
