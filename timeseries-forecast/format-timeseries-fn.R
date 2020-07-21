@@ -4,7 +4,7 @@
 # model_type = c("deaths-only", "deaths-on-cases")
 # right_truncate_weeks <- 1 [as used in forecasting: to prevent over-adding cumulative data]
 
-format_timeseries <- function(model_type, right_truncate_weeks){
+format_timeseries <- function(model_type, right_truncate_weeks, quantiles_out){
   
 # Raw data set up -------------------------------------------------------------
 
@@ -16,12 +16,21 @@ state_codes <- tigris::fips_codes %>%
   mutate(state_name = ifelse(state_name == "U.S. Virgin Islands", "Virgin Islands", state_name))
 
 # Read in forecast
-raw_weekly_forecast <- readRDS(here::here("timeseries-forecast", model_type, "raw-rds",
-                                     paste0("latest-weekly-", model_type, ".rds")))
+samples <- readRDS(here::here("timeseries-forecast", model_type, "raw-samples",
+                                     paste0("samples-latest-weekly-", model_type, ".rds")))
 
-forecast_date <- unique(raw_weekly_forecast$date_created)
+# Get quantiles
+raw_weekly_forecast <- samples %>%
+  group_by(state, epiweek_target) %>%
+  group_modify( ~ as.data.frame(quantile(.x$deaths, probs = quantiles_out, na.rm = T))) %>%
+  mutate(quantile = quantiles_out,
+         date_created = unique(samples$date_created),
+         model_type = unique(samples$model_type)) %>%
+  rename(deaths = 3) %>%
+  ungroup()
 
 # Set epiweek to target date conversion
+forecast_date <- unique(raw_weekly_forecast$date_created)
 forecast_date_epiweek <- lubridate::epiweek(forecast_date)
 
 epiweek_to_date <- tibble::tibble(date = seq.Date(from = (forecast_date-1), by = 1, length.out = 42)) %>%
@@ -49,7 +58,8 @@ cumulative_deaths_national <- cumulative_data %>%
   dplyr::group_by(epiweek) %>%
   dplyr::filter(date == max(date)) %>%
   dplyr::summarise(deaths = sum(deaths),
-                   state = "US") %>%
+                   state = "US",
+                   .groups = "drop_last") %>%
   dplyr::ungroup()
 
 # Bind

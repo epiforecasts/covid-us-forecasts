@@ -27,12 +27,12 @@ cases_national <- cases_state %>%
 # Set forecast parameters -------------------------------------------------
 
 sample_count <- 1000
+case_quantile <- 0.5
+
+# 4 wk ahead forecast:
 horizon_weeks <- 5
 right_truncate_weeks <- 1
-format <- TRUE
-quantiles_out <- c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99)
-case_quantile <- 0.5
-  
+
 
 # Forecast with deaths only -----------------------------------------------
 
@@ -40,22 +40,18 @@ case_quantile <- 0.5
 state_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_state, 
                                             sample_count = sample_count, 
                                             horizon_weeks = horizon_weeks,
-                                            right_truncate_weeks = right_truncate_weeks,
-                                            format = TRUE,
-                                            quantiles_out = quantiles_out)
+                                            right_truncate_weeks = right_truncate_weeks)
 
 # National forecast
 national_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_national, 
                                              sample_count = sample_count, 
                                              horizon_weeks = horizon_weeks,
-                                             right_truncate_weeks = right_truncate_weeks,
-                                             format = TRUE,
-                                             quantiles_out = quantiles_out)
+                                             right_truncate_weeks = right_truncate_weeks)
 
-# Bind and save daily forecast
+# Bind and save samples
 deaths_only_forecast <- bind_rows(national_deaths_only_forecast, state_deaths_only_forecast)
-saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "raw-rds", paste0(Sys.Date(), "-weekly-deaths-only.rds")))
-saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "raw-rds", "latest-weekly-deaths-only.rds"))
+saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "raw-samples", paste0(Sys.Date(), "-samples-weekly-deaths-only.rds")))
+saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "raw-samples", "samples-latest-weekly-deaths-only.rds"))
 
 
 # Forecast with case regressor --------------------------------------------
@@ -66,9 +62,7 @@ state_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cases_
                                                    case_quantile = case_quantile,
                                                    sample_count = sample_count, 
                                                    horizon_weeks = horizon_weeks,
-                                                   right_truncate_weeks = right_truncate_weeks,
-                                                   format = TRUE, 
-                                                   quantiles_out = quantiles_out)
+                                                   right_truncate_weeks = right_truncate_weeks)
 
 # National forecast
 national_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cases_national,
@@ -76,15 +70,12 @@ national_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cas
                                                       case_quantile = case_quantile,
                                                       sample_count = sample_count, 
                                                       horizon_weeks = horizon_weeks,
-                                                      right_truncate_weeks = right_truncate_weeks,
-                                                      format = TRUE, 
-                                                      quantiles_out = quantiles_out)
+                                                      right_truncate_weeks = right_truncate_weeks)
 
 # Bind and save
 deaths_on_cases_forecast <- bind_rows(national_deaths_on_cases_forecast, state_deaths_on_cases_forecast)
-saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-cases", "raw-rds", paste0(Sys.Date(), "-weekly-deaths-on-cases.rds")))
-saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-cases", "raw-rds", "latest-weekly-deaths-on-cases.rds"))
+saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-cases", "raw-samples", paste0(Sys.Date(), "-samples-weekly-deaths-on-cases.rds")))
+saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-cases", "raw-samples", "samples-latest-weekly-deaths-on-cases.rds"))
 
 
-# For immediate plotting of rds files, go to "run-plot-timeseries.R"
 # To format forecasts ready for ensembling and submission, go to "run-format-timeseries.R"

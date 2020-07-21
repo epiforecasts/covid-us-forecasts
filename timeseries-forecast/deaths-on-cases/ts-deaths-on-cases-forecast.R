@@ -19,8 +19,7 @@
 library(magrittr); library(dplyr); library(tidyr); library(EpiSoon); library(forecastHybrid)
 
 ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
-                                           sample_count, horizon_weeks, right_truncate_weeks,
-                                           format = FALSE, quantiles_out = NULL){
+                                           sample_count, horizon_weeks, right_truncate_weeks){
     
 
 # Set up cases ----------------------------------------------------------
@@ -143,28 +142,19 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
 
 # Return forecast ---------------------------------------------------------
 
-      if(format == FALSE){
-        return(death_forecast)
-      }
+      # Format
+      deaths_dates_from <- unique(death_forecast$epiweek)[1:length(forecast_weeks)]
       
-      if(format == TRUE){
-        # Get quantiles
-        deaths_dates_from <- unique(death_forecast$epiweek)[1:length(forecast_weeks)]
-        
-        quantile <- death_forecast %>%
-          group_by(state, epiweek) %>%
-          group_modify( ~ as.data.frame(quantile(.x$value, probs = quantiles_out, na.rm = T))) %>%
-          mutate(quantile = quantiles_out) %>%
-          ungroup() %>%
-          select(state, epiweek_target = epiweek, quantile, "deaths" = 3) %>%
-          mutate(epiweek_target = recode(epiweek_target, !!! setNames(forecast_weeks, deaths_dates_from)),
-                 deaths = ifelse(deaths < 0, 0, deaths),
-                 deaths = round(deaths),
-                 model_type = "deaths_on_cases",
-                 date_created = Sys.Date())
-        
-        return(quantile)
-      }
+      samples <- death_forecast %>%
+        select(state, sample, epiweek_target = epiweek, deaths = value) %>%
+        mutate(epiweek_target = recode(epiweek_target, !!! setNames(forecast_weeks, deaths_dates_from)),
+               deaths = ifelse(deaths < 0, 0, deaths),
+               deaths = round(deaths),
+               model_type = "deaths_on_cases",
+               date_created = Sys.Date())
+      
+      return(samples)
+
 }
 
 
