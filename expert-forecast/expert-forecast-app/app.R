@@ -123,20 +123,14 @@ if(load_date %in% check_state_list$forecast_date){
 # Initial value for the quantiles (forecast model quantiles)
 get_state_init <- function(state = "US"){
     
-    max_vals <- df %>%
-        filter(state_name == state,
-               q_type == "observed_data") %>%
-        .$value %>%
-        max(., 1000) %>%
-        round(digits = -3)
-    
     out <- df %>%
         filter(state_name == state,
                q_type %in% c("quantile0.05", "quantile0.5", "quantile0.95")) %>%
         pivot_wider(id_cols = c(target_end_date, state_name), names_from = q_type, values_from = value) %>%
         mutate(lower_p = quantile0.05/quantile0.5,
                upper_p = quantile0.95/quantile0.5,
-               median_max = max_vals,
+               median_p = ifelse(quantile0.5 < 2000, 3, 1.5),
+               median_max = round(pmax(median_p*quantile0.5, 1000), -3),
                quantile_max = round(median_max*max(upper_p), -3)) %>%
         select(state_name, week = target_end_date, quantile0.05, quantile0.5, quantile0.95, lower_p, upper_p, median_max, quantile_max)
     
@@ -192,17 +186,17 @@ ui <- fluidPage(
                   ),
                   column(3,
                          h4("2 weeks ahead"),
-                         sliderInput("pt_wk2", label = "Median", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[2]),
-                         sliderInput("qt_wk2", label = "Quantiles", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[2], init_vals$quantile0.95[2]))
+                         sliderInput("pt_wk2", label = "Median", min = 0, max = init_vals$median_max[2], value = init_vals$quantile0.5[2]),
+                         sliderInput("qt_wk2", label = "Quantiles", min = 0, max = init_vals$quantile_max[2], value = c(init_vals$quantile0.05[2], init_vals$quantile0.95[2]))
                   ),
                   column(3,
                          h4("3 weeks ahead"),
-                         sliderInput("pt_wk3", label = "Median", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[3]),
-                         sliderInput("qt_wk3", label = "Quantiles", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[3], init_vals$quantile0.95[3]))
+                         sliderInput("pt_wk3", label = "Median", min = 0, max = init_vals$median_max[3], value = init_vals$quantile0.5[3]),
+                         sliderInput("qt_wk3", label = "Quantiles", min = 0, max = init_vals$quantile_max[3], value = c(init_vals$quantile0.05[3], init_vals$quantile0.95[3]))
                   ),column(3,
                            h4("4 weeks ahead"),
-                           sliderInput("pt_wk4", label = "Median", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[4]),
-                           sliderInput("qt_wk4", label = "Quantiles", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[4], init_vals$quantile0.95[4]))
+                           sliderInput("pt_wk4", label = "Median", min = 0, max = init_vals$median_max[4], value = init_vals$quantile0.5[4]),
+                           sliderInput("qt_wk4", label = "Quantiles", min = 0, max = init_vals$quantile_max[4], value = c(init_vals$quantile0.05[4], init_vals$quantile0.95[4]))
                   )
                   ),
                   hr(),
@@ -251,14 +245,14 @@ server <- function(input, output, session) {
         init_vals <- get_state_init(input$location)
         
         updateSliderInput(session, "pt_wk1", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[1])
-        updateSliderInput(session, "pt_wk2", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[2])
-        updateSliderInput(session, "pt_wk3", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[3])
-        updateSliderInput(session, "pt_wk4", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[4])
+        updateSliderInput(session, "pt_wk2", min = 0, max = init_vals$median_max[2], value = init_vals$quantile0.5[2])
+        updateSliderInput(session, "pt_wk3", min = 0, max = init_vals$median_max[3], value = init_vals$quantile0.5[3])
+        updateSliderInput(session, "pt_wk4", min = 0, max = init_vals$median_max[4], value = init_vals$quantile0.5[4])
         
         updateSliderInput(session, "qt_wk1", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[1],init_vals$quantile0.95[1]))
-        updateSliderInput(session, "qt_wk2", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[2],init_vals$quantile0.95[2]))
-        updateSliderInput(session, "qt_wk3", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[3],init_vals$quantile0.95[3]))
-        updateSliderInput(session, "qt_wk4", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[4],init_vals$quantile0.95[4]))
+        updateSliderInput(session, "qt_wk2", min = 0, max = init_vals$quantile_max[2], value = c(init_vals$quantile0.05[2],init_vals$quantile0.95[2]))
+        updateSliderInput(session, "qt_wk3", min = 0, max = init_vals$quantile_max[3], value = c(init_vals$quantile0.05[3],init_vals$quantile0.95[3]))
+        updateSliderInput(session, "qt_wk4", min = 0, max = init_vals$quantile_max[4], value = c(init_vals$quantile0.05[4],init_vals$quantile0.95[4]))
         
         
     })
