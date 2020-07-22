@@ -102,7 +102,15 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
       dplyr::mutate(sample = as.integer(sample))
 
     forecast <- file.path(file_loc, "time_varying_params.rds")
-    forecast <- readRDS(forecast)
+
+    if (file.exists(forecast)) {
+      forecast <- readRDS(forecast)
+    } else {
+      warning("Folder exists, but file time_varying_params.rds not found")
+      return(NULL)
+    }
+    
+        
     
     ## Check to see if a forecast is present; if not return NULL
     if (is.null(forecast$raw_case_forecast)) {
