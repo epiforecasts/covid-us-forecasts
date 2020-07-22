@@ -6,23 +6,58 @@ library(magrittr)
 library(dplyr)
 
 # load all rt forecasts into one data.table ------------------------------------
-files <- list.files(here::here("rt-forecast", "submission-samples"))
+files_rt <- list.files(here::here("rt-forecast", "submission-samples"))
 
-rt_forecasts <- purrr::map_dfr(.x = files, ~ readRDS(here::here("rt-forecast", 
+rt_forecasts <- purrr::map_dfr(.x = files_rt, ~ readRDS(here::here("rt-forecast", 
                                                                 "submission-samples", 
                                                                 .x)))
 
 
 # make fake data ---------------------------------------------------------------
-fake_forecasts <- rt_forecasts %>%
-  dplyr::mutate(deaths = deaths + rpois(1, 1), 
-                model = "fake model")
+# fake_forecasts <- rt_forecasts %>%
+#   dplyr::mutate(deaths = deaths + rpois(1, 1), 
+#                 model = "fake model")
 
+
+# get timeseries forecasts ------------------------------------------------
+
+# deaths only
+files_ts_deaths <- list.files(here::here("timeseries-forecast", "deaths-only", "raw-samples"))
+
+ts_do_forecasts <- purrr::map_dfr(.x = files_ts_deaths, ~ readRDS(here::here("timeseries-forecast",
+                                                                   "deaths-only",
+                                                                   "raw-samples", 
+                                                                   .x)))
+# epiweek to target date
+epiweek_to_target <- unique(ts_do_forecasts$epiweek_target)
+rt_epiweek <- data.frame(unique(rt_forecasts$target_end_date), 
+                         lubridate::epiweek(unique(rt_forecasts$target_end_date)))
+colnames(rt_epiweek) <- c("target_end_date", "epiweek_target")
+
+ts_do_forecasts <- ts_do_forecasts %>%
+  mutate(forecast_date = lubridate::ymd(forecast_date),
+         model = "TS deaths only") %>%
+  left_join(rt_epiweek, by = "epiweek_target") %>%
+  select(sample, deaths, target_end_date, model, location = state, forecast_date)
+
+# deaths on cases
+files_ts_deaths_on_cases <- list.files(here::here("timeseries-forecast", "deaths-on-cases", "raw-samples"))
+
+ts_doc_forecasts <- purrr::map_dfr(.x = files_ts_deaths_on_cases, ~ readRDS(here::here("timeseries-forecast",
+                                                                   "deaths-on-cases",
+                                                                   "raw-samples", 
+                                                                   .x)))
+
+ts_doc_forecasts <- ts_doc_forecasts %>%
+  mutate(forecast_date = lubridate::ymd(forecast_date),
+         model = "TS deaths on cases") %>%
+  left_join(rt_epiweek, by = "epiweek_target") %>%
+  select(sample, deaths, target_end_date, model, location = state, forecast_date)
 
 # join and create full set -----------------------------------------------------
-full_set <- dplyr::bind_rows(rt_forecasts, fake_forecasts) %>%
+full_set <- dplyr::bind_rows(rt_forecasts, ts_do_forecasts, ts_doc_forecasts) %>%
   dplyr::group_by(forecast_date, target_end_date, location, sample) %>%
-  dplyr::add_count() %>%
+  dplyr::add_tally() %>% # switched to tally (does the same thing) as add_count beats my memory limit!
   dplyr::ungroup() %>%
   dplyr::filter(n == max(n)) %>%
   dplyr::select(-n) %>%
