@@ -15,8 +15,9 @@ library(magrittr); library(dplyr); library(tidyr); library(EpiSoon); library(for
 # Function to forecast ----------------------------------------------------
 
 ts_deaths_only_forecast <- function(data, 
-                                      sample_count, horizon_weeks, right_truncate_weeks,
-                                      format = FALSE, quantiles_out = NULL){
+                                    sample_count, 
+                                    horizon_weeks, 
+                                    right_truncate_weeks){
   
   # Set up data and truncate
   data_weekly_full <- data %>%
@@ -54,34 +55,20 @@ ts_deaths_only_forecast <- function(data,
                                                  forecast_params = list(PI.combination = "mean"))) %>%
     mutate(sample = rep(1:sample_count)) %>%
     tidyr::pivot_longer(cols = starts_with("..."), names_to = "epiweek")
- 
-  if(format == FALSE){
-  return(death_forecast)
-  }
-  
-  if(format == TRUE){
-  # Get quantiles
-  quantile <- death_forecast %>%
-    group_by(state, epiweek) %>%
-    group_modify( ~ as.data.frame(quantile(.x$value, probs = quantiles_out, na.rm = T))) %>%
-    mutate(quantile = quantiles_out) %>%
-    ungroup()
   
   # Format
-  dates_from <- unique(quantile$epiweek)
+  dates_from <- unique(death_forecast$epiweek)
   
-  out <- quantile %>%
-    select(state, epiweek_target = epiweek, quantile, "deaths" = 3) %>%
+  samples <- death_forecast %>%
+    select(state, sample, epiweek_target = epiweek, deaths = value) %>%
     mutate(epiweek_target = recode(epiweek_target, !!! setNames(forecast_weeks, dates_from)),
            deaths = ifelse(deaths < 0, 0, deaths),
            deaths = round(deaths),
            model_type = "deaths_only",
            date_created = Sys.Date())
+
+  return(samples)
   
-  return(out)
 }
-}
-
-
 
 
