@@ -5,57 +5,25 @@
 library(magrittr)
 library(dplyr)
 
-# load all rt forecasts into one data.table ------------------------------------
-files_rt <- list.files(here::here("rt-forecast", "submission-samples"))
 
-rt_forecasts <- purrr::map_dfr(.x = files_rt, ~ readRDS(here::here("rt-forecast", 
-                                                                "submission-samples", 
-                                                                .x)))
+# ---------------------------------------------------------------------------- #
+# ------------------ get weights based on past observations ------------------ #
+# ---------------------------------------------------------------------------- #
+
+# load past forecasts ----------------------------------------------------------
+# also filter only horizon == 1 for stackr optimisation
+
+past_forecasts <- load_sample_files(dates = "all", num_last = 2) %>%
+  dplyr::mutate(horizon = round(as.numeric(target_end_date - forecast_date) / 7)) %>%
+  dplyr::filter(horizon == 1)
+  
 
 
-# make fake data ---------------------------------------------------------------
-# fake_forecasts <- rt_forecasts %>%
-#   dplyr::mutate(deaths = deaths + rpois(1, 1), 
-#                 model = "fake model")
-
-
-# get timeseries forecasts ------------------------------------------------
-
-# deaths only
-files_ts_deaths <- list.files(here::here("timeseries-forecast", "deaths-only", "raw-samples"))
-
-ts_do_forecasts <- purrr::map_dfr(.x = files_ts_deaths, ~ readRDS(here::here("timeseries-forecast",
-                                                                   "deaths-only",
-                                                                   "raw-samples", 
-                                                                   .x)))
-# epiweek to target date
-epiweek_to_target <- unique(ts_do_forecasts$epiweek_target)
-rt_epiweek <- data.frame(unique(rt_forecasts$target_end_date), 
-                         lubridate::epiweek(unique(rt_forecasts$target_end_date)))
-colnames(rt_epiweek) <- c("target_end_date", "epiweek_target")
-
-ts_do_forecasts <- ts_do_forecasts %>%
-  mutate(forecast_date = lubridate::ymd(forecast_date),
-         model = "TS deaths only") %>%
-  left_join(rt_epiweek, by = "epiweek_target") %>%
-  select(sample, deaths, target_end_date, model, location = state, forecast_date)
-
-# deaths on cases
-files_ts_deaths_on_cases <- list.files(here::here("timeseries-forecast", "deaths-on-cases", "raw-samples"))
-
-ts_doc_forecasts <- purrr::map_dfr(.x = files_ts_deaths_on_cases, ~ readRDS(here::here("timeseries-forecast",
-                                                                   "deaths-on-cases",
-                                                                   "raw-samples", 
-                                                                   .x)))
-
-ts_doc_forecasts <- ts_doc_forecasts %>%
-  mutate(forecast_date = lubridate::ymd(forecast_date),
-         model = "TS deaths on cases") %>%
-  left_join(rt_epiweek, by = "epiweek_target") %>%
-  select(sample, deaths, target_end_date, model, location = state, forecast_date)
 
 # join and create full set -----------------------------------------------------
-full_set <- dplyr::bind_rows(rt_forecasts, ts_do_forecasts, ts_doc_forecasts) %>%
+# should maybe switch that to data.table in the future
+
+full_set <- past_forecasts %>%
   dplyr::group_by(forecast_date, target_end_date, location, sample) %>%
   dplyr::add_tally() %>% # switched to tally (does the same thing) as add_count beats my memory limit!
   dplyr::ungroup() %>%
@@ -80,18 +48,10 @@ epiweek_to_date <- tibble::tibble(date = seq.Date(from = (as.Date("2020-01-01"))
   dplyr::filter(day == "Saturday") %>%
   dplyr::select(target_end_date = date, epiweek)
 
-# join deaths with past forecasts and reformat
+# join deaths with past forecasts and reformat and select appropriate columns
 combined <- full_set %>%
   dplyr::inner_join(epiweek_to_date, by = "target_end_date") %>%
-  dplyr::inner_join(deaths, by = c("location", "epiweek")) 
-
-# current problem: stackr isn't able to deal with different forecast horizons
-
-# use only horizon = 1 ---------------------------------------------------------
-
-combined_filtered <- combined %>%
-  dplyr::mutate(horizon = round(as.numeric(target_end_date - forecast_date) / 7)) %>%
-  dplyr::filter(horizon == 1) %>%
+  dplyr::inner_join(deaths, by = c("location", "epiweek")) %>%
   dplyr::select(date = target_end_date, 
                 sample_nr = sample, 
                 model, 
@@ -99,35 +59,27 @@ combined_filtered <- combined %>%
                 y_obs, 
                 y_pred)
 
-w <- stackr::crps_weights(data = combined_filtered)
-
-# make ensemble based on the weights -------------------------------------------
-
-# load in latest data (maybe make a dedicated function for that)
-
-files <- list.files(here::here("rt-forecast", "submission-samples"))
-
-file <- sort(files, decreasing = TRUE)[1]
-
-forecast_date <- as.Date(substr(file, 1, 10))
-
-current_forecast <- purrr::map_dfr(.x = file, ~ readRDS(here::here("rt-forecast", 
-                                                                    "submission-samples", 
-                                                                    .x))) %>%
-  dplyr::rename(y_pred = deaths, 
-                date = target_end_date)
+w <- stackr::crps_weights(data = combined)
 
 
-# add fake forecast
-current_forecast <- current_forecast %>%
-  dplyr::bind_rows(current_forecast %>%
-                     dplyr::mutate(model = "fake model")) %>%
-  dplyr::rename(sample_nr = sample, 
-                geography = location) %>%
-  dplyr::filter(!is.na(as.integer(y_pred))) %>%
-  dplyr::mutate(y_pred = as.integer(y_pred))
+# ---------------------------------------------------------------------------- #
+# ------------------ create ensemble and make submission  -------------------- #
+# ---------------------------------------------------------------------------- #
 
 
+# load in latest data (maybe make a dedicated function for that) ---------------
+current_forecast <- load_sample_files(dates = "latest") %>%
+  dplyr::rename(geography = location, 
+                date = target_end_date, 
+                sample_nr = sample, 
+                y_pred = deaths) %>%
+  # some values are apparently too large to fit into an integer. 
+  # These should be filtered out I think
+  dplyr::mutate(y_pred = as.integer(y_pred)) %>%
+  dplyr::filter(!is.na(y_pred))
+
+forecast_date <- Sys.Date()
+  
 # make ensemble ----------------------------------------------------------------
 ensemble <- stackr::mixture_from_samples(current_forecast, weights = w)
 
@@ -172,7 +124,9 @@ combined <- incidences %>%
                                inc_or_cum,
                                "death",
                                sep = " "), 
-                type = "quantile") %>%
+                type = "quantile")
+
+combined <- combined %>%
   dplyr::bind_rows(combined %>%
                      dplyr::filter(quantile == 0.5) %>%
                      dplyr::mutate(type = "point",
@@ -183,11 +137,11 @@ combined <- incidences %>%
 
 
 # write dated file
-data.table::fwrite(combined, here::here("ensembling", "qra-ensemble", 
+data.table::fwrite(combined, here::here("ensembling", "crps-ensemble", 
                                             "submission-files","dated",
-                                            paste0(forecast_date, "-epiforecasts-ensemble1-qra.csv")))
+                                            paste0(forecast_date, "-epiforecasts-ensemble1-crps.csv")))
 # write Latest files
-data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-ensemble", "submission-files",
-                                            paste0("latest-epiforecasts-ensemble1-qra.csv")))
+data.table::fwrite(qra_ensemble, here::here("ensembling", "crps-ensemble", "submission-files",
+                                            paste0("latest-epiforecasts-ensemble1-crps.csv")))
 
 
