@@ -5,7 +5,7 @@
 library(magrittr)
 library(dplyr)
 
-if(!exists(forecast_date)) {
+if(!exists("forecast_date")) {
   forecast_date <- Sys.Date()
 }
 
@@ -17,11 +17,13 @@ if(!exists(forecast_date)) {
 # filter out current forecast in order to optimise only on previous forecasts
 # also filter only horizon == 1 for stackr optimisation
 today <- forecast_date
+
 past_forecasts <- load_sample_files(dates = forecast_date, num_last = 2) %>%
   dplyr::mutate(horizon = round(as.numeric(target_end_date - forecast_date) / 7)) %>%
   dplyr::filter(horizon == 1, 
-                forecast_date < today)
-  
+                forecast_date < today - 1)
+
+
 # join and create full set -----------------------------------------------------
 # should maybe switch that to data.table in the future
 
@@ -85,8 +87,6 @@ current_forecast <- load_sample_files(dates = forecast_date) %>%
 ensemble <- stackr::mixture_from_samples(current_forecast, weights = w)
 
 
-
-  
 # make submission --------------------------------------------------------------
 
 state_codes <- tigris::fips_codes %>%
@@ -142,7 +142,7 @@ data.table::fwrite(combined, here::here("ensembling", "crps-ensemble",
                                             "submission-files","dated",
                                             paste0(forecast_date, "-epiforecasts-ensemble1-crps.csv")))
 # write Latest files
-data.table::fwrite(qra_ensemble, here::here("ensembling", "crps-ensemble", "submission-files",
+data.table::fwrite(combined, here::here("ensembling", "crps-ensemble", "submission-files",
                                             paste0("latest-epiforecasts-ensemble1-crps.csv")))
 
 
