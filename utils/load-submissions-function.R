@@ -146,3 +146,125 @@ load_submission_files <- function(dates = c("latest", "all"),
   return(forecasts)
   
 }
+
+
+
+
+
+
+
+
+load_sample_files <- function(dates = c("latest", "all"), 
+                              num_last = NULL,
+                              #horizons = c(1, 2, 3, 4, 5, 6),
+                              models = c("all",
+                                         "rt", 
+                                         "deaths-only", 
+                                         "deaths-on-cases")) {
+  
+  ## Get most recent Rt forecast samples
+  if ("all" %in% models | "rt" %in% models) {
+      
+    files_rt <- list.files(here::here("rt-forecast", "submission-samples"))
+                           
+    if (!is.null(num_last)) {
+      rt_files <- sort(files_rt, decreasing = TRUE)[1:num_last]
+    }
+    
+    if (dates[1] == "latest") {
+      files_rt <- sort(files_rt, decreasing = TRUE)[1]
+    }
+    
+    # name vector to get id column from map_dfr
+    names(files_rt) <- substr(files_rt, 1, 10)
+    
+    rt_forecasts <- purrr::map_dfr(.x = files_rt, ~ readRDS(here::here("rt-forecast", 
+                                                                       "submission-samples", 
+                                                                       .x)), 
+                                   .id = "forecast_date") %>%
+      dplyr::mutate(model = "Rt", 
+                    forecast_date = as.Date(forecast_date))
+  } else {
+    rt_foreasts <- NULL
+  }
+  
+  
+  ## Get death only timeseries forecasts
+  if ("all" %in% models | "deaths-only" %in% models) {
+    files_ts_deaths <- list.files(here::here("timeseries-forecast", "deaths-only", "raw-samples"))
+    
+    if (!is.null(num_last)) {
+      files_ts_deaths <- sort(files_ts_deaths, decreasing = TRUE)[1:num_last]
+    }
+    
+    if (dates[1] == "latest") {
+      files_ts_deaths <- sort(files_ts_deaths, decreasing = TRUE)[1]
+    }
+    
+    ts_do_forecasts <- purrr::map_dfr(.x = files_ts_deaths, ~ readRDS(here::here("timeseries-forecast",
+                                                                                 "deaths-only",
+                                                                                 "raw-samples", 
+                                                                                 .x))) %>%
+      dplyr::mutate(model = "TS deaths only")
+  } else {
+    ts_do_forecasts <- NULL
+  }
+    
+   
+  ## Get deaths-on-cases forecasts
+  if ("all" %in% models | "deaths-on-cases" %in% models) {
+    
+    files_ts_deaths_on_cases <- list.files(here::here("timeseries-forecast", "deaths-on-cases", "raw-samples"))
+    
+    if (!is.null(num_last)) {
+      files_ts_deaths_on_cases <- sort(files_ts_deaths_on_cases, decreasing = TRUE)[1:num_last]
+    }
+    
+    if (dates[1] == "latest") {
+      files_ts_deaths_on_cases <- sort(files_ts_deaths_on_cases, decreasing = TRUE)[1]
+    }
+    
+    ts_doc_forecasts <- purrr::map_dfr(.x = files_ts_deaths_on_cases, ~ readRDS(here::here("timeseries-forecast",
+                                                                                           "deaths-on-cases",
+                                                                                           "raw-samples", 
+                                                                                           .x))) %>%
+      dplyr::mutate(model = "TS deaths on cases")
+  } else {
+    ts_doc_forecasts <- NULL
+  }
+  
+  ## join timeseries forecasts together and convert epiweek to target_end_date
+  
+  ts_forecasts <- dplyr::bind_rows(ts_do_forecasts, ts_doc_forecasts)
+  
+  # convert epiweek to target_end_date
+  # take the existing target_end_dates from the rt forecasts and add epiweek_target
+  # this code is a bit confusing - maybe should switch to a version that doesn't 
+  # rely on the rt-forecasts? 
+  
+  epiweek_to_target <- unique(ts_do_forecasts$epiweek_target)
+  rt_epiweek <- data.frame(unique(rt_forecasts$target_end_date), 
+                           lubridate::epiweek(unique(rt_forecasts$target_end_date)))
+  colnames(rt_epiweek) <- c("target_end_date", "epiweek_target")
+  
+  ts_forecasts <- ts_forecasts %>%
+    dplyr::mutate(forecast_date = lubridate::ymd(forecast_date)) %>%
+    dplyr::left_join(rt_epiweek, by = "epiweek_target") %>%
+    dplyr::select(sample, deaths, target_end_date, model, location = state, forecast_date)
+  
+  
+  
+  
+  
+  # Join forecasts ----------------------------------------------------------
+  forecasts <- dplyr::bind_rows(rt_forecasts, ts_forecasts)
+  
+  return(forecasts)
+  
+}
+
+
+
+
+
+
