@@ -5,21 +5,23 @@
 library(magrittr)
 library(dplyr)
 
+if(!exists(forecast_date)) {
+  forecast_date <- Sys.Date()
+}
 
 # ---------------------------------------------------------------------------- #
 # ------------------ get weights based on past observations ------------------ #
 # ---------------------------------------------------------------------------- #
 
 # load past forecasts ----------------------------------------------------------
+# filter out current forecast in order to optimise only on previous forecasts
 # also filter only horizon == 1 for stackr optimisation
-
-past_forecasts <- load_sample_files(dates = "all", num_last = 2) %>%
+today <- forecast_date
+past_forecasts <- load_sample_files(dates = forecast_date, num_last = 2) %>%
   dplyr::mutate(horizon = round(as.numeric(target_end_date - forecast_date) / 7)) %>%
-  dplyr::filter(horizon == 1)
+  dplyr::filter(horizon == 1, 
+                forecast_date < today)
   
-
-
-
 # join and create full set -----------------------------------------------------
 # should maybe switch that to data.table in the future
 
@@ -67,8 +69,8 @@ w <- stackr::crps_weights(data = combined)
 # ---------------------------------------------------------------------------- #
 
 
-# load in latest data (maybe make a dedicated function for that) ---------------
-current_forecast <- load_sample_files(dates = "latest") %>%
+# load in latest data ----------------------------------------------------------
+current_forecast <- load_sample_files(dates = forecast_date) %>%
   dplyr::rename(geography = location, 
                 date = target_end_date, 
                 sample_nr = sample, 
@@ -78,8 +80,7 @@ current_forecast <- load_sample_files(dates = "latest") %>%
   dplyr::mutate(y_pred = as.integer(y_pred)) %>%
   dplyr::filter(!is.na(y_pred))
 
-forecast_date <- Sys.Date()
-  
+
 # make ensemble ----------------------------------------------------------------
 ensemble <- stackr::mixture_from_samples(current_forecast, weights = w)
 

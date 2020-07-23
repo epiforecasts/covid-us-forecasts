@@ -167,12 +167,27 @@ load_sample_files <- function(dates = c("latest", "all"),
       
     files_rt <- list.files(here::here("rt-forecast", "submission-samples"))
                            
-    if (!is.null(num_last)) {
-      rt_files <- sort(files_rt, decreasing = TRUE)[1:num_last]
-    }
-    
-    if (dates[1] == "latest") {
+    if (as.character(dates)[1] == "all") {
+      if (!is.null(num_last)) {
+        files_rt <- sort(files_rt, decreasing = TRUE)[1:num_last]
+      }
+    } else if (as.character(dates)[1] == "latest") {
       files_rt <- sort(files_rt, decreasing = TRUE)[1]
+    } else {
+      files_rt <- sort(files_rt, decreasing = TRUE)
+      existing_dates <- as.Date(substr(files_rt, 1, 10))
+      
+      # give a one day wiggle room and create an index from the dates
+      dates_to_fetch <- c(as.Date(dates), (as.Date(dates) + 1), (as.Date(dates) - 1))
+      index <- 1:length(existing_dates)
+      index <- index[existing_dates %in% dates_to_fetch]
+      
+      # if num_last is not Null, also fetch the num_last previous files
+      if (!is.null(num_last)) {
+        index <- index:(num_last + index)
+      }
+      
+      files_rt <- files_rt[index]
     }
     
     # name vector to get id column from map_dfr
@@ -193,12 +208,27 @@ load_sample_files <- function(dates = c("latest", "all"),
   if ("all" %in% models | "deaths-only" %in% models) {
     files_ts_deaths <- list.files(here::here("timeseries-forecast", "deaths-only", "raw-samples"))
     
-    if (!is.null(num_last)) {
-      files_ts_deaths <- sort(files_ts_deaths, decreasing = TRUE)[1:num_last]
-    }
-    
-    if (dates[1] == "latest") {
+    if (as.character(dates)[1] == "all") {
+      if (!is.null(num_last)) {
+        files_ts_deaths <- sort(files_ts_deaths, decreasing = TRUE)[1:num_last]
+      }
+    } else if (as.character(dates)[1] == "latest") {
       files_ts_deaths <- sort(files_ts_deaths, decreasing = TRUE)[1]
+    } else {
+      files_ts_deaths <- sort(files_ts_deaths, decreasing = TRUE)
+      existing_dates <- as.Date(substr(files_ts_deaths, 1, 10))
+      
+      # give a one day wiggle room and create an index from the dates
+      dates_to_fetch <- c(as.Date(dates), (as.Date(dates) + 1), (as.Date(dates) - 1))
+      index <- 1:length(existing_dates)
+      index <- index[existing_dates %in% dates_to_fetch]
+      
+      # if num_last is not Null, also fetch the num_last previous files
+      if (!is.null(num_last)) {
+        index <- index:(num_last + index)
+      }
+      
+      files_ts_deaths <- files_ts_deaths[index]
     }
     
     ts_do_forecasts <- purrr::map_dfr(.x = files_ts_deaths, ~ readRDS(here::here("timeseries-forecast",
@@ -216,12 +246,27 @@ load_sample_files <- function(dates = c("latest", "all"),
     
     files_ts_deaths_on_cases <- list.files(here::here("timeseries-forecast", "deaths-on-cases", "raw-samples"))
     
-    if (!is.null(num_last)) {
-      files_ts_deaths_on_cases <- sort(files_ts_deaths_on_cases, decreasing = TRUE)[1:num_last]
-    }
-    
-    if (dates[1] == "latest") {
+    if (as.character(dates)[1] == "all") {
+      if (!is.null(num_last)) {
+        files_ts_deaths_on_cases <- sort(files_ts_deaths_on_cases, decreasing = TRUE)[1:num_last]
+      }
+    } else if (as.character(dates)[1] == "latest") {
       files_ts_deaths_on_cases <- sort(files_ts_deaths_on_cases, decreasing = TRUE)[1]
+    } else {
+      files_ts_deaths_on_cases <- sort(files_ts_deaths_on_cases, decreasing = TRUE)
+      existing_dates <- as.Date(substr(files_ts_deaths_on_cases, 1, 10))
+      
+      # give a one day wiggle room and create an index from the dates
+      dates_to_fetch <- c(as.Date(dates), (as.Date(dates) + 1), (as.Date(dates) - 1))
+      index <- 1:length(existing_dates)
+      index <- index[existing_dates %in% dates_to_fetch]
+      
+      # if num_last is not Null, also fetch the num_last previous files
+      if (!is.null(num_last)) {
+        index <- index:(num_last + index)
+      }
+      
+      files_ts_deaths_on_cases <- files_ts_deaths_on_cases[index]
     }
     
     ts_doc_forecasts <- purrr::map_dfr(.x = files_ts_deaths_on_cases, ~ readRDS(here::here("timeseries-forecast",
