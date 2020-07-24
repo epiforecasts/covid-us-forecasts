@@ -140,12 +140,15 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
         dplyr::ungroup() %>%
         #
         dplyr::bind_rows(nowcast) %>%
+        # Get epiweek and ensure each epiweek is a full week
         dplyr::mutate(date = date + lubridate::days(forecast_adjustment),
-                      epiweek = lubridate::epiweek(date)) %>% 
+                      epiweek = lubridate::epiweek(date),
+                      epiweek_end_date = ifelse(weekdays(date) == "Saturday", as.Date(date), NA),
+                      epiweek_end = ifelse(date == epiweek_end_date, TRUE, FALSE)) %>% 
+        #
         dplyr::filter(epiweek >= forecast_date_epiweek) %>%
         dplyr::group_by(sample, epiweek) %>%
         dplyr::summarise(epiweek_cases = sum(cases, na.rm = TRUE),
-                         epiweek_end_date = max(date),
                          .groups = "drop_last") %>%
         dplyr::ungroup()
       
@@ -227,4 +230,7 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
       return(out)
     }
     
+epiweek_forecast_dates <- tibble::tibble(horizon_dates = seq.Date(forecast_date, to = forecast_date + (7 * horizon_weeks), by = 1),
+                                         horizon_days = weekdays(horizon_dates),
+                                         epiweek = lubridate::epiweek(horizon_dates))
 
