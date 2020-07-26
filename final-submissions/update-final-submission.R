@@ -23,7 +23,8 @@ rt_max_date <- suppressMessages(readr::read_csv(here::here("rt-forecast/submissi
   unique() %>%
   max()
 
-submit_ensemble <- dplyr::filter(submit_ensemble, target_end_date <= rt_max_date)
+submit_ensemble <- dplyr::filter(submit_ensemble, target_end_date <= rt_max_date) %>%
+  dplyr::select(-submission_date)
 
   
 # Save in final-submissions

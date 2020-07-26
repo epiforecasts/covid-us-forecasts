@@ -104,7 +104,7 @@ qra_ensemble <- forecasts_wide %>%
                                               na.rm = TRUE)) %>%
   dplyr::rename(value = ensemble) %>%
   dplyr::select(-dplyr::all_of(models)) %>%
-  dplyr::select(forecast_date, target, target_end_date, location, type, quantile, value) %>%
+  dplyr::select(forecast_date, submission_date, target, target_end_date, location, type, quantile, value) %>%
   # round values after ensembling
   dplyr::mutate(value = round(value)) 
 
