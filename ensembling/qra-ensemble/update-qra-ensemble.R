@@ -15,7 +15,7 @@ past_forecasts <- load_submission_files(dates = "all",
 ## Note: code to remove duplicates has been commented out. 
 ## If duplicates exist this is likely to be a near-duplicate forecast,
 ## that was made but updated the same/next day.
-## The model producer should move these near-duplicate forecasts -  
+## The model producer should move these near-duplicate forecasts  
 ## to the relevant model's "out-of-date" folder - before ensembling.
 
 full_set <- past_forecasts %>%
@@ -30,7 +30,7 @@ full_set <- past_forecasts %>%
   # dplyr::slice(1) %>%
   # dplyr::ungroup() %>%
   # remove targets for which not all models have a forecast
-  dplyr::group_by(forecast_date, target, target_end_date, location, quantile) %>%
+  dplyr::group_by(submission_date, target, target_end_date, location, quantile) %>%
   dplyr::add_count() %>%
   dplyr::ungroup() %>%
   dplyr::filter(n == max(n)) %>%
@@ -47,24 +47,15 @@ deaths <- get_us_deaths(data = "daily") %>%
   dplyr::group_by(epiweek, state) %>%
   dplyr::summarise(deaths = sum(deaths), .groups = "drop_last")
 
-# get from epiweek to target date 
-source(here::here("utils", "dates-to-epiweek.R"))
-
-epiweek_to_date <- tibble::tibble(date = seq.Date(from = (as.Date("2020-01-01")), 
-                                                  by = 1, length.out = 365)) %>%
-  dplyr::mutate(epiweek = lubridate::epiweek(date),
-                day = weekdays(date)) %>%
-  dplyr::filter(day == "Saturday") %>%
-  dplyr::select(target_end_date = date, epiweek)
 
 # join deaths with past forecasts and reformat
 combined <- full_set %>%
-  dplyr::inner_join(epiweek_to_date, by = "target_end_date") %>%
+  dplyr::mutate(epiweek = lubridate::epiweek(target_end_date)) %>%
   dplyr::inner_join(deaths, by = c("state", "epiweek")) %>%
   tidyr::pivot_wider(values_from = value, names_from = quantile, 
                      names_prefix="quantile_") %>%
-  dplyr::arrange(forecast_date, target, target_end_date, location, model, epiweek) %>%
-  dplyr::select(-c(forecast_date, target, target_end_date, location, epiweek, state)) 
+  dplyr::arrange(submission_date, target, target_end_date, location, model, epiweek) %>%
+  dplyr::select(-c(submission_date, forecast_date, target, target_end_date, location, epiweek, state)) 
 
 # extract true values and check if they have the correct length
 models <- unique(combined$model)

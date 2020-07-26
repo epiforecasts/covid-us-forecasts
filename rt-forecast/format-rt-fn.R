@@ -16,6 +16,7 @@ require(lubridate)
 
 format_rt_forecast <- function(loc = NULL, loc_name = NULL,
                                forecast_date = NULL,
+                               submission_date = NULL,
                                forecast_adjustment = 0,
                                horizon_weeks = 5,
                                state_data_cumulative = NULL,
@@ -129,7 +130,7 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
 
       forecast <- forecast$raw_case_forecast
       
-      forecast_date_epiweek <- lubridate::epiweek(forecast_date)
+      submission_date_epiweek <- lubridate::epiweek(submission_date)
 
       
 
@@ -146,7 +147,7 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
         dplyr::bind_rows(nowcast) %>%
         # Only give results for complete epiweeks
         dates_to_epiweek() %>%
-        dplyr::filter(epiweek >= forecast_date_epiweek & epiweek_full == TRUE) %>%
+        dplyr::filter(epiweek >= submission_date_epiweek & epiweek_full == TRUE) %>%
         dplyr::group_by(sample, epiweek) %>%
         dplyr::summarise(epiweek_cases = sum(cases, na.rm = TRUE),
                          .groups = "drop_last") %>%
@@ -191,12 +192,13 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
           }) %>%
           epiweek_to_date() %>%
           dplyr::mutate(forecast_date = forecast_date,
-                        forecast_date_epiweek = forecast_date_epiweek,
+                        submission_date = submission_date,
+                        submission_date_epiweek = submission_date_epiweek,
                         target_epiweek = epiweek,
                         target_end_date = epiweek_end_date,
                         location = loc_name,
                         type = "quantile",
-                        horizon = target_epiweek - forecast_date_epiweek + 1,
+                        horizon = target_epiweek - submission_date_epiweek + 1,
                         target = paste(horizon,
                                        "wk ahead",
                                        name,
@@ -204,7 +206,8 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
                                        sep = " ")) %>%
           dplyr::ungroup() %>%
           dplyr::filter(horizon <= horizon_weeks) %>%
-          dplyr::select(forecast_date, target, target_end_date, location, type, quantile, value)
+          dplyr::select(forecast_date, submission_date, target, target_end_date, 
+                        location, type, quantile, value)
         
         df <- df %>%
           dplyr::bind_rows(df %>%
