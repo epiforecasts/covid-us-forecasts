@@ -15,6 +15,7 @@ require(tigris)
 forecast_dir <- here::here("rt-forecast")  # Assumes forecasts are in national and regional subfolders
 
 source(here::here("utils", "current-forecast-submission-date.R"))
+source(here::here("utils", "dates-to-epiweek.R"))
 
 ## IGNORE UNLESS NEEDED: Getting and formatting past forecasts
 #
@@ -52,8 +53,8 @@ forecasts <- c(list.dirs(file.path(forecast_dir, "state"), recursive = FALSE),
                list.dirs(file.path(forecast_dir, "national"), recursive = FALSE))
 
 names(forecasts) <- forecasts %>%
-  stringr::str_remove(file.path(forecast_dir, "state/")) %>%
-  stringr::str_remove(file.path(forecast_dir, "national/"))
+  stringr::str_remove(file.path(forecast_dir, "state//")) %>%
+  stringr::str_remove(file.path(forecast_dir, "national//"))
 
 
 # Load formatting function ------------------------------------------------
@@ -69,7 +70,7 @@ region_forecasts <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts),
                                                          forecast_date = forecast_date,
                                                          submission_date = submission_date,
                                                          forecast_adjustment = 11 + 5,
-                                                         horizon_weeks = 5,
+                                                         horizon_weeks = 4,
                                                          state_data_cumulative = state_data_cumulative,
                                                          state_data_daily = state_data_daily
                                                          ))
@@ -104,7 +105,7 @@ region_forecasts_samples <- purrr::map2_dfr(.x = forecasts, .y = names(forecasts
                                                          forecast_date = forecast_date,
                                                          submission_date = submission_date,
                                                          forecast_adjustment = 11 + 5,
-                                                         horizon_weeks = 5,
+                                                         horizon_weeks = 4,
                                                          state_data_cumulative = state_data_cumulative,
                                                          state_data_daily = state_data_daily, 
                                                          samples = TRUE,
