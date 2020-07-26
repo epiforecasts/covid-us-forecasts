@@ -1,4 +1,5 @@
 # Forecasting and submission dates
+library(magrittr)
 
 get_dates <- function(ts_do_forecast_date, 
                       ts_doc_forecast_date, 
