@@ -69,9 +69,9 @@ true_values <- combined %>%
   .$deaths
 
 # this should be TRUE
-print(paste0(
-  "QRA ensembling: check this is TRUE: ",
-  length(true_values) == (nrow(combined))  / length(models) ))
+if(!(length(true_values) == (nrow(combined))  / length(models))){
+  warning("QRA: check that true values and models align")
+}
 
 # extract forecasts as matrices and store as quantgen array
 qarr <- combined %>%
@@ -85,6 +85,8 @@ model_weights <- quantgen::quantile_ensemble(qarr = qarr,
                                              y = true_values, 
                                              tau = tau)$alpha
 
+message("QRA weights:")
+message(paste0("\n", models, "\n", model_weights, "\n"))
 
 # ensembling -------------------------------------------------------------------
 forecasts <- load_submission_files(dates = "latest",
