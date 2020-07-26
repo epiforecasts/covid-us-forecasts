@@ -44,7 +44,7 @@ state_data_daily <- get_us_deaths(data = "daily")
 #   forecast_date <- forecast_dates[i]
 #   submission_date <- submission_dates[i]
   
-  message(paste0("Forecast on ", forecast_date, "; Submission ", submission_date))
+  message(paste0("Forecast on ", forecast_date, ", submission on ", submission_date))
   
 # Find forecasts ----------------------------------------------------------
 
@@ -52,8 +52,8 @@ forecasts <- c(list.dirs(file.path(forecast_dir, "state"), recursive = FALSE),
                list.dirs(file.path(forecast_dir, "national"), recursive = FALSE))
 
 names(forecasts) <- forecasts %>%
-  stringr::str_remove(file.path(forecast_dir, "state//")) %>%
-  stringr::str_remove(file.path(forecast_dir, "national//"))
+  stringr::str_remove(file.path(forecast_dir, "state/")) %>%
+  stringr::str_remove(file.path(forecast_dir, "national/"))
 
 
 # Load formatting function ------------------------------------------------
