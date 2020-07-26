@@ -92,14 +92,15 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
    }
   }
   
+  nowcast <- file.path(file_loc,"nowcast.rds")
+  
   # If no Rt estimate made, return NULL
-    if (!dir.exists(file_loc) ){
+    if (!file.exists(nowcast)){
       print(paste0(loc_name, ": no Rt files"))
       return(NULL)
     } 
     
 
-    nowcast <- file.path(file_loc,"nowcast.rds")
     nowcast <- readRDS(nowcast) %>%
       dplyr::select(date, sample, cases, type) %>%
       dplyr::filter(type %in% "infection_upscaled") %>%
