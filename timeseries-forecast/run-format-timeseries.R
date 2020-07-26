@@ -6,13 +6,13 @@ source(here::here("utils", "current-forecast-submission-date.R"))
 
 # For formatting past timeseries samples:
 # 
-for(i in 
-    c("2020-06-15", "2020-06-22", "2020-06-29", "2020-07-06", 
-      "2020-07-13", "2020-07-20")){
-  ##
-  forecast_date <- i
-  submission_date <- i
-  ##
+# for(i in 
+#     c("2020-06-15", "2020-06-22", "2020-06-29", "2020-07-06", 
+#       "2020-07-13", "2020-07-20")){
+#   ##
+#   forecast_date <- i
+#   submission_date <- i
+#   ##
   
 # Deaths only ------------------
 
@@ -20,8 +20,8 @@ model_type <- "deaths-only"
 
 deaths_only <- format_timeseries(right_truncate_weeks = 1, 
                                  model_type = model_type,
-                                 forecast_date = i,
-                                 submission_date = i,
+                                 forecast_date = forecast_date,
+                                 submission_date = submission_date,
                                  quantiles_out <- c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99))
 forecast_date <- unique(deaths_only$forecast_date)
 
@@ -32,7 +32,7 @@ readr::write_csv(deaths_only, here::here("timeseries-forecast", model_type,
                                          paste0("latest-weekly-", model_type, ".csv")))
 # Save under forecast date
 readr::write_csv(deaths_only, here::here("timeseries-forecast", model_type, "submission-files", "dated",
-                                         paste0(i, "-", model_type, ".csv")))
+                                         paste0(forecast_date, "-", model_type, ".csv")))
                 
 
 # Deaths on cases -----------------
@@ -40,8 +40,8 @@ readr::write_csv(deaths_only, here::here("timeseries-forecast", model_type, "sub
 model_type <- "deaths-on-cases"
 deaths_on_cases <- format_timeseries(right_truncate_weeks = 1, 
                                      model_type = model_type,
-                                     forecast_date = i,
-                                     submission_date = i,
+                                     forecast_date = forecast_date,
+                                     submission_date = submission_Date,
                                      quantiles_out <- c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99))
 forecast_date <- unique(deaths_on_cases$forecast_date)
 
@@ -51,10 +51,10 @@ readr::write_csv(deaths_on_cases, here::here("timeseries-forecast", model_type,
                                              paste0("latest-weekly-", model_type, ".csv")))
 # Save under forecast date
 readr::write_csv(deaths_on_cases, here::here("timeseries-forecast", model_type, "submission-files", "dated",
-                                             paste0(i, "-", model_type, ".csv")))
+                                             paste0(forecast_date, "-", model_type, ".csv")))
 
 
-##
-}
-##
+# ##
+# }
+# ##
 
