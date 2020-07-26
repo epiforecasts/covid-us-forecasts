@@ -22,17 +22,23 @@ rt_forecasts <- purrr::map_dfr(.x = files_rt, ~ readRDS(here::here("rt-forecast"
 # get timeseries forecasts ------------------------------------------------
 
 # deaths only
-files_ts_deaths <- list.files(here::here("timeseries-forecast", "deaths-only", "raw-samples"))
+files_ts_deaths <- list.files(here::here("timeseries-forecast", "deaths-only", "raw-samples", "dated"))
 
 ts_do_forecasts <- purrr::map_dfr(.x = files_ts_deaths, ~ readRDS(here::here("timeseries-forecast",
                                                                    "deaths-only",
                                                                    "raw-samples", 
+                                                                   "dated",
                                                                    .x)))
 # epiweek to target date
+source(here::here("utils", "dates-to-epiweek.R"))
+
 epiweek_to_target <- unique(ts_do_forecasts$epiweek_target)
+
 rt_epiweek <- data.frame(unique(rt_forecasts$target_end_date), 
                          lubridate::epiweek(unique(rt_forecasts$target_end_date)))
 colnames(rt_epiweek) <- c("target_end_date", "epiweek_target")
+
+
 
 ts_do_forecasts <- ts_do_forecasts %>%
   mutate(forecast_date = lubridate::ymd(forecast_date),

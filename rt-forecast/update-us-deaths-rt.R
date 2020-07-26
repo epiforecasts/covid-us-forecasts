@@ -79,9 +79,9 @@ EpiNow::regional_rt_pipeline(
   min_forecast_cases = 0,
   approx_delay = TRUE,
   # Settings for forecasting
-  horizon = 40, report_forecast = TRUE,
+  horizon = 42, report_forecast = TRUE,
   forecast_model = function(y, ...){EpiSoon::forecastHybrid_model(
-    y = y[max(1, length(y) - 40):length(y)],
+    y = y[max(1, length(y) - 42):length(y)],
     model_params = list(models = "aefz", weights = "equal"),
     forecast_params = list(PI.combination = "mean"), ...)})
 
@@ -103,10 +103,10 @@ EpiNow::regional_rt_pipeline(
   min_forecast_cases = 0,
   approx_delay = TRUE,
   # Settings for forecasting
-  horizon = 40, report_forecast = TRUE,
+  horizon = 42, report_forecast = TRUE,
   forecast_model = function(y, ...){
     EpiSoon::forecastHybrid_model(
-    y = y[max(1, length(y) - 40):length(y)],
+    y = y[max(1, length(y) - 42):length(y)],
     model_params = list(models = "aefz", weights = "equal"),
     forecast_params = list(PI.combination = "mean"), ...)})
 

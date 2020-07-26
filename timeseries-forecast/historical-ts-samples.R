@@ -29,11 +29,11 @@ cases_national <- cases_state %>%
 # Set historical timepoint for which to get samples as if forecast on that date
 submission_dates <- c("2020-06-15", "2020-06-22", "2020-06-29", "2020-07-06", "2020-07-13", "2020-07-20")
 
-for(i in submission_dates){
+for(i in c("2020-06-15", "2020-06-22", "2020-06-29", "2020-07-06", "2020-07-13", "2020-07-20")){
   submission_date <- i
   
 # Set forecast parameters -------------------------------------------------
-weeks_into_past <- lubridate::epiweek(Sys.Date()) - lubridate::epiweek(submission_date)
+weeks_into_past <- lubridate::epiweek(Sys.Date()) - lubridate::epiweek(i)
 right_truncation <- 1 # weeks
 right_truncate_weeks <- weeks_into_past + right_truncation
 
@@ -59,10 +59,10 @@ national_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_national,
 
 # Bind and save daily forecast
 deaths_only_forecast <- bind_rows(national_deaths_only_forecast, state_deaths_only_forecast) %>%
-  mutate(forecast_date = submission_date)
+  mutate(submission_date = i)
 
-saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "raw-samples",
-                                         paste0(submission_date, "-samples-weekly-deaths-only.rds")))
+saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "raw-samples", "dated",
+                                         paste0(i, "-samples-weekly-deaths-only.rds")))
 
 
 
@@ -86,9 +86,9 @@ national_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cas
 
 # Bind and save
 deaths_on_cases_forecast <- bind_rows(national_deaths_on_cases_forecast, state_deaths_on_cases_forecast) %>%
-  mutate(forecast_date = submission_date)
+  mutate(submission_date = i)
 
-saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-on-cases", "raw-samples",
-                                         paste0(submission_date, "-weekly-deaths-on-cases.rds")))
+saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-cases", "raw-samples", "dated",
+                                         paste0(i, "-samples-weekly-deaths-on-cases.rds")))
 
 }
