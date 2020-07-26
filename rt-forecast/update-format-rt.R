@@ -44,13 +44,14 @@ forecasts <- c(list.dirs(file.path(forecast_dir, "state"), recursive = FALSE),
                list.dirs(file.path(forecast_dir, "national"), recursive = FALSE))
 
 names(forecasts) <- forecasts %>%
-  stringr::str_remove(file.path(forecast_dir, "state/")) %>%
-  stringr::str_remove(file.path(forecast_dir, "national/"))
+  stringr::str_remove(file.path(forecast_dir, "state//")) %>%
+  stringr::str_remove(file.path(forecast_dir, "national//"))
 
 
 # Load formatting function ------------------------------------------------
 
 source(here::here("rt-forecast", "format-rt-fn.R"))
+source(here::here("utils", "dates-to-epiweek.R"))
 
 # Get forecast and format for subsmission -------------------------------------------------------
 
