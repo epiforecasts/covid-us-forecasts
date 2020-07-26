@@ -30,8 +30,8 @@ sample_count <- 1000
 case_quantile <- 0.5
 
 # 4 wk ahead forecast:
-horizon_weeks <- 5
-right_truncate_weeks <- 1
+horizon_weeks <- 4
+right_truncate_weeks <- 0
 
 
 # Forecast with deaths only -----------------------------------------------
