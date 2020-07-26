@@ -20,16 +20,11 @@ deaths <- get_us_deaths(data = "daily") %>%
   dplyr::summarise(deaths = sum(deaths), .groups = "drop_last")
 
 # code to get from epiweek to target date copied from Kath
-epiweek_to_date <- tibble::tibble(date = seq.Date(from = (as.Date("2020-01-01")), 
-                                                  by = 1, length.out = 365)) %>%
-  dplyr::mutate(epiweek = lubridate::epiweek(date),
-                day = weekdays(date)) %>%
-  dplyr::filter(day == "Saturday") %>%
-  dplyr::select(target_end_date = date, epiweek)
+# source(here::here("utils", "dates-to-epiweek.R")) # - could use this but seems unnecessary. replaced below
 
 # join and reformat for scoring
 combined <- past_forecasts %>%
-  dplyr::inner_join(epiweek_to_date, by = "target_end_date") %>%
+  dplyr::mutate(epiweek = lubridate::epiweek(target_end_date)) %>%
   dplyr::inner_join(deaths, by = c("state", "epiweek")) %>%
   dplyr::rename(true_values = deaths, 
                 predictions = value) %>%

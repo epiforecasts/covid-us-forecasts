@@ -47,7 +47,9 @@ deaths <- get_us_deaths(data = "daily") %>%
   dplyr::group_by(epiweek, state) %>%
   dplyr::summarise(deaths = sum(deaths), .groups = "drop_last")
 
-# code to get from epiweek to target date copied from Kath
+# get from epiweek to target date 
+source(here::here("utils", "dates-to-epiweek.R"))
+
 epiweek_to_date <- tibble::tibble(date = seq.Date(from = (as.Date("2020-01-01")), 
                                                   by = 1, length.out = 365)) %>%
   dplyr::mutate(epiweek = lubridate::epiweek(date),

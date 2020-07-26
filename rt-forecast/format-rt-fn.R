@@ -31,14 +31,17 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
   # Cumulative
   cumulative_data <- state_data_cumulative
   
+  # cumulative_deaths_state <- cumulative_data %>%
+  #   dplyr::group_by(epiweek) %>%
+  #   dplyr::filter(date == max(date)) %>%
+  #   dplyr::ungroup()
+  
   cumulative_deaths_state <- cumulative_data %>%
-    dplyr::group_by(epiweek) %>%
-    dplyr::filter(date == max(date)) %>%
-    dplyr::ungroup()
+    dates_to_epiweek() %>%
+    dplyr::filter(epiweek_end == TRUE)
 
-  cumulative_deaths_national <- cumulative_data %>%
+  cumulative_deaths_national <- cumulative_deaths_state %>%
     dplyr::group_by(epiweek) %>%
-    dplyr::filter(date == max(date)) %>%
     dplyr::summarise(deaths = sum(deaths),
                      state = "US", .groups = "drop_last")
 
@@ -50,9 +53,10 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
     .$deaths
   
 
-  # Weekly
+  # Weekly incident
   weekly_data <- state_data_daily %>%
-    dplyr::mutate(epiweek = lubridate::epiweek(date))
+    dates_to_epiweek() %>%
+    dplyr::filter(epiweek_full == TRUE)
   
   weekly_deaths_state <- weekly_data %>%
     dplyr::group_by(state, epiweek) %>%
@@ -66,7 +70,7 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
   
   weekly_deaths <- dplyr::bind_rows(weekly_deaths_state, weekly_deaths_national)
   
-    # Previous epiweek  count per state (loc)
+  # Previous epiweek count per state (loc)
   last_week_incident_deaths <- weekly_deaths %>%
     dplyr::filter(epiweek == lubridate::epiweek(forecast_date)-1,
                   state == loc_name) %>%
@@ -140,22 +144,19 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
         dplyr::ungroup() %>%
         #
         dplyr::bind_rows(nowcast) %>%
-        # Get epiweek and ensure each epiweek is a full week
-        dplyr::mutate(date = date + lubridate::days(forecast_adjustment),
-                      epiweek = lubridate::epiweek(date),
-                      epiweek_end_date = ifelse(weekdays(date) == "Saturday", as.Date(date), NA),
-                      epiweek_end = ifelse(date == epiweek_end_date, TRUE, FALSE)) %>% 
-        #
-        dplyr::filter(epiweek >= forecast_date_epiweek) %>%
+        # Only give results for complete epiweeks
+        dates_to_epiweek() %>%
+        dplyr::filter(epiweek >= forecast_date_epiweek & epiweek_full == TRUE) %>%
         dplyr::group_by(sample, epiweek) %>%
         dplyr::summarise(epiweek_cases = sum(cases, na.rm = TRUE),
                          .groups = "drop_last") %>%
-        dplyr::ungroup()
+        dplyr::ungroup() %>%
+        epiweek_to_date()
       
       
       if (samples) {
         
-        incident_forecast <- incident_forecast %>%
+        incident_forecast_samples <- incident_forecast %>%
           dplyr::rename(target_end_date = epiweek_end_date, 
                         deaths = epiweek_cases) %>%
           dplyr::mutate(model = "EpiSoon Rt", 
@@ -164,7 +165,7 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
           dplyr::select(sample, deaths, target_end_date, model, location)
           
         
-        return(incident_forecast)
+        return(incident_forecast_samples)
       }
 
 # Cumulative results ------------------------------------------------------
@@ -181,11 +182,6 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
 
         process_data = function(df, name){
           
-          epiweek_to_date <- df %>%
-            dplyr::select(epiweek_end_date, epiweek) %>%
-            dplyr::distinct()
-          
-          
         df <- df %>%
           dplyr::group_by(epiweek) %>%
           dplyr::group_modify( ~ {
@@ -193,7 +189,7 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
               tibble::enframe(name = "quantile", value = "value") %>%
               dplyr::mutate(quantile = as.numeric(stringr::str_remove(quantile, "%"))/100)
           }) %>%
-          dplyr::left_join(epiweek_to_date, by = "epiweek") %>%
+          epiweek_to_date() %>%
           dplyr::mutate(forecast_date = forecast_date,
                         forecast_date_epiweek = forecast_date_epiweek,
                         target_epiweek = epiweek,
@@ -229,8 +225,3 @@ format_rt_forecast <- function(loc = NULL, loc_name = NULL,
       
       return(out)
     }
-    
-epiweek_forecast_dates <- tibble::tibble(horizon_dates = seq.Date(forecast_date, to = forecast_date + (7 * horizon_weeks), by = 1),
-                                         horizon_days = weekdays(horizon_dates),
-                                         epiweek = lubridate::epiweek(horizon_dates))
-
