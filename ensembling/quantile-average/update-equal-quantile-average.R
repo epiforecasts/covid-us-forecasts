@@ -10,7 +10,7 @@ forecasts <- load_submission_files(dates = "latest",
                                    models = c("rt", "deaths-only", "deaths-on-cases"))
 
 # get forecast_date
-forecast_date <- unique(dplyr::pull(forecasts, forecast_date))
+forecast_date <- Sys.Date()
 
 
 # average quantiles ------------------------------------------------------------
@@ -32,7 +32,7 @@ mean_ensemble <- forecasts_wide %>%
                   rowMeans()) %>%
   dplyr::rename(value = ensemble) %>%
   dplyr::select(-dplyr::all_of(models)) %>%
-  dplyr::select(forecast_date, target, target_end_date, location, type, quantile, value) %>%
+  dplyr::select(forecast_date, submission_date, target, target_end_date, location, type, quantile, value) %>%
   # round values after ensembling
   dplyr::mutate(value = round(value)) 
 

@@ -15,7 +15,7 @@ past_forecasts <- load_submission_files(dates = "all",
 ## Note: code to remove duplicates has been commented out. 
 ## If duplicates exist this is likely to be a near-duplicate forecast,
 ## that was made but updated the same/next day.
-## The model producer should move these near-duplicate forecasts -  
+## The model producer should move these near-duplicate forecasts  
 ## to the relevant model's "out-of-date" folder - before ensembling.
 
 full_set <- past_forecasts %>%
@@ -30,7 +30,7 @@ full_set <- past_forecasts %>%
   # dplyr::slice(1) %>%
   # dplyr::ungroup() %>%
   # remove targets for which not all models have a forecast
-  dplyr::group_by(forecast_date, target, target_end_date, location, quantile) %>%
+  dplyr::group_by(submission_date, target, target_end_date, location, quantile) %>%
   dplyr::add_count() %>%
   dplyr::ungroup() %>%
   dplyr::filter(n == max(n)) %>%
@@ -47,22 +47,15 @@ deaths <- get_us_deaths(data = "daily") %>%
   dplyr::group_by(epiweek, state) %>%
   dplyr::summarise(deaths = sum(deaths), .groups = "drop_last")
 
-# code to get from epiweek to target date copied from Kath
-epiweek_to_date <- tibble::tibble(date = seq.Date(from = (as.Date("2020-01-01")), 
-                                                  by = 1, length.out = 365)) %>%
-  dplyr::mutate(epiweek = lubridate::epiweek(date),
-                day = weekdays(date)) %>%
-  dplyr::filter(day == "Saturday") %>%
-  dplyr::select(target_end_date = date, epiweek)
 
 # join deaths with past forecasts and reformat
 combined <- full_set %>%
-  dplyr::inner_join(epiweek_to_date, by = "target_end_date") %>%
+  dplyr::mutate(epiweek = lubridate::epiweek(target_end_date)) %>%
   dplyr::inner_join(deaths, by = c("state", "epiweek")) %>%
   tidyr::pivot_wider(values_from = value, names_from = quantile, 
                      names_prefix="quantile_") %>%
-  dplyr::arrange(forecast_date, target, target_end_date, location, model, epiweek) %>%
-  dplyr::select(-c(forecast_date, target, target_end_date, location, epiweek, state)) 
+  dplyr::arrange(submission_date, target, target_end_date, location, model, epiweek) %>%
+  dplyr::select(-c(submission_date, forecast_date, target, target_end_date, location, epiweek, state)) 
 
 # extract true values and check if they have the correct length
 models <- unique(combined$model)
@@ -76,9 +69,9 @@ true_values <- combined %>%
   .$deaths
 
 # this should be TRUE
-print(paste0(
-  "QRA ensembling: check this is TRUE: ",
-  length(true_values) == (nrow(combined))  / length(models) ))
+if(!(length(true_values) == (nrow(combined))  / length(models))){
+  warning("QRA: check that true values and models align")
+}
 
 # extract forecasts as matrices and store as quantgen array
 qarr <- combined %>%
@@ -92,6 +85,8 @@ model_weights <- quantgen::quantile_ensemble(qarr = qarr,
                                              y = true_values, 
                                              tau = tau)$alpha
 
+message("QRA weights:")
+message(paste0("\n", models, "\n", model_weights, "\n"))
 
 # ensembling -------------------------------------------------------------------
 forecasts <- load_submission_files(dates = "latest",
@@ -111,7 +106,7 @@ qra_ensemble <- forecasts_wide %>%
                                               na.rm = TRUE)) %>%
   dplyr::rename(value = ensemble) %>%
   dplyr::select(-dplyr::all_of(models)) %>%
-  dplyr::select(forecast_date, target, target_end_date, location, type, quantile, value) %>%
+  dplyr::select(forecast_date, submission_date, target, target_end_date, location, type, quantile, value) %>%
   # round values after ensembling
   dplyr::mutate(value = round(value)) 
 

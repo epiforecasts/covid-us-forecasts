@@ -5,6 +5,9 @@
 # Update the data
 Rscript utils/get-us-data.R
 
+# Update forecast and submission dates
+Rscript utils/current-forecast-submission-date.R
+
 # update visualisation of the data without forecasts
 Rscript evaluation/utils/update-visualise-raw-data.R
 

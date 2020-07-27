@@ -4,10 +4,10 @@
 # - If both true, sets to the NEXT day's data
 # 
 # source(here::here("utils", "get-us-data.R"))
-# deaths_state = get_us_deaths()
+# deaths_state <- get_us_deaths()
 
 # data = daily data at state level (e.g. deaths_state)
-# variable = which variable to detect (e.g. cases or deaths)
+# variable_name = which variable to detect (e.g. cases or deaths)
 # threshold = minimum absolute value of the variable, 
 #            above which if an anomaly is detected, will adjust to the same as yesterday
 
