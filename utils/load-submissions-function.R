@@ -14,7 +14,8 @@ load_submission_files <- function(dates = c("latest", "all"),
                                              "deaths-only", 
                                              "deaths-on-cases", 
                                              "mean-ensemble", 
-                                             "qra-ensemble")) {
+                                             "qra-ensemble", 
+                                             "crps-ensemble")) {
   
   
   forecasts <- list()
@@ -132,6 +133,31 @@ load_submission_files <- function(dates = c("latest", "all"),
       dplyr::mutate(model = "QRA ensemble")
   }
   
+  ## Get crps-ensemble
+  if ("all" %in% models | "crps-ensemble" %in% models) {
+    if (dates[1] == "all") {
+      
+      crps_ensemble_files <- list.files(here::here("ensembling", "crps-ensemble",
+                                                  "submission-files", "dated"))
+      
+      if (!is.null(num_last)) {
+        crps_ensemble_files <- sort(crps_ensemble_files, decreasing = TRUE)[1:num_last]
+      }
+      
+      crps_ensemble_paths <- here::here("ensembling", "crps-ensemble", 
+                                       "submission-files", "dated", crps_ensemble_files)
+      
+      
+    } else {
+      crps_ensemble_paths <- here::here("ensembling", "crps-ensemble",
+                                       "submission-files",
+                                       "latest-epiforecasts-ensemble1-crps.csv") 
+    }
+    forecasts[["crps_ensemble"]] <- suppressMessages(purrr::map_dfr(crps_ensemble_paths, readr::read_csv)) %>%
+      dplyr::mutate(model = "CRPS ensemble")
+  }
+  
+  
   # Join forecasts ----------------------------------------------------------
   # and add state names
   forecasts <- dplyr::bind_rows(forecasts) %>%
@@ -206,7 +232,7 @@ load_sample_files <- function(dates = c("latest", "all"),
   
   ## Get death only timeseries forecasts
   if ("all" %in% models | "deaths-only" %in% models) {
-    files_ts_deaths <- list.files(here::here("timeseries-forecast", "deaths-only", "raw-samples"))
+    files_ts_deaths <- list.files(here::here("timeseries-forecast", "deaths-only", "raw-samples", "dated"))
     
     if (as.character(dates)[1] == "all") {
       if (!is.null(num_last)) {
@@ -234,6 +260,7 @@ load_sample_files <- function(dates = c("latest", "all"),
     ts_do_forecasts <- purrr::map_dfr(.x = files_ts_deaths, ~ readRDS(here::here("timeseries-forecast",
                                                                                  "deaths-only",
                                                                                  "raw-samples", 
+                                                                                 "dated",
                                                                                  .x))) %>%
       dplyr::mutate(model = "TS deaths only")
   } else {
@@ -244,7 +271,7 @@ load_sample_files <- function(dates = c("latest", "all"),
   ## Get deaths-on-cases forecasts
   if ("all" %in% models | "deaths-on-cases" %in% models) {
     
-    files_ts_deaths_on_cases <- list.files(here::here("timeseries-forecast", "deaths-on-cases", "raw-samples"))
+    files_ts_deaths_on_cases <- list.files(here::here("timeseries-forecast", "deaths-on-cases", "raw-samples", "dated"))
     
     if (as.character(dates)[1] == "all") {
       if (!is.null(num_last)) {
@@ -272,6 +299,7 @@ load_sample_files <- function(dates = c("latest", "all"),
     ts_doc_forecasts <- purrr::map_dfr(.x = files_ts_deaths_on_cases, ~ readRDS(here::here("timeseries-forecast",
                                                                                            "deaths-on-cases",
                                                                                            "raw-samples", 
+                                                                                           "dated",
                                                                                            .x))) %>%
       dplyr::mutate(model = "TS deaths on cases")
   } else {
