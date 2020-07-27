@@ -23,6 +23,15 @@ past_forecasts <- load_sample_files(dates = forecast_date, num_last = 2) %>%
   dplyr::filter(horizon == 1, 
                 forecast_date < today - 1)
 
+# epiweek to target date
+source(here::here("utils", "dates-to-epiweek.R"))
+
+epiweek_to_target <- unique(ts_do_forecasts$epiweek_target)
+
+rt_epiweek <- data.frame(unique(rt_forecasts$target_end_date), 
+                         lubridate::epiweek(unique(rt_forecasts$target_end_date)))
+colnames(rt_epiweek) <- c("target_end_date", "epiweek_target")
+
 
 # join and create full set -----------------------------------------------------
 # should maybe switch that to data.table in the future

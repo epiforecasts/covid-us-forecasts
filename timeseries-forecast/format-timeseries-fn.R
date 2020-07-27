@@ -4,7 +4,10 @@
 # model_type = c("deaths-only", "deaths-on-cases")
 # right_truncate_weeks <- 1 [as used in forecasting: to prevent over-adding cumulative data]
 
-format_timeseries <- function(model_type, right_truncate_weeks, quantiles_out){
+library(dplyr)
+
+format_timeseries <- function(model_type, forecast_date, submission_date, 
+                                     right_truncate_weeks, quantiles_out){
   
 # Raw data set up -------------------------------------------------------------
 
@@ -13,50 +16,39 @@ state_codes <- tigris::fips_codes %>%
   dplyr::select(state_code, state_name) %>%
   unique() %>%
   rbind(c("US", "US")) %>%
-  mutate(state_name = ifelse(state_name == "U.S. Virgin Islands", "Virgin Islands", state_name))
+  dplyr::mutate(state_name = ifelse(state_name == "U.S. Virgin Islands", "Virgin Islands", state_name))
 
 # Read in forecast
-samples <- readRDS(here::here("timeseries-forecast", model_type, "raw-samples",
-                                     paste0("samples-latest-weekly-", model_type, ".rds")))
+samples <- readRDS(here::here("timeseries-forecast", model_type, "raw-samples", "dated", 
+                                     paste0(forecast_date, "-samples-weekly-", model_type, ".rds")))
 
 # Get quantiles
 raw_weekly_forecast <- samples %>%
-  group_by(state, epiweek_target) %>%
-  group_modify( ~ as.data.frame(quantile(.x$deaths, probs = quantiles_out, na.rm = T))) %>%
-  mutate(quantile = quantiles_out,
+  dplyr::group_by(state, epiweek_target) %>%
+  dplyr::group_modify( ~ as.data.frame(quantile(.x$deaths, probs = quantiles_out, na.rm = T))) %>%
+  dplyr::mutate(quantile = quantiles_out,
          date_created = unique(samples$date_created),
          model_type = unique(samples$model_type)) %>%
-  rename(deaths = 3) %>%
-  ungroup()
+  dplyr::rename(deaths = 3, epiweek = epiweek_target) %>%
+  dplyr::ungroup()
 
 # Set epiweek to target date conversion
 forecast_date <- unique(raw_weekly_forecast$date_created)
-forecast_date_epiweek <- lubridate::epiweek(forecast_date)
-
-epiweek_to_date <- tibble::tibble(date = seq.Date(from = (forecast_date-1), by = 1, length.out = 42)) %>%
-  dplyr::mutate(epiweek = lubridate::epiweek(date),
-                day = weekdays(date)) %>%
-  dplyr::filter(day == "Saturday") %>%
-  dplyr::select(target_end_date = date, epiweek_target = epiweek)
-
-
+submission_date_epiweek <- lubridate::epiweek(submission_date)
 
 # Cumulative formatting ----------------------------------------------------
   
-# Get cumulative weekly data
-cumulative_data <- readRDS(here::here("data", "deaths-data-cumulative.rds")) %>%
-  dplyr::mutate(epiweek = lubridate::epiweek(date))
+# --- Get cumulative weekly data ---
+cumulative_data <- get_us_deaths(data = "cumulative")
 
 # State cumulative data
 cumulative_deaths_state <- cumulative_data %>%
-  dplyr::group_by(epiweek) %>%
-  dplyr::filter(date == max(date)) %>%
-  dplyr::ungroup()
+  dates_to_epiweek() %>%
+  dplyr::filter(epiweek_end == TRUE)
 
 # National cumulative data
-cumulative_deaths_national <- cumulative_data %>%
+cumulative_deaths_national <- cumulative_deaths_state %>%
   dplyr::group_by(epiweek) %>%
-  dplyr::filter(date == max(date)) %>%
   dplyr::summarise(deaths = sum(deaths),
                    state = "US",
                    .groups = "drop_last") %>%
@@ -70,29 +62,28 @@ last_week_cumulative_deaths <- cumulative_deaths %>%
   dplyr::filter(epiweek == max(epiweek)-right_truncate_weeks) %>%
   dplyr::select(-epiweek, -date)
 
-# Create cumulative forecast
-cumulative_forecast <- raw_weekly_forecast %>%
+# --- Create cumulative forecast ---
+raw_cumulative_forecast <- raw_weekly_forecast %>%
   dplyr::group_by(quantile, state) %>%
   dplyr::mutate(deaths = cumsum(deaths)) %>%
-  ungroup()
+  dplyr::ungroup()
   
 # Join historical cumulative deaths to forecasts  
-cumulative_forecast <- cumulative_forecast %>%  
+cumulative_forecast <- raw_cumulative_forecast %>%  
   dplyr::left_join(last_week_cumulative_deaths, by = "state") %>%
   dplyr::mutate(deaths = deaths.x + deaths.y) %>%
   # Filter to current and future epiweeks
-  dplyr::filter(epiweek_target >= forecast_date_epiweek) %>%
+  dplyr::filter(epiweek >= submission_date_epiweek) %>%
   # Format for submission
   dplyr::left_join(state_codes, by = c("state" = "state_name")) %>%
-  dplyr::left_join(epiweek_to_date, by = "epiweek_target") %>%
-  dplyr::mutate(forecast_date = date_created,
-                value = deaths,
+  epiweek_to_date() %>%
+  dplyr::mutate(submission_date = submission_date,
                 type = "quantile",
-                target = paste(epiweek_target - forecast_date_epiweek + 1,
+                target = paste(epiweek - submission_date_epiweek + 1,
                                "wk ahead cum death",
-                               sep = " "),
-                location = state_code) %>%
-  dplyr::select(forecast_date, target, target_end_date, location, type, quantile, value)
+                               sep = " ")) %>%
+  dplyr::select(forecast_date = date_created, submission_date, target, target_end_date = epiweek_end_date, 
+                location = state_code, type, quantile, value = deaths)
 
 # Add point forecast
 cumulative_forecast <- cumulative_forecast %>%
@@ -107,18 +98,17 @@ cumulative_forecast <- cumulative_forecast %>%
 
 incident_forecast <- raw_weekly_forecast %>%
   # Filter to current and future epiweeks
-  dplyr::filter(epiweek_target >= forecast_date_epiweek) %>%
+  dplyr::filter(epiweek >= submission_date_epiweek) %>%
   # Format for submission
   dplyr::left_join(state_codes, by = c("state" = "state_name")) %>%
-  dplyr::left_join(epiweek_to_date, by = "epiweek_target") %>%
-  dplyr::mutate(forecast_date = date_created,
-                value = deaths,
+  epiweek_to_date() %>%
+  dplyr::mutate(submission_date = submission_date,
                 type = "quantile",
-                target = paste(epiweek_target - forecast_date_epiweek + 1,
+                target = paste(epiweek - submission_date_epiweek + 1,
                                "wk ahead inc death",
-                               sep = " "),
-                location = state_code) %>%
-  dplyr::select(forecast_date, target, target_end_date, location, type, quantile, value)
+                               sep = " ")) %>%
+  dplyr::select(forecast_date = date_created, submission_date, target, target_end_date = epiweek_end_date, 
+                location = state_code, type, quantile, value = deaths)
 
 # Add point forecast
 incident_forecast <- incident_forecast %>%

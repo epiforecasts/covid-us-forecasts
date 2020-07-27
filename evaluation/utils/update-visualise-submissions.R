@@ -6,12 +6,12 @@ library(dplyr)
 source(here::here("evaluation", "utils", 
                   "visualise-submission-functions.R"))
 
-submission_date <- Sys.Date()
+forecast_date <- Sys.Date()
 
 if(!dir.exists(here::here("evaluation", "plots", 
-                          submission_date))) {
+                          forecast_date))) {
   dir.create(here::here("evaluation", "plots", 
-                        submission_date))
+                        forecast_date))
 }
 
 
@@ -19,7 +19,7 @@ national_plot <- plot_forecasts(national = TRUE, obs_weeks = 8, exclude_new_epiw
 
 
 suppressWarnings(ggsave(here::here("evaluation", "plots", 
-                  submission_date, "submission-national.png"), 
+                                   forecast_date, "submission-national.png"), 
        plot = national_plot, 
        width = 10, height = 10, dpi = 300))
 
@@ -30,6 +30,6 @@ subnational_plot <- plot_forecasts(national = FALSE, state_min_cutoff = 50, obs_
 
 
 suppressWarnings(ggsave(here::here("evaluation", "plots", 
-                  submission_date, "submission-subnational.png"), 
+                                   forecast_date, "submission-subnational.png"), 
        plot = subnational_plot, 
        width = 20, height = 25))
