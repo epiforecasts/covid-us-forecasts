@@ -20,18 +20,25 @@ forecasts_raw <- EpiNow2::get_regional_results(results_dir = here::here("rt-fore
 
 setnames(forecasts_raw, old = c("region", "cases"), new = c("state", "deaths"))
 
-forecasts <- forecasts_raw[, `:=` (submission_date = submission_date, 
-                               forecast_date = forecast_date)]
+
+# Format samples ----------------------------------------------------------
+
+forecasts_samples <- forecasts_raw[, .(sample = sample,
+                                       deaths = deaths,
+                                       target_end_date = date,
+                                       forecast_date = forecast_date,
+                                       model = "Rt-Epinow2",
+                                       location = state)]
 
 # Save samples
-saveRDS(forecasts, 
+saveRDS(forecasts_samples, 
         paste0("rt-forecast-2/output/samples/", forecast_date, "-rt-forecast-samples.rds"))
 
 
 # Format forecasts --------------------------------------------------------
 source(here::here("rt-forecast-2/format/utils/format_forecast_us.R"))
 
-formatted_forecasts <- format_forecast_us(forecasts = forecasts, 
+formatted_forecasts <- format_forecast_us(forecasts = forecasts_raw, 
                                           forecast_date = forecast_date, 
                                           submission_date = submission_date)
 

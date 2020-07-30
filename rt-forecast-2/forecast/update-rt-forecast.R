@@ -22,7 +22,7 @@ source(here::here("utils", "get-us-data.R"))
 # Get raw data
 deaths_raw <- get_us_deaths(data = "daily")
 
-# Format for Epinow
+# Reshape
 deaths_national <- deaths_raw %>%
   dplyr::group_by(date) %>%
   dplyr::summarise(deaths = sum(deaths), .groups = "drop_last") %>%
@@ -67,8 +67,9 @@ regional_epinow(reported_cases = deaths,
                 generation_time = generation_time,
                 delays = list(incubation_period, reporting_delay),
                 horizon = 42,
-                samples = 2000, warmup = 500,
-                adapt_delta = 0.99, 
+                samples = 2000,
+                warmup = 500,
+                adapt_delta = 0.99,
                 cores = no_cores,
                 chains = 4,
                 target_folder = "rt-forecast-2/forecast/deaths/state",
