@@ -11,38 +11,16 @@
 # facet_formula, y, and colour get passed down to the interval plot and 
 # the calibration plot, dodge_wdith gets passed down to all plots
 
+
 plot_scores <- function(scores, 
                         y = "horizon", 
                         colour = "model", 
-                        by = c("model", "range", "horizon"), 
                         facet_formula = ~ range, 
                         dodge_width = 0.4) {
   
-  data.table::setDT(scores)
-  
-  ## average / take quantiles over states
-  plot_df <- scores[, .(lower25_score = quantile(interval_score, 0.25, na.rm = TRUE),
-                        upper75_score = quantile(interval_score, 0.75, na.rm = TRUE),
-                        lower05_score = quantile(interval_score, 0.05, na.rm = TRUE),
-                        upper95_score = quantile(interval_score, 0.95, na.rm = TRUE),
-                        interval_score = mean(interval_score),
-                        lower25_calibration = quantile(calibration, 0.25, na.rm = TRUE),
-                        upper75_calibration = quantile(calibration, 0.75, na.rm = TRUE),
-                        lower05_calibration = quantile(calibration, 0.05, na.rm = TRUE),
-                        upper95_calibration = quantile(calibration, 0.95, na.rm = TRUE),
-                        calibration = mean(calibration),
-                        lower25_bias = quantile(bias, 0.25, na.rm = TRUE),
-                        upper75_bias = quantile(bias, 0.75, na.rm = TRUE),
-                        lower05_bias = quantile(bias, 0.05, na.rm = TRUE),
-                        upper95_bias = quantile(bias, 0.95, na.rm = TRUE),
-                        bias = mean(bias),
-                        lower25_sharpness = quantile(sharpness, 0.25, na.rm = TRUE),
-                        upper75_sharpness = quantile(sharpness, 0.75, na.rm = TRUE),
-                        lower05_sharpness = quantile(sharpness, 0.05, na.rm = TRUE),
-                        upper95_sharpness = quantile(sharpness, 0.95, na.rm = TRUE), 
-                        sharpness = mean(sharpness)), by = by]
-  
   # add grouping variables
+  plot_df <- data.table::copy(scores)
+  
   plot_df[, `:=` (y = forcats::fct_rev(as.factor(get(y))), 
                   colour = get(colour))]
   
@@ -51,11 +29,12 @@ plot_scores <- function(scores,
   # interval plot
   plots[["interval_score_plot"]] <- 
   ggplot2::ggplot(plot_df, ggplot2::aes(y = y, colour =  colour)) +
-    ggplot2::geom_linerange(ggplot2::aes(xmin = log(lower25_score), xmax = log(upper75_score)), 
+    ggplot2::geom_linerange(ggplot2::aes(xmin = log(interval_score_0.25), 
+                                         xmax = log(interval_score_0.75)), 
                             size = 2, 
                             position = ggplot2::position_dodge2(width = dodge_width, 
                                                                 padding = 0)) +
-    ggplot2::geom_linerange(ggplot2::aes(xmin = log(lower05_score), xmax = log(upper95_score)),
+    ggplot2::geom_linerange(ggplot2::aes(xmin = log(interval_score_0.05), xmax = log(interval_score_0.95)),
                             size = 2,
                             alpha = 0.4, 
                             position = ggplot2::position_dodge2(width = dodge_width, 
@@ -79,11 +58,11 @@ plot_scores <- function(scores,
   plots[["calibration_plot"]] <-  
   ggplot2::ggplot(plot_df[range != 0, ], 
                   ggplot2::aes(y = y, colour = colour)) +
-    ggplot2::geom_linerange(ggplot2::aes(xmin = (lower25_calibration), xmax = (upper75_calibration)), 
+    ggplot2::geom_linerange(ggplot2::aes(xmin = (calibration_0.25), xmax = (calibration_0.75)), 
                             size = 2, 
                             position = ggplot2::position_dodge2(width = dodge_width, 
                                                                 padding = 0)) +
-    ggplot2::geom_linerange(ggplot2::aes(xmin = (lower05_calibration), xmax = (upper95_calibration)),
+    ggplot2::geom_linerange(ggplot2::aes(xmin = (calibration_0.05), xmax = (calibration_0.95)),
                             size = 2,
                             alpha = 0.4, 
                             position = ggplot2::position_dodge2(width = dodge_width, 
@@ -108,11 +87,11 @@ plot_scores <- function(scores,
   plots[["bias_plot"]] <- 
   ggplot2::ggplot(plot_df[range == 0, ], 
                   ggplot2::aes(y = y, colour = colour)) +
-    ggplot2::geom_linerange(ggplot2::aes(xmin = (lower25_bias), xmax = (upper75_bias)), 
+    ggplot2::geom_linerange(ggplot2::aes(xmin = (bias_0.25), xmax = (bias_0.95)), 
                             size = 2, 
                             position = ggplot2::position_dodge2(width = dodge_width, 
                                                                 padding = 0)) +
-    ggplot2::geom_linerange(ggplot2::aes(xmin = (lower05_bias), xmax = (upper95_bias)),
+    ggplot2::geom_linerange(ggplot2::aes(xmin = (bias_0.05), xmax = (bias_0.95)),
                             size = 2,
                             alpha = 0.4, 
                             position = ggplot2::position_dodge2(width = dodge_width, 
@@ -137,11 +116,11 @@ plot_scores <- function(scores,
   plots[["sharpness_plot"]] <- 
     ggplot2::ggplot(plot_df[range == 0, ], 
                     ggplot2::aes(y = y, colour = colour)) +
-    ggplot2::geom_linerange(ggplot2::aes(xmin = (lower25_sharpness), xmax = (upper75_sharpness)), 
+    ggplot2::geom_linerange(ggplot2::aes(xmin = (sharpness_0.25), xmax = (sharpness_0.75)), 
                             size = 2, 
                             position = ggplot2::position_dodge2(width = dodge_width, 
                                                                 padding = 0)) +
-    ggplot2::geom_linerange(ggplot2::aes(xmin = (lower05_sharpness), xmax = (upper95_sharpness)),
+    ggplot2::geom_linerange(ggplot2::aes(xmin = (sharpness_0.05), xmax = (sharpness_0.95)),
                             size = 2,
                             alpha = 0.4, 
                             position = ggplot2::position_dodge2(width = dodge_width, 
