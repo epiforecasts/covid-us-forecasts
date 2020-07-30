@@ -10,7 +10,8 @@ library(magrittr)
 load_submission_files <- function(dates = c("latest", "all"), 
                                   num_last = NULL,
                                   models = c("all",
-                                             "rt", 
+                                             "rt-1", 
+                                             "rt-2",
                                              "deaths-only", 
                                              "deaths-on-cases", 
                                              "mean-ensemble", 
@@ -20,22 +21,44 @@ load_submission_files <- function(dates = c("latest", "all"),
   
   forecasts <- list()
   
-  ## Get most recent Rt forecast 
-  if ("all" %in% models | "rt" %in% models) {
+  ## Get Epinow2 Rt forecast
+  if ("all" %in% models | "rt-2" %in% models) {
     if (dates[1] == "all") {
-      rt_files <- list.files(here::here("rt-forecast", "submission-files", "dated"))
+      rt2_files <- list.files(here::here("rt-forecast-2", "output", "submission-files", "dated"))
       
       if (!is.null(num_last)) {
-        rt_files <- sort(rt_files, decreasing = TRUE)[1:num_last]
+        rt2_files <- sort(rt2_files, decreasing = TRUE)[1:num_last]
+        rt2_files <- na.exclude(rt2_files)
       }
       
-      rt_paths <- here::here("rt-forecast", "submission-files", "dated", rt_files)
+      rt2_paths <- here::here("rt-forecast-2", "output", "submission-files", "dated", rt2_files)
     } else {
-      rt_paths <- here::here("rt-forecast", "submission-files",
+      rt2_paths <- here::here("rt-forecast-2", "output", "submission-files",
+                             "latest-rt-2-forecast.csv")
+      
+    }
+    
+    forecasts[["rt2_forecasts"]] <- suppressMessages(purrr::map_dfr(rt2_paths, readr::read_csv)) %>%
+      dplyr::mutate(model = "Rt-Epinow2")
+  }
+  
+  ## Get Epinow1 Rt forecast 
+  if ("all" %in% models | "rt-1" %in% models) {
+    if (dates[1] == "all") {
+      rt1_files <- list.files(here::here("rt-forecast", "submission-files", "dated"))
+      
+      if (!is.null(num_last)) {
+        rt1_files <- sort(rt1_files, decreasing = TRUE)[1:num_last]
+        rt2_files <- na.exclude(rt2_files)
+      }
+      
+      rt1_paths <- here::here("rt-forecast", "submission-files", "dated", rt1_files)
+    } else {
+      rt1_paths <- here::here("rt-forecast", "submission-files",
                              "latest-rt-forecast-submission.csv")
     }
-    forecasts[["rt_forecasts"]] <- suppressMessages(purrr::map_dfr(rt_paths, readr::read_csv)) %>%
-      dplyr::mutate(model = "Rt")
+    forecasts[["rt1_forecasts"]] <- suppressMessages(purrr::map_dfr(rt1_paths, readr::read_csv)) %>%
+      dplyr::mutate(model = "Rt-Epinow1")
   }
   
   
@@ -161,11 +184,7 @@ load_submission_files <- function(dates = c("latest", "all"),
   # Join forecasts ----------------------------------------------------------
   # and add state names
   forecasts <- dplyr::bind_rows(forecasts) %>%
-    dplyr::left_join(tigris::fips_codes %>%
-                       dplyr::select(state_code, state = state_name) %>%
-                       unique() %>%
-                       rbind(c("US", "US")),
-                     by = c("location" = "state_code")) %>%
+    dplyr::left_join(readRDS(here::here("utils/state_codes.rds")), by = "location") %>%
     # unclear bug where there seems to be a numerical error somewhere
     dplyr::mutate(quantile = round(quantile, 3))
   
@@ -184,24 +203,25 @@ load_sample_files <- function(dates = c("latest", "all"),
                               num_last = NULL,
                               #horizons = c(1, 2, 3, 4, 5, 6),
                               models = c("all",
-                                         "rt", 
+                                         "rt-1",
+                                         "rt-2",
                                          "deaths-only", 
                                          "deaths-on-cases")) {
   
-  ## Get most recent Rt forecast samples
-  if ("all" %in% models | "rt" %in% models) {
-      
-    files_rt <- list.files(here::here("rt-forecast", "submission-samples"))
-                           
+  ## Get Epinow2forecast samples
+  if ("all" %in% models | "rt-2" %in% models) {
+    
+    files_rt2 <- list.files(here::here("rt-forecast-2", "output", "samples"))
+    
     if (as.character(dates)[1] == "all") {
       if (!is.null(num_last)) {
-        files_rt <- sort(files_rt, decreasing = TRUE)[1:num_last]
+        files_rt <- sort(files_rt2, decreasing = TRUE)[1:num_last]
       }
     } else if (as.character(dates)[1] == "latest") {
-      files_rt <- sort(files_rt, decreasing = TRUE)[1]
+      files_rt2 <- sort(files_rt2, decreasing = TRUE)[1]
     } else {
-      files_rt <- sort(files_rt, decreasing = TRUE)
-      existing_dates <- as.Date(substr(files_rt, 1, 10))
+      files_rt2 <- sort(files_rt2, decreasing = TRUE)
+      existing_dates <- as.Date(substr(files_rt2, 1, 10))
       
       # give a one day wiggle room and create an index from the dates
       dates_to_fetch <- c(as.Date(dates), (as.Date(dates) + 1), (as.Date(dates) - 1))
@@ -213,20 +233,62 @@ load_sample_files <- function(dates = c("latest", "all"),
         index <- index:(num_last + index)
       }
       
-      files_rt <- files_rt[index]
+      files_rt2 <- files_rt2[index]
     }
     
     # name vector to get id column from map_dfr
-    names(files_rt) <- substr(files_rt, 1, 10)
+    names(files_rt2) <- substr(files_rt2, 1, 10)
     
-    rt_forecasts <- purrr::map_dfr(.x = files_rt, ~ readRDS(here::here("rt-forecast", 
+    rt2_forecasts <- purrr::map_dfr(.x = files_rt2, ~ readRDS(here::here("rt-forecast-2",
+                                                                         "output",
+                                                                         "samples", 
+                                                                         .x)), 
+                                   .id = "forecast_date") %>%
+      dplyr::mutate(model = "Rt-2", 
+                    forecast_date = as.Date(forecast_date))
+  } else {
+    rt2_forecasts <- NULL
+  }
+  
+  ## Get Epinow1 forecast samples
+  if ("all" %in% models | "rt-1" %in% models) {
+      
+    files_rt1 <- list.files(here::here("rt-forecast", "submission-samples"))
+                           
+    if (as.character(dates)[1] == "all") {
+      if (!is.null(num_last)) {
+        files_rt1 <- sort(files_rt1, decreasing = TRUE)[1:num_last]
+      }
+    } else if (as.character(dates)[1] == "latest") {
+      files_rt1 <- sort(files_rt1, decreasing = TRUE)[1]
+    } else {
+      files_rt1 <- sort(files_rt1, decreasing = TRUE)
+      existing_dates <- as.Date(substr(files_rt1, 1, 10))
+      
+      # give a one day wiggle room and create an index from the dates
+      dates_to_fetch <- c(as.Date(dates), (as.Date(dates) + 1), (as.Date(dates) - 1))
+      index <- 1:length(existing_dates)
+      index <- index[existing_dates %in% dates_to_fetch]
+      
+      # if num_last is not Null, also fetch the num_last previous files
+      if (!is.null(num_last)) {
+        index <- index:(num_last + index)
+      }
+      
+      files_rt1 <- files_rt1[index]
+    }
+    
+    # name vector to get id column from map_dfr
+    names(files_rt1) <- substr(files_rt1, 1, 10)
+    
+    rt1_forecasts <- purrr::map_dfr(.x = files_rt1, ~ readRDS(here::here("rt-forecast", 
                                                                        "submission-samples", 
                                                                        .x)), 
                                    .id = "forecast_date") %>%
       dplyr::mutate(model = "Rt", 
                     forecast_date = as.Date(forecast_date))
   } else {
-    rt_foreasts <- NULL
+    rt1_forecasts <- NULL
   }
   
   
@@ -316,21 +378,18 @@ load_sample_files <- function(dates = c("latest", "all"),
   # rely on the rt-forecasts? 
   
   epiweek_to_target <- unique(ts_do_forecasts$epiweek_target)
-  rt_epiweek <- data.frame(unique(rt_forecasts$target_end_date), 
-                           lubridate::epiweek(unique(rt_forecasts$target_end_date)))
-  colnames(rt_epiweek) <- c("target_end_date", "epiweek_target")
+  rt2_epiweek <- data.frame(unique(rt2_forecasts$target_end_date), 
+                           lubridate::epiweek(unique(rt2_forecasts$target_end_date)))
+  colnames(rt2_epiweek) <- c("target_end_date", "epiweek_target")
   
   ts_forecasts <- ts_forecasts %>%
     dplyr::mutate(forecast_date = lubridate::ymd(forecast_date)) %>%
-    dplyr::left_join(rt_epiweek, by = "epiweek_target") %>%
+    dplyr::left_join(rt2_epiweek, by = "epiweek_target") %>%
     dplyr::select(sample, deaths, target_end_date, model, location = state, forecast_date)
   
   
-  
-  
-  
   # Join forecasts ----------------------------------------------------------
-  forecasts <- dplyr::bind_rows(rt_forecasts, ts_forecasts)
+  forecasts <- dplyr::bind_rows(rt2_forecasts, rt1_forecasts, ts_forecasts)
   
   return(forecasts)
   
