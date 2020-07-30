@@ -57,20 +57,25 @@ source(here::here("evaluation", "utils", "evaluation-plots-function.R"))
 
 # regular plots
 scores <- scoringutils::eval_forecasts(full, summarised = TRUE, 
-                                       by = c("model", "state", 
-                                              "horizon"))
+                                       by = c("model", "state", "submission_date",
+                                              "horizon"), 
+                                       quantiles = c(0.05, 0.25, 0.75, 0.95),
+                                       summarise_by = c("model", "horizon"))
 
-plots <- plot_scores(scores, by = c("model", "range", "horizon"))
+plots <- plot_scores(scores)
 
 # state plots
 scores_state <- scoringutils::eval_forecasts(full, summarised = TRUE, 
-                                             by = c("model", "state", 
-                                                    "horizon"))
+                                       by = c("model", "state", "submission_date",
+                                              "horizon"), 
+                                       quantiles = c(0.05, 0.25, 0.75, 0.95),
+                                       summarise_by = c("model", "state", "horizon"))
 
-plots_state <- plot_scores(scores_state, by = c("model", "range", "state"), 
+
+
+plots_state <- plot_scores(scores_state, 
                            y = "state", 
                            dodge_width = 0.75)
-
 
 current_date <- Sys.Date()
 
