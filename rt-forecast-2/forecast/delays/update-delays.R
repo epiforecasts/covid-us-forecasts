@@ -21,8 +21,8 @@ incubation_period <- list(mean = EpiNow2::covid_incubation_period[1, ]$mean,
                           max = 30)
 
 
-saveRDS(generation_time , here::here("delays", "data", "generation_time.rds"))
-saveRDS(incubation_period, here::here("delays", "data", "incubation_period.rds"))
+saveRDS(generation_time , here::here("rt-forecast-2", "forecast", "delays", "data", "generation_time.rds"))
+saveRDS(incubation_period, here::here("rt-forecast-2", "forecast", "delays", "data", "incubation_period.rds"))
 
 
 # Set up parallel ---------------------------------------------------------

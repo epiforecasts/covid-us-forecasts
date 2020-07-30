@@ -11,17 +11,17 @@ format_forecast_us <- function(forecasts,
                                forecast_date = NULL, submission_date = NULL){
   
   # Filter to full epiweeks
-  forecasts1 <- dates_to_epiweek(forecasts)
-  forecasts1 <- forecasts1[epiweek_full == TRUE]
+  forecasts <- dates_to_epiweek(forecasts)
+  forecasts <- forecasts[epiweek_full == TRUE]
   
   # Take quantiles
-  forecasts2 <- forecasts1[, .(value = quantile(deaths, probs = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99), na.rm=T),
+  forecasts <- forecasts[, .(value = quantile(deaths, probs = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99), na.rm=T),
                                quantile = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99),
                                epiweek = lubridate::epiweek(date)), 
                                by = .(state, date)][order(state, date)]
 
   # Aggregate to weekly incidence
-  weekly_forecasts_inc <- forecasts2[, keyby = .(epiweek, quantile, state),
+  weekly_forecasts_inc <- forecasts[, keyby = .(epiweek, quantile, state),
                                 .(value = sum(value),
                                   target_end_date = max(date),
                                   target_value = "inc")]
