@@ -1,0 +1,46 @@
+# Format output from Epinow2
+# Packages ----------------------------------------------------------------
+require(EpiNow2)
+require(here)
+require(stringr)
+require(dplyr)
+require(purrr)
+require(ggplot2)
+require(cowplot)
+
+# Control parameters ------------------------------------------------------
+source(here::here("utils", "current-forecast-submission-date.R"))
+
+forecast_dir <- here::here("rt-forecast-2/forecast/deaths") 
+
+# Load forecasts ----------------------------------------------------------
+
+forecasts_raw <- EpiNow2::get_regional_results(results_dir = here::here("rt-forecast-2/forecast/deaths/state"), 
+                                           forecast = TRUE)$estimated_reported_cases$samples
+
+setnames(forecasts_raw, old = c("region", "cases"), new = c("state", "deaths"))
+
+forecasts <- forecasts_raw[, `:=` (submission_date = submission_date, 
+                               forecast_date = forecast_date)]
+
+# Save samples
+saveRDS(forecasts, 
+        paste0("rt-forecast-2/output/samples/", forecast_date, "-rt-forecast-samples.rds"))
+
+
+# Format forecasts --------------------------------------------------------
+source(here::here("rt-forecast-2/format/utils/format_forecast_us.R"))
+
+formatted_forecasts <- format_forecast_us(forecasts = forecasts, 
+                                          forecast_date = forecast_date, 
+                                          submission_date = submission_date)
+
+# Save forecast -----------------------------------------------------------
+
+readr::write_csv(formatted_forecasts, 
+                 paste0("rt-forecast-2/output/submission-files/dated/", forecast_date, "-rt-2-forecast.csv"))
+
+readr::write_csv(formatted_forecasts, 
+                 paste0("rt-forecast-2/output/submission-files/latest-rt-2-forecast.csv"))
+
+
