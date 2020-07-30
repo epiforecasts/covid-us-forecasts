@@ -2,6 +2,7 @@
 require(EpiNow2)
 require(data.table)
 require(future)
+require(dplyr)
 
 # Define a target date ----------------------------------------------------
 
@@ -36,7 +37,7 @@ deaths <- deaths_raw %>%
 # Format for epinow2 ------------------------------------------------------
 
 deaths <- setDT(deaths)
-deaths <- deaths[, .SD[date >= (max(date) - lubridate::weeks(6))], by = region]
+deaths <- deaths[, .SD[date >= (max(date) - lubridate::weeks(8))], by = region]
 
 data.table::setorder(deaths, date)
 
