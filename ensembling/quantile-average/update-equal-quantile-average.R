@@ -7,7 +7,7 @@ source(here::here("utils", "load-submissions-function.R"))
 
 # Load Forecasts ---------------------------------------------------------------
 forecasts <- load_submission_files(dates = "latest",
-                                   models = c("rt", "deaths-only", "deaths-on-cases"))
+                                   models = c("rt-2", "rt-1", "deaths-only", "deaths-on-cases"))
 
 # get forecast_date
 forecast_date <- Sys.Date()

@@ -80,7 +80,7 @@ plot_forecasts = function(national = TRUE,
       dplyr::mutate(state = "US",
                     model = factor(model, 
                                    levels = c("Observed", "Mean ensemble", "QRA ensemble", 
-                                              "Rt", "TS deaths", "TS deaths on cases")))
+                                              "Rt-Epinow2", "Rt-Epinow1", "TS deaths", "TS deaths on cases")))
     
     plot_df <- plot_national
     
@@ -93,7 +93,7 @@ plot_forecasts = function(national = TRUE,
   plot_state <- dplyr::bind_rows(forecasts_state, observed_deaths_state) %>%
     dplyr::filter(state %in% keep_states$state) %>%
     dplyr::mutate(model = factor(model, levels = c("Observed", "Mean ensemble", "QRA ensemble",
-                                                   "Rt", "TS deaths", "TS deaths on cases")))
+                                                   "Rt-Epinow2", "Rt-Epinow1", "TS deaths", "TS deaths on cases")))
   
   plot_df <- plot_state
   }
