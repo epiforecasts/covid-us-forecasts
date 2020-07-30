@@ -9,7 +9,7 @@ source(here::here("utils", "load-submissions-function.R"))
 # load past forecasts
 past_forecasts <- load_submission_files(dates = "all",
                                         num_last = 4,
-                                        models = c("rt", "deaths-only", "deaths-on-cases")) 
+                                        models = c("rt-2", "rt-1", "deaths-only", "deaths-on-cases")) 
 
 # create complete set
 ## Note: code to remove duplicates has been commented out. 
@@ -90,7 +90,7 @@ message(paste0("\n", models, "\n", model_weights, "\n"))
 
 # ensembling -------------------------------------------------------------------
 forecasts <- load_submission_files(dates = "latest",
-                                   models = c("rt", "deaths-only", "deaths-on-cases"))
+                                   models = c("rt-2", "rt-1", "deaths-only", "deaths-on-cases"))
 
 # pivot_wider
 forecasts_wide <- forecasts %>%

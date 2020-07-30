@@ -11,8 +11,11 @@ Rscript utils/current-forecast-submission-date.R
 # update visualisation of the data without forecasts
 Rscript evaluation/utils/update-visualise-raw-data.R
 
-# Update Rt forecast
+# Update Rt forecast - Epinow1
 Rscript rt-forecast/update.R
+
+# Update Rt forecast - Epinow2
+Rscript rt-forecast-2/update.R
 
 # Update timeseries forecast
 Rscript timeseries-forecast/update.R
