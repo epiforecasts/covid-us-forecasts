@@ -73,6 +73,5 @@ regional_epinow(reported_cases = deaths,
                 cores = no_cores,
                 chains = 4,
                 target_folder = "rt-forecast-2/forecast/deaths/state",
-                case_limit = 1,
                 summary_dir = "rt-forecast-2/forecast/deaths/summary",
                 return_estimates = FALSE, verbose = TRUE)
