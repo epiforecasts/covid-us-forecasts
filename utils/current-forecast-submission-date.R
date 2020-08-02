@@ -9,4 +9,4 @@ all_dates <- get_dates(ts_do_forecast_date = forecast_date,
                        ts_doc_forecast_date = forecast_date, 
                        rt_forecast_date = forecast_date,
                        submission_date = submission_date,
-                       save = FALSE)
+                       save = TRUE)
