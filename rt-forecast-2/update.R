@@ -1,5 +1,5 @@
 # Update delays
-source(here::here("rt-forecast-2", "forecast", "delays", "update-delays.R"))
+# source(here::here("rt-forecast-2", "forecast", "delays", "update-delays.R"))
 
 # Update Epinow2 Rt forecast
 source(here::here("rt-forecast-2", "forecast", "update-rt-forecast.R"))

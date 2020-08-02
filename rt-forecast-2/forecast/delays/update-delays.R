@@ -42,7 +42,7 @@ plan(multiprocess)
 # linelist <- data.table::as.data.table(linelist)
 
 # onset_to_admission_delay <- EpiNow2::bootstrapped_dist_fit(linelist$report_delay, bootstraps = 100, 
-                                                           bootstrap_samples = 250)
+#                                                           bootstrap_samples = 250)
 ## Set max allowed delay to 30 days to truncate computation
 # onset_to_admission_delay$max <- 30
 
@@ -50,11 +50,11 @@ plan(multiprocess)
 
 # Fit delay from onset to deaths ------------------------------------------
 
-deaths <- readRDS(here::here("delays", "data", "deaths.rds"))
+deaths <- readRDS(here::here("rt-forecast-2", "forecast", "delays", "data", "deaths.rds"))
 
 onset_to_death_delay <- EpiNow2::bootstrapped_dist_fit(deaths, bootstraps = 100, bootstrap_samples = 250)
 ## Set max allowed delay to 30 days to truncate computation
 onset_to_death_delay$max <- 30
 
-saveRDS(onset_to_death_delay, here::here("delays", "data", "onset_to_death_delay.rds"))
+saveRDS(onset_to_death_delay, here::here("rt-forecast-2", "forecast", "delays", "data", "onset_to_death_delay.rds"))
 

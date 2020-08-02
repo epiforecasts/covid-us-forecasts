@@ -5,7 +5,7 @@ get_dates <- function(ts_do_forecast_date,
                       ts_doc_forecast_date, 
                       rt_forecast_date,
                       submission_date,
-                      save = FALSE){
+                      save = TRUE){
   # 
   # Previous forecasting weeks:
   # 
