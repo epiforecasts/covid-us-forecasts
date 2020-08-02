@@ -8,7 +8,7 @@ source(here::here("utils", "load-submissions-function.R"))
 
 # load past forecasts
 past_forecasts <- load_submission_files(dates = "all",
-                                        num_last = 4,
+                                        num_last = 4, # 2 to include Epinow2-Rt
                                         models = c("rt-2", "rt-1", "deaths-only", "deaths-on-cases")) 
 
 # create complete set
@@ -114,6 +114,7 @@ qra_ensemble <- forecasts_wide %>%
 
 # write dated file
 forecast_date <- Sys.Date()
+# forecast_date <- "2020-07-26"
 data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-ensemble", 
                                             "submission-files","dated",
                                     paste0(forecast_date, "-epiforecasts-ensemble1-qra.csv")))

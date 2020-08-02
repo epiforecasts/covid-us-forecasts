@@ -34,45 +34,84 @@ deaths <- deaths_raw %>%
   dplyr::select(date, region, confirm) %>%
   dplyr::bind_rows(deaths_national)
 
+
+# Past forecasts ----------------------------------------------------------
+submission_dates <- c("2020-07-27", "2020-07-20", "2020-07-13") # , "2020-07-06", "2020-06-29", "2020-06-22","2020-06-15")
+
+for(i in submission_dates){
+  
+submission_date <- i
+
+deaths_past <- dplyr::filter(deaths, date < submission_date)
+
 # Format for epinow2 ------------------------------------------------------
 
-deaths <- setDT(deaths)
-deaths <- deaths[, .SD[date >= (max(date) - lubridate::weeks(8))], by = region]
+deaths_past <- setDT(deaths_past)
+deaths_past <- deaths_past[, .SD[date >= (max(date) - lubridate::weeks(8))], by = region]
 
-data.table::setorder(deaths, date)
-
-# # Set up cores -----------------------------------------------------
-setup_future <- function(jobs) {
-  if (!interactive()) {
-    ## If running as a script enable this
-    options(future.fork.enable = TRUE)
-  }
+data.table::setorder(deaths_past, date)
 
 
-  plan(tweak(multiprocess, workers = min(future::availableCores(), jobs)),
-       gc = TRUE, earlySignal = TRUE)
-  
-  
-  jobs <- max(1, ceiling(future::availableCores() / jobs))
-  return(jobs)
-}
-
-
-no_cores <- setup_future(length(unique(deaths$region)))
-
+# # # Set up cores -----------------------------------------------------
+# setup_future <- function(jobs) {
+#   if (!interactive()) {
+#     ## If running as a script enable this
+#     options(future.fork.enable = TRUE)
+#   }
+# 
+# 
+#   plan(tweak(multiprocess, workers = min(future::availableCores(), jobs)),
+#        gc = TRUE, earlySignal = TRUE)
+#   
+#   
+#   jobs <- max(1, ceiling(future::availableCores() / jobs))
+#   return(jobs)
+# }
+# 
+# 
+# no_cores <- setup_future(length(unique(deaths$region)))
+# 
 
 # Run Rt estimation -------------------------------------------------------
 
-regional_epinow(reported_cases = deaths,
+regional_epinow(reported_cases = deaths_past,
                 generation_time = generation_time,
                 delays = list(incubation_period, reporting_delay),
-                horizon = 42,
+                horizon = 30,
                 samples = 2000,
-                warmup = 500,
-                adapt_delta = 0.99,
-                cores = no_cores,
+                warmup = 200,
+                adapt_delta = 0.95,
+                cores = 4,
                 chains = 4,
                 target_folder = "rt-forecast-2/forecast/deaths/state",
                 case_limit = 1,
                 summary_dir = "rt-forecast-2/forecast/deaths/summary",
-                return_estimates = FALSE, verbose = TRUE)
+                return_estimates = FALSE, verbose = FALSE)
+
+# End for loop
+}
+
+
+
+# Settings - Alabama:
+# Base setting:
+# horizon = 30, samples = 2000, warmup = 200, adapt_delta = 0.95, 
+# cores = no_cores, chains = ifelse(no_cores<=2, 2, no_cores)
+#
+# Base setting: 4.5hr total
+# run_time: 5.1 mins
+# warnings:
+# 35 divergent transitions
+# running chains for more iterations may help
+
+# adapt_delta = 0.99, warmup = 500
+# run_time: 13min / 11.5hr
+# warnings:
+
+# adapt_delta = 0.99, warmup = 500, cores = 4, chains = 4
+# run_time: 9.58min / 8.5 hr
+# warnings:
+
+# adapt_delta = 0.95, warmup = 200, cores = 4, chains = 4
+# run_time: 4.4min / 3.8hr
+# warnings:
