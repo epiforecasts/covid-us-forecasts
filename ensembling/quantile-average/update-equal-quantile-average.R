@@ -4,14 +4,16 @@
 library(magrittr)
 source(here::here("utils", "load-submissions-function.R"))
 
+source(here::here("utils", "current-forecast-submission-date.R"))
+
 
 # Load Forecasts ---------------------------------------------------------------
 forecasts <- load_submission_files(dates = "latest",
                                    models = c("rt-2", "rt-1", "deaths-only", "deaths-on-cases"))
 
 # get forecast_date
-forecast_date <- Sys.Date()
-
+# forecast_date <- Sys.Date()
+# forecast_date <- max(forecasts$forecast_date)
 
 # average quantiles ------------------------------------------------------------
 

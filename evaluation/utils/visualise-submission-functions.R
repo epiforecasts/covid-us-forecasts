@@ -104,8 +104,8 @@ plot_forecasts = function(national = TRUE,
     ggplot2::geom_line(ggplot2::aes(y = c0.5), lwd = 1) +
     ggplot2::geom_ribbon(ggplot2::aes(ymin = c0.25, ymax = c0.75), color = NA, alpha = 0.15) +
     ##
-    ggplot2::scale_fill_manual(values = c("grey", RColorBrewer::brewer.pal(5, name = "Set2"))) +
-    ggplot2::scale_color_manual(values = c("dark grey", RColorBrewer::brewer.pal(5, name = "Set2"))) +
+    ggplot2::scale_fill_manual(values = c("grey", RColorBrewer::brewer.pal(6, name = "Set2"))) +
+    ggplot2::scale_color_manual(values = c("dark grey", RColorBrewer::brewer.pal(6, name = "Set2"))) +
     ggplot2::facet_wrap(.~ state, scales = "free_y") +
     ggplot2::expand_limits(y = 0) +
     ggplot2::labs(x = "Week ending", y = "Weekly incident deaths", 
