@@ -4,7 +4,7 @@ This repo is set up to contribute to the [Covid-19 Forecast Hub](https://github.
 
 ## Methods
 We use an ensemble of models to forecast deaths from Covid-19 in US states. These include:
-- Rt estimation: [code](https://github.com/epiforecasts/covid-us-forecasts/tree/master/rt-forecast), relying on methods developed in [EpiNow](https://epiforecasts.io/EpiNow/)
+- Rt estimation: [code](https://github.com/epiforecasts/covid-us-forecasts/tree/master/rt-forecast-2), relying on methods developed in [EpiNow2](https://epiforecasts.io/EpiNow2/)
 - Time-series: [code](https://github.com/epiforecasts/covid-us-forecasts/tree/master/timeseries-forecast), including both pure autoregressive time-series, and with case predictors (current cases and leading cases by 1 and 2 weeks)
 
 We [output](https://github.com/epiforecasts/covid-us-forecasts/tree/master/final-submissions/death-forecast) 1 to 5 week ahead forecasts of weekly cumulative and incident deaths, for the US and selected US states. See the [project board](https://github.com/epiforecasts/covid-us-forecasts/projects) for ongoing work.
