@@ -7,6 +7,7 @@ require(dplyr)
 require(purrr)
 require(ggplot2)
 require(cowplot)
+require(data.table)
 
 # Control parameters ------------------------------------------------------
 
@@ -15,7 +16,9 @@ forecast_dir <- here::here("rt-forecast-2/forecast/deaths")
 # Load forecasts ----------------------------------------------------------
 
 # Latest forecast
+
 source(here::here("utils", "current-forecast-submission-date.R"))
+
 
 forecasts_raw <- EpiNow2::get_regional_results(results_dir = here::here("rt-forecast-2/forecast/deaths/state"),
                                               date = "latest", forecast = TRUE)$estimated_reported_cases$samples
@@ -31,7 +34,7 @@ forecasts_raw <- EpiNow2::get_regional_results(results_dir = here::here("rt-fore
 # forecasts_raw <- forecasts_raw$estimated_reported_cases$samples
 
 # Format samples ----------------------------------------------------------
-setnames(forecasts_raw, old = c("region", "cases"), new = c("state", "deaths"))
+data.table::setnames(forecasts_raw, old = c("region", "cases"), new = c("state", "deaths"))
 
 forecasts_samples <- forecasts_raw[, .(sample = sample,
                                        deaths = deaths,
@@ -39,6 +42,8 @@ forecasts_samples <- forecasts_raw[, .(sample = sample,
                                        forecast_date = forecast_date,
                                        model = "Rt-Epinow2",
                                        location = state)]
+
+forecasts_samples <- forecasts_samples[target_end_date > forecast_date]
 
 # Save samples
 saveRDS(forecasts_samples, 
@@ -52,7 +57,6 @@ formatted_forecasts <- format_forecast_us(forecasts = forecasts_raw,
                                           forecast_date = forecast_date, 
                                           submission_date = submission_date)
 
-# formatted_forecasts <- formatted_forecasts[target_end_date > forecast_date]
 
 # Save forecast -----------------------------------------------------------
 

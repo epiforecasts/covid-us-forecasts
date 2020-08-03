@@ -8,8 +8,8 @@ source(here::here("utils", "load-submissions-function.R"))
 
 # load past forecasts
 past_forecasts <- load_submission_files(dates = "all",
-                                        num_last = 4, # 2 to include Epinow2-Rt
-                                        models = c("rt-2", "rt-1", "deaths-only", "deaths-on-cases")) 
+                                        num_last = 3, #
+                                        models = c("rt-2",  "deaths-only", "deaths-on-cases")) 
 
 # create complete set
 ## Note: code to remove duplicates has been commented out. 
@@ -19,6 +19,7 @@ past_forecasts <- load_submission_files(dates = "all",
 ## to the relevant model's "out-of-date" folder - before ensembling.
 
 full_set <- past_forecasts %>%
+  dplyr::select(-forecast_date) %>%
   # remove complete duplicates
   # dplyr::distinct() %>%
   # remove point forecasts and cumulative forecasts
@@ -55,7 +56,7 @@ combined <- full_set %>%
   tidyr::pivot_wider(values_from = value, names_from = quantile, 
                      names_prefix="quantile_") %>%
   dplyr::arrange(submission_date, target, target_end_date, location, model, epiweek) %>%
-  dplyr::select(-c(submission_date, forecast_date, target, target_end_date, location, epiweek, state)) 
+  dplyr::select(-c(submission_date, target, target_end_date, location, epiweek, state)) 
 
 # extract true values and check if they have the correct length
 models <- unique(combined$model)
@@ -90,10 +91,11 @@ message(paste0("\n", models, "\n", model_weights, "\n"))
 
 # ensembling -------------------------------------------------------------------
 forecasts <- load_submission_files(dates = "latest",
-                                   models = c("rt-2", "rt-1", "deaths-only", "deaths-on-cases"))
+                                   models = c("rt-2", "deaths-only", "deaths-on-cases"))
 
 # pivot_wider
 forecasts_wide <- forecasts %>%
+  dplyr::select(-forecast_date) %>%
   dplyr::mutate(quantile = round(quantile, digits = 3)) %>%
   tidyr::pivot_wider(names_from = model,
                      values_from = value)
@@ -106,6 +108,7 @@ qra_ensemble <- forecasts_wide %>%
                                               na.rm = TRUE)) %>%
   dplyr::rename(value = ensemble) %>%
   dplyr::select(-dplyr::all_of(models)) %>%
+  dplyr::mutate(forecast_date = Sys.Date()) %>%
   dplyr::select(forecast_date, submission_date, target, target_end_date, location, type, quantile, value) %>%
   # round values after ensembling
   dplyr::mutate(value = round(value)) 
@@ -114,7 +117,7 @@ qra_ensemble <- forecasts_wide %>%
 
 # write dated file
 forecast_date <- Sys.Date()
-# forecast_date <- "2020-07-26"
+
 data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-ensemble", 
                                             "submission-files","dated",
                                     paste0(forecast_date, "-epiforecasts-ensemble1-qra.csv")))
