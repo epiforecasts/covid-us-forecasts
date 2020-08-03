@@ -15,7 +15,7 @@ if(!dir.exists(here::here("evaluation", "plots",
 }
 
 
-national_plot <- plot_forecasts(national = TRUE, obs_weeks = 8, exclude_new_epiweek = FALSE)
+national_plot <- plot_forecasts(national = TRUE, obs_weeks = 8, exclude_new_epiweek = TRUE)
 
 
 suppressWarnings(ggsave(here::here("evaluation", "plots", 
@@ -26,7 +26,7 @@ suppressWarnings(ggsave(here::here("evaluation", "plots",
 
 
 subnational_plot <- plot_forecasts(national = FALSE, state_min_cutoff = 50, obs_weeks = 8,
-                                   exclude_new_epiweek = FALSE)
+                                   exclude_new_epiweek = TRUE)
 
 
 suppressWarnings(ggsave(here::here("evaluation", "plots", 
