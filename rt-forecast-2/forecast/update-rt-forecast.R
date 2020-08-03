@@ -70,13 +70,11 @@ setup_future <- function(jobs) {
 
 
 no_cores <- setup_future(length(unique(deaths$region)))
-
-# Run locally with:
-no_cores <- 4
-
+no_cores <- 3
 # Run Rt estimation -------------------------------------------------------
+start_time <- Sys.time()
 
-regional_epinow(reported_cases = deaths,
+  regional_epinow(reported_cases = deaths,
                 generation_time = generation_time,
                 delays = list(incubation_period, reporting_delay),
                 horizon = 30,

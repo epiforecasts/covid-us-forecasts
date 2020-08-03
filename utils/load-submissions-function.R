@@ -10,13 +10,14 @@ library(magrittr)
 load_submission_files <- function(dates = c("latest", "all"), 
                                   num_last = NULL,
                                   models = c("all",
-                                             "rt-1", 
+                                            # "rt-1", 
                                              "rt-2",
                                              "deaths-only", 
                                              "deaths-on-cases", 
                                              "mean-ensemble", 
-                                             "qra-ensemble", 
-                                             "crps-ensemble")) {
+                                             "qra-ensemble" #, 
+                                            # "crps-ensemble"
+                                            )) {
   
   
   forecasts <- list()
@@ -43,23 +44,23 @@ load_submission_files <- function(dates = c("latest", "all"),
   }
   
   ## Get Epinow1 Rt forecast 
-  if ("all" %in% models | "rt-1" %in% models) {
-    if (dates[1] == "all") {
-      rt1_files <- list.files(here::here("rt-forecast", "submission-files", "dated"))
-      
-      if (!is.null(num_last)) {
-        rt1_files <- sort(rt1_files, decreasing = TRUE)[1:num_last]
-        rt2_files <- na.exclude(rt2_files)
-      }
-      
-      rt1_paths <- here::here("rt-forecast", "submission-files", "dated", rt1_files)
-    } else {
-      rt1_paths <- here::here("rt-forecast", "submission-files",
-                             "latest-rt-forecast-submission.csv")
-    }
-    forecasts[["rt1_forecasts"]] <- suppressMessages(purrr::map_dfr(rt1_paths, readr::read_csv)) %>%
-      dplyr::mutate(model = "Rt-Epinow1")
-  }
+  # if ("all" %in% models | "rt-1" %in% models) {
+  #   if (dates[1] == "all") {
+  #     rt1_files <- list.files(here::here("rt-forecast", "submission-files", "dated"))
+  #     
+  #     if (!is.null(num_last)) {
+  #       rt1_files <- sort(rt1_files, decreasing = TRUE)[1:num_last]
+  #       rt2_files <- na.exclude(rt2_files)
+  #     }
+  #     
+  #     rt1_paths <- here::here("rt-forecast", "submission-files", "dated", rt1_files)
+  #   } else {
+  #     rt1_paths <- here::here("rt-forecast", "submission-files",
+  #                            "latest-rt-forecast-submission.csv")
+  #   }
+  #   forecasts[["rt1_forecasts"]] <- suppressMessages(purrr::map_dfr(rt1_paths, readr::read_csv)) %>%
+  #     dplyr::mutate(model = "Rt-Epinow1")
+  # }
   
   
   ## Get deaths-only forecasts
@@ -157,28 +158,28 @@ load_submission_files <- function(dates = c("latest", "all"),
   }
   
   ## Get crps-ensemble
-  if ("all" %in% models | "crps-ensemble" %in% models) {
-    if (dates[1] == "all") {
-      
-      crps_ensemble_files <- list.files(here::here("ensembling", "crps-ensemble",
-                                                  "submission-files", "dated"))
-      
-      if (!is.null(num_last)) {
-        crps_ensemble_files <- sort(crps_ensemble_files, decreasing = TRUE)[1:num_last]
-      }
-      
-      crps_ensemble_paths <- here::here("ensembling", "crps-ensemble", 
-                                       "submission-files", "dated", crps_ensemble_files)
-      
-      
-    } else {
-      crps_ensemble_paths <- here::here("ensembling", "crps-ensemble",
-                                       "submission-files",
-                                       "latest-epiforecasts-ensemble1-crps.csv") 
-    }
-    forecasts[["crps_ensemble"]] <- suppressMessages(purrr::map_dfr(crps_ensemble_paths, readr::read_csv)) %>%
-      dplyr::mutate(model = "CRPS ensemble")
-  }
+  # if ("all" %in% models | "crps-ensemble" %in% models) {
+  #   if (dates[1] == "all") {
+  #     
+  #     crps_ensemble_files <- list.files(here::here("ensembling", "crps-ensemble",
+  #                                                 "submission-files", "dated"))
+  #     
+  #     if (!is.null(num_last)) {
+  #       crps_ensemble_files <- sort(crps_ensemble_files, decreasing = TRUE)[1:num_last]
+  #     }
+  #     
+  #     crps_ensemble_paths <- here::here("ensembling", "crps-ensemble", 
+  #                                      "submission-files", "dated", crps_ensemble_files)
+  #     
+  #     
+  #   } else {
+  #     crps_ensemble_paths <- here::here("ensembling", "crps-ensemble",
+  #                                      "submission-files",
+  #                                      "latest-epiforecasts-ensemble1-crps.csv") 
+  #   }
+  #   forecasts[["crps_ensemble"]] <- suppressMessages(purrr::map_dfr(crps_ensemble_paths, readr::read_csv)) %>%
+  #     dplyr::mutate(model = "CRPS ensemble")
+  # }
   
   
   # Join forecasts ----------------------------------------------------------

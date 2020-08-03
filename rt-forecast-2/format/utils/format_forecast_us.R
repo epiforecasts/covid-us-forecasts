@@ -50,7 +50,15 @@ format_forecast_us <- function(forecasts,
                                   horizon = 1 + epiweek - lubridate::epiweek(submission_date))][
                                   , `:=` (target = paste0(horizon, " wk ahead ", target_value, " death"))]
                           
-  # state codes
+rm(weekly_forecasts, weekly_forecasts_cum, weekly_forecasts_inc)
+  
+   # Add point forecasts
+  forecasts_point <- forecasts_format[quantile == 0.5]
+  forecasts_point <- forecasts_point[, `:=` (type = "point", quantile = NA)]
+  
+  forecasts_format <- rbind(forecasts_format, forecasts_point)
+  
+   # state codes
   state_codes <- readRDS(here::here("utils/state_codes.rds"))
   forecasts_format <- forecasts_format[state_codes, on = "state", nomatch = 0]
   
@@ -62,6 +70,8 @@ format_forecast_us <- function(forecasts,
                                        c("forecast_date", "submission_date", 
                                          "target", "target_end_date", "location", 
                                          "type", "quantile", "value"))
+  
+  forecasts_format <- forecasts_format[target_end_date > forecast_date]
   
   return(forecasts_format)
   

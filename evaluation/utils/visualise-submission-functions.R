@@ -38,7 +38,12 @@ plot_forecasts = function(national = TRUE,
   source(here::here("utils", "load-submissions-function.R"))
   
   ## Get most recent Rt forecast 
-  forecasts <- load_submission_files(dates = "latest")  
+  forecasts <- load_submission_files(dates = "latest",
+                                     models = c("rt-2",
+                                     "deaths-only", 
+                                     "deaths-on-cases", 
+                                     "mean-ensemble", 
+                                     "qra-ensemble"))
   
   
   # Reshape forecasts and add observed data --------------------------------------------------------------------
@@ -47,7 +52,7 @@ plot_forecasts = function(national = TRUE,
     dplyr::filter(grepl("inc", target)) %>%
     dplyr::group_by(state, target_end_date, model) %>%
     dplyr::mutate(quantile = stringr::str_c("c", quantile)) %>%
-    filter(quantile %in% c("c0.05", "c0.25", "c0.5", "c0.75", "c0.95")) %>%
+    dplyr::filter(quantile %in% c("c0.05", "c0.25", "c0.5", "c0.75", "c0.95")) %>%
     tidyr::pivot_wider(id_cols = c(state, target_end_date, model), 
                        names_from = quantile, values_from = value) %>%
     dplyr::ungroup() 
@@ -80,7 +85,7 @@ plot_forecasts = function(national = TRUE,
       dplyr::mutate(state = "US",
                     model = factor(model, 
                                    levels = c("Observed", "Mean ensemble", "QRA ensemble", 
-                                              "Rt-Epinow2", "Rt-Epinow1", "TS deaths", "TS deaths on cases")))
+                                              "Rt-Epinow2", "TS deaths", "TS deaths on cases")))
     
     plot_df <- plot_national
     
@@ -93,7 +98,7 @@ plot_forecasts = function(national = TRUE,
   plot_state <- dplyr::bind_rows(forecasts_state, observed_deaths_state) %>%
     dplyr::filter(state %in% keep_states$state) %>%
     dplyr::mutate(model = factor(model, levels = c("Observed", "Mean ensemble", "QRA ensemble",
-                                                   "Rt-Epinow2", "Rt-Epinow1", "TS deaths", "TS deaths on cases")))
+                                                   "Rt-Epinow2",  "TS deaths", "TS deaths on cases")))
   
   plot_df <- plot_state
   }
@@ -104,8 +109,8 @@ plot_forecasts = function(national = TRUE,
     ggplot2::geom_line(ggplot2::aes(y = c0.5), lwd = 1) +
     ggplot2::geom_ribbon(ggplot2::aes(ymin = c0.25, ymax = c0.75), color = NA, alpha = 0.15) +
     ##
-    ggplot2::scale_fill_manual(values = c("grey", RColorBrewer::brewer.pal(6, name = "Set2"))) +
-    ggplot2::scale_color_manual(values = c("dark grey", RColorBrewer::brewer.pal(6, name = "Set2"))) +
+    ggplot2::scale_fill_manual(values = c("grey", RColorBrewer::brewer.pal(5, name = "Set2"))) +
+    ggplot2::scale_color_manual(values = c("dark grey", RColorBrewer::brewer.pal(5, name = "Set2"))) +
     ggplot2::facet_wrap(.~ state, scales = "free_y") +
     ggplot2::expand_limits(y = 0) +
     ggplot2::labs(x = "Week ending", y = "Weekly incident deaths", 

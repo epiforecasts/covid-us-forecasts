@@ -5,6 +5,8 @@ library(magrittr); library(dplyr)
 source(here::here("utils", "get-us-data.R"))
 source(here::here("timeseries-forecast", "deaths-only", "ts-deaths-only-forecast.R"))
 source(here::here("timeseries-forecast", "deaths-on-cases", "ts-deaths-on-cases-forecast.R"))
+source(here::here("utils", "current-forecast-submission-date.R"))
+
 
 # Get data
 deaths_state <- get_us_deaths(data = "daily")
@@ -31,7 +33,7 @@ case_quantile <- 0.5
 
 # 4 wk ahead forecast:
 horizon_weeks <- 4
-right_truncate_weeks <- 0
+right_truncate_weeks <- 1
 
 
 # Forecast with deaths only -----------------------------------------------
@@ -50,7 +52,7 @@ national_deaths_only_forecast <- ts_deaths_only_forecast(data = deaths_national,
 
 # Bind and save samples
 deaths_only_forecast <- bind_rows(national_deaths_only_forecast, state_deaths_only_forecast)
-saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "raw-samples", "dated", paste0(Sys.Date(), "-samples-weekly-deaths-only.rds")))
+saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "raw-samples", "dated", paste0(forecast_date, "-samples-weekly-deaths-only.rds")))
 saveRDS(deaths_only_forecast, here::here("timeseries-forecast", "deaths-only", "raw-samples", "latest-samples-weekly-deaths-only.rds"))
 
 
@@ -74,7 +76,7 @@ national_deaths_on_cases_forecast <- ts_deaths_on_cases_forecast(case_data = cas
 
 # Bind and save
 deaths_on_cases_forecast <- bind_rows(national_deaths_on_cases_forecast, state_deaths_on_cases_forecast)
-saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-cases", "raw-samples", "dated", paste0(Sys.Date(), "-samples-weekly-deaths-on-cases.rds")))
+saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-cases", "raw-samples", "dated", paste0(forecast_date, "-samples-weekly-deaths-on-cases.rds")))
 saveRDS(deaths_on_cases_forecast, here::here("timeseries-forecast", "deaths-on-cases", "raw-samples", "latest-samples-weekly-deaths-on-cases.rds"))
 
 
