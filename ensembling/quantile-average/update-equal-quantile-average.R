@@ -4,14 +4,16 @@
 library(magrittr)
 source(here::here("utils", "load-submissions-function.R"))
 
+source(here::here("utils", "current-forecast-submission-date.R"))
+
 
 # Load Forecasts ---------------------------------------------------------------
 forecasts <- load_submission_files(dates = "latest",
-                                   models = c("rt-2", "rt-1", "deaths-only", "deaths-on-cases"))
+                                   models = c("rt-2", "deaths-only", "deaths-on-cases"))
 
 # get forecast_date
-forecast_date <- Sys.Date()
-
+# forecast_date <- Sys.Date()
+# forecast_date <- max(forecasts$forecast_date)
 
 # average quantiles ------------------------------------------------------------
 
@@ -22,6 +24,7 @@ models <- unique(forecasts$model)
 # pivot_wider
 forecasts_wide <- forecasts %>%
   dplyr::mutate(quantile = round(quantile, digits = 3)) %>%
+  dplyr::select(-forecast_date) %>%
   tidyr::pivot_wider(names_from = model,
                      values_from = value)
 
@@ -32,7 +35,7 @@ mean_ensemble <- forecasts_wide %>%
                   rowMeans()) %>%
   dplyr::rename(value = ensemble) %>%
   dplyr::select(-dplyr::all_of(models)) %>%
-  dplyr::select(forecast_date, submission_date, target, target_end_date, location, type, quantile, value) %>%
+  dplyr::select(submission_date, target, target_end_date, location, type, quantile, value) %>%
   # round values after ensembling
   dplyr::mutate(value = round(value)) 
 

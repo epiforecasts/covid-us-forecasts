@@ -1,8 +1,8 @@
 # Final submission
 # 
 # Set variable for which ensemble (QRA or QA (mean))
-ensemble_dir = "quantile-average"
-ensemble = "qa"
+ensemble_dir = "qra-ensemble" # c("qra-ensemble", "quantile-average")
+ensemble = "qra" # c("qra", "qa")
 
 # Get ensemble
 submit_ensemble <- suppressMessages(readr::read_csv(here::here("ensembling", ensemble_dir, "submission-files",
@@ -18,12 +18,13 @@ submit_ensemble <- dplyr::filter(submit_ensemble, location %in% c(keep_states$st
 forecast_date <- unique(dplyr::pull(submit_ensemble, forecast_date))
 
 # Filter to forecasts within Rt forecast
-rt_max_date <- suppressMessages(readr::read_csv(here::here("rt-forecast/submission-files/latest-rt-forecast-submission.csv"))) %>%
-  dplyr::pull(target_end_date) %>%
-  unique() %>%
-  max()
+# rt_max_date <- suppressMessages(readr::read_csv(here::here("rt-forecast/submission-files/latest-rt-forecast-submission.csv"))) %>%
+#   dplyr::pull(target_end_date) %>%
+#   unique() %>%
+#   max()
 
-submit_ensemble <- dplyr::filter(submit_ensemble, target_end_date <= rt_max_date) %>%
+
+submit_ensemble <- dplyr::filter(submit_ensemble, (target_end_date - submission_date) <= 30) %>%
   dplyr::select(-submission_date)
 
   
