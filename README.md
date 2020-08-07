@@ -44,8 +44,8 @@ For an end-to-end run (including new Rt and timeseries models, mean and QRA ense
 Note that the final submission file can be either the quantile mean average or the QRA ensemble. To check or change this:
   - Open `final-submissions/update-final-submission.R`
   - Set global variables:
-   - `ensemble_dir <- "qra-ensemble" # or "quantile-average"`
-   - `ensemble <- "qra" # or "qa`
+    - `ensemble_dir <- "qra-ensemble" # or "quantile-average"`
+    - `ensemble <- "qra" # or "qa`
   - If doing this:
     - _Before running_ `update.sh`: save the script and then run `update.sh`
     - _After running_ `update.sh`: save and then source the script (and the submission-ready csv will be re-written)
