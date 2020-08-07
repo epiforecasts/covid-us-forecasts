@@ -7,7 +7,7 @@ We use an ensemble of models to forecast deaths from Covid-19 in US states. Thes
 - Rt estimation: [code](https://github.com/epiforecasts/covid-us-forecasts/tree/master/rt-forecast-2), relying on methods developed in [EpiNow2](https://epiforecasts.io/EpiNow2/)
 - Time-series: [code](https://github.com/epiforecasts/covid-us-forecasts/tree/master/timeseries-forecast), including both pure autoregressive time-series, and with case predictors (current cases and leading cases by 1 and 2 weeks)
 
-We [output](https://github.com/epiforecasts/covid-us-forecasts/tree/master/final-submissions/death-forecast) 1 to 5 week ahead forecasts of weekly cumulative and incident deaths, for the US and selected US states. See the [project board](https://github.com/epiforecasts/covid-us-forecasts/projects) for ongoing work.
+We [output](https://github.com/epiforecasts/covid-us-forecasts/tree/master/final-submissions/death-forecast) 1 to 4 week ahead forecasts of weekly cumulative and incident deaths, for the US and selected US states. See the [project board](https://github.com/epiforecasts/covid-us-forecasts/projects) for ongoing work.
 
 For national and sub-national Rt estimates and forecasts in other countries, see our [website](https://epiforecasts.io/covid/posts/global/).
 
@@ -29,17 +29,23 @@ LSHTM, Centre for Mathematical Modelling of Infectious Disease:
 > 4. Open a new R project and clone this repository from Github
 > - Caution - when interacting with Github, do not use the RStudio git GUI, as this crashes the server
 
+> Using Azure:
+> - Log in to Azure
+> - Start and connect to kath-test using ssh
+> - Use R Studio to open a new project, clone this repository
+
 ### Create fresh forecasts
 For an end-to-end run (including new Rt and timeseries models, mean and QRA ensembles, formatted ready for submission):
 - Run `system("update.sh")`
 - Check the output by looking plots saved in the most recent folder: `evaluation/plots/yyyy-mm-dd`
-- A properly formatted csv, ready to be submitted to the Reich forecast hub, will be saved in `final-submissions/death-forecast/yyyy-mm-dd-epiforecasts-ensemble1.csv`
+- A properly formatted csv, ready to be submitted to the Reich forecast hub, will be saved in 
+  - `final-submissions/death-forecast/yyyy-mm-dd-epiforecasts-ensemble1.csv`
 
-Note that the final submission file is currently the quantile mean average ensemble. To instead submit QRA in the final ensemble:
+Note that the final submission file can be either the quantile mean average or the QRA ensemble. To check or change this:
   - Open `final-submissions/update-final-submission.R`
   - Set global variables:
-   - `ensemble_dir <- "qra-ensemble"`
-   - `ensemble <- "qra"`
+   - `ensemble_dir <- "qra-ensemble" # or "quantile-average"`
+   - `ensemble <- "qra" # or "qa`
   - If doing this:
     - _Before running_ `update.sh`: save the script and then run `update.sh`
     - _After running_ `update.sh`: save and then source the script (and the submission-ready csv will be re-written)
