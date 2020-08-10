@@ -157,6 +157,30 @@ load_submission_files <- function(dates = c("latest", "all"),
       dplyr::mutate(model = "QRA ensemble")
   }
   
+  # Get qra-ensemble by state
+  if ("qra-state-ensemble" %in% models) {
+    if (dates[1] == "all") {
+      
+      qra_state_ensemble_files <- list.files(here::here("ensembling", "qra-state-ensemble",
+                                                  "submission-files", "dated"))
+      
+      if (!is.null(num_last)) {
+        qra_state_ensemble_files <- sort(qra_state_ensemble_files, decreasing = TRUE)[1:num_last]
+      }
+      
+      qra_state_ensemble_paths <- here::here("ensembling", "qra-state-ensemble", 
+                                       "submission-files", "dated", qra_state_ensemble_files)
+      
+      
+    } else {
+      qra_state_ensemble_paths <- here::here("ensembling", "qra-ensemble",
+                                       "submission-files",
+                                       "latest-epiforecasts-ensemble1-qra.csv") 
+    }
+    forecasts[["qra_state_ensemble"]] <- suppressMessages(purrr::map_dfr(qra_state_ensemble_paths, readr::read_csv)) %>%
+      dplyr::mutate(model = "QRA by state")
+  }
+  
   ## Get crps-ensemble
   # if ("all" %in% models | "crps-ensemble" %in% models) {
   #   if (dates[1] == "all") {
