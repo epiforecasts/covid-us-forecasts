@@ -41,10 +41,31 @@ state_qra <- purrr::map(states,
                           latest_forecasts = latest_forecasts,
                           deaths_data = deaths_data)
 
-                                                  
 # Bind state ensembles
 qra_ensemble <- dplyr::bind_rows(state_qra) %>%
   dplyr::select(-state)
+
+
+# Look at weights ---------------------------------------------------------
+# state_qra <- purrr::map(states, 
+#                         regional_qra,
+#                         return_weights = TRUE,
+#                         past_forecasts = past_forecasts,
+#                         latest_forecasts = latest_forecasts,
+#                         deaths_data = deaths_data)
+# library(ggplot)
+# source(here::here("utils", "states-min-last-week.R"))
+# keep_states <- states_min_last_week(min_last_week = 50, last_week = 1)
+# 
+# qra_ensemble <- dplyr::bind_rows(state_qra)
+# 
+# qra_ensemble %>%
+#   filter(state %in% keep_states$state) %>%
+#   ggplot(aes(x = model, y = weight)) +
+#   geom_col() +
+#   facet_wrap(.~ state) +
+#   theme_classic()
+#                                                   
 
 # Output ------------------------------------------------------------------
 # write dated file

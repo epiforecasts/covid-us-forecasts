@@ -27,7 +27,7 @@ national_plot <- plot_forecasts(national = TRUE,
 
 
 suppressWarnings(ggsave(here::here("evaluation", "plots", 
-                                   forecast_date, "submission-national.png"), 
+                                   forecast_date, "submission-national-qra-compare.png"), 
        plot = national_plot, 
        width = 10, height = 10, dpi = 300))
 
