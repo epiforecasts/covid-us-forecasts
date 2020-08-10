@@ -64,13 +64,13 @@ setup_future <- function(jobs) {
        gc = TRUE, earlySignal = TRUE)
 
 
-  jobs <- max(1, ceiling(future::availableCores() / jobs))
+  jobs <- max(1, round(future::availableCores() / jobs, 0))
   return(jobs)
 }
 
 
 no_cores <- setup_future(length(unique(deaths$region)))
-no_cores <- 3
+
 # Run Rt estimation -------------------------------------------------------
 start_time <- Sys.time()
 
