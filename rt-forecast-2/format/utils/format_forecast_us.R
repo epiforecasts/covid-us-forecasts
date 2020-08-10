@@ -74,5 +74,4 @@ rm(weekly_forecasts, weekly_forecasts_cum, weekly_forecasts_inc)
   forecasts_format <- forecasts_format[target_end_date > forecast_date]
   
   return(forecasts_format)
-  
 }
