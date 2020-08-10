@@ -1,7 +1,7 @@
 # Final submission
 # 
 # Set variable for which ensemble (QRA or QA (mean))
-ensemble_dir = "qra-ensemble" # c("qra-ensemble", "quantile-average")
+ensemble_dir = "qra-state-ensemble" # c("qra-state-ensemble" "qra-ensemble", "quantile-average")
 ensemble = "qra" # c("qra", "qa")
 
 # Get ensemble
