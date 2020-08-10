@@ -15,7 +15,8 @@ load_submission_files <- function(dates = c("latest", "all"),
                                              "deaths-only", 
                                              "deaths-on-cases", 
                                              "mean-ensemble", 
-                                             "qra-ensemble" #, 
+                                             "qra-ensemble",
+                                             "qra-state-ensemble" #, 
                                             # "crps-ensemble"
                                             )) {
   
@@ -173,7 +174,7 @@ load_submission_files <- function(dates = c("latest", "all"),
       
       
     } else {
-      qra_state_ensemble_paths <- here::here("ensembling", "qra-ensemble",
+      qra_state_ensemble_paths <- here::here("ensembling", "qra-state-ensemble",
                                        "submission-files",
                                        "latest-epiforecasts-ensemble1-qra.csv") 
     }

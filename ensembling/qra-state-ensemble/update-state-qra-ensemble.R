@@ -29,10 +29,10 @@ deaths_data <- dplyr::bind_rows(deaths_data, deaths_national)
 
 
 # QRA ensemble by state ---------------------------------------------------
-source(here::here("ensembling", "qra-ensemble", "regional-qra.R"))
+source(here::here("ensembling", "qra-state-ensemble", "regional-qra.R"))
 
 # List states
-states <- as.list(unique(latest_forecasts$state))
+states <- unique(latest_forecasts$state)
 
 # Ensemble by state
 state_qra <- purrr::map(states, 
@@ -50,19 +50,11 @@ qra_ensemble <- dplyr::bind_rows(state_qra) %>%
 # write dated file
 forecast_date <- Sys.Date()
 
-# data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-ensemble", 
-#                                             "submission-files","dated",
-#                                     paste0(forecast_date, "-epiforecasts-ensemble1-qra.csv")))
-# # write Latest files
-# data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-ensemble", "submission-files",
-#                                             paste0("latest-epiforecasts-ensemble1-qra.csv")))
-
-
 # Write to state-wise folder
 
 data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-state-ensemble", 
                                             "submission-files","dated",
                                             paste0(forecast_date, "-epiforecasts-ensemble1-qra.csv")))
 # write Latest files
-data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-ensemble", "submission-files",
+data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-state-ensemble", "submission-files",
                                             paste0("latest-epiforecasts-ensemble1-qra.csv")))
