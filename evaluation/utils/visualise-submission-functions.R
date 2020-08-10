@@ -1,7 +1,13 @@
 plot_forecasts = function(national = TRUE,
                           state_min_cutoff = NA,
                           obs_weeks = 8,
-                          exclude_new_epiweek = FALSE){
+                          exclude_new_epiweek = FALSE,
+                          models = c("rt-2",
+                                     "deaths-only", 
+                                     "deaths-on-cases", 
+                                     "mean-ensemble", 
+                                     "qra-state-ensemble",
+                                     "qra-ensemble")){
   
   
   # Get observed data ------------------------------------------------------------------
@@ -13,7 +19,7 @@ plot_forecasts = function(national = TRUE,
                   epiweek_day = as.numeric(paste0(epiweek, ".", as.numeric(day))))
   
   
-    # Optional: filter out data from the last incomplete week
+  # Optional: filter out data from the last incomplete week
   if(exclude_new_epiweek){
     daily_deaths_state <- daily_deaths_state %>%
       dplyr::filter(epiweek_day < max(epiweek))
@@ -39,11 +45,7 @@ plot_forecasts = function(national = TRUE,
   
   ## Get most recent Rt forecast 
   forecasts <- load_submission_files(dates = "latest",
-                                     models = c("rt-2",
-                                     "deaths-only", 
-                                     "deaths-on-cases", 
-                                     "mean-ensemble", 
-                                     "qra-ensemble"))
+                                     models = models)
   
   
   # Reshape forecasts and add observed data --------------------------------------------------------------------
@@ -59,7 +61,7 @@ plot_forecasts = function(national = TRUE,
   
   forecasts_national <- forecasts %>%
     dplyr::filter(state %in% "US",
-           grepl("inc", target)) %>%
+                  grepl("inc", target)) %>%
     dplyr::group_by(state, target_end_date, model) %>%
     dplyr::mutate(quantile = stringr::str_c("c", quantile)) %>%
     dplyr::filter(quantile %in% c("c0.05", "c0.25", "c0.5", "c0.75", "c0.95")) %>%
@@ -84,42 +86,41 @@ plot_forecasts = function(national = TRUE,
     plot_national <- bind_rows(forecasts_national, observed_deaths_national) %>%
       dplyr::mutate(state = "US",
                     model = factor(model, 
-                                   levels = c("Observed", "Mean ensemble", "QRA ensemble", 
-                                              "Rt-Epinow2", "TS deaths", "TS deaths on cases")))
+                                   levels = unique(model)))
     
     plot_df <- plot_national
     
   } else { 
     
-  # Identify over 100 cases in the last week
-  source(here::here("utils", "states-min-last-week.R"))
-  keep_states <- states_min_last_week(min_last_week = state_min_cutoff, last_week = 1)
-  
-  plot_state <- dplyr::bind_rows(forecasts_state, observed_deaths_state) %>%
-    dplyr::filter(state %in% keep_states$state) %>%
-    dplyr::mutate(model = factor(model, levels = c("Observed", "Mean ensemble", "QRA ensemble",
-                                                   "Rt-Epinow2",  "TS deaths", "TS deaths on cases")))
-  
-  plot_df <- plot_state
-  }
+    # Identify over 100 cases in the last week
+    source(here::here("utils", "states-min-last-week.R"))
+    keep_states <- states_min_last_week(min_last_week = state_min_cutoff, last_week = 1)
     
+    plot_state <- dplyr::bind_rows(forecasts_state, observed_deaths_state) %>%
+      dplyr::filter(state %in% keep_states$state) %>%
+      dplyr::mutate(model = factor(model, levels = unique(model)))
+    
+    plot_df <- plot_state
+  }
+  
   plot <- plot_df %>%
     ggplot2::ggplot(ggplot2::aes(x = target_end_date, col = model, fill = model)) +
     ggplot2::geom_point(ggplot2::aes(y = c0.5), size = 2) +
     ggplot2::geom_line(ggplot2::aes(y = c0.5), lwd = 1) +
     ggplot2::geom_ribbon(ggplot2::aes(ymin = c0.25, ymax = c0.75), color = NA, alpha = 0.15) +
     ##
-    ggplot2::scale_fill_manual(values = c("grey", RColorBrewer::brewer.pal(5, name = "Set2"))) +
-    ggplot2::scale_color_manual(values = c("dark grey", RColorBrewer::brewer.pal(5, name = "Set2"))) +
+    ggplot2::scale_fill_manual(values = c("grey", 
+                                          RColorBrewer::brewer.pal(length(unique(plot_df$model)), name = "Set2"))) +
+    ggplot2::scale_color_manual(values = c("dark grey", 
+                                           RColorBrewer::brewer.pal(length(unique(plot_df$model)), name = "Set2"))) +
     ggplot2::facet_wrap(.~ state, scales = "free_y") +
     ggplot2::expand_limits(y = 0) +
     ggplot2::labs(x = "Week ending", y = "Weekly incident deaths", 
                   caption = paste0("States with deaths last week >", state_min_cutoff),
-         col = "Model", fill = "Model") +
+                  col = "Model", fill = "Model") +
     cowplot::theme_cowplot() +
     ggplot2::theme(legend.position = "bottom", 
-          text = ggplot2::element_text(family = "Sans Serif"))
+                   text = ggplot2::element_text(family = "Sans Serif"))
   
   return(plot)
 }
-
