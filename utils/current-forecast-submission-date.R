@@ -1,6 +1,6 @@
 # update forecast and submission dates
 
-forecast_date <- Sys.Date()-1
+forecast_date <- Sys.Date()
 submission_date <- Sys.Date() # update accordingly
 # 
 # source(here::here("utils", "forecast-submission-dates.R"))
