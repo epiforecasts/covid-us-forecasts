@@ -45,7 +45,6 @@ dates_to_epiweek <- function(df){
                   epiweek_full = epiweek %in% epiweek_complete$epiweek)
   
   return(df_dated)
-  
 }
 
 
@@ -64,4 +63,6 @@ epiweek_to_date <- function(df){
   
   df_dates <- df %>%
     dplyr::left_join(seq_dates, by = "epiweek")
+  
+  return(df_dates)
 }
