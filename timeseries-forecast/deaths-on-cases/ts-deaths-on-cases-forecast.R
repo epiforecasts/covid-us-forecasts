@@ -101,8 +101,8 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
       # Join deaths and cases
       cases_deaths <- dplyr::bind_rows(case_data_weekly, case_forecast) %>%
         group_by(state) %>%
-        mutate(cases_lead1 = dplyr::lead(cases, 1),
-               cases_lead2 = dplyr::lead(cases, 2)) %>%
+        mutate(cases_lag1 = dplyr::lag(cases, 1),
+               cases_lag2 = dplyr::lag(cases, 2)) %>%
         filter(epiweek <= max(epiweek)-2) %>%
         ungroup() %>%
         full_join(deaths_data_weekly, by = c("state", "epiweek"))
@@ -121,18 +121,18 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
                                                                            filter(.x, epiweek %in% historical_weeks) %>%
                                                                            pull("cases"),
                                                                          filter(.x, epiweek %in% historical_weeks) %>%
-                                                                           pull("cases_lead1"),
+                                                                           pull("cases_lag1"),
                                                                          filter(.x, epiweek %in% historical_weeks) %>%
-                                                                           pull("cases_lead2")))
+                                                                           pull("cases_lag2")))
                                                                          ),
                                                      forecast_params = list(xreg = 
                                                                             as.matrix(
                                                                             filter(.x, epiweek %in% forecast_weeks) %>%
                                                                               pull("cases"),
-                                                                            filter(.x, epiweek %in% historical_weeks) %>%
-                                                                              pull("cases_lead1"),
-                                                                            filter(.x, epiweek %in% historical_weeks) %>%
-                                                                              pull("cases_lead2")),
+                                                                            filter(.x, epiweek %in% forecast_weeks) %>%
+                                                                              pull("cases_lag1"),
+                                                                            filter(.x, epiweek %in% forecast_weeks) %>%
+                                                                              pull("cases_lag2")),
                                                                             PI.combination = "mean")
                                                      )) %>%
         mutate(sample = rep(1:sample_count)) %>%
