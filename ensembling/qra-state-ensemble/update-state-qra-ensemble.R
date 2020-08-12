@@ -47,15 +47,15 @@ qra_ensemble <- dplyr::bind_rows(state_qra) %>%
 
 
 # Look at weights ---------------------------------------------------------
-# state_qra <- purrr::map(states, 
+# state_qra <- purrr::map(states,
 #                         regional_qra,
 #                         return_weights = TRUE,
 #                         past_forecasts = past_forecasts,
 #                         latest_forecasts = latest_forecasts,
 #                         deaths_data = deaths_data)
-# library(ggplot)
+# library(ggplot2)
 # source(here::here("utils", "states-min-last-week.R"))
-# keep_states <- states_min_last_week(min_last_week = 50, last_week = 1)
+# keep_states <- states_min_last_week(min_last_week = 5, last_week = 1)
 # 
 # qra_ensemble <- dplyr::bind_rows(state_qra)
 # 
@@ -65,7 +65,10 @@ qra_ensemble <- dplyr::bind_rows(state_qra) %>%
 #   geom_col() +
 #   facet_wrap(.~ state) +
 #   theme_classic()
-#                                                   
+#                         
+#                         
+qra_average <- qra_ensemble %>%
+  tidyr::pivot_wider(names_from = model, values_from = weight)
 
 # Output ------------------------------------------------------------------
 # write dated file
