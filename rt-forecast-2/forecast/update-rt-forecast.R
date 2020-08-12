@@ -4,11 +4,6 @@ require(data.table)
 require(future)
 require(dplyr)
 
-# Define a target date ----------------------------------------------------
-
-# target_date <- Sys.Date()
-start_time <- Sys.time()
-
 # Update delays -----------------------------------------------------------
 
 generation_time <- readRDS(here::here("rt-forecast-2", "forecast", "delays", "data", "generation_time.rds"))
@@ -98,26 +93,3 @@ run_time_mins <- end_time - start_time
 time <- cbind(as.character(start_time), start_time, end_time, run_time_mins)
 
 saveRDS(time, here::here("utils/epinow2_runtime.rds"))
-
-# Settings - running past forecast, Alabama only:
-# Base setting:
-# horizon = 30, samples = 2000, warmup = 200, adapt_delta = 0.95, 
-# cores = no_cores, chains = ifelse(no_cores<=2, 2, no_cores)
-#
-# Base setting: 4.5hr total
-# run_time: 5.1 mins
-# warnings:
-# 35 divergent transitions
-# running chains for more iterations may help
-
-# adapt_delta = 0.99, warmup = 500
-# run_time: 13min / 11.5hr
-# warnings:
-
-# adapt_delta = 0.99, warmup = 500, cores = 4, chains = 4
-# run_time: 9.58min / 8.5 hr
-# warnings:
-
-# adapt_delta = 0.95, warmup = 200, cores = 4, chains = 4
-# run_time: 4.4min / 3.8hr
-# warnings:
