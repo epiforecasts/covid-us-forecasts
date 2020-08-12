@@ -47,7 +47,7 @@ deaths <- deaths_raw %>%
 # Format for epinow2 ------------------------------------------------------
 
 deaths <- setDT(deaths)
-deaths <- deaths[, .SD[date >= (max(date) - lubridate::weeks(8))], by = region]
+deaths <- deaths[, .SD[date >= (max(date) - lubridate::weeks(12))], by = region]
 
 data.table::setorder(deaths, date)
 
@@ -79,8 +79,9 @@ start_time <- Sys.time()
                 delays = list(incubation_period, reporting_delay),
                 horizon = 30,
                 samples = 2000,
-                warmup = 200,
-                adapt_delta = 0.95,
+                warmup = 500,
+                burn_in = 14,
+                adapt_delta = 0.98,
                 cores = no_cores,
                 chains = ifelse(no_cores <= 2, 2, no_cores),
                 target_folder = "rt-forecast-2/forecast/deaths/state",
