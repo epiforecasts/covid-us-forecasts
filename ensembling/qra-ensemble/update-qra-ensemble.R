@@ -8,7 +8,7 @@ source(here::here("utils", "load-submissions-function.R"))
 
 # load past forecasts
 past_forecasts <- load_submission_files(dates = "all",
-                                        num_last = 3, #
+                                        num_last = 4, #
                                         models = c("rt-2",  "deaths-only", "deaths-on-cases")) 
 
 # create complete set
@@ -99,13 +99,13 @@ forecasts_wide <- forecasts %>%
   dplyr::mutate(quantile = round(quantile, digits = 3)) %>%
   tidyr::pivot_wider(names_from = model,
                      values_from = value)
-  
+
 qra_ensemble <- forecasts_wide %>%
   dplyr::mutate(ensemble = forecasts_wide %>% 
-                dplyr::select(dplyr::all_of(models)) %>%
-                as.matrix() %>%
-                matrixStats::rowWeightedMeans(w = model_weights, 
-                                              na.rm = TRUE)) %>%
+                  dplyr::select(dplyr::all_of(models)) %>%
+                  as.matrix() %>%
+                  matrixStats::rowWeightedMeans(w = model_weights, 
+                                                na.rm = TRUE)) %>%
   dplyr::rename(value = ensemble) %>%
   dplyr::select(-dplyr::all_of(models)) %>%
   dplyr::mutate(forecast_date = Sys.Date()) %>%
@@ -120,7 +120,7 @@ forecast_date <- Sys.Date()
 
 data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-ensemble", 
                                             "submission-files","dated",
-                                    paste0(forecast_date, "-epiforecasts-ensemble1-qra.csv")))
+                                            paste0(forecast_date, "-epiforecasts-ensemble1-qra.csv")))
 # write Latest files
 data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-ensemble", "submission-files",
                                             paste0("latest-epiforecasts-ensemble1-qra.csv")))

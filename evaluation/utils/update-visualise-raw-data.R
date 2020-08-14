@@ -27,7 +27,7 @@ suppressWarnings(ggplot2::ggsave(here::here("evaluation", "plots",
 
 
 
-subnational_plot <- plot_raw_data(national = FALSE, state_min_cutoff = 50, obs_weeks = 8,
+subnational_plot <- plot_raw_data(national = FALSE, state_min_cutoff = 5, obs_weeks = 8,
                                   exclude_new_epiweek = TRUE)
 
 
