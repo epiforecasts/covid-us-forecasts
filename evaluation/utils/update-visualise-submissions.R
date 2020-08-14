@@ -22,8 +22,8 @@ national_plot <- plot_forecasts(national = TRUE,
                                            "deaths-only", 
                                            "deaths-on-cases", 
                                            "mean-ensemble", 
-                                           "qra-state-ensemble" #,
-                                           #"qra-ensemble"
+                                           "qra-state-ensemble",
+                                           "qra-ensemble"
                                            ))
 
 
@@ -42,8 +42,8 @@ subnational_plot <- plot_forecasts(national = FALSE,
                                               "deaths-only", 
                                               "deaths-on-cases", 
                                               "mean-ensemble", 
-                                              "qra-state-ensemble" #,
-                                              #"qra-ensemble"
+                                              "qra-state-ensemble",
+                                              "qra-ensemble"
                                               ))
 
 
