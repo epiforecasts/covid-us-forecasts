@@ -103,6 +103,7 @@ names(summary) <- models
                   warmup = 500,
                   burn_in = 14,
                   adapt_delta = 0.98,
+                  fixed_future_rt = TRUE,
                   cores = no_cores,
                   chains = ifelse(no_cores <= 2, 2, no_cores),
                   target_folder = targets[["fixed_rt"]],
