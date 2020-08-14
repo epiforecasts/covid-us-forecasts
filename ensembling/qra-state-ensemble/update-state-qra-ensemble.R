@@ -45,31 +45,6 @@ state_qra <- purrr::map(states,
 qra_ensemble <- dplyr::bind_rows(state_qra) %>%
   dplyr::select(-state)
 
-
-# Look at weights ---------------------------------------------------------
-# state_qra <- purrr::map(states,
-#                         regional_qra,
-#                         return_weights = TRUE,
-#                         past_forecasts = past_forecasts,
-#                         latest_forecasts = latest_forecasts,
-#                         deaths_data = deaths_data)
-# library(ggplot2)
-# source(here::here("utils", "states-min-last-week.R"))
-# keep_states <- states_min_last_week(min_last_week = 5, last_week = 1)
-# 
-# qra_ensemble <- dplyr::bind_rows(state_qra)
-# 
-# qra_ensemble %>%
-#   filter(state %in% keep_states$state) %>%
-#   ggplot(aes(x = model, y = weight)) +
-#   geom_col() +
-#   facet_wrap(.~ state) +
-#   theme_classic()
-#                         
-#                         
-qra_average <- qra_ensemble %>%
-  tidyr::pivot_wider(names_from = model, values_from = weight)
-
 # Output ------------------------------------------------------------------
 # write dated file
 forecast_date <- Sys.Date()
@@ -81,4 +56,37 @@ data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-state-ensemble",
                                             paste0(forecast_date, "-epiforecasts-ensemble1-qra.csv")))
 # write Latest files
 data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-state-ensemble", "submission-files",
-                                            paste0("latest-epiforecasts-ensemble1-qra.csv")))
+                                            "latest-epiforecasts-ensemble1-qra.csv"))
+
+# Look at weights ---------------------------------------------------------
+state_qra <- purrr::map(states,
+                        regional_qra,
+                        return_weights = TRUE,
+                        past_forecasts = past_forecasts,
+                        latest_forecasts = latest_forecasts,
+                        deaths_data = deaths_data)
+
+# Plot and save
+library(ggplot2)
+source(here::here("utils", "states-min-last-week.R"))
+keep_states <- states_min_last_week(min_last_week = 5, last_week = 1)
+
+qra_ensemble <- dplyr::bind_rows(state_qra)
+
+qra_plot <- qra_ensemble %>%
+  filter(state %in% keep_states$state) %>%
+  ggplot(aes(x = model, y = weight)) +
+  geom_col() +
+  facet_wrap(.~ state) +
+  theme_classic()
+
+ggsave(qra_plot, here::here("ensembling", "qra-state-ensemble", "weights",
+                            paste0(forecast_date, "-qra-state-weights.jpg")))
+
+# Tabulate and save     
+qra_average <- qra_ensemble %>%
+  tidyr::pivot_wider(names_from = model, values_from = weight)
+
+readRDS(qra_average, here::here("ensembling", "qra-state-ensemble", "weights",
+                                paste0(forecast_date, "-qra-state-weights.rds")))
+
