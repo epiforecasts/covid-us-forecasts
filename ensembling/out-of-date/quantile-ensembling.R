@@ -113,11 +113,6 @@ forecasts <- data.table::rbindlist(list(rt_forecasts, deaths_only_forecasts,
   dplyr::filter(!is.na(target_end_date))
 
 
-# Identify over 100 cases in the last week
-# source(here::here("utils", "states-min-last-week.R"))
-# keep_states <- states_min_last_week(min_last_week = 100, last_week = 1)
-# forecasts <- filter(forecasts, location %in% keep_states$state_code)
-
 
 # format forecasts -------------------------------------------------------------
 
