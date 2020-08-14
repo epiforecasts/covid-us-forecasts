@@ -13,3 +13,8 @@ source(here::here("ensembling", "qra-state-ensemble",
 # run crps ensemble
 source(here::here("ensembling", "crps-ensemble",
                   "update-crps-ensemble.R"))
+
+
+# run sum-of-states ensemble
+source(here::here("ensembling", "qra-ensemble-sum-of-states",
+                  "update-sum-of-states-qra-ensemble.R"))
