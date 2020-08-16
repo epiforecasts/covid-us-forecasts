@@ -69,7 +69,7 @@ for(i in rt_models){
                    paste0(output_dir, "submission-files/dated/", forecast_date, "-rt-2-forecast.csv"))
   
   readr::write_csv(formatted_forecasts, 
-                   paste0(output_dir, "submission-files/latest-rt-2-forecast.csv"))
+                   paste0(output_dir, "submission-files/latest.csv"))
 
 }
 

@@ -1,40 +1,77 @@
 # List model names and file directories for access through the updating pipeline
 #   i.e. update > ensemble > plot > score
 
-models <- list(
+model_list <- list(
+  # Models
   "single_models" = list(
-    # Add a new model to be fed through the pipeline using the following format:
-    # # Model name
-    # "model_name" = list("update" = here::here(model_folder, update.R),
-    #                     "submission-dated" = here::here(model_folder, output_folder, dated),
-    #                     "submission-latest" = here::here(model_folder, output_folder)),
-    # Rt Epinow2
-    "rt_2" = list("name" = "Rt-2",
-                  "update" = here::here("rt-forecast-2", "update.R"),
-                  "submission-dated" = here::here("rt-forecast-2", "output", "submission-files", "dated"),
-                  "submission-latest" = here::here("rt-forecast-2", "output", "submission-files")),
+    # --------------
+    # Add a new model (single or ensemble) to be fed through the pipeline using the following format:
+    # model_name = 
+    # list("name" = "model_name",                                       # Unique model name e.g. used in plotting
+    #      "root" = here::here(model_folder),                           # Root model folder - may be shared with other models
+    #      "update" = "/update.R",                                      # Update script accessed from root  - may be shared
+    #      "submission_file" = "/output/model_name/submission-files",   # Model specific output files
+    #      "colour" = "colour_name")                                    # Plotting colour: try 
+    #                                                                   #   https://htmlcolorcodes.com/color-chart/
+    # --------------
+    # 
+    # Rt Epinow2 - original
+    "rt2_original" = 
+      list("name" = "Rt2 original",
+           "root" = here::here("rt-forecast-2"),
+           "update" = "/update.R",
+           "submission_files" = "/output/original/submission-files",
+           "colour" = "#FF0000"),
+    # Rt Epinow2 - fixed Rt
+    "rt2_fixed" = 
+      list("name" = "Rt2 fixed rt",
+           "root" = here::here("rt-forecast-2"),
+           "update" = "/update.R",
+           "submission_files" = "/output/fixed_rt/submission-files",
+           "colour" = "#FF0099"),
     # Timeseries - weekly
-    "ts_weekly_deaths_only" = list("name" = "TS weekly deaths",
-                         "update" = here::here("timeseries-forecast", "update.R"),
-                         "submission-dated" = here::here("timeseries-forecast", "deaths-only", "submission-files", "dated"),
-                         "submission-latest" = here::here("timeseries-forecast", "deaths-only", "submission-files")),
-    "ts_weekly_deaths_on_cases" = list("name" = "TS weekly deaths-cases",
-                             "update" = NULL,
-                             "submission-dated" = here::here("timeseries-forecast", "deaths-on-cases", "submission-files", "dated"),
-                             "submission-latest" = here::here("timeseries-forecast", "deaths-on-cases", "submission-files"))
+    "ts_weekly_deaths_only" = 
+      list("name" = "TS weekly deaths",
+           "root" = here::here("timeseries-forecast"),
+           "update" =  "/update.R",
+           "submission_files" = "/deaths-only/submission-files",
+           "colour" = "#336600"),
+    "ts_weekly_deaths_on_cases" = 
+      list("name" = "TS weekly deaths-cases",
+           "root" = here::here("timeseries-forecast"),
+           "update" = "/update.R",
+           "submission_files" = "/deaths-on-cases/submission-files",
+           "colour" = "#33CC00")
+    # Add new single models here
     ),
+  # Ensembles
   "ensemble_models" = list( 
-    "mean_ensemble" = list("name" = "Mean ensemble",
-                           "update" = here::here("ensembling", "quantile-average", "update-equal-quantile-average.R"),
-                           "submission-dated" = here::here("ensembling", "quantile-average", "submission-files", "dated"),
-                           "submission-latest" = here::here("ensembling", "quantile-average", "submission-files")),
-    "qra_ensemble" = list("name" = "QRA all",
-                          "update" = here::here("ensembling", "qra-ensemble", "update-qra-ensemble.R"),
-                           "submission-dated" = here::here("ensembling", "qra-ensemble", "submission-files", "dated"),
-                           "submission-latest" = here::here("ensembling", "qra-ensemble", "submission-files")),
-    "qra_state_ensemble" = list("name" = "QRA by state",
-                                "update" = here::here("ensembling", "qra-state-ensemble", "update-state-qra-ensemble.R"),
-                                "submission-dated" = here::here("ensembling", "qra-state-ensemble", "submission-files", "dated"),
-                                "submission-latest" = here::here("ensembling", "qra-state-ensemble", "submission-files"))
+    "mean_ensemble" = 
+      list("name" = "Mean ensemble",
+           "root" = here::here("ensembling", "quantile-average"),
+           "update" = "/update-equal-quantile-average.R",
+           "submission_files" = "/submission-files",
+           "colour" = "#66FFFF"),
+    "qra_ensemble" = 
+      list("name" = "QRA all",
+           "root" = here::here("ensembling", "qra-ensemble"),
+           "update" = "/update-qra-ensemble.R",
+           "submission_files" = "/submission-files",
+           "colour" = "#6666CC"),
+    "qra_state" = 
+      list("name" = "QRA by state",
+           "root" = here::here("ensembling", "qra-state-ensemble"),
+           "update" = "/update-state-qra-ensemble.R",
+           "submission_files" = "/submission-files",
+           "colour" = "#6600CC"),
+    "qra_sum_states" = 
+      list("name" = "QRA sum of states",
+           "root" = here::here("ensembling", "qra-ensemble-sum-of-states"),
+           "update" = "/update-sum-of-states-qra-ensemble.R",
+           "submission_files" = "/submission-files",
+           "colour" = "#6699FF")
+    # Add new ensemble models here
   )
 )
+
+saveRDS(model_list, here::here("utils", "model_list.rds"))
