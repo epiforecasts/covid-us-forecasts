@@ -10,7 +10,7 @@ require(cowplot)
 require(data.table)
 
 
-format_rt <- function(forecast_date) {
+format_rt <- function(forecast_date, submission_date) {
   
   rt_models <- c("original", "fixed_rt")
   
@@ -39,11 +39,11 @@ format_rt <- function(forecast_date) {
                                            model = paste0("Rt2-", i),
                                            location = state)]
     
-    forecasts_samples <- forecasts_samples[target_end_date > forecast_date]
+    forecasts_samples <- forecasts_samples[target_end_date > submission_date]
     
     # Save samples
     saveRDS(forecasts_samples, 
-            paste0(output_dir, "/samples/", forecast_date, "-rt-forecast-samples.rds"))
+            paste0(output_dir, "/samples/", submission_date, "-rt-forecast-samples.rds"))
     
     
     # Format forecasts --------------------------------------------------------
@@ -51,13 +51,13 @@ format_rt <- function(forecast_date) {
     
     formatted_forecasts <- format_forecast_us(forecasts = forecasts_raw, 
                                               forecast_date = forecast_date, 
-                                              submission_date = forecast_date)
+                                              submission_date = submission_date)
     
     
     # Save forecast -----------------------------------------------------------
     
     readr::write_csv(formatted_forecasts, 
-                     paste0(output_dir, "/submission-files/dated/", forecast_date, "-rt-2-forecast.csv"))
+                     paste0(output_dir, "/submission-files/dated/", submission_date, "-rt-2-forecast.csv"))
     
     readr::write_csv(formatted_forecasts, 
                      paste0(output_dir, "/submission-files/latest.csv"))
