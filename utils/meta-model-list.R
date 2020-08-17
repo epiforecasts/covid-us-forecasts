@@ -17,29 +17,29 @@ model_list <- list(
     # Rt Epinow2 - original
     "rt2_original" = 
       list("name" = "Rt2 original",
-           "root" = here::here("rt-forecast-2"),
-           "update" = "/update.R",
-           "submission_files" = "/output/original/submission-files",
+           "root" = "rt-forecast-2",
+           "update" = "update.R",
+           "submission_files" = "output/original/submission-files",
            "colour" = "#FF0000"),
     # Rt Epinow2 - fixed Rt
     "rt2_fixed" = 
       list("name" = "Rt2 fixed rt",
-           "root" = here::here("rt-forecast-2"),
-           "update" = "/update.R",
-           "submission_files" = "/output/fixed_rt/submission-files",
+           "root" = "rt-forecast-2",
+           "update" = "update.R",
+           "submission_files" = "output/fixed_rt/submission-files",
            "colour" = "#FF0099"),
     # Timeseries - weekly
     "ts_weekly_deaths_only" = 
       list("name" = "TS weekly deaths",
-           "root" = here::here("timeseries-forecast"),
-           "update" =  "/update.R",
-           "submission_files" = "/deaths-only/submission-files",
+           "root" ="timeseries-forecast",
+           "update" =  "update.R",
+           "submission_files" = "deaths-only/submission-files",
            "colour" = "#336600"),
     "ts_weekly_deaths_on_cases" = 
       list("name" = "TS weekly deaths-cases",
-           "root" = here::here("timeseries-forecast"),
-           "update" = "/update.R",
-           "submission_files" = "/deaths-on-cases/submission-files",
+           "root" = "timeseries-forecast",
+           "update" = "update.R",
+           "submission_files" = "deaths-on-cases/submission-files",
            "colour" = "#33CC00")
     # ,
     # # Expert elicitation
@@ -55,27 +55,27 @@ model_list <- list(
   "ensemble_models" = list( 
     "mean_ensemble" = 
       list("name" = "Mean ensemble",
-           "root" = here::here("ensembling", "quantile-average"),
-           "update" = "/update-equal-quantile-average.R",
-           "submission_files" = "/submission-files",
+           "root" = "ensembling", "quantile-average",
+           "update" = "update-equal-quantile-average.R",
+           "submission_files" = "submission-files",
            "colour" = "#66FFFF"),
     "qra_ensemble" = 
       list("name" = "QRA all",
-           "root" = here::here("ensembling", "qra-ensemble"),
-           "update" = "/update-qra-ensemble.R",
-           "submission_files" = "/submission-files",
+           "root" = "ensembling", "qra-ensemble",
+           "update" = "update-qra-ensemble.R",
+           "submission_files" = "submission-files",
            "colour" = "#6666CC"),
     "qra_state" = 
       list("name" = "QRA by state",
-           "root" = here::here("ensembling", "qra-state-ensemble"),
-           "update" = "/update-state-qra-ensemble.R",
-           "submission_files" = "/submission-files",
+           "root" = "ensembling", "qra-state-ensemble",
+           "update" = "update-state-qra-ensemble.R",
+           "submission_files" = "submission-files",
            "colour" = "#6600CC"),
     "qra_sum_states" = 
       list("name" = "QRA sum of states",
-           "root" = here::here("ensembling", "qra-ensemble-sum-of-states"),
-           "update" = "/update-sum-of-states-qra-ensemble.R",
-           "submission_files" = "/submission-files",
+           "root" = "ensembling", "qra-ensemble-sum-of-states",
+           "update" = "update-sum-of-states-qra-ensemble.R",
+           "submission_files" = "submission-files",
            "colour" = "#6699FF")
     # Add new ensemble models here
   )

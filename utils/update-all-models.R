@@ -7,7 +7,7 @@ models <- readRDS(here::here("utils", "model_list.rds"))
 
 update <- models %>%
   purrr::flatten() %>%
-  purrr::map( ~ paste0(.x[["root"]], .x[["update"]]))
+  purrr::map( ~ here::here(.x[["root"]], .x[["update"]]))
 
 
 purrr::walk(update, source)
