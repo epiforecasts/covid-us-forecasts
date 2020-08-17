@@ -1,11 +1,11 @@
 
-library(magrittr); library(ggplot2)
+library(magrittr); library(ggplot2); library(dplyr); library(tidyr); library(cowplot); library(data.table)
 
 # load latest qra-ensemble
-state_qra <- readr::read_csv(file = here::here("ensembling",
-                                               "qra-state-ensemble",
-                                               "submission-files",
-                                               "latest-epiforecasts-ensemble1-qra.csv"))
+state_qra <- readr::read_csv(file = file = here::here("ensembling",
+                                                      "qra-state-ensemble",
+                                                      "submission-files",
+                                                      "latest.csv"))
 
 # sum over all locations
 national_qra <- state_qra %>%
@@ -29,7 +29,7 @@ data.table::fwrite(national_qra, here::here("ensembling",
 data.table::fwrite(national_qra, here::here("ensembling",
                                             "qra-ensemble-sum-of-states",
                                             "submission-files",
-                                            paste0("latest-epiforecasts-ensemble1-qra.csv")))
+                                            paste0("latest.csv")))
 
 
 # visualise difference between national and sum-of-state forecasts
