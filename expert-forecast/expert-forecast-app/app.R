@@ -21,8 +21,8 @@ check_ids <- googlesheets4::read_sheet(ss = submission_sheet,
 # Current model forecasts (from most recent Monday)
 load_date <- lubridate::floor_date(Sys.Date(), unit = "week", week_start = 1) %>%
     as.character()
-load_addr <- "https://raw.githubusercontent.com/epiforecasts/covid-us-forecasts/master/rt-forecast/submission-files/"
-raw_data <- readr::read_csv(file = paste0(load_addr, "latest-rt-forecast-submission.csv"))
+load_addr <- "https://raw.githubusercontent.com/epiforecasts/covid-us-forecasts/master/rt-forecast/submission-files/dated/"
+raw_data <- readr::read_csv(file = paste0(load_addr, load_date, "-rt-2-forecast.csv"))
 
 # Load and process most daily reported deaths data
 deaths <- readr::read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv") %>% 
