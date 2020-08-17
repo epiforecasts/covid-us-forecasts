@@ -116,9 +116,9 @@ plot_forecasts = function(national = TRUE,
   # Set plot
   plot <- plot_df %>%
     ggplot2::ggplot(ggplot2::aes(x = target_end_date, col = model, fill = model)) +
-    ggplot2::geom_point(ggplot2::aes(y = c0.5), size = 2) +
+    ggplot2::geom_point(ggplot2::aes(y = c0.5), size = 1.2) +
     ggplot2::geom_line(ggplot2::aes(y = c0.5), lwd = 1) +
-    ggplot2::geom_ribbon(ggplot2::aes(ymin = c0.25, ymax = c0.75), color = NA, alpha = 0.1) +
+    ggplot2::geom_ribbon(ggplot2::aes(ymin = c0.25, ymax = c0.75), color = NA, alpha = 0.05) +
     ##
     ggplot2::scale_fill_manual(values = c("grey", model_colours)) +
     ggplot2::scale_color_manual(values = c("dark grey", model_colours)) +
