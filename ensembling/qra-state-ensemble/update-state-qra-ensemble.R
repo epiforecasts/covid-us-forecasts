@@ -69,19 +69,21 @@ state_qra <- purrr::map(states,
 # Plot and save
 library(ggplot2)
 source(here::here("utils", "states-min-last-week.R"))
-keep_states <- states_min_last_week(min_last_week = 5, last_week = 1)
+keep_states <- states_min_last_week(min_last_week = 5, last_week = 1) %>%
+  dplyr::pull("state")
 
 qra_ensemble <- dplyr::bind_rows(state_qra)
 
 qra_plot <- qra_ensemble %>%
-  filter(state %in% keep_states$state) %>%
+  dplyr::filter(state %in% keep_states) %>%
   ggplot(aes(x = model, y = weight)) +
   geom_col() +
   facet_wrap(.~ state) +
-  theme_classic()
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ggsave(qra_plot, here::here("ensembling", "qra-state-ensemble", "weights",
-                            paste0(forecast_date, "-qra-state-weights.jpg")))
+                            paste0(forecast_date, "weights.png")))
 
 # Tabulate and save     
 qra_average <- qra_ensemble %>%
