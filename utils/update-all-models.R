@@ -7,9 +7,11 @@ models <- readRDS(here::here("utils", "model_list.rds"))
 
 update <- models %>%
   purrr::flatten() %>%
-  purrr::map( ~ here::here(.x[["root"]], .x[["update"]]))
+  purrr::map( ~ here::here(file.path(.x[["root"]]), .x[["update"]])) %>% 
+  unique()
 
 
-purrr::walk(update, source)
+safe_source <- purrr::safely(source)
+purrr::walk(update, safe_source)
 
 

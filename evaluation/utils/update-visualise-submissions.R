@@ -24,7 +24,7 @@ national_plot <- plot_forecasts(national = TRUE,
 suppressWarnings(ggsave(here::here("evaluation", "plots", 
                                    forecast_date, "submission-national.png"), 
        plot = national_plot, 
-       width = 10, height = 10, dpi = 300))
+       width = 8, height = 8, dpi = 300))
 
 
 
@@ -38,4 +38,4 @@ subnational_plot <- plot_forecasts(national = FALSE,
 suppressWarnings(ggsave(here::here("evaluation", "plots", 
                                    forecast_date, "submission-subnational.png"), 
        plot = subnational_plot, 
-       width = 20, height = 25))
+       width = 24, height = 24))
