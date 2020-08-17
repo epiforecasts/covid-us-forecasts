@@ -11,8 +11,7 @@ model_list <- list(
     #      "root" = here::here(model_folder),                           # Root model folder - may be shared with other models
     #      "update" = "/update.R",                                      # Update script accessed from root  - may be shared
     #      "submission_file" = "/output/model_name/submission-files",   # Model specific output files
-    #      "colour" = "colour_name")                                    # Plotting colour: try 
-    #                                                                   #   https://htmlcolorcodes.com/color-chart/
+    #      "colour" = "colour_name")                                    # Plotting colour: try https://htmlcolorcodes.com/color-chart/
     # --------------
     # 
     # Rt Epinow2 - original
@@ -42,6 +41,14 @@ model_list <- list(
            "update" = "/update.R",
            "submission_files" = "/deaths-on-cases/submission-files",
            "colour" = "#33CC00")
+    # ,
+    # # Expert elicitation
+    # "expert" = 
+    #   list("name" = "Expert",
+    #        "root" = here::here("expert-forecast"),
+    #        "update" = "/update-expert.R",
+    #        "submission_files" = "/submission-files",
+    #        "colour" = "#00FFFF")
     # Add new single models here
     ),
   # Ensembles
