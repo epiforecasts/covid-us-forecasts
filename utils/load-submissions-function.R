@@ -5,205 +5,113 @@
 
 # maybe add functionality to read only specific dates later?
 
+# 2020/08/15: adapted to any model listed in "utils/model_list.rds"
+# dates = "all", "latest"
+# num_last = 1: number of historical forecasts
+# models = "all", "single", "ensemble", c("model_name", "model_name")
+
 library(magrittr)
 
-load_submission_files <- function(dates = c("latest", "all"), 
+load_submission_files <- function(dates = "all", 
                                   num_last = NULL,
-                                  models = c("all",
-                                             "rt-2",
-                                             "deaths-only", 
-                                             "deaths-on-cases", 
-                                             "mean-ensemble", 
-                                             "qra-ensemble",
-                                             "qra-state-ensemble" #, 
-                                            # "crps-ensemble"
-                                            )) {
+                                  models = "all") {
   
+  # Read in model list
+  model_list <- readRDS(here::here("utils", "model_list.rds"))
   
-  forecasts <- list()
-  
-  ## Get Epinow2 Rt forecast
-  if ("all" %in% models | "rt-2" %in% models) {
-    if (dates[1] == "all") {
-      rt2_files <- list.files(here::here("rt-forecast-2", "output", "submission-files", "dated"))
-      
-      if (!is.null(num_last)) {
-        rt2_files <- sort(rt2_files, decreasing = TRUE)[1:num_last]
-        rt2_files <- na.exclude(rt2_files)
-      }
-      
-      rt2_paths <- here::here("rt-forecast-2", "output", "submission-files", "dated", rt2_files)
-    } else {
-      rt2_paths <- here::here("rt-forecast-2", "output", "submission-files",
-                             "latest-rt-2-forecast.csv")
-      
-    }
+  # Set to specified models
+  if(models == "all") {
+    model_choice <- model_list %>%
+      purrr::flatten() %>%
+      names()
     
-    forecasts[["rt2_forecasts"]] <- suppressMessages(purrr::map_dfr(rt2_paths, readr::read_csv)) %>%
-      dplyr::mutate(model = "Rt-Epinow2")
-  }
-  
-  
-  ## Get deaths-only forecasts
-  if ("all" %in% models | "deaths-only" %in% models) {
-    if (dates[1] == "all") {
+  } else {
+    
+    if(models == "single") {
+      model_choice <- model_list$single_models %>%
+        names()
       
-      deaths_only_files <- list.files(here::here("timeseries-forecast", "deaths-only", 
-                                                 "submission-files", "dated"))
-      if (!is.null(num_last)) {
-        deaths_only_files <- sort(deaths_only_files, decreasing = TRUE)[1:num_last]
-      }
-      
-      deaths_only_paths <- here::here("timeseries-forecast", "deaths-only", 
-                                      "submission-files", "dated", deaths_only_files)
-      
-      
-    } else {
-      deaths_only_paths <- here::here("timeseries-forecast", "deaths-only", 
-                                      "submission-files",
-                                      "latest-weekly-deaths-only.csv")
+      } else {
+    
+    if(models == "ensemble") {
+      model_choice <- model_list$ensemble_models %>%
+        names()
     }
-    forecasts[["ts_deaths_only"]] <- suppressMessages(purrr::map_dfr(deaths_only_paths, readr::read_csv)) %>%
-      dplyr::mutate(model = "TS deaths")
-  }
-  
-  ## Get deaths-on-cases forecasts
-  if ("all" %in% models | "deaths-on-cases" %in% models) {
-    if (dates[1] == "all") {
-      
-      deaths_on_cases_files <- list.files(here::here("timeseries-forecast", "deaths-on-cases", 
-                                                 "submission-files", "dated"))
-      
-      if (!is.null(num_last)) {
-        deaths_on_cases_files <- sort(deaths_on_cases_files, decreasing = TRUE)[1:num_last]
       }
-      
-      deaths_on_cases_paths <- here::here("timeseries-forecast", "deaths-on-cases", 
-                                      "submission-files", "dated", deaths_on_cases_files)
-      
-    } else {
-      deaths_on_cases_paths <- here::here("timeseries-forecast", "deaths-on-cases", 
-                                      "submission-files",
-                                      "latest-weekly-deaths-on-cases.csv")
-    }
-    forecasts[["ts_deaths_on_cases"]] <- suppressMessages(purrr::map_dfr(deaths_on_cases_paths, readr::read_csv)) %>%
-      dplyr::mutate(model = "TS deaths on cases")
   }
   
+    models <- model_list %>%
+      purrr::flatten() %>%
+      purrr::keep(names(.) %in% model_choice)
   
-  ## Get mean average ensemble
-  if ("all" %in% models | "mean-ensemble" %in% models) {
-    if (dates[1] == "all") {
-      
-      mean_ensemble_files <- list.files(here::here("ensembling", "quantile-average",
-                                                     "submission-files", "dated"))
-      
-      if (!is.null(num_last)) {
-        mean_ensemble_files <- sort(mean_ensemble_files, decreasing = TRUE)[1:num_last]
+  # Get file paths for specified dates
+    # For latest:
+  if(dates == "latest"){
+    
+    files <- models %>%
+      # Get file paths
+      purrr::map( ~ paste0(.x[["root"]], .x[["submission_files"]], "/",
+                           list.files(path = paste0(.x[["root"]], .x[["submission_files"]]), pattern = ".csv")))
+    
+  } else {
+    
+    # For dated:
+    files <- models %>%
+      purrr::map( ~ paste0(.x[["root"]], .x[["submission_files"]], "/dated/",
+                          list.files(path = paste0(.x[["root"]], .x[["submission_files"]], "/dated/"), 
+                                      pattern = ".csv")))
+    # Keep only some dates if specified
+    if(!is.null(num_last)){
+      files <- files %>% 
+        purrr::map( ~ sort(.x, decreasing = TRUE)[1:num_last])
       }
-      
-      mean_ensemble_paths <- here::here("ensembling", "quantile-average", 
-                                          "submission-files", "dated", mean_ensemble_files)
-      
-    } else {
-      mean_ensemble_paths <- here::here("ensembling", "quantile-average",
-                                          "submission-files",
-                                          "latest-epiforecasts-ensemble1-qa.csv") 
-    }
-    forecasts[["mean_ensemble"]] <- suppressMessages(purrr::map_dfr(mean_ensemble_paths, readr::read_csv)) %>%
-      dplyr::mutate(model = "Mean ensemble")
   }
   
-  # Get qra-ensemble
-  if ("all" %in% models | "qra-ensemble" %in% models) {
-    if (dates[1] == "all") {
-      
-      qra_ensemble_files <- list.files(here::here("ensembling", "qra-ensemble",
-                                                   "submission-files", "dated"))
-      
-      if (!is.null(num_last)) {
-        qra_ensemble_files <- sort(qra_ensemble_files, decreasing = TRUE)[1:num_last]
-      }
-      
-      qra_ensemble_paths <- here::here("ensembling", "qra-ensemble", 
-                                        "submission-files", "dated", qra_ensemble_files)
-      
-      
-    } else {
-      qra_ensemble_paths <- here::here("ensembling", "qra-ensemble",
-                                        "submission-files",
-                                        "latest-epiforecasts-ensemble1-qra.csv") 
-    }
-    forecasts[["qra_ensemble"]] <- suppressMessages(purrr::map_dfr(qra_ensemble_paths, readr::read_csv)) %>%
-      dplyr::mutate(model = "QRA ensemble")
-  }
+  # Safe read and mutate functions
+  safely_read <- purrr::safely(~ read.csv(.x, colClasses = "character"))
+  safely_mutate <- purrr::safely(dplyr::mutate)
   
-  # Get qra-ensemble by state
-  if ("qra-state-ensemble" %in% models) {
-    if (dates[1] == "all") {
-      
-      qra_state_ensemble_files <- list.files(here::here("ensembling", "qra-state-ensemble",
-                                                  "submission-files", "dated"))
-      
-      if (!is.null(num_last)) {
-        qra_state_ensemble_files <- sort(qra_state_ensemble_files, decreasing = TRUE)[1:num_last]
-      }
-      
-      qra_state_ensemble_paths <- here::here("ensembling", "qra-state-ensemble", 
-                                       "submission-files", "dated", qra_state_ensemble_files)
-      
-      
-    } else {
-      qra_state_ensemble_paths <- here::here("ensembling", "qra-state-ensemble",
-                                       "submission-files",
-                                       "latest-epiforecasts-ensemble1-qra.csv") 
-    }
-    forecasts[["qra_state_ensemble"]] <- suppressMessages(purrr::map_dfr(qra_state_ensemble_paths, readr::read_csv)) %>%
-      dplyr::mutate(model = "QRA by state")
-  }
+  # Read from file paths
+  data_list <- files %>%
+    # Read and keep returned dfs
+    purrr::map_depth(.depth = 2, ~ safely_read(.x)) %>%
+    purrr::map_depth(.depth = 2, ~ purrr::pluck(.x[[1]])) 
+    
+  # Flatten to single df
+  data_noid <- data_list %>%
+    purrr::flatten_dfr() 
   
-  ## Get crps-ensemble
-  # if ("all" %in% models | "crps-ensemble" %in% models) {
-  #   if (dates[1] == "all") {
-  #     
-  #     crps_ensemble_files <- list.files(here::here("ensembling", "crps-ensemble",
-  #                                                 "submission-files", "dated"))
-  #     
-  #     if (!is.null(num_last)) {
-  #       crps_ensemble_files <- sort(crps_ensemble_files, decreasing = TRUE)[1:num_last]
-  #     }
-  #     
-  #     crps_ensemble_paths <- here::here("ensembling", "crps-ensemble", 
-  #                                      "submission-files", "dated", crps_ensemble_files)
-  #     
-  #     
-  #   } else {
-  #     crps_ensemble_paths <- here::here("ensembling", "crps-ensemble",
-  #                                      "submission-files",
-  #                                      "latest-epiforecasts-ensemble1-crps.csv") 
-  #   }
-  #   forecasts[["crps_ensemble"]] <- suppressMessages(purrr::map_dfr(crps_ensemble_paths, readr::read_csv)) %>%
-  #     dplyr::mutate(model = "CRPS ensemble")
-  # }
+  # Set model names
+  model_names <- data_list %>%
+    purrr::map_depth(.depth = 2, ~ purrr::pluck(.x[[1]])) %>%
+    purrr::map_depth(.depth = 2, ~ length(.x)) %>%
+    unlist()
+  model_names_seq <- rep(names(model_names), times = model_names)
   
-  
-  # Join forecasts ----------------------------------------------------------
-  # and add state names
-  forecasts <- dplyr::bind_rows(forecasts) %>%
+  # Add model names to data
+  data <- suppressMessages(dplyr::bind_cols(model_names_seq, data_noid)) %>%
+    dplyr::rename("model" = "...1") %>%
+    dplyr::mutate(model = stringr::str_remove_all(model, "[[:digit:]]$"))
+
+  # Clean
+  data <- data %>%
+    # Add state names
     dplyr::left_join(readRDS(here::here("utils/state_codes.rds")), by = "location") %>%
-    # unclear bug where there seems to be a numerical error somewhere
-    dplyr::mutate(quantile = round(quantile, 3))
-  
-  return(forecasts)
+    # Set variable types
+    dplyr::mutate(quantile = round(as.numeric(quantile), 3),
+                  value = as.numeric(value),
+                  forecast_date = lubridate::ymd(forecast_date),
+                  submission_date = lubridate::ymd(submission_date),
+                  target_end_date = lubridate::ymd(target_end_date))
+
+  return(data)
   
 }
 
 
 
-
-
-
-
+# Samples -----------------------------------------------------------------
+# NOT CLEANED IN LINE WITH ABOVE - NOT FOR USE
 
 load_sample_files <- function(dates = c("latest", "all"), 
                               num_last = NULL,
@@ -400,9 +308,5 @@ load_sample_files <- function(dates = c("latest", "all"),
   return(forecasts)
   
 }
-
-
-
-
 
 

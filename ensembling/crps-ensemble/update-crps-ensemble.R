@@ -152,6 +152,6 @@ data.table::fwrite(combined, here::here("ensembling", "crps-ensemble",
                                             paste0(forecast_date, "-epiforecasts-ensemble1-crps.csv")))
 # write Latest files
 data.table::fwrite(combined, here::here("ensembling", "crps-ensemble", "submission-files",
-                                            paste0("latest-epiforecasts-ensemble1-crps.csv")))
+                                            paste0("latest.csv")))
 
 

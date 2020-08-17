@@ -9,11 +9,11 @@ source(here::here("utils", "current-forecast-submission-date.R"))
 
 # Load Forecasts ---------------------------------------------------------------
 forecasts <- load_submission_files(dates = "latest",
-                                   models = c("rt-2", "deaths-only", "deaths-on-cases"))
+                                   models = "single")
 
 # get forecast_date
 # forecast_date <- Sys.Date()
-# forecast_date <- max(forecasts$forecast_date)
+forecast_date <- max(forecasts$forecast_date)
 
 # average quantiles ------------------------------------------------------------
 
@@ -37,7 +37,8 @@ mean_ensemble <- forecasts_wide %>%
   dplyr::select(-dplyr::all_of(models)) %>%
   dplyr::select(submission_date, target, target_end_date, location, type, quantile, value) %>%
   # round values after ensembling
-  dplyr::mutate(value = round(value)) 
+  dplyr::mutate(value = round(value),
+                forecast_date = forecast_date) 
 
 
 # store as csv submission ------------------------------------------------------
@@ -48,4 +49,4 @@ data.table::fwrite(mean_ensemble, here::here("ensembling", "quantile-average",
                                              paste0(forecast_date, "-epiforecasts-ensemble1-qa.csv")))
 # Latest
 data.table::fwrite(mean_ensemble, here::here("ensembling", "quantile-average", "submission-files",
-                                             paste0("latest-epiforecasts-ensemble1-qa.csv")))
+                                             paste0("latest.csv")))

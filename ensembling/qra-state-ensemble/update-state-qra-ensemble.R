@@ -9,10 +9,10 @@ source(here::here("utils", "load-submissions-function.R"))
 # Get past forecasts
 past_forecasts <- load_submission_files(dates = "all",
                                         num_last = 4, #
-                                        models = c("rt-2",  "deaths-only", "deaths-on-cases")) 
+                                        models = "single") 
 # Get latest forecasts
 latest_forecasts <- load_submission_files(dates = "latest",
-                                          models = c("rt-2", "deaths-only", "deaths-on-cases"))
+                                          models = "single")
 
 # Get observed deaths
 source(here::here("utils", "get-us-data.R"))
@@ -56,7 +56,7 @@ data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-state-ensemble",
                                             paste0(forecast_date, "-epiforecasts-ensemble1-qra.csv")))
 # write Latest files
 data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-state-ensemble", "submission-files",
-                                            "latest-epiforecasts-ensemble1-qra.csv"))
+                                            "latest.csv"))
 
 # Look at weights ---------------------------------------------------------
 state_qra <- purrr::map(states,
