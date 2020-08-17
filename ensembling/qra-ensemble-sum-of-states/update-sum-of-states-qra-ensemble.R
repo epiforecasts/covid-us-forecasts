@@ -2,7 +2,7 @@
 library(magrittr); library(ggplot2); library(dplyr); library(tidyr); library(cowplot); library(data.table)
 
 # load latest qra-ensemble
-state_qra <- readr::read_csv(file = file = here::here("ensembling",
+state_qra <- readr::read_csv(file = here::here("ensembling",
                                                       "qra-state-ensemble",
                                                       "submission-files",
                                                       "latest.csv"))
@@ -11,7 +11,7 @@ state_qra <- readr::read_csv(file = file = here::here("ensembling",
 national_qra <- state_qra %>%
   dplyr::filter(location != "US") %>%
   dplyr::group_by(forecast_date, submission_date, target, target_end_date, type, quantile) %>%
-  dplyr::summarise(value = sum(value)) %>%
+  dplyr::summarise(value = sum(value), .groups = "drop") %>%
   dplyr::mutate(location = "US") %>%
   dplyr::bind_rows(state_qra %>%
                      dplyr::filter(location != "US")) %>%
