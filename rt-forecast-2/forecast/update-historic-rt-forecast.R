@@ -1,3 +1,10 @@
+
+# Set submission dates ----------------------------------------------------
+
+all_dates <- readRDS(here::here("utils", "all_dates.rds"))
+submission_dates <- sort(as.vector(all_dates$submissions), decreasing = TRUE)
+last_four_submissions <- submission_dates[2:5]
+
 # Load in Rt forecast data ------------------------------------------------
 
 source(here::here("rt-forecast-2", "forecast", "get-default-rt-data.R"))
@@ -8,5 +15,5 @@ source(here::here("rt-forecast-2", "forecast", "run-rt-forecast.R"))
 
 # Run forecast for current data -------------------------------------------
 
-run_rt_forecast(deaths)
+purrr::walk(submission_dates, ~ run_rt_forecast(deaths = deaths, submission_date = .))
 
