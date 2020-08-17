@@ -31,13 +31,15 @@ deaths <- deaths_raw %>%
 
 
 # Past forecasts ----------------------------------------------------------
-# submission_dates <- c("2020-07-27", "2020-07-20", "2020-07-13") # , "2020-07-06", "2020-06-29", "2020-06-22","2020-06-15")
+# all_dates <- readRDS(here::here("utils", "all_dates.rds"))
+# submission_dates <- sort(as.vector(all_dates$submissions), decreasing = TRUE)
+# last_four_submissions <- submission_dates[2:5]
 # 
-# for(i in submission_dates){
+# for(i in last_four_submissions){
 #   
 # submission_date <- i
 # 
-# deaths_past <- dplyr::filter(deaths, date < submission_date)
+# deaths <- dplyr::filter(deaths, date < submission_date)
 
 # Format for epinow2 ------------------------------------------------------
 
