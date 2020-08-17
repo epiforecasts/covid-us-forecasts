@@ -24,6 +24,9 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
     models <- models[!targets_present]
   }
   
+  if(length(models) == 0){
+    return(invisible(NULL))
+  }
 
   # Format for epinow2 ------------------------------------------------------
   
