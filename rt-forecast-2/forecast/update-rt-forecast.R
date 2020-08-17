@@ -79,38 +79,33 @@ summary <- purrr::map(models, ~ paste0("rt-forecast-2/forecast/deaths_forecast/"
 names(summary) <- models
 
   
+
+
+# Set up common settings --------------------------------------------------
+
+  std_regional_epinow <- purrr::partial(regional_epinow, 
+                                        reported_cases = deaths,
+                                        generation_time = generation_time,
+                                        delays = list(incubation_period, reporting_delay),
+                                        horizon = 30,
+                                        samples = 2000,
+                                        warmup = 500,
+                                        burn_in = 14,
+                                        adapt_delta = 0.98,
+                                        cores = no_cores,
+                                        chains = ifelse(no_cores <= 2, 2, no_cores),
+                                        return_estimates = FALSE, verbose = FALSE
+                                        )
 # Run Rt - ORIGINAL -------------------------------------------------------
 
-  regional_epinow(reported_cases = deaths,
-                generation_time = generation_time,
-                delays = list(incubation_period, reporting_delay),
-                horizon = 30,
-                samples = 2000,
-                warmup = 500,
-                burn_in = 14,
-                adapt_delta = 0.98,
-                cores = no_cores,
-                chains = ifelse(no_cores <= 2, 2, no_cores),
-                target_folder = targets[["original"]],
-                summary_dir = summary[["original"]],
-                return_estimates = FALSE, verbose = FALSE)
+   std_regional_epinow(target_folder = targets[["original"]],
+                       summary_dir = summary[["original"]])
   
 # Run Rt - FIXED RT --------------------------------------------------
 
-  regional_epinow(reported_cases = deaths,
-                  generation_time = generation_time,
-                  delays = list(incubation_period, reporting_delay),
-                  horizon = 30,
-                  samples = 2000,
-                  warmup = 500,
-                  burn_in = 14,
-                  adapt_delta = 0.98,
-                  fixed_future_rt = TRUE,
-                  cores = no_cores,
-                  chains = ifelse(no_cores <= 2, 2, no_cores),
-                  target_folder = targets[["fixed_rt"]],
-                  summary_dir = summary[["fixed_rt"]],
-                  return_estimates = FALSE, verbose = FALSE)
+  std_regional_epinow(target_folder = targets[["fixed_rt"]],
+                      summary_dir = summary[["fixed_rt"]],
+                      fixed_future_rt = TRUE)
 
 # Add more models here ----------------------------------------------------
 
