@@ -18,9 +18,7 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
   
   
   if (!rerun) {
-    targets_present <- purrr::map_lgl(targets, ~ dir.exists(file.path(., "US",
-                                                                      lubridate::ymd(submission_date) -
-                                                                        lubridate::days(1))))
+    targets_present <- purrr::map_lgl(targets, ~ dir.exists(file.path(., "US", submission_date)))
     
     models <- models[!targets_present]
   }
