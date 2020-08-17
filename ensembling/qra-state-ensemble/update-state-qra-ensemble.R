@@ -11,7 +11,8 @@ past_forecasts <- load_submission_files(dates = "all",
                                         num_last = 4, #
                                         models = "single") 
 # Get latest forecasts
-latest_forecasts <- load_submission_files(dates = "latest",
+latest_forecasts <- load_submission_files(dates = "all",
+                                          num_last = 1,
                                           models = "single")
 
 # Get observed deaths
@@ -89,6 +90,6 @@ ggsave(qra_plot, here::here("ensembling", "qra-state-ensemble", "weights",
 qra_average <- qra_ensemble %>%
   tidyr::pivot_wider(names_from = model, values_from = weight)
 
-readRDS(qra_average, here::here("ensembling", "qra-state-ensemble", "weights",
+saveRDS(qra_average, here::here("ensembling", "qra-state-ensemble", "weights",
                                 paste0(forecast_date, "-qra-state-weights.rds")))
 
