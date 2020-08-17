@@ -66,8 +66,18 @@ setup_future <- function(jobs) {
 
 no_cores <- setup_future(length(unique(deaths$region)))
 
-# Run Rt estimation -------------------------------------------------------
-start_time <- Sys.time()
+
+# Set up directories for models -------------------------------------------
+models <- list("original", "fixed_rt")
+
+targets <- purrr::map(models, ~ paste0("rt-forecast-2/forecast/deaths_forecast/", .x, "/state"))
+names(targets) <- models
+
+summary <- purrr::map(models, ~ paste0("rt-forecast-2/forecast/deaths_forecast/", .x, "/summary"))
+names(summary) <- models
+
+  
+# Run Rt - ORIGINAL -------------------------------------------------------
 
   regional_epinow(reported_cases = deaths,
                 generation_time = generation_time,
@@ -79,17 +89,32 @@ start_time <- Sys.time()
                 adapt_delta = 0.98,
                 cores = no_cores,
                 chains = ifelse(no_cores <= 2, 2, no_cores),
-                target_folder = "rt-forecast-2/forecast/deaths/state",
-                summary_dir = "rt-forecast-2/forecast/deaths/summary",
+                target_folder = targets[["original"]],
+                summary_dir = summary[["original"]],
                 return_estimates = FALSE, verbose = FALSE)
+  
+# Run Rt - FIXED RT --------------------------------------------------
+
+  regional_epinow(reported_cases = deaths,
+                  generation_time = generation_time,
+                  delays = list(incubation_period, reporting_delay),
+                  horizon = 30,
+                  samples = 2000,
+                  warmup = 500,
+                  burn_in = 14,
+                  adapt_delta = 0.98,
+                  fixed_future_rt = TRUE,
+                  cores = no_cores,
+                  chains = ifelse(no_cores <= 2, 2, no_cores),
+                  target_folder = targets[["fixed_rt"]],
+                  summary_dir = summary[["fixed_rt"]],
+                  return_estimates = FALSE, verbose = FALSE)
+
+# Add more models here ----------------------------------------------------
 
 
-# Past forecasts:
+# Past forecasts ----------------------------------------------------------
 # End for loop
 # }
 
-end_time <- Sys.time()
-run_time_mins <- end_time - start_time
-time <- cbind(as.character(start_time), start_time, end_time, run_time_mins)
 
-saveRDS(time, here::here("utils/epinow2_runtime.rds"))

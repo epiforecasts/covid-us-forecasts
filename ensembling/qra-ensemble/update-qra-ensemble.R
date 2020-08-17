@@ -9,7 +9,7 @@ source(here::here("utils", "load-submissions-function.R"))
 # load past forecasts
 past_forecasts <- load_submission_files(dates = "all",
                                         num_last = 4, #
-                                        models = c("rt-2",  "deaths-only", "deaths-on-cases")) 
+                                        models = "single") 
 
 # create complete set
 ## Note: code to remove duplicates has been commented out. 
@@ -91,7 +91,7 @@ message(paste0("\n", models, "\n", model_weights, "\n"))
 
 # ensembling -------------------------------------------------------------------
 forecasts <- load_submission_files(dates = "latest",
-                                   models = c("rt-2", "deaths-only", "deaths-on-cases"))
+                                   models = "single")
 
 # pivot_wider
 forecasts_wide <- forecasts %>%
@@ -123,5 +123,5 @@ data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-ensemble",
                                             paste0(forecast_date, "-epiforecasts-ensemble1-qra.csv")))
 # write Latest files
 data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-ensemble", "submission-files",
-                                            paste0("latest-epiforecasts-ensemble1-qra.csv")))
+                                            paste0("latest.csv")))
 
