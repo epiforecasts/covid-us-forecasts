@@ -50,15 +50,15 @@ load_submission_files <- function(dates = "all",
     
     files <- models %>%
       # Get file paths
-      purrr::map( ~ paste0(.x[["root"]], .x[["submission_files"]], "/",
-                           list.files(path = paste0(.x[["root"]], .x[["submission_files"]]), pattern = ".csv")))
+      purrr::map( ~ here::here(.x[["root"]], .x[["submission_files"]],
+                           list.files(path = here::here(.x[["root"]], .x[["submission_files"]]), pattern = ".csv")))
     
   } else {
     
     # For dated:
     files <- models %>%
-      purrr::map( ~ paste0(.x[["root"]], .x[["submission_files"]], "/dated/",
-                          list.files(path = paste0(.x[["root"]], .x[["submission_files"]], "/dated/"), 
+      purrr::map( ~ here::here(.x[["root"]], .x[["submission_files"]], "dated",
+                          list.files(path = here::here(.x[["root"]], .x[["submission_files"]], "dated"), 
                                       pattern = ".csv")))
     # Keep only some dates if specified
     if(!is.null(num_last)){
