@@ -25,7 +25,7 @@ format_rt <- function(forecast_date) {
     
     forecasts_raw <- suppressWarnings(
       EpiNow2::get_regional_results(results_dir = file.path(forecast_dir, "state"),
-                                                   date = forecast_date - lubridate::days(1),
+                                                   date = lubridate::ymd(forecast_date) - lubridate::days(1),
                                                    forecast = TRUE)$estimated_reported_cases$samples
     )
     
