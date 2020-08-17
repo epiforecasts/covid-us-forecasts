@@ -1,8 +1,11 @@
 
 # Set up running a single Rt forecast -------------------------------------
 
-run_rt_forecast <- function(deaths, submission_date) {
+run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
   
+  if (is.missing(submission_date)) {
+    rerun <- TRUE
+  }
   # Set up directories for models -------------------------------------------
   models <- list("original", "fixed_rt")
   
@@ -13,6 +16,13 @@ run_rt_forecast <- function(deaths, submission_date) {
   names(summary) <- models
   
   
+  if (!rerun) {
+    targets_present <- purrr::map_lgl(targets, ~ dir.exists(file.path(., "US", submission_date)))
+    
+    models <- models[!targets_present]
+  }
+  
+
   # Format for epinow2 ------------------------------------------------------
   
   if (!is.missing(submission_date)) {
@@ -42,16 +52,19 @@ run_rt_forecast <- function(deaths, submission_date) {
                                         return_estimates = FALSE, verbose = FALSE
   )
   # Run Rt - ORIGINAL -------------------------------------------------------
-  
-  std_regional_epinow(target_folder = targets[["original"]],
-                      summary_dir = summary[["original"]])
-  
+  if (models %in% "original") {
+    std_regional_epinow(target_folder = targets[["original"]],
+                        summary_dir = summary[["original"]])
+  }
+
   # Run Rt - FIXED RT --------------------------------------------------
   
-  std_regional_epinow(target_folder = targets[["fixed_rt"]],
-                      summary_dir = summary[["fixed_rt"]],
-                      fixed_future_rt = TRUE)
-  
+  if (models %in% "fixed_rt") {
+    std_regional_epinow(target_folder = targets[["fixed_rt"]],
+                        summary_dir = summary[["fixed_rt"]],
+                        fixed_future_rt = TRUE)
+  }
+
   # Add more models here ----------------------------------------------------
   
   return(invisible(NULL))
