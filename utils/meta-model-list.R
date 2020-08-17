@@ -22,7 +22,7 @@ model_list <- list(
            "submission_files" = "output/original/submission-files",
            "colour" = "#FF0000"),
     # Rt Epinow2 - fixed Rt
-    "rt2_fixed" = 
+    "rt2_fixed" =
       list("name" = "Rt2 fixed rt",
            "root" = "rt-forecast-2",
            "update" = "update.R",

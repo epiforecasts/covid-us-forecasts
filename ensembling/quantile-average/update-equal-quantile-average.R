@@ -8,7 +8,8 @@ source(here::here("utils", "current-forecast-submission-date.R"))
 
 
 # Load Forecasts ---------------------------------------------------------------
-forecasts <- load_submission_files(dates = "latest",
+forecasts <- load_submission_files(dates = "all",
+                                   num_last = 1,
                                    models = "single")
 
 # get forecast_date

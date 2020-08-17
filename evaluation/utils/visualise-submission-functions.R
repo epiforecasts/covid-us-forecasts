@@ -40,7 +40,8 @@ plot_forecasts = function(national = TRUE,
   model_list <- readRDS(here::here("utils", "model_list.rds"))
   
   ## Get most recent Rt forecast 
-  forecasts <- load_submission_files(dates = "latest",
+  forecasts <- load_submission_files(dates = "all",
+                                     num_last = 1,
                                      models = models)
   
   # Rename models for nicer plots
