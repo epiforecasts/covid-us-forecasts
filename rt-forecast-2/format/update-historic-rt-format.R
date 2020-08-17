@@ -6,7 +6,7 @@ forecast_dates <- forecast_dates[2:5]
 
 # Get format function -----------------------------------------------------
 
-source(here::here("rt-forecast-2", "format", "utils", "format-rt.R "))
+source(here::here("rt-forecast-2", "format", "utils", "format-rt.R"))
 
 # Format forecast ---------------------------------------------------------
 
