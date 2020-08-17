@@ -9,7 +9,7 @@ update <- models %>%
   purrr::flatten() %>%
   purrr::map( ~ paste0(.x[["root"]], .x[["update"]]))
 
-for(i in update){
-  source(i)
-}
+
+purrr::walk(update, source)
+
 
