@@ -1,7 +1,7 @@
 
 # Get format function -----------------------------------------------------
 
-source(here::here("rt-forecast-2", "format", "utils", "format-rt.R "))
+source(here::here("rt-forecast-2", "format", "utils", "format-rt.R"))
 
 # Get latest submission date ---------------------------------------------
 # Latest forecast
