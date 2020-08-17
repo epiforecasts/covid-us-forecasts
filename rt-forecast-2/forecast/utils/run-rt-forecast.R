@@ -3,7 +3,7 @@
 
 run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
   
-  if (is.missing(submission_date)) {
+  if (missing(submission_date)) {
     rerun <- TRUE
   }
   # Set up directories for models -------------------------------------------
@@ -25,7 +25,7 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
 
   # Format for epinow2 ------------------------------------------------------
   
-  if (!is.missing(submission_date)) {
+  if (!missing(submission_date)) {
     deaths <- dplyr::filter(deaths, date < submission_date)
   }
   
