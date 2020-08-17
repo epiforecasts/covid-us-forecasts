@@ -9,7 +9,8 @@ require(ggplot2)
 require(cowplot)
 require(data.table)
 
-rt_file_names <- c("original", "fixed_rt")
+
+rt_models <- c("original", "fixed_rt")
 
 for(i in rt_models){
 
@@ -18,25 +19,25 @@ for(i in rt_models){
   forecast_dir <- paste0(here::here("rt-forecast-2/forecast/deaths_forecast", i, "/"))
   output_dir <- paste0(here::here("rt-forecast-2/output", i, "/"))
   
-  
-  # Load forecasts ----------------------------------------------------------
-  
+
+# Set dates ---------------------------------------------------------------
   # Latest forecast
-  
   source(here::here("utils", "current-forecast-submission-date.R"))
+  
+  # Format past forecasts ---------------------------------------------------
+  # all_dates <- readRDS(here::here("utils", "all_dates.rds"))
+  # submission_dates <- sort(as.vector(all_dates$submissions), decreasing = TRUE
+  # last_four_submissions <- submission_dates[2:5]
+  # 
+  # for(i in last_four_submissions){
+  # 
+  # submission_date <- i
+  # forecast_date <- submission_date
+
+  # Load forecasts ----------------------------------------------------------
   
   forecasts_raw <- EpiNow2::get_regional_results(results_dir = paste0(forecast_dir, "state"),
                                                  date = "latest", forecast = TRUE)$estimated_reported_cases$samples
-  
-  
-  # Format past forecasts ---------------------------------------------------
-  # 
-  # forecast_date <- "2020-07-19"
-  # submission_date <- "2020-07-20"
-  # 
-  # forecasts_raw <- EpiNow2::get_regional_results(results_dir = here::here("rt-forecast-2/forecast/deaths/state"),
-  #                                                date = forecast_date, forecast = TRUE)
-  # forecasts_raw <- forecasts_raw$estimated_reported_cases$samples
   
   # Format samples ----------------------------------------------------------
   data.table::setnames(forecasts_raw, old = c("region", "cases"), new = c("state", "deaths"))
@@ -70,6 +71,11 @@ for(i in rt_models){
   
   readr::write_csv(formatted_forecasts, 
                    paste0(output_dir, "submission-files/latest.csv"))
+  
+  # Format past forecasts ---------------------------------------------------
+  # end for loop
+  # }
+  
 
 }
 
