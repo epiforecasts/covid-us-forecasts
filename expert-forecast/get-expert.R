@@ -49,11 +49,14 @@ get_expert_elicitation = function(){
     mutate(model = "Expert consensus") %>%
     select(model, forecast_date, target_week_end, state, point, quantile0.05, quantile0.95)
   
+  # Forecast submission date
+  forecast_date <- lubridate::floor_date(Sys.Date(), unit = "week", week_start = 1)
   
-  saveRDS(anon_expert, file = paste0("expert-forecast/raw-rds/", Sys.Date(), "-ind-expert.rds"))
+  # Save
+  saveRDS(anon_expert, file = paste0("expert-forecast/raw-rds/", forecast_date, "-ind-expert.rds"))
   saveRDS(anon_expert, file = paste0("expert-forecast/raw-rds/latest-ind-expert.rds"))
   
-  saveRDS(final_expert, file = paste0("expert-forecast/raw-rds/", Sys.Date(), "-agg-expert.rds"))
+  saveRDS(final_expert, file = paste0("expert-forecast/raw-rds/", forecast_date, "-agg-expert.rds"))
   saveRDS(final_expert, file = paste0("expert-forecast/raw-rds/latest-agg-expert.rds"))
   
   
