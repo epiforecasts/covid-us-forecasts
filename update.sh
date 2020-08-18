@@ -11,8 +11,14 @@ Rscript utils/current-forecast-submission-date.R
 # update visualisation of the data without forecasts
 Rscript evaluation/utils/update-visualise-raw-data.R
 
-# Update all models, single and ensembles
-Rscript utils/update-all-models.R
+# Update single models
+Rscript utils/update-single-models.R
+
+# # Update intermediate models (expert etc.)
+# Rscript utils/update-intermediate-models.R
+
+# Update ensembles models
+Rscript utils/update-ensemble-models.R
 
 # Update evaluation
 Rscript evaluation/update.R

@@ -5,8 +5,7 @@ library(magrittr)
 
 models <- readRDS(here::here("utils", "model_list.rds"))
 
-update <- models %>%
-  purrr::flatten() %>%
+update <- models$ensemble_models %>%
   purrr::map( ~ here::here(file.path(.x[["root"]]), .x[["update"]])) %>% 
   unique()
 
