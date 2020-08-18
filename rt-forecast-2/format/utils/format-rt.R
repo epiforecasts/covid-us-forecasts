@@ -12,7 +12,7 @@ require(data.table)
 
 format_rt <- function(forecast_date, submission_date) {
   
-  rt_models <- c("original", "fixed_rt")
+  rt_models <- c("original", "fixed_future_rt", "no_daily_effect", "minimal_delay", "fixed_rt")
   
   for(i in rt_models){
     
@@ -20,6 +20,21 @@ format_rt <- function(forecast_date, submission_date) {
     
     forecast_dir <- here::here("rt-forecast-2/forecast/deaths_forecast", i)
     output_dir <- here::here("rt-forecast-2/output", i)
+    
+    
+
+    # Create results directories if not present --------------------------------
+    create_dir <- function(new_dir) {
+      if (!dir.exists(paste0(output_dir, "/", new_dir))) {
+        dir.create(paste0(output_dir, "/", new_dir))
+      }
+      
+      return(invisible(NULL))
+    }
+
+    create_dir("samples")
+    create_dir("submission-files")
+    create_dir("submission-files/dated")
     
     # Load forecasts ----------------------------------------------------------
     
