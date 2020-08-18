@@ -7,36 +7,51 @@
 format_expert_elicitation = function(for_forecast_date,
                                      submission_quantiles = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99)){
   
-  # Get cumulative weekly data
+
+  # Cumulative data ---------------------------------------------------------
   
-  cumulative_data <- readRDS(here::here("data", "deaths-data-cumulative.rds")) %>%
-    dplyr::mutate(epiweek = lubridate::epiweek(date))
+  # --- Get cumulative weekly data ---
+  cumulative_data <- get_us_deaths(data = "cumulative")
   
-  ## State cumulative data
+  # State cumulative data
   cumulative_deaths_state <- cumulative_data %>%
-    dplyr::group_by(state) %>%
-    dplyr::filter(date == lubridate::floor_date(as.Date(for_forecast_date), unit = "week", week_start = 7)-1) %>%
-    dplyr::ungroup()
+    dates_to_epiweek() %>%
+    dplyr::filter(epiweek_end == TRUE)
   
-  ## National cumulative data
+  # National cumulative data
   cumulative_deaths_national <- cumulative_deaths_state %>%
-    dplyr::group_by(date) %>%
+    dplyr::group_by(epiweek) %>%
     dplyr::summarise(deaths = sum(deaths),
-                     state = "US") %>%
+                     state = "US",
+                     .groups = "drop_last") %>%
     dplyr::ungroup()
   
-  ## Bind
+  # Bind
   cumulative_deaths <- dplyr::bind_rows(cumulative_deaths_state, cumulative_deaths_national)
   
+  # Filter to last week of data shown to model
+  last_week_cumulative_deaths <- cumulative_deaths %>%
+    dplyr::filter(epiweek == max(epiweek)-1) %>%
+    dplyr::select(-epiweek, -date)
   
-  # Load most recently downloaded aggregated expert data
-  raw_expert_elicitation <- readRDS(file = "expert-forecast/raw-rds/latest-agg-expert.rds") %>%
-    filter(forecast_date == as.Date(for_forecast_date))
+  
+
+  # Expert forecasts --------------------------------------------------------
+  
+  for_forecast_date <- lubridate::floor_date(as.Date(for_forecast_date), unit = "week", week_start = 1)
+  
+  file_path <- here::here("expert-forecast", "raw-rds", paste0(for_forecast_date, "-agg-expert.rds"))
+
+  raw_expert_elicitation <- readRDS(file = file_path) %>%
+    dplyr::filter(forecast_date == as.Date(for_forecast_date))
   
   
   # Process expert forecasts for SHELF; save expert names
   expert_vals <- raw_expert_elicitation %>%
-    select(quantile0.05, point, quantile0.95) %>%
+    dplyr::mutate(point = pmax(point, 1),
+                  quantile0.05 = pmax(quantile0.05, 1),
+                  quantile0.95 = pmax(quantile0.95, 1)) %>%
+    dplyr::select(quantile0.05, point, quantile0.95) %>%
     t() %>%
     as.matrix()
   expert_names <- raw_expert_elicitation %>%
@@ -61,7 +76,7 @@ format_expert_elicitation = function(for_forecast_date,
                 unique() %>%
                 rbind(c("US", "US")),
               by = c("state" = "state_name")) %>%
-    left_join(cumulative_deaths %>% select(state, deaths), by = "state") %>%
+    left_join(last_week_cumulative_deaths %>% select(state, deaths), by = "state") %>%
     mutate(forecast_date = as.Date(for_forecast_date),
            type = "quantile",
            horizon = ceiling(as.numeric(difftime(target_week_end, forecast_date, unit = "weeks"))),
