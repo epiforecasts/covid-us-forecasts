@@ -38,6 +38,7 @@ LSHTM, Centre for Mathematical Modelling of Infectious Disease:
 For an end-to-end run (including new Rt and timeseries models, mean and QRA ensembles, formatted ready for submission):
 - Run `system("update.sh")`
 - Check the output by looking plots saved in the most recent folder: `evaluation/plots/yyyy-mm-dd`
+- Share the link to the expert forecasting app (https://epiforecasts.shinyapps.io/expert-forecast-app/) in the epiforecasts Slack channel; 5 states will be randomly chosen, but these can be edited on the Google Sheet.
 - A properly formatted csv, ready to be submitted to the Reich forecast hub, will be saved in 
   - `final-submissions/death-forecast/yyyy-mm-dd-epiforecasts-ensemble1.csv`
 
