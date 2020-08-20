@@ -6,9 +6,9 @@ plot_forecasts = function(national = TRUE,
   
   
   # Get observed data ------------------------------------------------------------------
-  source(here::here("utils", "get-us-data.R"))
+  source(here::here("utils", "get-german-data.R"))
   
-  daily_deaths_state <- get_us_deaths(data = "daily") %>%
+  daily_deaths_state <- get_german_deaths(data = "daily") %>%
     dplyr::mutate(day = ordered(weekdays(as.Date(date)), 
                                 levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")),
                   epiweek_day = as.numeric(paste0(epiweek, ".", as.numeric(day))))
@@ -69,7 +69,7 @@ plot_forecasts = function(national = TRUE,
     dplyr::ungroup() 
   
   forecasts_national <- forecasts %>%
-    dplyr::filter(state %in% "US",
+    dplyr::filter(state %in% "GM",
                   grepl("inc", target)) %>%
     dplyr::group_by(state, target_end_date, model) %>%
     dplyr::mutate(quantile = stringr::str_c("c", quantile)) %>%
@@ -91,7 +91,7 @@ plot_forecasts = function(national = TRUE,
   # Identify and filter which states to keep -------------------------------------------
   if (national) {
     plot_national <- bind_rows(forecasts_national, observed_deaths_national) %>%
-      dplyr::mutate(state = "US")
+      dplyr::mutate(state = "GM")
     
     plot_df <- plot_national
     

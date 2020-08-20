@@ -32,7 +32,7 @@ get_german_deaths <- function(data = "daily", anomaly_threshold = 100, check_adj
                                    dplyr::lag(deaths, n = 1),
                                    deaths)) %>%
      dplyr::ungroup() %>%
-     dplyr::select(state, date, epiweek, deaths)
+     dplyr::select(state, date, epiweek, deaths, state_code = location)
    
    
    # Re-accumulate over adjusted data

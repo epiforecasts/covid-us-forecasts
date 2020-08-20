@@ -3,10 +3,10 @@ plot_raw_data = function(national = TRUE,
                          obs_weeks = 8,
                          exclude_new_epiweek = FALSE){
   
-  source(here::here("utils", "get-us-data.R"))
+  source(here::here("utils", "get-german-data.R"))
   
   # Get observed data ------------------------------------------------------------------
-  daily_deaths_state <- get_us_deaths(data = "daily") %>%
+  daily_deaths_state <- get_german_deaths(data = "daily") %>%
     dplyr::mutate(day = ordered(weekdays(as.Date(date)), 
                                 levels=c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")),
                   epiweek_day = as.numeric(paste0(epiweek, ".", as.numeric(day))))
@@ -41,7 +41,7 @@ plot_raw_data = function(national = TRUE,
   
   observed_deaths_national <- weekly_deaths_national %>%
     dplyr::mutate(model = "Observed",
-                  state = "US") %>%
+                  state = "GM") %>%
     dplyr::filter(epiweek >= (max(epiweek) - obs_weeks)) %>% 
     dplyr::select(-epiweek, c0.5 = deaths)
   
@@ -49,7 +49,7 @@ plot_raw_data = function(national = TRUE,
   if (national) {
     
     plot_national <- observed_deaths_national %>%
-      dplyr::mutate(state = "US")
+      dplyr::mutate(state = "GM")
     
     plot_df <- plot_national
     

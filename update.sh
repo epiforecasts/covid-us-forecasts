@@ -3,7 +3,7 @@
 # Source this script to run a complete submission update end-to-end
 
 # Update the data
-Rscript utils/get-us-data.R
+Rscript utils/get-german-data.R
 
 # Update forecast and submission dates
 Rscript utils/current-forecast-submission-date.R
