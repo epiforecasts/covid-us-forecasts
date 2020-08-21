@@ -10,7 +10,7 @@ require(cowplot)
 require(data.table)
 
 
-format_rt <- function(forecast_date, submission_date) {
+format_rt <- function(forecast_date, submission_date, include_latest = FALSE) {
   
   rt_models <- c("original", "fixed_future_rt", "no_daily_effect", "minimal_delay", "fixed_rt")
   
@@ -74,9 +74,10 @@ format_rt <- function(forecast_date, submission_date) {
     readr::write_csv(formatted_forecasts, 
                      paste0(output_dir, "/submission-files/dated/", submission_date, "-rt-2-forecast.csv"))
     
-    readr::write_csv(formatted_forecasts, 
-                     paste0(output_dir, "/submission-files/latest.csv"))
-    
+    if (include_latest) {
+      readr::write_csv(formatted_forecasts, 
+                       paste0(output_dir, "/submission-files/latest.csv"))
+    }
     
   }
   
