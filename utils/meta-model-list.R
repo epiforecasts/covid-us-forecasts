@@ -36,14 +36,14 @@ model_list <- list(
            "submission_files" = "output/fixed_rt/submission-files",
            "colour" = "#FF0110"),
     # Rt Epinow2 - minimal delays
-    "rt2_fixed" =
+    "rt2_minimal_delay" =
       list("name" = "Rt2 minimal delays",
            "root" = "rt-forecast-2",
            "update" = "update.R",
            "submission_files" = "output/minimal_delay/submission-files",
            "colour" = "#FF0130"),
     # Rt Epinow2 - minimal delays
-    "rt2_fixed" =
+    "rt2_no_daily_effect" =
       list("name" = "Rt2 no daily effect",
            "root" = "rt-forecast-2",
            "update" = "update.R",
