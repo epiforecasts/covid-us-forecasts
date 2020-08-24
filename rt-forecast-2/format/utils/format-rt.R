@@ -10,9 +10,9 @@ require(cowplot)
 require(data.table)
 
 
-format_rt <- function(forecast_date, submission_date) {
+format_rt <- function(forecast_date, submission_date, include_latest = FALSE) {
   
-  rt_models <- c("original", "fixed_rt")
+  rt_models <- c("original", "fixed_future_rt", "no_daily_effect", "fixed_rt")
   
   for(i in rt_models){
     
@@ -20,6 +20,21 @@ format_rt <- function(forecast_date, submission_date) {
     
     forecast_dir <- here::here("rt-forecast-2/forecast/deaths_forecast", i)
     output_dir <- here::here("rt-forecast-2/output", i)
+    
+    
+
+    # Create results directories if not present --------------------------------
+    create_dir <- function(new_dir) {
+      if (!dir.exists(paste0(output_dir, "/", new_dir))) {
+        dir.create(paste0(output_dir, "/", new_dir))
+      }
+      
+      return(invisible(NULL))
+    }
+
+    create_dir("samples")
+    create_dir("submission-files")
+    create_dir("submission-files/dated")
     
     # Load forecasts ----------------------------------------------------------
     
@@ -59,9 +74,10 @@ format_rt <- function(forecast_date, submission_date) {
     readr::write_csv(formatted_forecasts, 
                      paste0(output_dir, "/submission-files/dated/", submission_date, "-rt-2-forecast.csv"))
     
-    readr::write_csv(formatted_forecasts, 
-                     paste0(output_dir, "/submission-files/latest.csv"))
-    
+    if (include_latest) {
+      readr::write_csv(formatted_forecasts, 
+                       paste0(output_dir, "/submission-files/latest.csv"))
+    }
     
   }
   

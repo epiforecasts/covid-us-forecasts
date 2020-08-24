@@ -9,4 +9,4 @@ source(here::here("utils", "current-forecast-submission-date.R"))
 
 # Format forecast ---------------------------------------------------------
 
-format_rt(forecast_date, forecast_date)
+format_rt(forecast_date, forecast_date, include_latest = TRUE)
