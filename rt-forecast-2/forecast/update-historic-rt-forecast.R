@@ -3,7 +3,7 @@
 
 all_dates <- readRDS(here::here("utils", "all_dates.rds"))
 submission_dates <- sort(as.vector(all_dates$rt_forecasts), decreasing = TRUE)
-submission_dates <- submission_dates[2:5]
+submission_dates <- submission_dates[1:5]
 
 # Load in Rt forecast data ------------------------------------------------
 
