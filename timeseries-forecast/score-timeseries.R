@@ -44,13 +44,13 @@ score_timeseries <- function(data, sample_count, models, day_lag){
 # Score new forecasts ---------------------------------------------------------
 # Get functions and data
 source(here::here("timeseries-forecast", "timeseries-death-forecast.R"))
-source(here::here("utils", "get_us_data.R"))
+source(here::here("utils", "get_german_data.R"))
 
 # National forecast scores
-data_national <- get_us_deaths(data = "daily") %>%
+data_national <- get_german_deaths(data = "daily") %>%
   group_by(date) %>%
   summarise(deaths = sum(deaths)) %>%
-  mutate(state = "US")
+  mutate(state = "GM")
 score_national <- score_timeseries(
   # Set forecasting parameters
   data = data_national,
@@ -60,7 +60,7 @@ score_national <- score_timeseries(
   day_lag = 5)
 
 # State forecast scores
-data_state <- get_us_deaths(data = "daily") 
+data_state <- get_german_deaths(data = "daily") 
 score_state <- data_state %>%
   mutate(state1 = state) %>%
   group_by(state1) %>%

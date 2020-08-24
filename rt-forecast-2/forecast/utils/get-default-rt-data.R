@@ -12,10 +12,10 @@ reporting_delay <- readRDS(here::here("rt-forecast-2","forecast", "delays", "dat
 
 
 # Get deaths  ---------------------------------------------------------------
-source(here::here("utils", "get-us-data.R"))
+source(here::here("utils", "get-german-data.R"))
 
 # Get raw data
-deaths_raw <- get_us_deaths(data = "daily")
+deaths_raw <- get_german_deaths(data = "daily")
 
 # Reshape
 deaths_national <- deaths_raw %>%
