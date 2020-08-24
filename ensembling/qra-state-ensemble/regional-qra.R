@@ -75,7 +75,17 @@ regional_qra <- function(past_forecasts, latest_forecasts, deaths_data,
     return(weights)
   }
   
+  # Quick fix for where states have lost a model in the latest forecast
   model_weights <- ifelse(model_weights < 0, 0, model_weights)
+  
+  names(model_weights) <- models
+  
+  latest_models <- unique(latest_forecasts$model)
+  
+  if(length(latest_models) != length(model_weights)) {
+    models <- models[names(model_weights) %in% latest_models]
+    model_weights <- model_weights[names(model_weights) %in% latest_models]
+  }
   
   ### Ensemble current submission data
   # pivot_wider
@@ -87,12 +97,12 @@ regional_qra <- function(past_forecasts, latest_forecasts, deaths_data,
   
   qra_ensemble <- forecasts_wide %>%
     dplyr::mutate(ensemble = forecasts_wide %>% 
-                    dplyr::select(dplyr::all_of(models)) %>%
-                    as.matrix() %>%
-                    matrixStats::rowWeightedMeans(w = model_weights, 
-                                                  na.rm = TRUE)) %>%
+                                dplyr::select(dplyr::all_of(models)) %>%
+                                as.matrix() %>%
+                                matrixStats::rowWeightedMeans(w = model_weights, 
+                                                              na.rm = TRUE)) %>%
     dplyr::rename(value = ensemble) %>%
-    dplyr::select(-dplyr::all_of(models)) %>%
+    dplyr::select(-dplyr::any_of(models)) %>%
     dplyr::mutate(forecast_date = Sys.Date()) %>%
     dplyr::select(forecast_date, submission_date, target, target_end_date, location, type, quantile, value) %>%
     # round values after ensembling
