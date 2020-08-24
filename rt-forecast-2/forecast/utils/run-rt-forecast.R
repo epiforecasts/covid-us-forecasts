@@ -8,7 +8,7 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
     rerun <- TRUE
   }
   # Set up directories for models -------------------------------------------
-  models <- list("original", "fixed_future_rt", "no_daily_effect", "minimal_delay", "fixed_rt")
+  models <- list("original", "fixed_future_rt", "no_daily_effect", "fixed_rt")
   
   targets <- purrr::map(models, ~ paste0("rt-forecast-2/forecast/deaths_forecast/", .x, "/state"))
   names(targets) <- models
@@ -89,20 +89,20 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
 
 # Minimal delay -----------------------------------------------------------
 
-  if (models %in% "minimal_delay") {
-    std_regional_epinow(reported_cases = deaths,
-                        target_folder = targets[["minimal_delay"]],
-                        summary_dir = summary[["minimal_delay"]],
-                        delays = list(minimal_delay),
-                        fixed_future_rt = TRUE)
-  }  
-  
+  # if (models %in% "minimal_delay") {
+  #   std_regional_epinow(reported_cases = deaths,
+  #                       target_folder = targets[["minimal_delay"]],
+  #                       summary_dir = summary[["minimal_delay"]],
+  #                       delays = list(minimal_delay),
+  #                       fixed_future_rt = TRUE)
+  # }  
+  # 
 
 # Fixed Rt ----------------------------------------------------------------
 
   if (models %in% "fixed_rt") {
     std_regional_epinow(reported_cases = deaths[, 
-                      breakpoint := data.table::fifelse(date == c(max(date) - lubridate::days(28)), 1, 0)],
+                      breakpoint := data.table::fifelse(date == (max(date) - lubridate::days(28)), 1, 0)],
                         target_folder = targets[["fixed_rt"]],
                         summary_dir = summary[["fixed_rt"]],
                         delays = list(incubation_period, reporting_delay),

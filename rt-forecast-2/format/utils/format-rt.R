@@ -12,7 +12,7 @@ require(data.table)
 
 format_rt <- function(forecast_date, submission_date, include_latest = FALSE) {
   
-  rt_models <- c("original", "fixed_future_rt", "no_daily_effect", "minimal_delay", "fixed_rt")
+  rt_models <- c("original", "fixed_future_rt", "no_daily_effect", "fixed_rt")
   
   for(i in rt_models){
     
