@@ -26,7 +26,7 @@ format_rt <- function(forecast_date, submission_date, include_latest = FALSE) {
     # Create results directories if not present --------------------------------
     create_dir <- function(new_dir) {
       if (!dir.exists(paste0(output_dir, "/", new_dir))) {
-        dir.create(paste0(output_dir, "/", new_dir))
+        dir.create(paste0(output_dir, "/", new_dir), recursive = TRUE)
       }
       
       return(invisible(NULL))
