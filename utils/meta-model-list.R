@@ -35,20 +35,6 @@ model_list <- list(
            "update" = "update.R",
            "submission_files" = "output/fixed_rt/submission-files",
            "colour" = "#FF0110"),
-    # # Rt Epinow2 - minimal delays
-    # "rt2_fixed" =
-    #   list("name" = "Rt2 minimal delays",
-    #        "root" = "rt-forecast-2",
-    #        "update" = "update.R",
-    #        "submission_files" = "output/minimal_delay/submission-files",
-    #        "colour" = "#FF0130"),
-    # Rt Epinow2 - no daily effect
-    "rt2_no_daily_effect" =
-      list("name" = "Rt2 no daily effect",
-           "root" = "rt-forecast-2",
-           "update" = "update.R",
-           "submission_files" = "output/no_daily_effect/submission-files",
-           "colour" = "#FF0140"),
     # Timeseries - weekly
     "ts_weekly_deaths_only" = 
       list("name" = "TS weekly deaths",

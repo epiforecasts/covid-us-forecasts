@@ -8,7 +8,7 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
     rerun <- TRUE
   }
   # Set up directories for models -------------------------------------------
-  models <- list("original", "fixed_future_rt", "no_daily_effect", "fixed_rt")
+  models <- list("original", "fixed_future_rt", "fixed_rt")
   
   targets <- purrr::map(models, ~ paste0("rt-forecast-2/forecast/deaths_forecast/", .x, "/state"))
   names(targets) <- models
@@ -35,7 +35,7 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
   }
   
   deaths <- setDT(deaths)
-  deaths <- deaths[, .SD[date >= (max(date) - lubridate::weeks(12))], by = region]
+  deaths <- deaths[, .SD[date >= (max(date) - lubridate::weeks(8))], by = region]
   
   data.table::setorder(deaths, date)
   
@@ -56,48 +56,24 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
                                         return_estimates = FALSE, verbose = FALSE
   )
   # Run Rt - ORIGINAL -------------------------------------------------------
-  # if ("original" %in% models) {
-  #   std_regional_epinow(reported_cases = deaths,
-  #                       target_folder = targets[["original"]],
-  #                       summary_dir = summary[["original"]],
-  #                       delays = list(incubation_period, reporting_delay))
-  # }
+   if ("original" %in% models) {
+     std_regional_epinow(reported_cases = deaths,
+                         target_folder = targets[["original"]],
+                         summary_dir = summary[["original"]],
+                         delays = list(incubation_period, reporting_delay))
+   }
 
   # Run Rt - FIXED RT --------------------------------------------------
-  
-  # if ("fixed_future_rt" %in% models) {
-  #   std_regional_epinow(reported_cases = deaths,
-  #                       target_folder = targets[["fixed_future_rt"]],
-  #                       summary_dir = summary[["fixed_future_rt"]],
-  #                       delays = list(incubation_period, reporting_delay),
-  #                       fixed_future_rt = TRUE)
-  # }
+
+   if ("fixed_future_rt" %in% models) {
+     std_regional_epinow(reported_cases = deaths,
+                         target_folder = targets[["fixed_future_rt"]],
+                         summary_dir = summary[["fixed_future_rt"]],
+                         delays = list(incubation_period, reporting_delay),
+                         fixed_future_rt = TRUE)
+   }
 
   
-
-# Run no weekly reporting -------------------------------------------------
-# 
-#   if ("no_daily_effect" %in% models) {
-#     std_regional_epinow(reported_cases = deaths,
-#                         target_folder = targets[["no_daily_effect"]],
-#                         summary_dir = summary[["no_daily_effect"]],
-#                         delays = list(incubation_period, reporting_delay),
-#                         fixed_future_rt = TRUE,
-#                         estimate_week_eff = FALSE)
-#   }  
-#   
-  
-
-# Minimal delay -----------------------------------------------------------
-
-  # if ("minimal_delay" %in% models) {
-  #   std_regional_epinow(reported_cases = deaths,
-  #                       target_folder = targets[["minimal_delay"]],
-  #                       summary_dir = summary[["minimal_delay"]],
-  #                       delays = list(minimal_delay),
-  #                       fixed_future_rt = TRUE)
-  # }  
-  # 
 
 # Fixed Rt ----------------------------------------------------------------
 

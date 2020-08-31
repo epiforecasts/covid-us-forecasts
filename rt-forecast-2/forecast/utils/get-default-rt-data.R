@@ -10,14 +10,6 @@ generation_time <- readRDS(here::here("rt-forecast-2", "forecast", "delays", "da
 incubation_period <- readRDS(here::here("rt-forecast-2","forecast", "delays", "data", "incubation_period.rds"))
 reporting_delay <- readRDS(here::here("rt-forecast-2","forecast", "delays", "data", "onset_to_death_delay.rds"))
 
-
-## Define a very short and very tight reporting + incubation period. In a future version of epinow this will be replace with the
-## ability to fit directly to the data
-minimal_delay <- list(mean = log(1),
-                      mean_sd = 0.01,
-                      sd = log(1),
-                      sd_sd = 0.01,
-                      max = 10)
 # Get deaths  ---------------------------------------------------------------
 source(here::here("utils", "get-us-data.R"))
 
