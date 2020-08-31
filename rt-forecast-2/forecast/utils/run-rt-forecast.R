@@ -49,6 +49,7 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
                                         samples = 2000,
                                         warmup = 500,
                                         burn_in = 14,
+                                        non_zero_points = 14,
                                         adapt_delta = 0.98,
                                         cores = no_cores,
                                         chains = ifelse(no_cores <= 2, 2, no_cores),
