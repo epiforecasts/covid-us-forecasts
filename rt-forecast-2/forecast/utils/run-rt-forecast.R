@@ -56,12 +56,12 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
                                         return_estimates = FALSE, verbose = FALSE
   )
   # Run Rt - ORIGINAL -------------------------------------------------------
-   if ("original" %in% models) {
-     std_regional_epinow(reported_cases = deaths,
-                         target_folder = targets[["original"]],
-                         summary_dir = summary[["original"]],
-                         delays = list(incubation_period, reporting_delay))
-   }
+   # if ("original" %in% models) {
+   #   std_regional_epinow(reported_cases = deaths,
+   #                       target_folder = targets[["original"]],
+   #                       summary_dir = summary[["original"]],
+   #                       delays = list(incubation_period, reporting_delay))
+   # }
 
   # Run Rt - FIXED RT --------------------------------------------------
 
