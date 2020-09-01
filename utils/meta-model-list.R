@@ -35,6 +35,13 @@ model_list <- list(
            "update" = "update.R",
            "submission_files" = "output/fixed_rt/submission-files",
            "colour" = "#FF0110"),
+    # Rt Epinow2 - no modelling of delays
+    "rt2_no_delay" =
+      list("name" = "Rt2 (no delays)",
+           "root" = "rt-forecast-2",
+           "update" = "update.R",
+           "submission_files" = "output/no_delay/submission-files",
+           "colour" = "#FF0114"),
     # Timeseries - weekly
     "ts_weekly_deaths_only" = 
       list("name" = "TS weekly deaths",
