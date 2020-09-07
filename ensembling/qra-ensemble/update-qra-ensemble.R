@@ -90,7 +90,8 @@ message("QRA weights:")
 message(paste0("\n", models, "\n", model_weights, "\n"))
 
 # ensembling -------------------------------------------------------------------
-forecasts <- load_submission_files(dates = "latest",
+forecasts <- load_submission_files(dates = "all",
+                                   num_last = 1,
                                    models = "single")
 
 # pivot_wider
