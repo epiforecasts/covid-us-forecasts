@@ -35,9 +35,10 @@ plot_forecasts = function(national = TRUE,
   
   # Get forecasts -----------------------------------------------------------
   
-  # source function
+  # source function and model list
   source(here::here("utils", "load-submissions-function.R"))
-  model_list <- readRDS(here::here("utils", "model_list.rds"))
+  source("utils/meta-model-list.R")
+
   
   ## Get most recent Rt forecast 
   forecasts <- load_submission_files(dates = "all",

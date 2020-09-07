@@ -12,11 +12,17 @@ require(data.table)
 
 format_rt <- function(forecast_date, submission_date, include_latest = FALSE) {
   
-  rt_models <- c("original", "fixed_future_rt", "fixed_rt", "no_delay")
+  # Get names Rt models
+  source("utils/meta-model-list.R")
+  rt_models <- names(model_list$single_models)[grepl("rt", names(model_list$single_models))] 
+  
+  i <- rt_models[1]
   
   for(i in rt_models){
     
     # Set directory ------------------------------------------------------
+    
+    i <- gsub("rt2_", "", i)
     
     forecast_dir <- here::here("rt-forecast-2/forecast/deaths_forecast", i)
     output_dir <- here::here("rt-forecast-2/output", i)
@@ -38,11 +44,26 @@ format_rt <- function(forecast_date, submission_date, include_latest = FALSE) {
     
     # Load forecasts ----------------------------------------------------------
     
+    # Try yesterday's date for latest Rt forecast file
     forecasts_raw <- suppressWarnings(
       EpiNow2::get_regional_results(results_dir = file.path(forecast_dir, "state"),
                                                    date = lubridate::ymd(forecast_date) - lubridate::days(1),
                                                    forecast = TRUE)$estimated_reported_cases$samples
     )
+    
+    # If nothing returns, try today's date
+    if(length(forecasts_raw) == 0){
+      forecasts_raw <- suppressWarnings(
+        EpiNow2::get_regional_results(results_dir = file.path(forecast_dir, "state"),
+                                      date = lubridate::ymd(forecast_date),
+                                      forecast = TRUE)$estimated_reported_cases$samples
+      )
+      
+      if(length(forecasts_raw) == 0){
+        warning("<format-rt.R> Latest Rt forecasts are not found. Check forecast_date and directory paths")
+        }
+    }
+    
     
     # Format samples ----------------------------------------------------------
     data.table::setnames(forecasts_raw, old = c("region", "cases"), new = c("state", "deaths"))

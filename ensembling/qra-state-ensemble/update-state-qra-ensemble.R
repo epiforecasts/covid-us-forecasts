@@ -82,9 +82,9 @@ qra_plot <- qra_ensemble %>%
   facet_wrap(.~ state) +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-ggsave(qra_plot, here::here("ensembling", "qra-state-ensemble", "weights",
-                            paste0(forecast_date, "weights.png")))
+# 
+# ggsave(qra_plot, here::here("ensembling", "qra-state-ensemble", "weights",
+#                             paste0(forecast_date, "weights.png")))
 
 # Tabulate and save     
 qra_average <- qra_ensemble %>%
