@@ -7,9 +7,13 @@
 # state_name = name of state to ensemble
 
 regional_qra <- function(past_forecasts, latest_forecasts, deaths_data, 
-                         state_name = NULL, return_weights = FALSE){
+                         state_name = NULL, return_weights = FALSE,
+                         verbose = FALSE){
   
-  print(state_name)
+  if (verbose) {
+    print(state_name)
+  }
+
   
   past_forecasts <- dplyr::filter(past_forecasts, state == state_name)
   deaths_data <- dplyr::filter(deaths_data, state == state_name)
@@ -67,9 +71,11 @@ regional_qra <- function(past_forecasts, latest_forecasts, deaths_data,
                                                y = true_values, 
                                                tau = tau)$alpha
   
-  message("QRA weights:")
-  message(paste0("\n", models, "\n", model_weights, "\n"))
-  
+  if (verbose) {
+    message("QRA weights:")
+    message(paste0("\n", models, "\n", model_weights, "\n"))
+  }
+
   if(return_weights){
     weights <- tibble::tibble(model = models, weight = model_weights, state = state_name)
     return(weights)
