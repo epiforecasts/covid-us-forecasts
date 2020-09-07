@@ -17,7 +17,7 @@ load_submission_files <- function(dates = "all",
                                   models = "all") {
   
   # Read in model list
-  model_list <- readRDS(here::here("utils", "model_list.rds"))
+  source("utils/meta-model-list.R")
   
   # Set to specified models
   if(models == "all") {

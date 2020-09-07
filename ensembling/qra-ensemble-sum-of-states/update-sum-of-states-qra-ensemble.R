@@ -43,7 +43,7 @@ g <- national_qra %>%
                 value < 2e4) %>%
   tidyr::pivot_wider(id_cols = c(forecast_date, submission_date, target, target_end_date, location, type, quantile), names_from = method, values_from = value) %>%
   dplyr::mutate(quantile = ifelse(is.na(quantile), 0.5, quantile)) %>%
-  ggplot(aes(x = `national forecast`, y = `sum of state forecasts`, col = quantile)) +
+  ggplot(aes(x = 'national forecast', y = 'sum of state forecasts', col = quantile)) +
   geom_point(size = 3) +
   geom_abline(slope = 1, intercept = 0, lty = 2) +
   scale_color_distiller(palette = "RdBu") +

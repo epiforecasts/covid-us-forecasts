@@ -100,14 +100,23 @@ forecasts_wide <- forecasts %>%
   tidyr::pivot_wider(names_from = model,
                      values_from = value)
 
+# Set negative to 0; select weights for forecasting models
+model_weights <- ifelse(model_weights < 0, 0, model_weights)
+forecast_models <- colnames(dplyr::select(forecasts_wide, 
+                                 dplyr::starts_with("rt") | 
+                                   dplyr::starts_with("ts")))
+names(model_weights) <- models
+forecast_model_weights <- model_weights[names(model_weights) %in% forecast_models]
+
+
 qra_ensemble <- forecasts_wide %>%
   dplyr::mutate(ensemble = forecasts_wide %>% 
-                  dplyr::select(dplyr::all_of(models)) %>%
+                  dplyr::select(all_of(forecast_models)) %>%
                   as.matrix() %>%
-                  matrixStats::rowWeightedMeans(w = model_weights, 
+                  matrixStats::rowWeightedMeans(w = forecast_model_weights, 
                                                 na.rm = TRUE)) %>%
   dplyr::rename(value = ensemble) %>%
-  dplyr::select(-dplyr::all_of(models)) %>%
+  dplyr::select(-dplyr::all_of(forecast_models)) %>%
   dplyr::mutate(forecast_date = Sys.Date()) %>%
   dplyr::select(forecast_date, submission_date, target, target_end_date, location, type, quantile, value) %>%
   # round values after ensembling
