@@ -53,6 +53,7 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
                                         adapt_delta = 0.98,
                                         cores = no_cores,
                                         chains = ifelse(no_cores <= 2, 2, no_cores),
+                                        max_execution_time = 60 * 60,
                                         return_estimates = FALSE, verbose = FALSE
   )
   # Run Rt - ORIGINAL -------------------------------------------------------
