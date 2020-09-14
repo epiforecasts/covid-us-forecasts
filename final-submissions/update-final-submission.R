@@ -7,6 +7,10 @@ ensemble_dir = "qra-state-ensemble" # c("qra-state-ensemble" "qra-ensemble", "qu
 submit_ensemble <- suppressMessages(readr::read_csv(here::here("ensembling", ensemble_dir, "submission-files",
                                             paste0("latest.csv"))))
 
+# In an emergency, submit the deaths on cases forecast
+# - used on 2020-09-14
+# submit_ensemble <- readr::read_csv("timeseries-forecast/deaths-on-cases/submission-files/latest.csv")
+
 # Filter to states with minimum deaths in last week
 source(here::here("utils", "states-min-last-week.R"))
 keep_states <- states_min_last_week(min_last_week = 5, last_week = 1)
@@ -26,7 +30,11 @@ forecast_date <- unique(dplyr::pull(submit_ensemble, forecast_date))
 submit_ensemble <- dplyr::filter(submit_ensemble, (target_end_date - submission_date) <= 30) %>%
   dplyr::select(-submission_date)
 
-  
+
+# Max at population
+# https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/SCPRC-EST2019-18+POP-RES.csv  
+
+
 # Save in final-submissions
 
 readr::write_csv(submit_ensemble,
