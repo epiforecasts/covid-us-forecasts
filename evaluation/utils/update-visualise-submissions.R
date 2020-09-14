@@ -39,3 +39,31 @@ suppressWarnings(ggsave(here::here("evaluation", "plots",
                                    forecast_date, "submission-subnational.png"), 
        plot = subnational_plot, 
        width = 24, height = 24))
+
+
+# Plot ensembles only -----------------------------------------------------
+
+national_plot <- plot_forecasts(national = TRUE, 
+                                obs_weeks = 5, 
+                                exclude_new_epiweek = TRUE,
+                                models = "ensemble")
+
+
+suppressWarnings(ggsave(here::here("evaluation", "plots", 
+                                   forecast_date, "submission-national-ensembles.png"), 
+                        plot = national_plot, 
+                        width = 8, height = 8, dpi = 300))
+
+
+
+subnational_plot <- plot_forecasts(national = FALSE, 
+                                   state_min_cutoff = 5, 
+                                   obs_weeks = 5,
+                                   exclude_new_epiweek = TRUE,
+                                   models = "ensemble")
+
+
+suppressWarnings(ggsave(here::here("evaluation", "plots", 
+                                   forecast_date, "submission-subnational-ensembles.png"), 
+                        plot = subnational_plot, 
+                        width = 24, height = 24))
