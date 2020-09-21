@@ -13,18 +13,21 @@ format_forecast_us <- function(forecasts,
   # Filter to full epiweeks
   forecasts <- dates_to_epiweek(forecasts)
   forecasts <- forecasts[epiweek_full == TRUE]
+
+  forecasts <- forecasts[,  epiweek := lubridate::epiweek(date)]
+  
+  # Aggregate to weekly incidence
+  weekly_forecasts_inc <- forecasts[,.(deaths = sum(deaths, na.rm = TRUE), target_end_date = max(date)), 
+                                  by = .(epiweek, state, sample)]
+  
   
   # Take quantiles
-  forecasts <- forecasts[, .(value = quantile(deaths, probs = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99), na.rm=T),
-                               quantile = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99),
-                               epiweek = lubridate::epiweek(date)), 
-                               by = .(state, date)][order(state, date)]
-
-  # Aggregate to weekly incidence
-  weekly_forecasts_inc <- forecasts[, keyby = .(epiweek, quantile, state),
-                                .(value = sum(value),
-                                  target_end_date = max(date),
-                                  target_value = "inc")]
+  weekly_forecasts_inc <- weekly_forecasts_inc [, 
+                            .(value = quantile(deaths, probs = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99), na.rm=T),
+                             quantile = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99), 
+                             target_end_date = unique(target_end_date), target_value = "inc"), 
+                         by = .(state, epiweek)][order(state, epiweek)]
+  
   
   # Add cumulative from last week
   cumulative_state <- data.table(get_us_deaths(data = "cumulative"))
