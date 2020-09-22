@@ -10,7 +10,8 @@ require(cowplot)
 require(data.table)
 
 
-format_rt <- function(forecast_date, submission_date, include_latest = FALSE) {
+format_rt <- function(forecast_date, submission_date, include_latest = FALSE,
+                      sample_range = 0.4) {
   
   # Get names Rt models
   source("utils/meta-model-list.R")
@@ -64,6 +65,15 @@ format_rt <- function(forecast_date, submission_date, include_latest = FALSE) {
         }
     }
     
+    
+
+     # Shrink samples ----------------------------------------------------------
+
+    shrink_per <- (1 - sample_range) / 2
+    
+    forecasts_raw <- forecasts_raw[order(cases)][, 
+                                   .SD[round(.N * shrink_per, 0):round(.N * (1 - shrink_per), 0)],
+                                         by = .(region, date)]
     
     # Format samples ----------------------------------------------------------
     data.table::setnames(forecasts_raw, old = c("region", "cases"), new = c("state", "deaths"))
