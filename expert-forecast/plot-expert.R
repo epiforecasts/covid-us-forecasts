@@ -6,26 +6,35 @@
 
 plot_expert = function(for_forecast_date, individual = FALSE){
   
-  ## Load observed data
-  deaths_data <- readRDS(here::here("data/deaths_data.rds")) %>%
-    dplyr::mutate(week = lubridate::floor_date(date, unit = "week", week_start = 7)) %>%
-    dplyr::group_by(state, week) %>%
-    dplyr::summarise(week_deaths = sum(deaths, na.rm = TRUE))
-  deaths_data <- deaths_data %>%
-    bind_rows(deaths_data %>%
-                dplyr::group_by(week) %>%
-                dplyr::summarise(week_deaths = sum(week_deaths, na.rm = TRUE)) %>%
-                dplyr::mutate(state = "US")) %>%
-    dplyr::mutate(target_week_end = week + 6,
-                  model = "Observed data") %>%
-    dplyr::filter(target_week_end > as.Date("2020-05-01"),
-                  target_week_end < lubridate::floor_date(as.Date(for_forecast_date), unit = "week", week_start = 7)) %>%
-    dplyr::ungroup() %>%
-    dplyr::select(model, target_week_end, state, point = week_deaths)
+
+  # Observed data -----------------------------------------------------------
   
-  ## Load Rt-based forecasts
-  forecast_file <- paste0("rt-forecast/submission-files/dated/", for_forecast_date, "-rt-forecast-submission.csv")
-  forecast_data <- read.csv(here::here(forecast_file)) %>%
+  ## Load daily data
+  deaths_data <- get_us_deaths(data = "daily")
+  
+  state_weekly <- deaths_data %>%
+    dates_to_epiweek() %>%
+    dplyr::filter(epiweek_full == TRUE) %>%
+    dplyr::mutate(target_week_end = lubridate::floor_date(date, unit = "week", week_start = 1) + 6) %>%
+    dplyr::group_by(state, target_week_end) %>%
+    dplyr::summarise(point = sum(deaths, na.rm = TRUE)) %>%
+    dplyr::mutate(model = "Observed data")
+  
+  national_weekly <- state_weekly %>%
+    dplyr::group_by(model, target_week_end) %>%
+    dplyr::summarise(point = sum(point, na.rm = TRUE), .groups = "drop_last") %>%
+    dplyr::mutate(state = "US")
+  
+  weekly_data <- state_weekly %>%
+    dplyr::bind_rows(national_weekly)
+  
+  
+  # Rt forecasts ------------------------------------------------------------
+
+  load_addr <- "https://raw.githubusercontent.com/epiforecasts/covid-us-forecasts/master/rt-forecast-2/output/fixed_rt/submission-files/dated/"
+  raw_data <- readr::read_csv(file = paste0(load_addr, for_forecast_date, "-rt-2-forecast.csv"))
+  
+  forecast_data <- raw_data %>%
     tibble() %>%
     filter(quantile %in% c(0.05, 0.5, 0.95),
            grepl("inc", target)) %>%
@@ -45,20 +54,28 @@ plot_expert = function(for_forecast_date, individual = FALSE){
     mutate(point = quantile0.5) %>%
     select(-quantile0.5)
   
-  ## Load expert forecasts
-  agg_expert <- readRDS(file = paste0("expert-forecast/raw-rds/latest-agg-expert.rds")) %>% 
-    filter(forecast_date == as.Date(for_forecast_date))
-  ind_expert <- readRDS(file = paste0("expert-forecast/raw-rds/latest-ind-expert.rds")) %>%
-    filter(forecast_date == as.Date(for_forecast_date))
-  expert_states <- agg_expert %>%
-    .$state
+
+  # Expert forecasts --------------------------------------------------------
+
+  agg_expert <- readRDS(file = here::here("expert-forecast", "raw-rds", paste0(for_forecast_date, "-agg-expert.rds"))) %>%
+    dplyr::filter(forecast_date == as.Date(for_forecast_date))
+  ind_expert <- readRDS(file = here::here("expert-forecast", "raw-rds", paste0(for_forecast_date, "-ind-expert.rds"))) %>%
+    dplyr::filter(forecast_date == as.Date(for_forecast_date))
   
-  ## Combine (1) observed data, (2) rt-based forecasts (3) individual experts (4) aggregated expert
+  expert_states <- agg_expert %>%
+    .$state %>%
+    unique()
+  
+
+  # Combine and visualise ---------------------------------------------------
+
   combined_data <- forecast_data %>%
-    bind_rows(agg_expert) %>%
-    bind_rows(ind_expert) %>%
-    bind_rows(deaths_data) %>%
-    filter(state %in% expert_states)
+    dplyr::bind_rows(agg_expert) %>%
+    dplyr::bind_rows(ind_expert) %>%
+    dplyr::bind_rows(weekly_data) %>%
+    dplyr::filter(state %in% expert_states) %>%
+    dplyr::filter(target_week_end >= as.Date("2020-06-01"))
+    
   
   ## Plotting
   bpal <- brewer.pal(3, name = "Set2")
@@ -67,7 +84,7 @@ plot_expert = function(for_forecast_date, individual = FALSE){
                          to = max(combined_data$target_week_end),
                          by = "2 weeks")
 
-  g = combined_data %>%
+  g <- combined_data %>%
     filter(model != "Individual experts") %>%
     ggplot(aes(x = target_week_end, y = point, col = model, fill = model)) +
     geom_point(size = 3) +
