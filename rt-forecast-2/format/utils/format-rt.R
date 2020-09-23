@@ -65,7 +65,7 @@ format_rt <- function(forecast_date, submission_date, include_latest = FALSE,
         }
     }
     
-    
+     
 
      # Shrink samples ----------------------------------------------------------
 
