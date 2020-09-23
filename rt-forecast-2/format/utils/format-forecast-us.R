@@ -22,10 +22,10 @@ format_forecast_us <- function(forecasts,
   
   
   # Take quantiles
-  weekly_forecasts_inc <- weekly_forecasts_inc [, 
+  weekly_forecasts_inc <- weekly_forecasts_inc[, 
                             .(value = quantile(deaths, probs = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99), na.rm=T),
                              quantile = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99), 
-                             target_end_date = unique(target_end_date), target_value = "inc"), 
+                             target_end_date = max(target_end_date), target_value = "inc"), 
                          by = .(state, epiweek)][order(state, epiweek)]
   
   
@@ -44,7 +44,7 @@ format_forecast_us <- function(forecasts,
                                                       deaths = NULL)]
   # Bind incident and cumulative
   weekly_forecasts <- rbind(weekly_forecasts_inc, weekly_forecasts_cum)
-  
+   
   # Add necessary columns
   # dates and types
   forecasts_format <- weekly_forecasts[, `:=` (forecast_date = forecast_date,
@@ -53,8 +53,6 @@ format_forecast_us <- function(forecasts,
                                   horizon = 1 + epiweek - lubridate::epiweek(submission_date))][
                                   , `:=` (target = paste0(horizon, " wk ahead ", target_value, " death"))]
                           
-rm(weekly_forecasts, weekly_forecasts_cum, weekly_forecasts_inc)
-  
    # Add point forecasts
   forecasts_point <- forecasts_format[quantile == 0.5]
   forecasts_point <- forecasts_point[, `:=` (type = "point", quantile = NA)]
