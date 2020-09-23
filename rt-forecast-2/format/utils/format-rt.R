@@ -24,6 +24,7 @@ format_rt <- function(forecast_date, submission_date, include_latest = FALSE,
     # Set directory ------------------------------------------------------
     
     i <- gsub("rt2_", "", i)
+    message("Formating: ", i, " on the ", forecast_date)
     
     forecast_dir <- here::here("rt-forecast-2/forecast/deaths_forecast", i)
     output_dir <- here::here("rt-forecast-2/output", i)
@@ -48,7 +49,7 @@ format_rt <- function(forecast_date, submission_date, include_latest = FALSE,
     # Try yesterday's date for latest Rt forecast file
     forecasts_raw <- suppressWarnings(
       EpiNow2::get_regional_results(results_dir = file.path(forecast_dir, "state"),
-                                                   date = lubridate::ymd(forecast_date) - lubridate::days(1),
+                                                   date = lubridate::ymd(forecast_date),
                                                    forecast = TRUE)$estimated_reported_cases$samples
     )
     
@@ -66,7 +67,7 @@ format_rt <- function(forecast_date, submission_date, include_latest = FALSE,
     }
     
      
-
+   
      # Shrink samples ----------------------------------------------------------
 
     shrink_per <- (1 - sample_range) / 2
