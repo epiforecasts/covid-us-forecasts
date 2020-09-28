@@ -31,12 +31,40 @@ submit_ensemble <- dplyr::filter(submit_ensemble, (target_end_date - submission_
   dplyr::select(-submission_date)
 
 
-# Max at population
-# https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/state/detail/SCPRC-EST2019-18+POP-RES.csv  
+# Checks ------------------------------------------------------------------
 
 
+# Check population limit
+#   (back up copy of population totals saved in "data/pop_totals.csv")
+pop <- readr::read_csv("https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/counties/totals/co-est2019-alldata.csv") %>%
+  dplyr::group_by(STATE) %>%
+  dplyr::summarise(tot_pop = sum(POPESTIMATE2019), .groups = "drop") %>%
+  dplyr::bind_rows(tibble::tibble("STATE" = c("US", 
+                                              "66"), # Guam
+                                  "tot_pop" = c(331002651,
+                                                165768)))
+
+pop_check <- dplyr::left_join(submit_ensemble, pop, by = c("location" = "STATE")) %>%
+  dplyr::mutate(pop_check = ifelse(value > tot_pop, FALSE, TRUE)) %>%
+  dplyr::filter(pop_check == FALSE) %>%
+  dplyr::pull(location)
+
+# Check for NA values
+na_check <- submit_ensemble %>%
+  dplyr::filter(is.na(value)) %>%
+  dplyr::pull(location)
+
+
+# Filter failing checks ---------------------------------------------------
+
+submit_ensemble <- submit_ensemble %>%
+  dplyr::filter(!location %in% pop_check & 
+                  !location %in% na_check)
+
+                       
 # Save in final-submissions
 
 readr::write_csv(submit_ensemble,
                  here::here("final-submissions", "death-forecast",
                             paste0(forecast_date, "-epiforecasts-ensemble1.csv")))
+
