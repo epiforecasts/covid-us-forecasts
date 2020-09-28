@@ -75,6 +75,7 @@ keep_states <- states_min_last_week(min_last_week = 5, last_week = 1) %>%
 
 qra_ensemble <- dplyr::bind_rows(state_qra)
 
+# col plot
 qra_plot <- qra_ensemble %>%
   dplyr::filter(state %in% keep_states) %>%
   ggplot(aes(x = model, y = weight)) +
@@ -82,14 +83,25 @@ qra_plot <- qra_ensemble %>%
   facet_wrap(.~ state) +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-# 
-# ggsave(qra_plot, here::here("ensembling", "qra-state-ensemble", "weights",
-#                             paste0(forecast_date, "weights.png")))
 
-# Tabulate and save     
-qra_average <- qra_ensemble %>%
-  tidyr::pivot_wider(names_from = model, values_from = weight)
+ggsave(plot = qra_plot, filename = here::here("ensembling", "qra-state-ensemble", "weights",
+                            paste0(Sys.Date(), "-weights.png")),
+       height = 10, width = 15)
 
-saveRDS(qra_average, here::here("ensembling", "qra-state-ensemble", "weights",
+# summarise mean weight by model across states
+weight_by_model <- qra_ensemble %>%
+  dplyr::group_by(model) %>%
+  dplyr::summarise(`Mean weight` = mean(weight, na.rm=T),
+                   .groups = "drop") %>%
+  ggplot(aes(x = model, y = `Mean weight`)) +
+  geom_col() +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.x = element_blank()) +
+  ggsave(filename = here::here("ensembling", "qra-state-ensemble", "weights",
+                               paste0(forecast_date, "-qra-mean-weights.png")))
+
+# save weights table
+saveRDS(qra_ensemble, here::here("ensembling", "qra-state-ensemble", "weights",
                                 paste0(forecast_date, "-qra-state-weights.rds")))
 
