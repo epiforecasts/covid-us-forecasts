@@ -44,8 +44,9 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
   
   std_regional_epinow <- purrr::partial(regional_epinow, samples = 2000, horizon = 30, 
                                         generation_time = generation_time,
-                                        stan_args = list(warmup = 500, control = list(adapt_delta = 0.95), 
-                                                         cores = no_cores, 
+                                        stan_args = list(warmup = 500, cores = no_cores, 
+                                                         control = list(adapt_delta = 0.95,
+                                                                        max_treedepth = 15), 
                                                          chains = ifelse(no_cores <= 4, 4, no_cores)), 
                                         burn_in = 14, non_zero_points = 14,
                                         max_execution_time = 60 * 60, future = TRUE,
