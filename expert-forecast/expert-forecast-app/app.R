@@ -21,8 +21,8 @@ check_ids <- googlesheets4::read_sheet(ss = submission_sheet,
 # Current model forecasts (from most recent Monday)
 load_date <- lubridate::floor_date(Sys.Date(), unit = "week", week_start = 1) %>%
     as.character()
-load_addr <- "https://raw.githubusercontent.com/epiforecasts/covid-us-forecasts/master/rt-forecast/submission-files/"
-raw_data <- readr::read_csv(file = paste0(load_addr, "latest-rt-forecast-submission.csv"))
+load_addr <- "https://raw.githubusercontent.com/epiforecasts/covid-us-forecasts/master/rt-forecast-2/output/fixed_rt/submission-files/dated/"
+raw_data <- readr::read_csv(file = paste0(load_addr, load_date, "-rt-2-forecast.csv"))
 
 # Load and process most daily reported deaths data
 deaths <- readr::read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv") %>% 
@@ -44,20 +44,20 @@ deaths_data <- deaths %>%
     dplyr::group_by(state, week) %>%
     dplyr::summarise(week_deaths = sum(deaths, na.rm = TRUE))
 deaths_data <- deaths_data %>%
-    bind_rows(deaths_data %>%
-                  dplyr::group_by(week) %>%
-                  dplyr::summarise(week_deaths = sum(week_deaths, na.rm = TRUE)) %>%
-                  dplyr::mutate(state = "US")) %>%
-    select(week_beginning = week, state, value = week_deaths) %>%
-    mutate(state_name = state,
-           type = "observed_data",
-           target_end_date = week_beginning + 6) %>%
-    filter(week_beginning < as.Date(load_date) - 1,
-           week_beginning >= as.Date("2020-05-01"))
+    dplyr::bind_rows(deaths_data %>%
+                         dplyr::group_by(week) %>%
+                         dplyr::summarise(week_deaths = sum(week_deaths, na.rm = TRUE)) %>%
+                         dplyr::mutate(state = "US")) %>%
+    dplyr::select(week_beginning = week, state, value = week_deaths) %>%
+    dplyr::mutate(state_name = state,
+                  type = "observed_data",
+                  target_end_date = week_beginning + 6) %>%
+    dplyr::filter(week_beginning < as.Date(load_date) - 1,
+                  week_beginning >= as.Date("2020-06-01"))
 
-states_100 <- deaths_data %>%
-    filter(week_beginning == max(week_beginning),
-           value > 50) %>%
+choose_from_states <- deaths_data %>%
+    dplyr::filter(week_beginning == max(week_beginning),
+                  value > 50) %>%
     .$state
 
 horizon_dates <- seq.Date(from = lubridate::floor_date(Sys.Date(), unit = "week", week_start = 6)+7,
@@ -66,26 +66,27 @@ horizon_dates <- seq.Date(from = lubridate::floor_date(Sys.Date(), unit = "week"
 
 plot_dates <- seq.Date(from = min(deaths_data$target_end_date),
                        to = max(horizon_dates),
-                       by = "week")
+                       by = "2 weeks")
 
 # Filter rt forecasts
 rt_data <- raw_data %>%
-    left_join(tigris::fips_codes %>%
-                  select(location = state_code, state_name) %>%
-                  unique() %>%
-                  rbind(c("US", "US")),
-              by = "location") %>%
-    filter(grepl("inc", target),
-           quantile %in% c(0.05, 0.5, 0.95),
-           target_end_date %in% horizon_dates,
-           state_name %in% states_100)
+    dplyr::mutate(value = round(value)) %>%
+    dplyr::left_join(tigris::fips_codes %>%
+                         dplyr::select(location = state_code, state_name) %>%
+                         unique() %>%
+                         rbind(c("US", "US")),
+                     by = "location") %>%
+    dplyr::filter(grepl("inc", target),
+                  quantile %in% c(0.05, 0.5, 0.95),
+                  target_end_date %in% horizon_dates,
+                  state_name %in% choose_from_states)
 
 # Combine model forecasts and deaths data
 df <- rt_data %>%
-    bind_rows(deaths_data) %>%
-    mutate(q_type = ifelse(type %in% c("point", "observed_data"), type, paste0(type, quantile))) %>%
-    select(target_end_date, state_name, q_type, value) %>%
-    filter(state_name %in% states_100)
+    dplyr::bind_rows(deaths_data) %>%
+    dplyr::mutate(q_type = ifelse(type %in% c("point", "observed_data"), type, paste0(type, quantile))) %>%
+    dplyr::select(target_end_date, state_name, q_type, value) %>%
+    dplyr::filter(state_name %in% choose_from_states)
 
 
 ## Define some inputs for the shiny app
@@ -93,19 +94,19 @@ df <- rt_data %>%
 # List of locations
 check_state_list <- googlesheets4::read_sheet(ss = submission_sheet,
                                               sheet = "states") %>%
-    mutate(forecast_date = as.character(forecast_date),
-           list_states = as.character(list_states))
+    dplyr::mutate(forecast_date = as.character(forecast_date),
+                  list_states = as.character(list_states))
 
 if(load_date %in% check_state_list$forecast_date){
     
     list_states <- check_state_list %>%
-        filter(forecast_date == load_date) %>%
+        dplyr::filter(forecast_date == load_date) %>%
         .$list_states
     list_states <- unlist(str_split(list_states, pattern = ","))
     
 } else {
     
-    list_states <- states_100
+    list_states <- choose_from_states
     list_states <- c(sample(setdiff(list_states, "US"), 5), "US")
     list_states <- list_states[order(list_states)]
     
@@ -123,22 +124,16 @@ if(load_date %in% check_state_list$forecast_date){
 # Initial value for the quantiles (forecast model quantiles)
 get_state_init <- function(state = "US"){
     
-    max_vals <- df %>%
-        filter(state_name == state,
-               q_type == "observed_data") %>%
-        .$value %>%
-        max(., 1000) %>%
-        round(digits = -3)
-    
     out <- df %>%
-        filter(state_name == state,
-               q_type %in% c("quantile0.05", "quantile0.5", "quantile0.95")) %>%
-        pivot_wider(id_cols = c(target_end_date, state_name), names_from = q_type, values_from = value) %>%
-        mutate(lower_p = quantile0.05/quantile0.5,
-               upper_p = quantile0.95/quantile0.5,
-               median_max = max_vals,
-               quantile_max = round(median_max*max(upper_p), -3)) %>%
-        select(state_name, week = target_end_date, quantile0.05, quantile0.5, quantile0.95, lower_p, upper_p, median_max, quantile_max)
+        dplyr::filter(state_name == state,
+                      q_type %in% c("quantile0.05", "quantile0.5", "quantile0.95")) %>%
+        tidyr::pivot_wider(id_cols = c(target_end_date, state_name), names_from = q_type, values_from = value) %>%
+        dplyr::mutate(lower_p = quantile0.05/quantile0.5,
+                      upper_p = quantile0.95/quantile0.5,
+                      median_p = ifelse(quantile0.5 < 2000, 3, 1.5),
+                      median_max = round(pmax(median_p*quantile0.5, 1000), -3),
+                      quantile_max = round(median_max*max(upper_p), -3)) %>%
+        dplyr::select(state_name, week = target_end_date, quantile0.05, quantile0.5, quantile0.95, lower_p, upper_p, median_max, quantile_max)
     
     return(out[1:4,])
     
@@ -164,9 +159,9 @@ ui <- fluidPage(
                      p(strong("Location"),
                        "is the forecasting region (US or state)."),
                      p(strong("Median"),
-                       "is your best estimate of the median weekly incident deaths for 1 - 4 weeks ahead. Default value is from the model forecast."),
+                       "is your best estimate of the median weekly incident deaths for 1 - 4 weeks ahead. Default value is from the fixed-future Rt model forecast."),
                      p(strong("Quantiles"),
-                       "are your best estimates of the 5% and 95% quantiles of weekly incident deaths for 1 - 4 weeks ahead. The chosen values should span the median. Default values are from the model forecast."),
+                       "are your best estimates of the 5% and 95% quantiles of weekly incident deaths for 1 - 4 weeks ahead. The chosen values should span the median. Default values are from the fixed-future Rt model forecast."),
                      hr(),
                      h4("Forecast visualisation"),
                      p(strong(span("Black", style = "color:black")),
@@ -174,7 +169,7 @@ ui <- fluidPage(
                      p(strong(span("Grey", style = "color:grey")),
                        "crosses and values (at bottom) show the median weekly incident deaths forecast by the current model; grey ribbon shows the 90% credible interval."),
                      p(strong(span("Red", style = "color:red")),
-                       "points show the median adjusted forecast determined by the forecast inputs, and values show percentage difference compared to the model forecast, for reference; red ribbon shows the 90% credible interval. Default values are the model forecast values."),
+                       "points show the median adjusted forecast determined by the forecast inputs, and values show percentage difference compared to the model forecast, for reference; red ribbon shows the 90% credible interval."),
                      hr(),
                      h4("Forecast submission"),
                      textInput("f_id", "Forecaster ID:", value = ""),
@@ -192,17 +187,17 @@ ui <- fluidPage(
                   ),
                   column(3,
                          h4("2 weeks ahead"),
-                         sliderInput("pt_wk2", label = "Median", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[2]),
-                         sliderInput("qt_wk2", label = "Quantiles", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[2], init_vals$quantile0.95[2]))
+                         sliderInput("pt_wk2", label = "Median", min = 0, max = init_vals$median_max[2], value = init_vals$quantile0.5[2]),
+                         sliderInput("qt_wk2", label = "Quantiles", min = 0, max = init_vals$quantile_max[2], value = c(init_vals$quantile0.05[2], init_vals$quantile0.95[2]))
                   ),
                   column(3,
                          h4("3 weeks ahead"),
-                         sliderInput("pt_wk3", label = "Median", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[3]),
-                         sliderInput("qt_wk3", label = "Quantiles", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[3], init_vals$quantile0.95[3]))
+                         sliderInput("pt_wk3", label = "Median", min = 0, max = init_vals$median_max[3], value = init_vals$quantile0.5[3]),
+                         sliderInput("qt_wk3", label = "Quantiles", min = 0, max = init_vals$quantile_max[3], value = c(init_vals$quantile0.05[3], init_vals$quantile0.95[3]))
                   ),column(3,
                            h4("4 weeks ahead"),
-                           sliderInput("pt_wk4", label = "Median", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[4]),
-                           sliderInput("qt_wk4", label = "Quantiles", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[4], init_vals$quantile0.95[4]))
+                           sliderInput("pt_wk4", label = "Median", min = 0, max = init_vals$median_max[4], value = init_vals$quantile0.5[4]),
+                           sliderInput("qt_wk4", label = "Quantiles", min = 0, max = init_vals$quantile_max[4], value = c(init_vals$quantile0.05[4], init_vals$quantile0.95[4]))
                   )
                   ),
                   hr(),
@@ -251,14 +246,14 @@ server <- function(input, output, session) {
         init_vals <- get_state_init(input$location)
         
         updateSliderInput(session, "pt_wk1", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[1])
-        updateSliderInput(session, "pt_wk2", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[2])
-        updateSliderInput(session, "pt_wk3", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[3])
-        updateSliderInput(session, "pt_wk4", min = 0, max = init_vals$median_max[1], value = init_vals$quantile0.5[4])
+        updateSliderInput(session, "pt_wk2", min = 0, max = init_vals$median_max[2], value = init_vals$quantile0.5[2])
+        updateSliderInput(session, "pt_wk3", min = 0, max = init_vals$median_max[3], value = init_vals$quantile0.5[3])
+        updateSliderInput(session, "pt_wk4", min = 0, max = init_vals$median_max[4], value = init_vals$quantile0.5[4])
         
         updateSliderInput(session, "qt_wk1", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[1],init_vals$quantile0.95[1]))
-        updateSliderInput(session, "qt_wk2", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[2],init_vals$quantile0.95[2]))
-        updateSliderInput(session, "qt_wk3", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[3],init_vals$quantile0.95[3]))
-        updateSliderInput(session, "qt_wk4", min = 0, max = init_vals$quantile_max[1], value = c(init_vals$quantile0.05[4],init_vals$quantile0.95[4]))
+        updateSliderInput(session, "qt_wk2", min = 0, max = init_vals$quantile_max[2], value = c(init_vals$quantile0.05[2],init_vals$quantile0.95[2]))
+        updateSliderInput(session, "qt_wk3", min = 0, max = init_vals$quantile_max[3], value = c(init_vals$quantile0.05[3],init_vals$quantile0.95[3]))
+        updateSliderInput(session, "qt_wk4", min = 0, max = init_vals$quantile_max[4], value = c(init_vals$quantile0.05[4],init_vals$quantile0.95[4]))
         
         
     })
