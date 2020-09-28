@@ -7,20 +7,22 @@ source(here::here("utils/dates-to-epiweek.R"))
 source(here::here("utils/get-us-data.R"))
 
 # forecast_date -> date forecast was made
-format_forecast_us <- function(forecasts, 
+format_forecast_us <- function(forecasts, shrink_per = 0,
                                forecast_date = NULL, submission_date = NULL){
   
   # Filter to full epiweeks
   forecasts <- dates_to_epiweek(forecasts)
   forecasts <- forecasts[epiweek_full == TRUE]
-
   forecasts <- forecasts[,  epiweek := lubridate::epiweek(date)]
   
   # Aggregate to weekly incidence
   weekly_forecasts_inc <- forecasts[,.(deaths = sum(deaths, na.rm = TRUE), target_end_date = max(date)), 
                                   by = .(epiweek, state, sample)]
   
-  
+  weekly_forecasts_inc <- weekly_forecasts_inc[order(deaths)][,
+                                    .SD[round(.N * shrink_per, 0):round(.N * (1 - shrink_per), 0)],
+                                    by = .(epiweek, state)]
+
   # Take quantiles
   weekly_forecasts_inc <- weekly_forecasts_inc[, 
                             .(value = quantile(deaths, probs = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99), na.rm=T),

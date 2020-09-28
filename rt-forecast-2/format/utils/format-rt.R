@@ -36,7 +36,6 @@ format_rt <- function(forecast_date, submission_date, include_latest = FALSE,
       if (!dir.exists(paste0(output_dir, "/", new_dir))) {
         dir.create(paste0(output_dir, "/", new_dir), recursive = TRUE)
       }
-      
       return(invisible(NULL))
     }
 
@@ -67,14 +66,14 @@ format_rt <- function(forecast_date, submission_date, include_latest = FALSE,
     }
     
      
-   
+    
      # Shrink samples ----------------------------------------------------------
 
     shrink_per <- (1 - sample_range) / 2
-    
-    forecasts_raw <- forecasts_raw[order(cases)][, 
-                                   .SD[round(.N * shrink_per, 0):round(.N * (1 - shrink_per), 0)],
-                                         by = .(region, date)]
+    # 
+    # forecasts_raw <- forecasts_raw[order(cases)][, 
+    #                                .SD[round(.N * shrink_per, 0):round(.N * (1 - shrink_per), 0)],
+    #                                      by = .(region, date)]
     
     # Format samples ----------------------------------------------------------
     data.table::setnames(forecasts_raw, old = c("region", "cases"), new = c("state", "deaths"))
@@ -98,7 +97,8 @@ format_rt <- function(forecast_date, submission_date, include_latest = FALSE,
     
     formatted_forecasts <- format_forecast_us(forecasts = forecasts_raw, 
                                               forecast_date = forecast_date, 
-                                              submission_date = submission_date)
+                                              submission_date = submission_date,
+                                              shrink_per = shrink_per)
     
     
     # Save forecast -----------------------------------------------------------
