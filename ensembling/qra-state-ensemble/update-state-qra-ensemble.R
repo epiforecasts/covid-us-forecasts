@@ -67,41 +67,65 @@ state_qra <- purrr::map(states,
                         latest_forecasts = latest_forecasts,
                         deaths_data = deaths_data)
 
-# Plot and save
-library(ggplot2)
 source(here::here("utils", "states-min-last-week.R"))
 keep_states <- states_min_last_week(min_last_week = 5, last_week = 1) %>%
   dplyr::pull("state")
 
 qra_ensemble <- dplyr::bind_rows(state_qra)
 
-# col plot
-qra_plot <- qra_ensemble %>%
-  dplyr::filter(state %in% keep_states) %>%
-  ggplot(aes(x = model, y = weight)) +
-  geom_col() +
-  facet_wrap(.~ state) +
-  theme_classic() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+# save weights table
+saveRDS(qra_ensemble, here::here("ensembling", "qra-state-ensemble", "weights",
+                                 paste0(forecast_date, "-qra-state-weights.rds")))
 
-ggsave(plot = qra_plot, filename = here::here("ensembling", "qra-state-ensemble", "weights",
-                            paste0(Sys.Date(), "-weights.png")),
-       height = 10, width = 15)
+# Plot
+library(ggplot2)
+
+# Get colours
+source("utils/meta-model-list.R")
+model_names <- unlist((model_list %>%
+                         purrr::flatten() %>%
+                         purrr::transpose())[["name"]])
+qra_ensemble$model <- dplyr::recode(qra_ensemble$model, !!!model_names)
+model_colours <- unlist((model_list %>%
+                           purrr::flatten() %>%
+                           purrr::transpose())[["colour"]])
+names(model_colours) <- model_names
+
+# Stacked bar
+qra_ensemble %>%
+  dplyr::filter(state %in% keep_states & 
+                  weight > 0) %>%
+  ggplot(aes(x = state, y = weight, fill = model)) +
+  geom_col(position = "fill") +
+  scale_fill_manual(values = model_colours) +
+  labs(x = NULL, y = "QRA state by state weight") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 15),
+        legend.position = "bottom",
+        text = element_text(size = 15)) +
+  ggsave(filename = here::here("ensembling", "qra-state-ensemble", "weights",
+                               paste0(forecast_date, "-state-weights.png")),
+         height = 8, width = 20)
+
+
 
 # summarise mean weight by model across states
 weight_by_model <- qra_ensemble %>%
   dplyr::group_by(model) %>%
-  dplyr::summarise(`Mean weight` = mean(weight, na.rm=T),
+  dplyr::summarise(mean_weight = mean(weight, na.rm=T),
                    .groups = "drop") %>%
-  ggplot(aes(x = model, y = `Mean weight`)) +
+  # Plot and save
+  ggplot(aes(x = model, y = mean_weight, fill = model)) +
   geom_col() +
+  labs(x = NULL, y = "Mean weight in state-by-state QRA") +
+  scale_fill_manual(values = model_colours) +
   theme_classic() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
-        axis.title.x = element_blank()) +
+        axis.title.x = element_blank(),
+        legend.position = "bottom") +
   ggsave(filename = here::here("ensembling", "qra-state-ensemble", "weights",
-                               paste0(forecast_date, "-qra-mean-weights.png")))
+                               paste0(forecast_date, "-qra-mean-weights.png")),
+         width = 5)
 
-# save weights table
-saveRDS(qra_ensemble, here::here("ensembling", "qra-state-ensemble", "weights",
-                                paste0(forecast_date, "-qra-state-weights.rds")))
+
 
