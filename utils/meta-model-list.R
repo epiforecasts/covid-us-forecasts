@@ -20,28 +20,28 @@ model_list <- list(
            "root" = "rt-forecast-2",
            "update" = "update.R",
            "submission_files" = "output/original/submission-files",
-           "colour" = "#FF0000"),
+           "colour" = "#800000"),
     # Rt Epinow2 - fixed future Rt
     "rt2_fixed_future_rt" =
       list("name" = "Rt2 fixed future rt",
            "root" = "rt-forecast-2",
            "update" = "update.R",
            "submission_files" = "output/fixed_future_rt/submission-files",
-           "colour" = "#FF0099"),
+           "colour" = "#DB7093"),
     # Rt Epinow2 - fixed Rt
     "rt2_fixed_rt" =
       list("name" = "Rt2 fixed rt",
            "root" = "rt-forecast-2",
            "update" = "update.R",
            "submission_files" = "output/fixed_rt/submission-files",
-           "colour" = "#FF0110"),
+           "colour" = "#E9967A"),
     # Rt Epinow2 - no modelling of delays
     "rt2_no_delay" =
       list("name" = "Rt2 (no delays)",
            "root" = "rt-forecast-2",
            "update" = "update.R",
            "submission_files" = "output/no_delay/submission-files",
-           "colour" = "#FF0114"),
+           "colour" = "#FF4500"),
     # Timeseries - weekly
     "ts_weekly_deaths_only" = 
       list("name" = "TS weekly deaths",
