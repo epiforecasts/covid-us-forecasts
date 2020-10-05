@@ -7,7 +7,7 @@ require(dplyr)
 # Set up logging ----------------------------------------------------------
 setup_logging("INFO")
 setup_logging("INFO", file = "info.log",
-              name = "EpiNow.epinow")
+              name = "EpiNow2.epinow")
 
 # Update delays -----------------------------------------------------------
 

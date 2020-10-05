@@ -1,368 +1,4 @@
 region,date,confirm,breakpoint
-Alabama,2020-08-02,24,0
-Alaska,2020-08-02,0,0
-Arizona,2020-08-02,18,0
-Arkansas,2020-08-02,6,0
-California,2020-08-02,51,0
-Colorado,2020-08-02,0,0
-Connecticut,2020-08-02,0,0
-Delaware,2020-08-02,0,0
-District of Columbia,2020-08-02,1,0
-Florida,2020-08-02,62,0
-Georgia,2020-08-02,15,0
-Guam,2020-08-02,0,0
-Hawaii,2020-08-02,0,0
-Idaho,2020-08-02,0,0
-Illinois,2020-08-02,14,0
-Indiana,2020-08-02,4,0
-Iowa,2020-08-02,4,0
-Kansas,2020-08-02,3,0
-Kentucky,2020-08-02,2,0
-Louisiana,2020-08-02,58,0
-Maine,2020-08-02,0,0
-Maryland,2020-08-02,9,0
-Massachusetts,2020-08-02,12,0
-Michigan,2020-08-02,0,0
-Minnesota,2020-08-02,8,0
-Mississippi,2020-08-02,10,0
-Missouri,2020-08-02,0,0
-Montana,2020-08-02,0,0
-Nebraska,2020-08-02,0,0
-Nevada,2020-08-02,0,0
-New Hampshire,2020-08-02,1,0
-New Jersey,2020-08-02,6,0
-New Mexico,2020-08-02,3,0
-New York,2020-08-02,13,0
-North Carolina,2020-08-02,4,0
-North Dakota,2020-08-02,2,0
-Ohio,2020-08-02,14,0
-Oklahoma,2020-08-02,1,0
-Oregon,2020-08-02,1,0
-Pennsylvania,2020-08-02,4,0
-Puerto Rico,2020-08-02,5,0
-Rhode Island,2020-08-02,0,0
-South Carolina,2020-08-02,26,0
-South Dakota,2020-08-02,1,0
-Tennessee,2020-08-02,6,0
-Texas,2020-08-02,5,0
-Utah,2020-08-02,1,0
-Virginia,2020-08-02,3,0
-Washington,2020-08-02,4,0
-West Virginia,2020-08-02,1,0
-Wisconsin,2020-08-02,1,0
-US,2020-08-02,403,0
-Alabama,2020-08-03,6,0
-Alaska,2020-08-03,1,0
-Arizona,2020-08-03,14,0
-Arkansas,2020-08-03,11,0
-California,2020-08-03,45,0
-Colorado,2020-08-03,0,0
-Connecticut,2020-08-03,5,0
-Delaware,2020-08-03,0,0
-District of Columbia,2020-08-03,0,0
-Florida,2020-08-03,73,0
-Georgia,2020-08-03,2,0
-Guam,2020-08-03,0,0
-Hawaii,2020-08-03,0,0
-Idaho,2020-08-03,3,0
-Illinois,2020-08-03,9,0
-Indiana,2020-08-03,5,0
-Iowa,2020-08-03,6,0
-Kansas,2020-08-03,6,0
-Kentucky,2020-08-03,2,0
-Louisiana,2020-08-03,17,0
-Maine,2020-08-03,1,0
-Maryland,2020-08-03,8,0
-Massachusetts,2020-08-03,10,0
-Michigan,2020-08-03,10,0
-Minnesota,2020-08-03,2,0
-Mississippi,2020-08-03,8,0
-Missouri,2020-08-03,3,0
-Montana,2020-08-03,3,0
-Nebraska,2020-08-03,0,0
-Nevada,2020-08-03,15,0
-New Hampshire,2020-08-03,0,0
-New Jersey,2020-08-03,10,0
-New Mexico,2020-08-03,1,0
-New York,2020-08-03,0,0
-North Carolina,2020-08-03,60,0
-North Dakota,2020-08-03,0,0
-Ohio,2020-08-03,10,0
-Oklahoma,2020-08-03,1,0
-Oregon,2020-08-03,2,0
-Pennsylvania,2020-08-03,1,0
-Puerto Rico,2020-08-03,0,0
-Rhode Island,2020-08-03,3,0
-South Carolina,2020-08-03,16,0
-South Dakota,2020-08-03,0,0
-Tennessee,2020-08-03,19,0
-Texas,2020-08-03,5,0
-Utah,2020-08-03,3,0
-Virginia,2020-08-03,0,0
-Washington,2020-08-03,4,0
-West Virginia,2020-08-03,0,0
-Wisconsin,2020-08-03,1,0
-US,2020-08-03,402,0
-Alabama,2020-08-04,33,0
-Alaska,2020-08-04,0,0
-Arizona,2020-08-04,66,0
-Arkansas,2020-08-04,15,0
-California,2020-08-04,243,0
-Colorado,2020-08-04,5,0
-Connecticut,2020-08-04,0,0
-Delaware,2020-08-04,2,0
-District of Columbia,2020-08-04,1,0
-Florida,2020-08-04,245,0
-Georgia,2020-08-04,79,0
-Guam,2020-08-04,0,0
-Hawaii,2020-08-04,1,0
-Idaho,2020-08-04,10,0
-Illinois,2020-08-04,19,0
-Indiana,2020-08-04,16,0
-Iowa,2020-08-04,4,0
-Kansas,2020-08-04,1,0
-Kentucky,2020-08-04,7,0
-Louisiana,2020-08-04,27,0
-Maine,2020-08-04,0,0
-Maryland,2020-08-04,7,0
-Massachusetts,2020-08-04,9,0
-Michigan,2020-08-04,4,0
-Minnesota,2020-08-04,4,0
-Mississippi,2020-08-04,42,0
-Missouri,2020-08-04,11,0
-Montana,2020-08-04,0,0
-Nebraska,2020-08-04,4,0
-Nevada,2020-08-04,15,0
-New Hampshire,2020-08-04,1,0
-New Jersey,2020-08-04,11,0
-New Mexico,2020-08-04,3,0
-New York,2020-08-04,6,0
-North Carolina,2020-08-04,18,0
-North Dakota,2020-08-04,2,0
-Ohio,2020-08-04,31,0
-Oklahoma,2020-08-04,15,0
-Oregon,2020-08-04,5,0
-Pennsylvania,2020-08-04,24,0
-Puerto Rico,2020-08-04,7,0
-Rhode Island,2020-08-04,1,0
-South Carolina,2020-08-04,54,0
-South Dakota,2020-08-04,1,0
-Tennessee,2020-08-04,25,0
-Texas,2020-08-04,234,0
-Utah,2020-08-04,7,0
-Virginia,2020-08-04,26,0
-Washington,2020-08-04,19,0
-West Virginia,2020-08-04,7,0
-Wisconsin,2020-08-04,12,0
-US,2020-08-04,1379,0
-Alabama,2020-08-05,29,0
-Alaska,2020-08-05,0,0
-Arizona,2020-08-05,87,0
-Arkansas,2020-08-05,18,0
-California,2020-08-05,124,0
-Colorado,2020-08-05,2,0
-Connecticut,2020-08-05,0,0
-Delaware,2020-08-05,0,0
-District of Columbia,2020-08-05,0,0
-Florida,2020-08-05,225,0
-Georgia,2020-08-05,63,0
-Guam,2020-08-05,0,0
-Hawaii,2020-08-05,0,0
-Idaho,2020-08-05,7,0
-Illinois,2020-08-05,28,0
-Indiana,2020-08-05,11,0
-Iowa,2020-08-05,12,0
-Kansas,2020-08-05,4,0
-Kentucky,2020-08-05,1,0
-Louisiana,2020-08-05,45,0
-Maine,2020-08-05,1,0
-Maryland,2020-08-05,6,0
-Massachusetts,2020-08-05,2,0
-Michigan,2020-08-05,7,0
-Minnesota,2020-08-05,10,0
-Mississippi,2020-08-05,51,0
-Missouri,2020-08-05,7,0
-Montana,2020-08-05,1,0
-Nebraska,2020-08-05,8,0
-Nevada,2020-08-05,28,0
-New Hampshire,2020-08-05,0,0
-New Jersey,2020-08-05,0,0
-New Mexico,2020-08-05,9,0
-New York,2020-08-05,33,0
-North Carolina,2020-08-05,24,0
-North Dakota,2020-08-05,1,0
-Ohio,2020-08-05,26,0
-Oklahoma,2020-08-05,17,0
-Oregon,2020-08-05,5,0
-Pennsylvania,2020-08-05,6,0
-Puerto Rico,2020-08-05,9,0
-Rhode Island,2020-08-05,1,0
-South Carolina,2020-08-05,47,0
-South Dakota,2020-08-05,1,0
-Tennessee,2020-08-05,27,0
-Texas,2020-08-05,358,0
-Utah,2020-08-05,6,0
-Virginia,2020-08-05,30,0
-Washington,2020-08-05,5,0
-West Virginia,2020-08-05,0,0
-Wisconsin,2020-08-05,9,0
-US,2020-08-05,1391,0
-Alabama,2020-08-06,19,0
-Alaska,2020-08-06,0,0
-Arizona,2020-08-06,70,0
-Arkansas,2020-08-06,7,0
-California,2020-08-06,213,0
-Colorado,2020-08-06,1,0
-Connecticut,2020-08-06,0,0
-Delaware,2020-08-06,0,0
-District of Columbia,2020-08-06,0,0
-Florida,2020-08-06,120,0
-Georgia,2020-08-06,42,0
-Guam,2020-08-06,0,0
-Hawaii,2020-08-06,2,0
-Idaho,2020-08-06,6,0
-Illinois,2020-08-06,21,0
-Indiana,2020-08-06,6,0
-Iowa,2020-08-06,12,0
-Kansas,2020-08-06,6,0
-Kentucky,2020-08-06,8,0
-Louisiana,2020-08-06,50,0
-Maine,2020-08-06,0,0
-Maryland,2020-08-06,15,0
-Massachusetts,2020-08-06,32,0
-Michigan,2020-08-06,28,0
-Minnesota,2020-08-06,7,0
-Mississippi,2020-08-06,21,0
-Missouri,2020-08-06,5,0
-Montana,2020-08-06,0,0
-Nebraska,2020-08-06,0,0
-Nevada,2020-08-06,10,0
-New Hampshire,2020-08-06,1,0
-New Jersey,2020-08-06,7,0
-New Mexico,2020-08-06,2,0
-New York,2020-08-06,5,0
-North Carolina,2020-08-06,41,0
-North Dakota,2020-08-06,1,0
-Ohio,2020-08-06,22,0
-Oklahoma,2020-08-06,10,0
-Oregon,2020-08-06,1,0
-Pennsylvania,2020-08-06,28,0
-Puerto Rico,2020-08-06,12,0
-Rhode Island,2020-08-06,2,0
-South Carolina,2020-08-06,48,0
-South Dakota,2020-08-06,4,0
-Tennessee,2020-08-06,42,0
-Texas,2020-08-06,259,0
-Utah,2020-08-06,3,0
-Virginia,2020-08-06,25,0
-Washington,2020-08-06,29,0
-West Virginia,2020-08-06,0,0
-Wisconsin,2020-08-06,8,0
-US,2020-08-06,1253,0
-Alabama,2020-08-07,21,0
-Alaska,2020-08-07,0,0
-Arizona,2020-08-07,79,0
-Arkansas,2020-08-07,6,0
-California,2020-08-07,112,0
-Colorado,2020-08-07,5,0
-Connecticut,2020-08-07,4,0
-Delaware,2020-08-07,1,0
-District of Columbia,2020-08-07,2,0
-Florida,2020-08-07,180,0
-Georgia,2020-08-07,91,0
-Guam,2020-08-07,0,0
-Hawaii,2020-08-07,2,0
-Idaho,2020-08-07,6,0
-Illinois,2020-08-07,31,0
-Indiana,2020-08-07,10,0
-Iowa,2020-08-07,3,0
-Kansas,2020-08-07,1,0
-Kentucky,2020-08-07,4,0
-Louisiana,2020-08-07,61,0
-Maine,2020-08-07,0,0
-Maryland,2020-08-07,14,0
-Massachusetts,2020-08-07,18,0
-Michigan,2020-08-07,18,0
-Minnesota,2020-08-07,4,0
-Mississippi,2020-08-07,23,0
-Missouri,2020-08-07,22,0
-Montana,2020-08-07,5,0
-Nebraska,2020-08-07,5,0
-Nevada,2020-08-07,20,0
-New Hampshire,2020-08-07,0,0
-New Jersey,2020-08-07,0,0
-New Mexico,2020-08-07,6,0
-New York,2020-08-07,3,0
-North Carolina,2020-08-07,34,0
-North Dakota,2020-08-07,1,0
-Ohio,2020-08-07,34,0
-Oklahoma,2020-08-07,7,0
-Oregon,2020-08-07,9,0
-Pennsylvania,2020-08-07,14,0
-Puerto Rico,2020-08-07,7,0
-Rhode Island,2020-08-07,0,0
-South Carolina,2020-08-07,20,0
-South Dakota,2020-08-07,3,0
-Tennessee,2020-08-07,20,0
-Texas,2020-08-07,278,0
-Utah,2020-08-07,5,0
-Virginia,2020-08-07,18,0
-Washington,2020-08-07,19,0
-West Virginia,2020-08-07,3,0
-Wisconsin,2020-08-07,12,0
-US,2020-08-07,1242,0
-Alabama,2020-08-08,20,0
-Alaska,2020-08-08,1,0
-Arizona,2020-08-08,56,0
-Arkansas,2020-08-08,14,0
-California,2020-08-08,174,0
-Colorado,2020-08-08,0,0
-Connecticut,2020-08-08,0,0
-Delaware,2020-08-08,2,0
-District of Columbia,2020-08-08,1,0
-Florida,2020-08-08,182,0
-Georgia,2020-08-08,69,0
-Guam,2020-08-08,0,0
-Hawaii,2020-08-08,0,0
-Idaho,2020-08-08,6,0
-Illinois,2020-08-08,18,0
-Indiana,2020-08-08,13,0
-Iowa,2020-08-08,12,0
-Kansas,2020-08-08,1,0
-Kentucky,2020-08-08,8,0
-Louisiana,2020-08-08,0,0
-Maine,2020-08-08,1,0
-Maryland,2020-08-08,12,0
-Massachusetts,2020-08-08,12,0
-Michigan,2020-08-08,0,0
-Minnesota,2020-08-08,8,0
-Mississippi,2020-08-08,26,0
-Missouri,2020-08-08,3,0
-Montana,2020-08-08,5,0
-Nebraska,2020-08-08,0,0
-Nevada,2020-08-08,29,0
-New Hampshire,2020-08-08,0,0
-New Jersey,2020-08-08,20,0
-New Mexico,2020-08-08,6,0
-New York,2020-08-08,9,0
-North Carolina,2020-08-08,24,0
-North Dakota,2020-08-08,2,0
-Ohio,2020-08-08,16,0
-Oklahoma,2020-08-08,3,0
-Oregon,2020-08-08,7,0
-Pennsylvania,2020-08-08,14,0
-Puerto Rico,2020-08-08,9,0
-Rhode Island,2020-08-08,0,0
-South Carolina,2020-08-08,45,0
-South Dakota,2020-08-08,2,0
-Tennessee,2020-08-08,9,0
-Texas,2020-08-08,211,0
-Utah,2020-08-08,0,0
-Virginia,2020-08-08,5,0
-Washington,2020-08-08,16,0
-West Virginia,2020-08-08,4,0
-Wisconsin,2020-08-08,6,0
-US,2020-08-08,1081,0
 Alabama,2020-08-09,13,0
 Alaska,2020-08-09,0,0
 Arizona,2020-08-09,13,0
@@ -1455,58 +1091,58 @@ Washington,2020-08-29,0,0
 West Virginia,2020-08-29,14,0
 Wisconsin,2020-08-29,6,0
 US,2020-08-29,966,0
-Alabama,2020-08-30,10,1
-Alaska,2020-08-30,0,1
-Arizona,2020-08-30,23,1
-Arkansas,2020-08-30,12,1
-California,2020-08-30,43,1
-Colorado,2020-08-30,0,1
-Connecticut,2020-08-30,0,1
-Delaware,2020-08-30,0,1
-District of Columbia,2020-08-30,1,1
-Florida,2020-08-30,14,1
-Georgia,2020-08-30,28,1
-Guam,2020-08-30,0,1
-Hawaii,2020-08-30,1,1
-Idaho,2020-08-30,1,1
-Illinois,2020-08-30,11,1
-Indiana,2020-08-30,6,1
-Iowa,2020-08-30,13,1
-Kansas,2020-08-30,0,1
-Kentucky,2020-08-30,8,1
-Louisiana,2020-08-30,27,1
-Maine,2020-08-30,0,1
-Maryland,2020-08-30,6,1
-Massachusetts,2020-08-30,13,1
-Michigan,2020-08-30,36,1
-Minnesota,2020-08-30,2,1
-Mississippi,2020-08-30,14,1
-Missouri,2020-08-30,5,1
-Montana,2020-08-30,0,1
-Nebraska,2020-08-30,0,1
-Nevada,2020-08-30,0,1
-New Hampshire,2020-08-30,0,1
-New Jersey,2020-08-30,4,1
-New Mexico,2020-08-30,1,1
-New York,2020-08-30,18,1
-North Carolina,2020-08-30,9,1
-North Dakota,2020-08-30,1,1
-Ohio,2020-08-30,0,1
-Oklahoma,2020-08-30,2,1
-Oregon,2020-08-30,4,1
-Pennsylvania,2020-08-30,2,1
-Puerto Rico,2020-08-30,6,1
-Rhode Island,2020-08-30,0,1
-South Carolina,2020-08-30,11,1
-South Dakota,2020-08-30,0,1
-Tennessee,2020-08-30,22,1
-Texas,2020-08-30,76,1
-Utah,2020-08-30,0,1
-Virginia,2020-08-30,1,1
-Washington,2020-08-30,0,1
-West Virginia,2020-08-30,0,1
-Wisconsin,2020-08-30,3,1
-US,2020-08-30,434,1
+Alabama,2020-08-30,10,0
+Alaska,2020-08-30,0,0
+Arizona,2020-08-30,23,0
+Arkansas,2020-08-30,12,0
+California,2020-08-30,43,0
+Colorado,2020-08-30,0,0
+Connecticut,2020-08-30,0,0
+Delaware,2020-08-30,0,0
+District of Columbia,2020-08-30,1,0
+Florida,2020-08-30,14,0
+Georgia,2020-08-30,28,0
+Guam,2020-08-30,0,0
+Hawaii,2020-08-30,1,0
+Idaho,2020-08-30,1,0
+Illinois,2020-08-30,11,0
+Indiana,2020-08-30,6,0
+Iowa,2020-08-30,13,0
+Kansas,2020-08-30,0,0
+Kentucky,2020-08-30,8,0
+Louisiana,2020-08-30,27,0
+Maine,2020-08-30,0,0
+Maryland,2020-08-30,6,0
+Massachusetts,2020-08-30,13,0
+Michigan,2020-08-30,36,0
+Minnesota,2020-08-30,2,0
+Mississippi,2020-08-30,14,0
+Missouri,2020-08-30,5,0
+Montana,2020-08-30,0,0
+Nebraska,2020-08-30,0,0
+Nevada,2020-08-30,0,0
+New Hampshire,2020-08-30,0,0
+New Jersey,2020-08-30,4,0
+New Mexico,2020-08-30,1,0
+New York,2020-08-30,18,0
+North Carolina,2020-08-30,9,0
+North Dakota,2020-08-30,1,0
+Ohio,2020-08-30,0,0
+Oklahoma,2020-08-30,2,0
+Oregon,2020-08-30,4,0
+Pennsylvania,2020-08-30,2,0
+Puerto Rico,2020-08-30,6,0
+Rhode Island,2020-08-30,0,0
+South Carolina,2020-08-30,11,0
+South Dakota,2020-08-30,0,0
+Tennessee,2020-08-30,22,0
+Texas,2020-08-30,76,0
+Utah,2020-08-30,0,0
+Virginia,2020-08-30,1,0
+Washington,2020-08-30,0,0
+West Virginia,2020-08-30,0,0
+Wisconsin,2020-08-30,3,0
+US,2020-08-30,434,0
 Alabama,2020-08-31,20,0
 Alaska,2020-08-31,0,0
 Arizona,2020-08-31,0,0
@@ -1819,58 +1455,58 @@ Washington,2020-09-05,0,0
 West Virginia,2020-09-05,1,0
 Wisconsin,2020-09-05,15,0
 US,2020-09-05,783,0
-Alabama,2020-09-06,1,0
-Alaska,2020-09-06,0,0
-Arizona,2020-09-06,14,0
-Arkansas,2020-09-06,12,0
-California,2020-09-06,22,0
-Colorado,2020-09-06,1,0
-Connecticut,2020-09-06,0,0
-Delaware,2020-09-06,1,0
-District of Columbia,2020-09-06,0,0
-Florida,2020-09-06,38,0
-Georgia,2020-09-06,60,0
-Guam,2020-09-06,0,0
-Hawaii,2020-09-06,1,0
-Idaho,2020-09-06,1,0
-Illinois,2020-09-06,5,0
-Indiana,2020-09-06,2,0
-Iowa,2020-09-06,3,0
-Kansas,2020-09-06,1,0
-Kentucky,2020-09-06,3,0
-Louisiana,2020-09-06,58,0
-Maine,2020-09-06,0,0
-Maryland,2020-09-06,3,0
-Massachusetts,2020-09-06,9,0
-Michigan,2020-09-06,0,0
-Minnesota,2020-09-06,6,0
-Mississippi,2020-09-06,15,0
-Missouri,2020-09-06,17,0
-Montana,2020-09-06,1,0
-Nebraska,2020-09-06,0,0
-Nevada,2020-09-06,1,0
-New Hampshire,2020-09-06,1,0
-New Jersey,2020-09-06,4,0
-New Mexico,2020-09-06,3,0
-New York,2020-09-06,0,0
-North Carolina,2020-09-06,1,0
-North Dakota,2020-09-06,1,0
-Ohio,2020-09-06,3,0
-Oklahoma,2020-09-06,3,0
-Oregon,2020-09-06,1,0
-Pennsylvania,2020-09-06,0,0
-Puerto Rico,2020-09-06,13,0
-Rhode Island,2020-09-06,0,0
-South Carolina,2020-09-06,10,0
-South Dakota,2020-09-06,0,0
-Tennessee,2020-09-06,3,0
-Texas,2020-09-06,78,0
-Utah,2020-09-06,2,0
-Virginia,2020-09-06,1,0
-Washington,2020-09-06,0,0
-West Virginia,2020-09-06,3,0
-Wisconsin,2020-09-06,0,0
-US,2020-09-06,403,0
+Alabama,2020-09-06,1,1
+Alaska,2020-09-06,0,1
+Arizona,2020-09-06,14,1
+Arkansas,2020-09-06,12,1
+California,2020-09-06,22,1
+Colorado,2020-09-06,1,1
+Connecticut,2020-09-06,0,1
+Delaware,2020-09-06,1,1
+District of Columbia,2020-09-06,0,1
+Florida,2020-09-06,38,1
+Georgia,2020-09-06,60,1
+Guam,2020-09-06,0,1
+Hawaii,2020-09-06,1,1
+Idaho,2020-09-06,1,1
+Illinois,2020-09-06,5,1
+Indiana,2020-09-06,2,1
+Iowa,2020-09-06,3,1
+Kansas,2020-09-06,1,1
+Kentucky,2020-09-06,3,1
+Louisiana,2020-09-06,58,1
+Maine,2020-09-06,0,1
+Maryland,2020-09-06,3,1
+Massachusetts,2020-09-06,9,1
+Michigan,2020-09-06,0,1
+Minnesota,2020-09-06,6,1
+Mississippi,2020-09-06,15,1
+Missouri,2020-09-06,17,1
+Montana,2020-09-06,1,1
+Nebraska,2020-09-06,0,1
+Nevada,2020-09-06,1,1
+New Hampshire,2020-09-06,1,1
+New Jersey,2020-09-06,4,1
+New Mexico,2020-09-06,3,1
+New York,2020-09-06,0,1
+North Carolina,2020-09-06,1,1
+North Dakota,2020-09-06,1,1
+Ohio,2020-09-06,3,1
+Oklahoma,2020-09-06,3,1
+Oregon,2020-09-06,1,1
+Pennsylvania,2020-09-06,0,1
+Puerto Rico,2020-09-06,13,1
+Rhode Island,2020-09-06,0,1
+South Carolina,2020-09-06,10,1
+South Dakota,2020-09-06,0,1
+Tennessee,2020-09-06,3,1
+Texas,2020-09-06,78,1
+Utah,2020-09-06,2,1
+Virginia,2020-09-06,1,1
+Washington,2020-09-06,0,1
+West Virginia,2020-09-06,3,1
+Wisconsin,2020-09-06,0,1
+US,2020-09-06,403,1
 Alabama,2020-09-07,0,0
 Alaska,2020-09-07,0,0
 Arizona,2020-09-07,0,0
@@ -1988,7 +1624,7 @@ Florida,2020-09-09,195,0
 Georgia,2020-09-09,58,0
 Guam,2020-09-09,1,0
 Hawaii,2020-09-09,3,0
-Idaho,2020-09-09,31,0
+Idaho,2020-09-09,18,0
 Illinois,2020-09-09,28,0
 Indiana,2020-09-09,17,0
 Iowa,2020-09-09,19,0
@@ -2026,7 +1662,7 @@ Virginia,2020-09-09,11,0
 Washington,2020-09-09,25,0
 West Virginia,2020-09-09,3,0
 Wisconsin,2020-09-09,15,0
-US,2020-09-09,1206,0
+US,2020-09-09,1193,0
 Alabama,2020-09-10,16,0
 Alaska,2020-09-10,0,0
 Arizona,2020-09-10,22,0
@@ -2963,3 +2599,367 @@ Washington,2020-09-27,0,0
 West Virginia,2020-09-27,2,0
 Wisconsin,2020-09-27,0,0
 US,2020-09-27,267,0
+Alabama,2020-09-28,0,0
+Alaska,2020-09-28,0,0
+Arizona,2020-09-28,1,0
+Arkansas,2020-09-28,21,0
+California,2020-09-28,27,0
+Colorado,2020-09-28,3,0
+Connecticut,2020-09-28,2,0
+Delaware,2020-09-28,1,0
+District of Columbia,2020-09-28,0,0
+Florida,2020-09-28,5,0
+Georgia,2020-09-28,15,0
+Guam,2020-09-28,0,0
+Hawaii,2020-09-28,0,0
+Idaho,2020-09-28,0,0
+Illinois,2020-09-28,13,0
+Indiana,2020-09-28,11,0
+Iowa,2020-09-28,8,0
+Kansas,2020-09-28,9,0
+Kentucky,2020-09-28,5,0
+Louisiana,2020-09-28,15,0
+Maine,2020-09-28,0,0
+Maryland,2020-09-28,3,0
+Massachusetts,2020-09-28,11,0
+Michigan,2020-09-28,7,0
+Minnesota,2020-09-28,7,0
+Mississippi,2020-09-28,2,0
+Missouri,2020-09-28,4,0
+Montana,2020-09-28,1,0
+Nebraska,2020-09-28,2,0
+Nevada,2020-09-28,0,0
+New Hampshire,2020-09-28,0,0
+New Jersey,2020-09-28,1,0
+New Mexico,2020-09-28,3,0
+New York,2020-09-28,9,0
+North Carolina,2020-09-28,4,0
+North Dakota,2020-09-28,3,0
+Ohio,2020-09-28,5,0
+Oklahoma,2020-09-28,1,0
+Oregon,2020-09-28,4,0
+Pennsylvania,2020-09-28,2,0
+Puerto Rico,2020-09-28,4,0
+Rhode Island,2020-09-28,3,0
+South Carolina,2020-09-28,11,0
+South Dakota,2020-09-28,0,0
+Tennessee,2020-09-28,12,0
+Texas,2020-09-28,62,0
+Utah,2020-09-28,0,0
+Virginia,2020-09-28,13,0
+Washington,2020-09-28,0,0
+West Virginia,2020-09-28,3,0
+Wisconsin,2020-09-28,2,0
+US,2020-09-28,316,0
+Alabama,2020-09-29,16,0
+Alaska,2020-09-29,0,0
+Arizona,2020-09-29,8,0
+Arkansas,2020-09-29,21,0
+California,2020-09-29,149,0
+Colorado,2020-09-29,2,0
+Connecticut,2020-09-29,2,0
+Delaware,2020-09-29,1,0
+District of Columbia,2020-09-29,2,0
+Florida,2020-09-29,5,0
+Georgia,2020-09-29,33,0
+Guam,2020-09-29,8,0
+Hawaii,2020-09-29,2,0
+Idaho,2020-09-29,4,0
+Illinois,2020-09-29,23,0
+Indiana,2020-09-29,21,0
+Iowa,2020-09-29,17,0
+Kansas,2020-09-29,7,0
+Kentucky,2020-09-29,8,0
+Louisiana,2020-09-29,10,0
+Maine,2020-09-29,1,0
+Maryland,2020-09-29,8,0
+Massachusetts,2020-09-29,8,0
+Michigan,2020-09-29,21,0
+Minnesota,2020-09-29,5,0
+Mississippi,2020-09-29,36,0
+Missouri,2020-09-29,9,0
+Montana,2020-09-29,3,0
+Nebraska,2020-09-29,6,0
+Nevada,2020-09-29,8,0
+New Hampshire,2020-09-29,0,0
+New Jersey,2020-09-29,10,0
+New Mexico,2020-09-29,2,0
+New York,2020-09-29,4,0
+North Carolina,2020-09-29,49,0
+North Dakota,2020-09-29,5,0
+Ohio,2020-09-29,37,0
+Oklahoma,2020-09-29,11,0
+Oregon,2020-09-29,8,0
+Pennsylvania,2020-09-29,13,0
+Puerto Rico,2020-09-29,6,0
+Rhode Island,2020-09-29,3,0
+South Carolina,2020-09-29,22,0
+South Dakota,2020-09-29,5,0
+Tennessee,2020-09-29,31,0
+Texas,2020-09-29,95,0
+Utah,2020-09-29,4,0
+Virginia,2020-09-29,15,0
+Washington,2020-09-29,24,0
+West Virginia,2020-09-29,8,0
+Wisconsin,2020-09-29,17,0
+US,2020-09-29,813,0
+Alabama,2020-09-30,23,0
+Alaska,2020-09-30,0,0
+Arizona,2020-09-30,18,0
+Arkansas,2020-09-30,19,0
+California,2020-09-30,103,0
+Colorado,2020-09-30,5,0
+Connecticut,2020-09-30,3,0
+Delaware,2020-09-30,1,0
+District of Columbia,2020-09-30,1,0
+Florida,2020-09-30,174,0
+Georgia,2020-09-30,27,0
+Guam,2020-09-30,2,0
+Hawaii,2020-09-30,2,0
+Idaho,2020-09-30,5,0
+Illinois,2020-09-30,35,0
+Indiana,2020-09-30,20,0
+Iowa,2020-09-30,17,0
+Kansas,2020-09-30,18,0
+Kentucky,2020-09-30,4,0
+Louisiana,2020-09-30,21,0
+Maine,2020-09-30,0,0
+Maryland,2020-09-30,3,0
+Massachusetts,2020-09-30,33,0
+Michigan,2020-09-30,11,0
+Minnesota,2020-09-30,17,0
+Mississippi,2020-09-30,12,0
+Missouri,2020-09-30,3,0
+Montana,2020-09-30,3,0
+Nebraska,2020-09-30,0,0
+Nevada,2020-09-30,7,0
+New Hampshire,2020-09-30,0,0
+New Jersey,2020-09-30,5,0
+New Mexico,2020-09-30,2,0
+New York,2020-09-30,9,0
+North Carolina,2020-09-30,38,0
+North Dakota,2020-09-30,7,0
+Ohio,2020-09-30,21,0
+Oklahoma,2020-09-30,13,0
+Oregon,2020-09-30,4,0
+Pennsylvania,2020-09-30,29,0
+Puerto Rico,2020-09-30,7,0
+Rhode Island,2020-09-30,1,0
+South Carolina,2020-09-30,19,0
+South Dakota,2020-09-30,0,0
+Tennessee,2020-09-30,34,0
+Texas,2020-09-30,114,0
+Utah,2020-09-30,2,0
+Virginia,2020-09-30,20,0
+Washington,2020-09-30,2,0
+West Virginia,2020-09-30,5,0
+Wisconsin,2020-09-30,27,0
+US,2020-09-30,946,0
+Alabama,2020-10-01,8,0
+Alaska,2020-10-01,1,0
+Arizona,2020-10-01,24,0
+Arkansas,2020-10-01,15,0
+California,2020-10-01,88,0
+Colorado,2020-10-01,3,0
+Connecticut,2020-10-01,3,0
+Delaware,2020-10-01,0,0
+District of Columbia,2020-10-01,1,0
+Florida,2020-10-01,127,0
+Georgia,2020-10-01,42,0
+Guam,2020-10-01,0,0
+Hawaii,2020-10-01,3,0
+Idaho,2020-10-01,3,0
+Illinois,2020-10-01,24,0
+Indiana,2020-10-01,13,0
+Iowa,2020-10-01,8,0
+Kansas,2020-10-01,3,0
+Kentucky,2020-10-01,17,0
+Louisiana,2020-10-01,8,0
+Maine,2020-10-01,0,0
+Maryland,2020-10-01,0,0
+Massachusetts,2020-10-01,24,0
+Michigan,2020-10-01,19,0
+Minnesota,2020-10-01,13,0
+Mississippi,2020-10-01,10,0
+Missouri,2020-10-01,5,0
+Montana,2020-10-01,1,0
+Nebraska,2020-10-01,15,0
+Nevada,2020-10-01,3,0
+New Hampshire,2020-10-01,2,0
+New Jersey,2020-10-01,18,0
+New Mexico,2020-10-01,5,0
+New York,2020-10-01,6,0
+North Carolina,2020-10-01,47,0
+North Dakota,2020-10-01,10,0
+Ohio,2020-10-01,13,0
+Oklahoma,2020-10-01,4,0
+Oregon,2020-10-01,1,0
+Pennsylvania,2020-10-01,14,0
+Puerto Rico,2020-10-01,4,0
+Rhode Island,2020-10-01,3,0
+South Carolina,2020-10-01,22,0
+South Dakota,2020-10-01,13,0
+Tennessee,2020-10-01,47,0
+Texas,2020-10-01,114,0
+Utah,2020-10-01,0,0
+Virginia,2020-10-01,20,0
+Washington,2020-10-01,6,0
+West Virginia,2020-10-01,4,0
+Wisconsin,2020-10-01,21,0
+US,2020-10-01,858,0
+Alabama,2020-10-02,2,0
+Alaska,2020-10-02,0,0
+Arizona,2020-10-02,19,0
+Arkansas,2020-10-02,7,0
+California,2020-10-02,81,0
+Colorado,2020-10-02,3,0
+Connecticut,2020-10-02,2,0
+Delaware,2020-10-02,6,0
+District of Columbia,2020-10-02,1,0
+Florida,2020-10-02,110,0
+Georgia,2020-10-02,43,0
+Guam,2020-10-02,0,0
+Hawaii,2020-10-02,3,0
+Idaho,2020-10-02,2,0
+Illinois,2020-10-02,52,0
+Indiana,2020-10-02,11,0
+Iowa,2020-10-02,11,0
+Kansas,2020-10-02,16,0
+Kentucky,2020-10-02,6,0
+Louisiana,2020-10-02,26,0
+Maine,2020-10-02,0,0
+Maryland,2020-10-02,1,0
+Massachusetts,2020-10-02,10,0
+Michigan,2020-10-02,8,0
+Minnesota,2020-10-02,10,0
+Mississippi,2020-10-02,20,0
+Missouri,2020-10-02,72,0
+Montana,2020-10-02,5,0
+Nebraska,2020-10-02,0,0
+Nevada,2020-10-02,6,0
+New Hampshire,2020-10-02,1,0
+New Jersey,2020-10-02,0,0
+New Mexico,2020-10-02,5,0
+New York,2020-10-02,40,0
+North Carolina,2020-10-02,29,0
+North Dakota,2020-10-02,8,0
+Ohio,2020-10-02,88,0
+Oklahoma,2020-10-02,9,0
+Oregon,2020-10-02,3,0
+Pennsylvania,2020-10-02,18,0
+Puerto Rico,2020-10-02,8,0
+Rhode Island,2020-10-02,1,0
+South Carolina,2020-10-02,9,0
+South Dakota,2020-10-02,1,0
+Tennessee,2020-10-02,14,0
+Texas,2020-10-02,94,0
+Utah,2020-10-02,15,0
+Virginia,2020-10-02,22,0
+Washington,2020-10-02,11,0
+West Virginia,2020-10-02,2,0
+Wisconsin,2020-10-02,5,0
+US,2020-10-02,916,0
+Alabama,2020-10-03,8,0
+Alaska,2020-10-03,1,0
+Arizona,2020-10-03,12,0
+Arkansas,2020-10-03,16,0
+California,2020-10-03,61,0
+Colorado,2020-10-03,3,0
+Connecticut,2020-10-03,0,0
+Delaware,2020-10-03,3,0
+District of Columbia,2020-10-03,0,0
+Florida,2020-10-03,74,0
+Georgia,2020-10-03,27,0
+Guam,2020-10-03,0,0
+Hawaii,2020-10-03,11,0
+Idaho,2020-10-03,6,0
+Illinois,2020-10-03,31,0
+Indiana,2020-10-03,13,0
+Iowa,2020-10-03,4,0
+Kansas,2020-10-03,2,0
+Kentucky,2020-10-03,8,0
+Louisiana,2020-10-03,0,0
+Maine,2020-10-03,1,0
+Maryland,2020-10-03,7,0
+Massachusetts,2020-10-03,17,0
+Michigan,2020-10-03,14,0
+Minnesota,2020-10-03,14,0
+Mississippi,2020-10-03,12,0
+Missouri,2020-10-03,31,0
+Montana,2020-10-03,0,0
+Nebraska,2020-10-03,4,0
+Nevada,2020-10-03,11,0
+New Hampshire,2020-10-03,0,0
+New Jersey,2020-10-03,4,0
+New Mexico,2020-10-03,3,0
+New York,2020-10-03,0,0
+North Carolina,2020-10-03,21,0
+North Dakota,2020-10-03,7,0
+Ohio,2020-10-03,20,0
+Oklahoma,2020-10-03,7,0
+Oregon,2020-10-03,8,0
+Pennsylvania,2020-10-03,18,0
+Puerto Rico,2020-10-03,8,0
+Rhode Island,2020-10-03,0,0
+South Carolina,2020-10-03,33,0
+South Dakota,2020-10-03,11,0
+Tennessee,2020-10-03,45,0
+Texas,2020-10-03,71,0
+Utah,2020-10-03,2,0
+Virginia,2020-10-03,20,0
+Washington,2020-10-03,0,0
+West Virginia,2020-10-03,2,0
+Wisconsin,2020-10-03,19,0
+US,2020-10-03,690,0
+Alabama,2020-10-04,0,0
+Alaska,2020-10-04,0,0
+Arizona,2020-10-04,1,0
+Arkansas,2020-10-04,18,0
+California,2020-10-04,32,0
+Colorado,2020-10-04,8,0
+Connecticut,2020-10-04,0,0
+Delaware,2020-10-04,0,0
+District of Columbia,2020-10-04,2,0
+Florida,2020-10-04,43,0
+Georgia,2020-10-04,29,0
+Guam,2020-10-04,0,0
+Hawaii,2020-10-04,3,0
+Idaho,2020-10-04,2,0
+Illinois,2020-10-04,17,0
+Indiana,2020-10-04,5,0
+Iowa,2020-10-04,6,0
+Kansas,2020-10-04,0,0
+Kentucky,2020-10-04,4,0
+Louisiana,2020-10-04,32,0
+Maine,2020-10-04,0,0
+Maryland,2020-10-04,1,0
+Massachusetts,2020-10-04,3,0
+Michigan,2020-10-04,0,0
+Minnesota,2020-10-04,7,0
+Mississippi,2020-10-04,2,0
+Missouri,2020-10-04,9,0
+Montana,2020-10-04,1,0
+Nebraska,2020-10-04,4,0
+Nevada,2020-10-04,3,0
+New Hampshire,2020-10-04,1,0
+New Jersey,2020-10-04,1,0
+New Mexico,2020-10-04,2,0
+New York,2020-10-04,8,0
+North Carolina,2020-10-04,5,0
+North Dakota,2020-10-04,3,0
+Ohio,2020-10-04,0,0
+Oklahoma,2020-10-04,0,0
+Oregon,2020-10-04,1,0
+Pennsylvania,2020-10-04,15,0
+Puerto Rico,2020-10-04,5,0
+Rhode Island,2020-10-04,0,0
+South Carolina,2020-10-04,11,0
+South Dakota,2020-10-04,0,0
+Tennessee,2020-10-04,17,0
+Texas,2020-10-04,25,0
+Utah,2020-10-04,2,0
+Virginia,2020-10-04,3,0
+Washington,2020-10-04,0,0
+West Virginia,2020-10-04,1,0
+Wisconsin,2020-10-04,5,0
+US,2020-10-04,337,0
