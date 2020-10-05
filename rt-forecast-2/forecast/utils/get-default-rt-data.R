@@ -4,6 +4,11 @@ require(data.table)
 require(future)
 require(dplyr)
 
+# Set up logging ----------------------------------------------------------
+setup_logging("INFO")
+setup_logging("INFO", file = "info.log",
+              name = "EpiNow.epinow")
+
 # Update delays -----------------------------------------------------------
 
 generation_time <- readRDS(here::here("rt-forecast-2", "forecast", "delays", "data", "generation_time.rds"))
