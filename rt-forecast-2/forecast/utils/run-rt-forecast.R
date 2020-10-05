@@ -46,7 +46,7 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
                                                                         max_treedepth = 15), 
                                                          chains = ifelse(no_cores <= 4, 4, no_cores)), 
                                         burn_in = 14, non_zero_points = 14,
-                                        max_execution_time = 60 * 60, future = TRUE,
+                                        max_execution_time = 60 * 30, future = TRUE,
                                         return_estimates = FALSE, verbose = FALSE, 
                                         make_plots = FALSE)
   # Run Rt - ORIGINAL -------------------------------------------------------
