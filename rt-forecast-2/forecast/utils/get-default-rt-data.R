@@ -35,17 +35,22 @@ deaths <- deaths_raw %>%
 
 
 # # # Set up cores -----------------------------------------------------
-setup_future <- function(jobs) {
+setup_future <- function(jobs, min_cores_per_worker = 4) {
   if (!interactive()) {
     ## If running as a script enable this
     options(future.fork.enable = TRUE)
   }
   
-  plan(list(tweak(multiprocess, workers = min(future::availableCores(), jobs), gc = TRUE, earlySignal = TRUE),
-            tweak(multiprocess, workers = max(1, round(future::availableCores() / jobs, 0)), gc = TRUE, earlySignal = TRUE)))
-  jobs <- max(1, round(future::availableCores() / jobs, 0))
-  return(jobs)
+  workers <- min(ceiling(future::availableCores() / min_cores_per_worker), jobs)
+  cores_per_worker <- max(1, round(future::availableCores() / workers, 0))
+  
+  futile.logger::flog.info("Using %s workers with %s cores per worker",
+                           workers, cores_per_worker)
+  
+  
+  future::plan(list(future::tweak(future::multiprocess, workers = workers, gc = TRUE, earlySignal = TRUE), 
+                    future::tweak(future::multiprocess, workers = cores_per_worker)))
+  return(cores_per_worker)
 }
-
 
 no_cores <- setup_future(length(unique(deaths$region)))
