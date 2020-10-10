@@ -9,14 +9,14 @@ library(dplyr)
 format_timeseries <- function(model_type, forecast_date, submission_date, 
                                      right_truncate_weeks, quantiles_out){
   
-# Raw data set up -------------------------------------------------------------
+# Set up -------------------------------------------------------------
 
 # Get state codes
 state_codes <- tigris::fips_codes %>%
-  dplyr::select(state_code, state_name) %>%
+  dplyr::select(location = state_code, state = state_name) %>%
   unique() %>%
   rbind(c("US", "US")) %>%
-  dplyr::mutate(state_name = ifelse(state_name == "U.S. Virgin Islands", "Virgin Islands", state_name))
+  dplyr::mutate(state = ifelse(state == "U.S. Virgin Islands", "Virgin Islands", state))
 
 # Read in forecast
 samples <- readRDS(here::here("timeseries-forecast", model_type, "raw-samples", "dated", 
@@ -35,64 +35,6 @@ raw_weekly_forecast <- samples %>%
 # Set epiweek to target date conversion
 forecast_date <- unique(raw_weekly_forecast$date_created)
 submission_date_epiweek <- lubridate::epiweek(submission_date)
-
-# Cumulative formatting ----------------------------------------------------
-  
-# --- Get cumulative weekly data ---
-cumulative_data <- get_us_deaths(data = "cumulative")
-
-# State cumulative data
-cumulative_deaths_state <- cumulative_data %>%
-  dates_to_epiweek() %>%
-  dplyr::filter(epiweek_end == TRUE)
-
-# National cumulative data
-cumulative_deaths_national <- cumulative_deaths_state %>%
-  dplyr::group_by(epiweek) %>%
-  dplyr::summarise(deaths = sum(deaths),
-                   state = "US",
-                   .groups = "drop_last") %>%
-  dplyr::ungroup()
-
-# Bind
-cumulative_deaths <- dplyr::bind_rows(cumulative_deaths_state, cumulative_deaths_national)
-
-# Filter to last week of data shown to model
-last_week_cumulative_deaths <- cumulative_deaths %>%
-  dplyr::filter(epiweek == max(epiweek)-right_truncate_weeks) %>%
-  dplyr::select(-epiweek, -date)
-
-# --- Create cumulative forecast ---
-raw_cumulative_forecast <- raw_weekly_forecast %>%
-  dplyr::group_by(quantile, state) %>%
-  dplyr::mutate(deaths = cumsum(deaths)) %>%
-  dplyr::ungroup()
-  
-# Join historical cumulative deaths to forecasts  
-cumulative_forecast <- raw_cumulative_forecast %>%  
-  dplyr::left_join(last_week_cumulative_deaths, by = "state") %>%
-  dplyr::mutate(deaths = deaths.x + deaths.y) %>%
-  # Filter to current and future epiweeks
-  dplyr::filter(epiweek >= submission_date_epiweek) %>%
-  # Format for submission
-  dplyr::left_join(state_codes, by = c("state" = "state_name")) %>%
-  epiweek_to_date() %>%
-  dplyr::mutate(submission_date = submission_date,
-                type = "quantile",
-                target = paste(epiweek - submission_date_epiweek + 1,
-                               "wk ahead cum death",
-                               sep = " ")) %>%
-  dplyr::select(forecast_date = date_created, submission_date, target, target_end_date = epiweek_end_date, 
-                location = state_code, type, quantile, value = deaths)
-
-# Add point forecast
-cumulative_forecast <- cumulative_forecast %>%
-  dplyr::bind_rows(cumulative_forecast %>%
-                     dplyr::filter(quantile == 0.5) %>%
-                     dplyr::mutate(type = "point") %>%
-                     dplyr::select(-quantile)) %>%
-  dplyr::mutate(value = floor(value))
-
 
 # Incident forecast -------------------------------------------
 
@@ -117,6 +59,26 @@ incident_forecast <- incident_forecast %>%
                      dplyr::mutate(type = "point") %>%
                      dplyr::select(-quantile)) %>%
   dplyr::mutate(value = floor(value))
+
+
+# Cumulative formatting ----------------------------------------------------
+  cumulative_data <- get_us_deaths(data = "cumulative")
+  
+  cumulative_deaths <- cumulative_data %>%
+    dplyr::ungroup() %>%
+    dplyr::filter(date == forecast_date) %>%
+    dplyr::add_row(state="US", deaths = sum(.$deaths), date = forecast_date) %>%
+    dplyr::left_join(state_codes, by = "state")
+  
+  cumulative_forecast <- incident_forecast %>%
+    dplyr::left_join(dplyr::select(cumulative_deaths, location, deaths),
+                     by = "location") %>%
+    dplyr::group_by(location, quantile, type) %>%
+    dplyr::mutate(value = cumsum(value),
+                  value = value + deaths,
+                  target = stringr::str_replace_all(target, "inc", "cum")) %>%
+    dplyr::ungroup() %>%
+    dplyr::select(-deaths)
 
 
 # Bind cumulative and incident --------------------------------------------
