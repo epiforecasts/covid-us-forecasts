@@ -24,7 +24,7 @@ format_rt <- function(forecast_date, submission_date, include_latest = FALSE,
     # Set directory ------------------------------------------------------
     
     i <- gsub("rt2_", "", i)
-    message("Formating: ", i, " on the ", forecast_date)
+    message("Formatting: ", i, " on the ", forecast_date)
     
     forecast_dir <- here::here("rt-forecast-2/forecast/deaths_forecast", i)
     output_dir <- here::here("rt-forecast-2/output", i)
@@ -45,23 +45,15 @@ format_rt <- function(forecast_date, submission_date, include_latest = FALSE,
     
     # Load forecasts ----------------------------------------------------------
     
-    # Try yesterday's date for latest Rt forecast file
+    # Try forecast date date for latest Rt forecast file
     forecasts_raw <- suppressWarnings(
       EpiNow2::get_regional_results(results_dir = file.path(forecast_dir, "state"),
                                                    date = lubridate::ymd(forecast_date),
                                                    forecast = TRUE)$estimated_reported_cases$samples
     )
     
-    # If nothing returns, try today's date
-    if(length(forecasts_raw) == 0){
-      forecasts_raw <- suppressWarnings(
-        EpiNow2::get_regional_results(results_dir = file.path(forecast_dir, "state"),
-                                      date = lubridate::ymd(forecast_date),
-                                      forecast = TRUE)$estimated_reported_cases$samples
-      )
-      
       if(length(forecasts_raw) == 0){
-        warning("<format-rt.R> Latest Rt forecasts are not found. Check forecast_date and directory paths")
+        warning("<format-rt.R> Latest Rt forecasts are not found. Check forecast_date matches directory paths")
         }
     }
     
