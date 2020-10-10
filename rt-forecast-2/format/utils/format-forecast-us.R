@@ -33,7 +33,7 @@ format_forecast_us <- function(forecasts, shrink_per = 0,
   
   # Add cumulative from last week
   cumulative_state <- data.table(get_us_deaths(data = "cumulative"))
-  cumulative_state <- cumulative_state[date == max(cumulative_state$date), 
+  cumulative_state <- cumulative_state[date == forecast_date, 
                                                .(state, deaths)]
   cumulative_national <- cumulative_state[, .(deaths = sum(deaths), 
                                               state = "US")]
