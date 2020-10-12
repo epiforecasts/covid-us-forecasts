@@ -1,6 +1,6 @@
 plot_forecasts = function(national = TRUE,
                           state_min_cutoff = 5,
-                          obs_weeks = 5,
+                          obs_weeks = 8,
                           exclude_new_epiweek = TRUE,
                           models = "all"){
   

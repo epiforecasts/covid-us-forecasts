@@ -8,7 +8,7 @@ library(dplyr)
 
 format_timeseries <- function(model_type, forecast_date, submission_date, 
                                      right_truncate_weeks, quantiles_out){
-  
+   
 # Set up -------------------------------------------------------------
 
 # Get state codes
@@ -17,7 +17,7 @@ state_codes <- tigris::fips_codes %>%
   unique() %>%
   rbind(c("US", "US")) %>%
   dplyr::mutate(state = ifelse(state == "U.S. Virgin Islands", "Virgin Islands", state))
-
+ 
 # Read in forecast
 samples <- readRDS(here::here("timeseries-forecast", model_type, "raw-samples", "dated", 
                                      paste0(forecast_date, "-samples-weekly-", model_type, ".rds")))
@@ -42,16 +42,17 @@ incident_forecast <- raw_weekly_forecast %>%
   # Filter to current and future epiweeks
   dplyr::filter(epiweek >= submission_date_epiweek) %>%
   # Format for submission
-  dplyr::left_join(state_codes, by = c("state" = "state_name")) %>%
+  dplyr::left_join(state_codes, by = c("state")) %>%
   epiweek_to_date() %>%
   dplyr::mutate(submission_date = submission_date,
                 type = "quantile",
                 target = paste(epiweek - submission_date_epiweek + 1,
                                "wk ahead inc death",
                                sep = " ")) %>%
-  dplyr::select(forecast_date = date_created, submission_date, target, target_end_date = epiweek_end_date, 
-                location = state_code, type, quantile, value = deaths)
-
+  dplyr::select(forecast_date = date_created, submission_date, target, 
+                target_end_date = epiweek_end_date, 
+                type, quantile, value = deaths, location = state)
+ 
 # Add point forecast
 incident_forecast <- incident_forecast %>%
   dplyr::bind_rows(incident_forecast %>%
@@ -66,7 +67,7 @@ incident_forecast <- incident_forecast %>%
   
   cumulative_deaths <- cumulative_data %>%
     dplyr::ungroup() %>%
-    dplyr::filter(date == forecast_date) %>%
+    dplyr::filter(date == min(max(date), forecast_date)) %>%
     dplyr::add_row(state="US", deaths = sum(.$deaths), date = forecast_date) %>%
     dplyr::left_join(state_codes, by = "state")
   
