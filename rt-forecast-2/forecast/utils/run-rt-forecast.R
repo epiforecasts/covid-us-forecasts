@@ -47,13 +47,14 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
                                                          chains = ifelse(no_cores <= 4, 4, no_cores)), 
                                         burn_in = 14, non_zero_points = 14,
                                         max_execution_time = 60 * 30, future = TRUE,
-                                        return_estimates = FALSE, verbose = FALSE, 
-                                        make_plots = FALSE)
+                                        output = c("region", "samples", "summary", "timing"))
   # Run Rt - ORIGINAL -------------------------------------------------------
    if ("original" %in% models) {
      std_regional_epinow(reported_cases = deaths,
                          target_folder = targets[["original"]],
-                         summary_dir = summary[["original"]],
+                         summary_args = list(summary_dir = summary[["original"]],
+                                             all_regions = FALSE),
+                         logs = "rt-forecast-2/logs/original",
                          delays = list(incubation_period, reporting_delay))
    }
 
@@ -62,7 +63,9 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
    if ("fixed_future_rt" %in% models) {
      std_regional_epinow(reported_cases = deaths,
                          target_folder = targets[["fixed_future_rt"]],
-                         summary_dir = summary[["fixed_future_rt"]],
+                         summary_args = list(summary_dir = summary[["fixed_future_rt"]],
+                                             all_regions = FALSE),
+                         logs = "rt-forecast-2/logs/fixed_future_rt",
                          delays = list(incubation_period, reporting_delay),
                          fixed_future_rt = TRUE)
    }
@@ -75,7 +78,9 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
     std_regional_epinow(reported_cases = deaths[, 
                       breakpoint := data.table::fifelse(date == (max(date) - lubridate::days(28)), 1, 0)],
                         target_folder = targets[["fixed_rt"]],
-                        summary_dir = summary[["fixed_rt"]],
+                        summary_args = list(summary_dir = summary[["fixed_rt"]],
+                                            all_regions = FALSE),
+                        logs = "rt-forecast-2/logs/fixed_rt",
                         delays = list(incubation_period, reporting_delay),
                         fixed = TRUE,
                         estimate_breakpoints = TRUE)
@@ -87,7 +92,9 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
   if ("no_delay" %in% models) {
     std_regional_epinow(reported_cases = deaths,
                         target_folder = targets[["no_delay"]],
-                        summary_dir = summary[["no_delay"]])
+                        summary_args = list(summary_dir = summary[["no_delay"]],
+                                            all_regions = FALSE),
+                        logs = "rt-forecast-2/logs/no_delay")
   }
   
   

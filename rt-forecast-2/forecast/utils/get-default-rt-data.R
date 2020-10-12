@@ -4,13 +4,7 @@ require(data.table)
 require(future)
 require(dplyr)
 
-# Set up logging ----------------------------------------------------------
-setup_logging("INFO")
-setup_logging("INFO", file = "info.log",
-              name = "EpiNow2.epinow")
-
 # Update delays -----------------------------------------------------------
-
 generation_time <- readRDS(here::here("rt-forecast-2", "forecast", "delays", "data", "generation_time.rds"))
 incubation_period <- readRDS(here::here("rt-forecast-2","forecast", "delays", "data", "incubation_period.rds"))
 reporting_delay <- readRDS(here::here("rt-forecast-2","forecast", "delays", "data", "onset_to_death_delay.rds"))
@@ -35,22 +29,4 @@ deaths <- deaths_raw %>%
 
 
 # # # Set up cores -----------------------------------------------------
-setup_future <- function(jobs, min_cores_per_worker = 4) {
-  if (!interactive()) {
-    ## If running as a script enable this
-    options(future.fork.enable = TRUE)
-  }
-  
-  workers <- min(ceiling(future::availableCores() / min_cores_per_worker), jobs)
-  cores_per_worker <- max(1, round(future::availableCores() / workers, 0))
-  
-  futile.logger::flog.info("Using %s workers with %s cores per worker",
-                           workers, cores_per_worker)
-  
-  
-  future::plan(list(future::tweak(future::multiprocess, workers = workers, gc = TRUE, earlySignal = TRUE), 
-                    future::tweak(future::multiprocess, workers = cores_per_worker)))
-  return(cores_per_worker)
-}
-
-no_cores <- setup_future(length(unique(deaths$region)))
+no_cores <- setup_future(deaths)
