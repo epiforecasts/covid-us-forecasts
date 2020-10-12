@@ -16,9 +16,9 @@ if(!dir.exists(here::here("evaluation", "plots",
 
 
 national_plot <- plot_forecasts(national = TRUE, 
-                                obs_weeks = 5, 
+                                obs_weeks = 8, 
                                 exclude_new_epiweek = TRUE,
-                                models = "all")
+                                models = "single")
 
 
 suppressWarnings(ggsave(here::here("evaluation", "plots", 
@@ -30,9 +30,9 @@ suppressWarnings(ggsave(here::here("evaluation", "plots",
 
 subnational_plot <- plot_forecasts(national = FALSE, 
                                    state_min_cutoff = 5, 
-                                   obs_weeks = 5,
+                                   obs_weeks = 8,
                                    exclude_new_epiweek = TRUE,
-                                   models = "all")
+                                   models = "single")
 
 
 suppressWarnings(ggsave(here::here("evaluation", "plots", 
@@ -44,7 +44,7 @@ suppressWarnings(ggsave(here::here("evaluation", "plots",
 # Plot ensembles only -----------------------------------------------------
 
 national_plot <- plot_forecasts(national = TRUE, 
-                                obs_weeks = 5, 
+                                obs_weeks = 8, 
                                 exclude_new_epiweek = TRUE,
                                 models = "ensemble")
 
@@ -58,7 +58,7 @@ suppressWarnings(ggsave(here::here("evaluation", "plots",
 
 subnational_plot <- plot_forecasts(national = FALSE, 
                                    state_min_cutoff = 5, 
-                                   obs_weeks = 5,
+                                   obs_weeks = 8,
                                    exclude_new_epiweek = TRUE,
                                    models = "ensemble")
 

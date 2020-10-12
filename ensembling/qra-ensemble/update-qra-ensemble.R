@@ -27,10 +27,10 @@ full_set <- past_forecasts %>%
                 grepl("inc", target)) %>%
   dplyr::select(-type) %>%
   # filter out duplicate predictions for the exact same target quantile
-  # dplyr::group_by(forecast_date, target, target_end_date, location, quantile, model) %>%
-  # dplyr::slice(1) %>%
-  # dplyr::ungroup() %>%
-  # remove targets for which not all models have a forecast
+  dplyr::group_by(forecast_date, target, target_end_date, location, quantile, model) %>%
+  dplyr::slice(1) %>%
+  dplyr::ungroup() %>%
+#  remove targets for which not all models have a forecast
   dplyr::group_by(submission_date, target, target_end_date, location, quantile) %>%
   dplyr::add_count() %>%
   dplyr::ungroup() %>%

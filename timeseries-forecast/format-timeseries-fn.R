@@ -8,7 +8,7 @@ library(dplyr)
 
 format_timeseries <- function(model_type, forecast_date, submission_date, 
                                      right_truncate_weeks, quantiles_out){
-   
+    
 # Set up -------------------------------------------------------------
 
 # Get state codes
@@ -51,7 +51,7 @@ incident_forecast <- raw_weekly_forecast %>%
                                sep = " ")) %>%
   dplyr::select(forecast_date = date_created, submission_date, target, 
                 target_end_date = epiweek_end_date, 
-                type, quantile, value = deaths, location = state)
+                type, quantile, value = deaths, location, state)
  
 # Add point forecast
 incident_forecast <- incident_forecast %>%
@@ -85,7 +85,6 @@ incident_forecast <- incident_forecast %>%
 # Bind cumulative and incident --------------------------------------------
 
 out <- dplyr::bind_rows(incident_forecast, cumulative_forecast)
-
 return(out)
 }
 
