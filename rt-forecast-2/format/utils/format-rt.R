@@ -55,9 +55,6 @@ format_rt <- function(forecast_date, submission_date, include_latest = FALSE,
       if(length(forecasts_raw) == 0){
         warning("<format-rt.R> Latest Rt forecasts are not found. Check forecast_date matches directory paths")
         }
-    }
-    
-     
     
      # Shrink samples ----------------------------------------------------------
 
