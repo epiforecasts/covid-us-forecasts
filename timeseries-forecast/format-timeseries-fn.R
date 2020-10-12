@@ -51,7 +51,7 @@ incident_forecast <- raw_weekly_forecast %>%
                                sep = " ")) %>%
   dplyr::select(forecast_date = date_created, submission_date, target, 
                 target_end_date = epiweek_end_date, 
-                type, quantile, value = deaths, location)
+                type, quantile, value = deaths, location, state)
  
 # Add point forecast
 incident_forecast <- incident_forecast %>%
