@@ -22,7 +22,7 @@ deaths_only <- format_timeseries(right_truncate_weeks = 1,
                                  model_type = model_type,
                                  forecast_date = forecast_date,
                                  submission_date = submission_date,
-                                 quantiles_out <- c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99))
+                                 quantiles_out = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99))
 forecast_date <- unique(deaths_only$forecast_date)
 
 
@@ -44,7 +44,7 @@ deaths_on_cases <- format_timeseries(right_truncate_weeks = 1,
                                      model_type = "deaths-on-cases",
                                      forecast_date = forecast_date,
                                      submission_date = submission_date,
-                                     quantiles_out <- c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99))
+                                     quantiles_out = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99))
 forecast_date <- unique(deaths_on_cases$forecast_date)
 
 # Save under "latest"
