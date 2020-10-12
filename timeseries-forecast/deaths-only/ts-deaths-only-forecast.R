@@ -45,7 +45,7 @@ ts_deaths_only_forecast <- function(data,
   
   
   # Forecast 
-  death_forecast <- data_weekly %>%
+  death_forecast <- suppressMessages(data_weekly %>%
     group_by(state) %>%
     group_modify(~ EpiSoon::forecastHybrid_model(y = filter(.x, epiweek %in% historical_weeks) %>%
                                                    pull("deaths"),
@@ -54,7 +54,7 @@ ts_deaths_only_forecast <- function(data,
                                                  model_params = list(models = "aez", weights = "equal"),
                                                  forecast_params = list(PI.combination = "mean"))) %>%
     mutate(sample = rep(1:sample_count)) %>%
-    tidyr::pivot_longer(cols = starts_with("..."), names_to = "epiweek")
+    tidyr::pivot_longer(cols = starts_with("..."), names_to = "epiweek"))
   
   # Format
   dates_from <- unique(death_forecast$epiweek)
