@@ -5,3 +5,4 @@
 .secrets
 *.log
 **/state
+**/logs
