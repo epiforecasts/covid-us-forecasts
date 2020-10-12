@@ -56,7 +56,7 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
 
 # Forecast cases ---------------------------------------------------------
     
-  case_forecast <- case_data_weekly %>%
+  case_forecast <- suppressMessages(case_data_weekly %>%
       group_by(state) %>%
       group_modify(~ EpiSoon::forecastHybrid_model(y = filter(.x, epiweek %in% historical_weeks) %>%
                                                      pull("cases"),
@@ -66,7 +66,7 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
                                                                        a.args = list()),
                                                    forecast_params = list(PI.combination = "mean"))) %>%
       mutate(sample = rep(1:sample_count)) %>%
-      tidyr::pivot_longer(cols = starts_with("..."), names_to = "epiweek")
+      tidyr::pivot_longer(cols = starts_with("..."), names_to = "epiweek"))
     
     # Get quantile
       quantile <- case_forecast %>%
@@ -108,7 +108,7 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
         full_join(deaths_data_weekly, by = c("state", "epiweek"))
       
       # Forecast deaths (y) using cases
-      death_forecast <- cases_deaths %>%
+      death_forecast <- suppressMessages(cases_deaths %>%
         group_by(state) %>%
         group_modify(~ EpiSoon::forecastHybrid_model(y = filter(.x, epiweek %in% historical_weeks) %>%
                                                        pull("deaths"),
@@ -136,7 +136,7 @@ ts_deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile,
                                                                             PI.combination = "mean")
                                                      )) %>%
         mutate(sample = rep(1:sample_count)) %>%
-        tidyr::pivot_longer(cols = starts_with("..."), names_to = "epiweek")
+        tidyr::pivot_longer(cols = starts_with("..."), names_to = "epiweek"))
       
       
 
