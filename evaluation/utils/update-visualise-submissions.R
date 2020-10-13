@@ -6,7 +6,7 @@ library(dplyr)
 source(here::here("evaluation", "utils", 
                   "visualise-submission-functions.R"))
 
-forecast_date <- Sys.Date()
+forecast_date <- max(unique(past_forecasts$submission_date))
 
 if(!dir.exists(here::here("evaluation", "plots", 
                           forecast_date))) {
@@ -14,15 +14,14 @@ if(!dir.exists(here::here("evaluation", "plots",
                         forecast_date))
 }
 
+plot_dir <- here::here("evaluation", "plots", forecast_date)
 
 national_plot <- plot_forecasts(national = TRUE, 
                                 obs_weeks = 8, 
                                 exclude_new_epiweek = TRUE,
                                 models = "single")
 
-
-suppressWarnings(ggsave(here::here("evaluation", "plots", 
-                                   forecast_date, "submission-national.png"), 
+suppressWarnings(ggsave(filename = paste0(plot_dir, "/submission-national.png"),
        plot = national_plot, 
        width = 8, height = 8, dpi = 300))
 
@@ -35,8 +34,7 @@ subnational_plot <- plot_forecasts(national = FALSE,
                                    models = "single")
 
 
-suppressWarnings(ggsave(here::here("evaluation", "plots", 
-                                   forecast_date, "submission-subnational.png"), 
+suppressWarnings(ggsave(filename = paste0(plot_dir, "/submission-subnational.png"), 
        plot = subnational_plot, 
        width = 24, height = 24))
 
@@ -49,8 +47,7 @@ national_plot <- plot_forecasts(national = TRUE,
                                 models = "ensemble")
 
 
-suppressWarnings(ggsave(here::here("evaluation", "plots", 
-                                   forecast_date, "submission-national-ensembles.png"), 
+suppressWarnings(ggsave(filename = paste0(plot_dir, "/submission-national-ensembles.png"), 
                         plot = national_plot, 
                         width = 8, height = 8, dpi = 300))
 
@@ -63,7 +60,6 @@ subnational_plot <- plot_forecasts(national = FALSE,
                                    models = "ensemble")
 
 
-suppressWarnings(ggsave(here::here("evaluation", "plots", 
-                                   forecast_date, "submission-subnational-ensembles.png"), 
+suppressWarnings(ggsave(filename = paste0(plot_dir, "/submission-subnational-ensembles.png"), 
                         plot = subnational_plot, 
                         width = 24, height = 24))

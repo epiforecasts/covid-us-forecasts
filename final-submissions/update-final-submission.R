@@ -64,8 +64,8 @@ state_codes <- readRDS("utils/state_codes.rds")
 # get cumulative data
 cumulative <- get_us_deaths(data = "cumulative") %>%
   dplyr::ungroup() %>%
-  dplyr::filter(date == forecast_date) %>%
-  dplyr::add_row(state="US", deaths = sum(.$deaths), date = forecast_date) %>%
+  dplyr::filter(date == forecast_date-2) %>%
+  dplyr::add_row(state="US", deaths = sum(.$deaths), date = forecast_date-2) %>%
   dplyr::left_join(state_codes, by = "state")
 # Check each model to find the issue
 forecasts <- load_submission_files(dates = "all", num_last = 1, models = "single") %>%
@@ -75,6 +75,7 @@ us_cum <- dplyr::filter(forecasts, grepl("cum", forecasts$target)) %>%
   dplyr::group_by(location, quantile, type) %>%
   dplyr::mutate(cum_to_inc = value - dplyr::lag(value, 1)) %>%
   dplyr::ungroup()
+
 us_join <- dplyr::left_join(us_inc, us_cum, by = c("model", 
                                                    "location", "target_end_date", 
                                                    "type", "quantile")) %>%
@@ -84,9 +85,44 @@ us_join <- dplyr::left_join(us_inc, us_cum, by = c("model",
                 diff_inc_cum = value_inc - cum_to_inc) %>%
   dplyr::select(model,
                 location, state, target_end_date, type, quantile, deaths, 
-                value_inc, value_cum, cum_to_inc, diff_inc_cum)
+                value_inc, value_cum, cum_to_inc, diff_inc_cum) %>%
+  dplyr::group_by(model, target_end_date) %>%
+  dplyr::summarise(diff_inc_cum = mean(diff_inc_cum),
+                   .groups = "drop")
 if(!mean(us_join$diff_inc_cum) == 0){
-  warning("Incident and cumulative forecasts don't match")
+  warning("Incident and cumulative forecasts don't match. 
+          Re-writing cumulative forecasts for the submission ensemble")
+  
+  incident_forecast <- dplyr::filter(submit_ensemble,
+                                     grepl("wk ahead inc", target))
+  
+  cumulative_data <- get_us_deaths(data = "cumulative")
+  cumulative_deaths <- cumulative_data %>%
+    dplyr::ungroup() %>%
+    dplyr::filter(date == min(max(date), forecast_date)) %>%
+    dplyr::add_row(state="US", deaths = sum(.$deaths), date = forecast_date) %>%
+    dplyr::left_join(state_codes, by = "state")
+  
+  cumulative_forecast <- incident_forecast %>%
+    dplyr::left_join(dplyr::select(cumulative_deaths, location, deaths),
+                     by = "location") %>%
+    dplyr::group_by(location, quantile, type) %>%
+    dplyr::mutate(value = cumsum(value),
+                  value = value + deaths,
+                  target = stringr::str_replace_all(target, "inc", "cum")) %>%
+    dplyr::ungroup() %>%
+    dplyr::select(-deaths)
+  
+  # Check this also adds up
+  # join <- dplyr::left_join(incident_forecast, cumulative_forecast,
+  #                          by = c("forecast_date", "target_end_date", 
+  #                          "location", "type", "quantile")) %>%
+  #   dplyr::rename(value_inc = value.x, value_cum = value.y) %>%
+  #   dplyr::group_by(location, type, quantile) %>%
+  #   dplyr::mutate(cum_to_inc = (value_cum - dplyr::lag(value_cum))-value_inc)
+  
+  submit_ensemble <- dplyr::bind_rows(incident_forecast, cumulative_forecast)
+
 }
 
 # Filter failing checks ---------------------------------------------------
@@ -100,5 +136,6 @@ submit_ensemble <- submit_ensemble %>%
 
 readr::write_csv(submit_ensemble,
                  here::here("final-submissions", "death-forecast",
-                            paste0(forecast_date, "-epiforecasts-ensemble1.csv")))
+                            paste0(unique(submit_ensemble$forecast_date), 
+                                   "-epiforecasts-ensemble1.csv")))
 

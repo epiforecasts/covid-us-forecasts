@@ -48,7 +48,7 @@ qra_ensemble <- dplyr::bind_rows(state_qra) %>%
 
 # Output ------------------------------------------------------------------
 # write dated file
-forecast_date <- Sys.Date()
+forecast_date <- max(unique(past_forecasts$submission_date))
 
 # Write to state-wise folder
 

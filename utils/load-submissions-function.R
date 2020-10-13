@@ -93,6 +93,10 @@ load_submission_files <- function(dates = "all",
     dplyr::rename("model" = "...1") %>%
     dplyr::mutate(model = stringr::str_remove_all(model, "[[:digit:]]$"))
 
+  if(any(names(data) %in% "state")){
+    data <- dplyr::select(data, -state)
+  }
+    
   # Clean
   data <- data %>%
     # Add state names

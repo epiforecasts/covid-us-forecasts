@@ -1,7 +1,7 @@
 
 library(magrittr)
 source(here::here("utils", "load-submissions-function.R"))
-
+source(here::here("utils", "current-forecast-submission-date.R"))
 
 
 # get weights ------------------------------------------------------------------
@@ -26,10 +26,10 @@ full_set <- past_forecasts %>%
   dplyr::filter(type == "quantile", 
                 grepl("inc", target)) %>%
   dplyr::select(-type) %>%
-  # filter out duplicate predictions for the exact same target quantile
-  dplyr::group_by(forecast_date, target, target_end_date, location, quantile, model) %>%
-  dplyr::slice(1) %>%
-  dplyr::ungroup() %>%
+  # # filter out duplicate predictions for the exact same target quantile
+  # dplyr::group_by(submission_date, target, target_end_date, location, quantile, model) %>%
+  # dplyr::slice(1) %>%
+  # dplyr::ungroup() %>%
 #  remove targets for which not all models have a forecast
   dplyr::group_by(submission_date, target, target_end_date, location, quantile) %>%
   dplyr::add_count() %>%
@@ -118,7 +118,7 @@ qra_ensemble <- forecasts_wide %>%
                                                 na.rm = TRUE)) %>%
   dplyr::rename(value = ensemble) %>%
   dplyr::select(-dplyr::all_of(forecast_models)) %>%
-  dplyr::mutate(forecast_date = Sys.Date()) %>%
+  dplyr::mutate(forecast_date = max(unique(past_forecasts$submission_date))) %>%
   dplyr::select(forecast_date, submission_date, target, target_end_date, location, type, quantile, value) %>%
   # round values after ensembling
   dplyr::mutate(value = round(value)) 
@@ -126,7 +126,7 @@ qra_ensemble <- forecasts_wide %>%
 
 
 # write dated file
-forecast_date <- Sys.Date()
+forecast_date <- max(unique(past_forecasts$submission_date))
 
 data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-ensemble", 
                                             "submission-files","dated",
