@@ -36,7 +36,7 @@ Imports:
     tigris,
     scoringutils
 Remotes:
-    epiforecasts/EpiNow2@deal_with_random_zeros,
+    epiforecasts/EpiNow2,
     epiforecasts/scoringutils,
     ryantibs/quantgen/R-package/quantgen
 License: MIT + file LICENSE
