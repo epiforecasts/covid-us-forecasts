@@ -11,7 +11,7 @@ require(data.table)
 
 
 format_rt <- function(forecast_date, submission_date, include_latest = FALSE,
-                      sample_range = 0.4) {
+                      sample_range = 1) {
   
   # Get names Rt models
   source("utils/meta-model-list.R")
