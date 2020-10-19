@@ -131,7 +131,6 @@ if(!mean(us_join$diff_inc_cum) == 0){
 submit_ensemble <- submit_ensemble %>%
   dplyr::filter(!location %in% pop_check & 
                   !location %in% na_check)
-
                        
 # Save in final-submissions
 
@@ -139,4 +138,3 @@ readr::write_csv(submit_ensemble,
                  here::here("final-submissions", "death-forecast",
                             paste0(unique(submit_ensemble$forecast_date), 
                                    "-epiforecasts-ensemble1.csv")))
-
