@@ -6,7 +6,7 @@ library(dplyr)
 source(here::here("evaluation", "utils", 
                   "visualise-submission-functions.R"))
 
-forecast_date <- max(unique(past_forecasts$submission_date))
+source(here::here("utils", "current-forecast-submission-date.R"))
 
 if(!dir.exists(here::here("evaluation", "plots", 
                           forecast_date))) {
