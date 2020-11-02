@@ -3,8 +3,6 @@
 .RData
 .Ruserdata
 .secrets
-*.log
 **/state
-**/logs
 **/samples
 **/raw-samples

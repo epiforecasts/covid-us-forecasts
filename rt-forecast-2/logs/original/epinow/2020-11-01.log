@@ -1,0 +1,265 @@
+INFO [2020-11-02 19:41:56] Initialising estimates for: Alabama
+ERROR [2020-11-02 19:41:56] Alabama: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:41:56] Initialising estimates for: Alaska
+ERROR [2020-11-02 19:41:56] Alaska: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:41:56] Initialising estimates for: Arizona
+ERROR [2020-11-02 19:41:56] Arizona: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:41:56] Initialising estimates for: Arkansas
+INFO [2020-11-02 19:41:57] Initialising estimates for: California
+INFO [2020-11-02 19:41:57] Initialising estimates for: Colorado
+ERROR [2020-11-02 19:41:57] Colorado: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:41:59] Initialising estimates for: Connecticut
+ERROR [2020-11-02 19:41:59] Connecticut: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:42:00] Initialising estimates for: Delaware
+ERROR [2020-11-02 19:42:00] Delaware: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:42:01] Initialising estimates for: District of Columbia
+ERROR [2020-11-02 19:42:01] District of Columbia: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:42:02] Initialising estimates for: Florida
+INFO [2020-11-02 19:42:04] Initialising estimates for: Georgia
+INFO [2020-11-02 19:42:05] Initialising estimates for: Guam
+ERROR [2020-11-02 19:42:05] Guam: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:42:08] Initialising estimates for: Hawaii
+INFO [2020-11-02 19:42:10] Initialising estimates for: Idaho
+ERROR [2020-11-02 19:42:10] Idaho: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:42:13] Initialising estimates for: Illinois
+INFO [2020-11-02 19:42:15] Initialising estimates for: Indiana
+INFO [2020-11-02 19:42:18] Initialising estimates for: Iowa
+WARN [2020-11-02 19:42:19] Iowa (chain: 1): some chains had errors; consider specifying chains = 1 to debug - .local, object, ...
+ERROR [2020-11-02 19:42:19] Iowa: $ operator is invalid for atomic vectors - 
+INFO [2020-11-02 19:42:22] Initialising estimates for: Kansas
+INFO [2020-11-02 19:42:25] Initialising estimates for: Kentucky
+ERROR [2020-11-02 19:42:26] Kentucky: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:42:30] Initialising estimates for: Louisiana
+ERROR [2020-11-02 19:42:30] Louisiana: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:42:35] Initialising estimates for: Maryland
+INFO [2020-11-02 19:42:39] Initialising estimates for: Massachusetts
+INFO [2020-11-02 19:42:43] Initialising estimates for: Michigan
+ERROR [2020-11-02 19:42:43] Michigan: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:42:49] Initialising estimates for: Minnesota
+INFO [2020-11-02 19:42:53] Initialising estimates for: Mississippi
+ERROR [2020-11-02 19:42:53] Mississippi: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:43:00] Initialising estimates for: Missouri
+INFO [2020-11-02 19:43:05] Initialising estimates for: Montana
+INFO [2020-11-02 19:43:10] Initialising estimates for: Nebraska
+ERROR [2020-11-02 19:43:10] Nebraska: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:43:18] Initialising estimates for: Nevada
+ERROR [2020-11-02 19:43:18] Nevada: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:43:26] Initialising estimates for: New Hampshire
+ERROR [2020-11-02 19:43:26] New Hampshire: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:43:34] Initialising estimates for: New Jersey
+INFO [2020-11-02 19:43:39] Initialising estimates for: New Mexico
+ERROR [2020-11-02 19:43:40] New Mexico: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+WARN [2020-11-02 19:43:42] Arkansas (chain: 1): There were 19 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:43:42] Arkansas (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-02 19:43:43] Arkansas (chain: 1): Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#bulk-ess - 
+WARN [2020-11-02 19:43:44] Arkansas (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+WARN [2020-11-02 19:43:44] Hawaii (chain: 1): There were 1 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:43:44] Hawaii (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-02 19:43:48] Initialising estimates for: New York
+ERROR [2020-11-02 19:43:48] New York: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:43:48] Completed estimates for: Arkansas
+INFO [2020-11-02 19:43:52] Completed estimates for: Hawaii
+INFO [2020-11-02 19:44:02] Initialising estimates for: North Carolina
+INFO [2020-11-02 19:44:07] Initialising estimates for: North Dakota
+ERROR [2020-11-02 19:44:07] North Dakota: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:44:15] Initialising estimates for: Ohio
+WARN [2020-11-02 19:44:18] California (chain: 1): There were 1 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:44:18] California (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-02 19:44:19] Georgia (chain: 1): There were 15 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:44:19] Georgia (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-02 19:44:20] Initialising estimates for: Oklahoma
+ERROR [2020-11-02 19:44:20] Oklahoma: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+WARN [2020-11-02 19:44:22] Florida (chain: 1): There were 6 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:44:22] Florida (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-02 19:44:23] Georgia (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+INFO [2020-11-02 19:44:24] Completed estimates for: California
+WARN [2020-11-02 19:44:26] Indiana (chain: 1): There were 3 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:44:26] Indiana (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-02 19:44:27] Completed estimates for: Florida
+INFO [2020-11-02 19:44:27] Completed estimates for: Georgia
+WARN [2020-11-02 19:44:29] Indiana (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+INFO [2020-11-02 19:44:31] Completed estimates for: Indiana
+INFO [2020-11-02 19:44:38] Initialising estimates for: Oregon
+WARN [2020-11-02 19:44:40] Illinois (chain: 1): There were 16 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:44:40] Illinois (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-02 19:44:43] Initialising estimates for: Pennsylvania
+ERROR [2020-11-02 19:44:43] Pennsylvania: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:44:45] Completed estimates for: Illinois
+WARN [2020-11-02 19:44:48] Missouri (chain: 1): some chains had errors; consider specifying chains = 1 to debug - .local, object, ...
+WARN [2020-11-02 19:44:48] Missouri (chain: 1): There were 8 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:44:48] Missouri (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-02 19:44:48] Maryland (chain: 1): There were 1 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:44:48] Maryland (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-02 19:44:50] Minnesota (chain: 1): There were 27 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:44:50] Minnesota (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-02 19:44:52] Initialising estimates for: Puerto Rico
+ERROR [2020-11-02 19:44:52] Puerto Rico: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:44:52] Completed estimates for: Missouri
+WARN [2020-11-02 19:44:52] Minnesota (chain: 1): Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#bulk-ess - 
+INFO [2020-11-02 19:44:53] Completed estimates for: Maryland
+WARN [2020-11-02 19:44:53] Minnesota (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+WARN [2020-11-02 19:44:54] Massachusetts (chain: 1): There were 1 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:44:54] Massachusetts (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-02 19:44:56] Completed estimates for: Minnesota
+WARN [2020-11-02 19:44:56] Kansas (chain: 1): There were 2 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:44:56] Kansas (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-02 19:44:58] Kansas (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+INFO [2020-11-02 19:44:59] Completed estimates for: Massachusetts
+INFO [2020-11-02 19:45:01] Completed estimates for: Kansas
+INFO [2020-11-02 19:45:04] Initialising estimates for: Rhode Island
+ERROR [2020-11-02 19:45:04] Rhode Island: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:45:07] Initialising estimates for: South Carolina
+INFO [2020-11-02 19:45:10] Initialising estimates for: South Dakota
+ERROR [2020-11-02 19:45:10] South Dakota: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:45:13] Initialising estimates for: Tennessee
+INFO [2020-11-02 19:45:16] Initialising estimates for: Texas
+WARN [2020-11-02 19:45:17] Texas (chain: 1): some chains had errors; consider specifying chains = 1 to debug - .local, object, ...
+ERROR [2020-11-02 19:45:17] Texas: $ operator is invalid for atomic vectors - 
+INFO [2020-11-02 19:45:21] Initialising estimates for: Utah
+INFO [2020-11-02 19:45:24] Initialising estimates for: Virginia
+INFO [2020-11-02 19:45:27] Initialising estimates for: Washington
+ERROR [2020-11-02 19:45:27] Washington: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:45:33] Initialising estimates for: West Virginia
+ERROR [2020-11-02 19:45:33] West Virginia: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+WARN [2020-11-02 19:45:36] New Jersey (chain: 1): There were 2 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:45:36] New Jersey (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-02 19:45:38] Initialising estimates for: Wisconsin
+ERROR [2020-11-02 19:45:38] Wisconsin: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:45:40] Completed estimates for: New Jersey
+WARN [2020-11-02 19:45:42] Montana (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+INFO [2020-11-02 19:45:45] Completed estimates for: Montana
+INFO [2020-11-02 19:45:45] Initialising estimates for: US
+WARN [2020-11-02 19:45:57] Oregon (chain: 1): There were 1 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:45:57] Oregon (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-02 19:45:59] Ohio (chain: 1): There were 1 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:45:59] Ohio (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-02 19:46:02] Completed estimates for: Oregon
+INFO [2020-11-02 19:46:03] Completed estimates for: Ohio
+WARN [2020-11-02 19:46:20] North Carolina (chain: 1): There were 9 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:46:20] North Carolina (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-02 19:46:24] Completed estimates for: North Carolina
+WARN [2020-11-02 19:46:41] Tennessee (chain: 1): some chains had errors; consider specifying chains = 1 to debug - .local, object, ...
+WARN [2020-11-02 19:46:41] Tennessee (chain: 1): There were 5 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:46:41] Tennessee (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-02 19:46:42] Tennessee (chain: 1): Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#bulk-ess - 
+WARN [2020-11-02 19:46:43] Tennessee (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+INFO [2020-11-02 19:46:44] Completed estimates for: Tennessee
+WARN [2020-11-02 19:46:54] Utah (chain: 1): some chains had errors; consider specifying chains = 1 to debug - .local, object, ...
+WARN [2020-11-02 19:46:54] Utah (chain: 1): There were 1 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:46:54] Utah (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-02 19:46:56] Utah (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+INFO [2020-11-02 19:46:58] Completed estimates for: Utah
+WARN [2020-11-02 19:47:22] South Carolina (chain: 1): some chains had errors; consider specifying chains = 1 to debug - .local, object, ...
+INFO [2020-11-02 19:47:24] Completed estimates for: South Carolina
+INFO [2020-11-02 19:47:42] Completed estimates for: Virginia
+WARN [2020-11-02 19:48:01] US (chain: 1): There were 47 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-02 19:48:01] US (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-02 19:48:05] Completed estimates for: US
+INFO [2020-11-02 19:48:05] Runtime error in Alabama : Alabama: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Alaska : Alaska: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Arizona : Arizona: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Colorado : Colorado: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Connecticut : Connecticut: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Delaware : Delaware: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in District of Columbia : District of Columbia: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Guam : Guam: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Idaho : Idaho: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Iowa : Iowa: $ operator is invalid for atomic vectors - 
+INFO [2020-11-02 19:48:05] Runtime error in Kentucky : Kentucky: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Louisiana : Louisiana: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Michigan : Michigan: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Mississippi : Mississippi: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Nebraska : Nebraska: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Nevada : Nevada: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in New Hampshire : New Hampshire: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in New Mexico : New Mexico: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in New York : New York: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in North Dakota : North Dakota: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Oklahoma : Oklahoma: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Pennsylvania : Pennsylvania: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Puerto Rico : Puerto Rico: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Rhode Island : Rhode Island: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in South Dakota : South Dakota: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Texas : Texas: $ operator is invalid for atomic vectors - 
+INFO [2020-11-02 19:48:05] Runtime error in Washington : Washington: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in West Virginia : West Virginia: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
+INFO [2020-11-02 19:48:05] Runtime error in Wisconsin : Wisconsin: NA/NaN/Inf in 'y' - lm.fit, x, y, offset, singular.ok, ...
