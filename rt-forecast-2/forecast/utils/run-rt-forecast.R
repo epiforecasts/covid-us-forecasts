@@ -53,7 +53,8 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
                                              all_regions = FALSE),
                          logs = "rt-forecast-2/logs/original",
                          delays = list(incubation_period, reporting_delay),
-                         gp = list(future = "project"))
+                         rt = list(prior = list(mean = 1, sd = 0.2), 
+                                   future = "project"))
    }
 
   # Run Rt - FIXED RT --------------------------------------------------
@@ -65,7 +66,8 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
                                              all_regions = FALSE),
                          logs = "rt-forecast-2/logs/fixed_future_rt",
                          delays = list(incubation_period, reporting_delay),
-                         gp = list(future = "latest"))
+                         rt = list(prior = list(mean = 1, sd = 0.2), 
+                                   future = "latest"))
    }
 
   
@@ -79,7 +81,8 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
                                             all_regions = FALSE),
                         logs = "rt-forecast-2/logs/fixed_rt",
                         delays = list(incubation_period, reporting_delay),
-                        gp = list(future = "estimate"))
+                         rt = list(prior = list(mean = 1, sd = 0.2), 
+                                   future = "estimate"))
   }  
   
 
@@ -91,7 +94,8 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
                         summary_args = list(summary_dir = summary[["no_delay"]],
                                             all_regions = FALSE),
                         logs = "rt-forecast-2/logs/no_delay",
-                        future_rt = "latest")
+                         rt = list(prior = list(mean = 1, sd = 0.2), 
+                                   future = "latest")))
   }
   
   # Backcalculation ----------------------------------------------------------------
