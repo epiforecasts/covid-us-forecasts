@@ -1,14 +1,14 @@
 # Checking all dependencies ----------------
 devtools::install_deps()
-
-library(EpiNow);library(EpiSoon)
-library(magrittr);library(furrr)
-library(dplyr);library(tidyr)
-library(readr);library(stringr)
-library(purrr);library(future)
-library(future);library(future.apply)
-library(here); library(forecastHybrid)
-library(quantgen);library(tigris); library(scoringutils)
+# 
+# library(EpiNow);library(EpiSoon)
+# library(magrittr);library(furrr)
+# library(dplyr);library(tidyr)
+# library(readr);library(stringr)
+# library(purrr);library(future)
+# library(future);library(future.apply)
+# library(here); library(forecastHybrid)
+# library(quantgen);library(tigris); library(scoringutils)
 
 # For Rt estimates -------------------------
 # Check that EpiNow / EpiSoon and their deps are up to date
