@@ -2,13 +2,20 @@
 require(lubridate, quietly = TRUE)
 # Set up running a single Rt forecast -------------------------------------
 
-run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
+run_rt_forecast <- function(deaths, 
+                            submission_date, 
+                            models = list(),
+                            rerun = FALSE) {
   
   if (missing(submission_date)) {
     rerun <- TRUE
   }
   # Set up directories for models -------------------------------------------
-  models <- list("original", "fixed_future_rt", "fixed_rt", "no_delay", "backcalculation")
+  if (length(models) == 0) {
+    source("utils/meta-model-list.R")
+    models <- names(model_list$single_models)[grepl("rt", names(model_list$single_models))] 
+    models <- gsub("rt2_", "", models)
+    }
   
   targets <- purrr::map(models, ~ paste0("rt-forecast-2/forecast/deaths_forecast/", .x, "/state"))
   names(targets) <- models
@@ -100,7 +107,7 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
   
   # Backcalculation ----------------------------------------------------------------
   
-  if ("backcalculation" %in% models) {
+  if ("backcalc" %in% models) {
     std_regional_epinow(reported_cases = deaths,
                         target_folder = targets[["backcalc"]],
                         summary_args = list(summary_dir = summary[["backcalc"]],
