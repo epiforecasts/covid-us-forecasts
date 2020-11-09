@@ -95,18 +95,18 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
                                             all_regions = FALSE),
                         logs = "rt-forecast-2/logs/no_delay",
                          rt = list(prior = list(mean = 1, sd = 0.2), 
-                                   future = "latest")))
+                                   future = "latest"))
   }
   
   # Backcalculation ----------------------------------------------------------------
   
   if ("backcalculation" %in% models) {
     std_regional_epinow(reported_cases = deaths,
-                        target_folder = targets[["no_delay"]],
-                        summary_args = list(summary_dir = summary[["no_delay"]],
+                        target_folder = targets[["backcalc"]],
+                        summary_args = list(summary_dir = summary[["backcalc"]],
                                             all_regions = FALSE),
                         rt = NULL,
-                        logs = "rt-forecast-2/logs/no_delay")
+                        logs = "rt-forecast-2/logs/backcalculation")
   }
   
   
