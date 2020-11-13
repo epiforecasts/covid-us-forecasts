@@ -31,7 +31,7 @@ run_rt_forecast <- function(deaths,
     models <- models[!targets_present]
   }
   
-  if(length(models) == 0){
+  if (length(models) == 0) {
     return(invisible(NULL))
   }
 
@@ -46,9 +46,12 @@ run_rt_forecast <- function(deaths,
   data.table::setorder(deaths, date)
   
   # Set up common settings --------------------------------------------------
-  std_regional_epinow <- purrr::partial(regional_epinow, samples = 2000, horizon = 30, 
+  std_regional_epinow <- purrr::partial(regional_epinow, 
+                                        horizon = 30, 
                                         generation_time = generation_time,
-                                        stan_args = list(warmup = 250, cores = no_cores, 
+                                        stan = list(samples = 2000,
+                                                         warmup = 250, 
+                                                         cores = no_cores, 
                                                          chains = ifelse(no_cores <= 4, 4, no_cores)), 
                                         non_zero_points = 14,
                                         output = c("region", "samples", "summary", "timing"))
