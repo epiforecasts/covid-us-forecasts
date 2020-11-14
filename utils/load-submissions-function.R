@@ -108,6 +108,20 @@ load_submission_files <- function(dates = "all",
                   submission_date = lubridate::ymd(submission_date),
                   target_end_date = lubridate::ymd(target_end_date))
 
+  # Exclude models with inconsistent dates
+  #  - i.e. models not updated with most recent batch
+  if (!is.null(num_last)) {
+    missing_models <- data %>%
+      dplyr::group_by(model) %>%
+      dplyr::summarise(max_submission_date = max(submission_date),
+                       .groups = "drop") %>%
+      dplyr::filter(max_submission_date < max(max_submission_date)) %>%
+      dplyr::pull(model)
+    
+    data <- data %>%
+      dplyr::filter(!model %in% missing_models)
+  }
+  
   return(data)
   
 }

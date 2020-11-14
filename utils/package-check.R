@@ -1,6 +1,5 @@
 # Checking all dependencies ----------------
 devtools::install_deps()
-
 # library(EpiNow);library(EpiSoon)
 # library(magrittr);library(furrr)
 # library(dplyr);library(tidyr)
