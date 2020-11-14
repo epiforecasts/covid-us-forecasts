@@ -20,9 +20,16 @@ source(here::here("rt-forecast-2", "forecast", "utils", "run-rt-forecast.R"))
 
 # Select models to run ----------------------------------------------------
 
+# Specify some models as names in a list:
 models <- list("backcalc")
+# Or leave the list empty to run all models by default
+# models <- list()
 
 # Run forecast for current data -------------------------------------------
+
+run_rt_forecast(deaths = deaths, 
+                models = models,
+                submission_date = submission_dates[4])
 
 purrr::walk(submission_dates, ~ run_rt_forecast(deaths = deaths, 
                                                 models = models,
