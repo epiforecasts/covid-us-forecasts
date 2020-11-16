@@ -46,14 +46,15 @@ run_rt_forecast <- function(deaths,
   data.table::setorder(deaths, date)
   
   # Set up common settings --------------------------------------------------
+
   std_regional_epinow <- purrr::partial(regional_epinow, 
                                         horizon = 30, 
                                         generation_time = generation_time,
-                                        stan = list(samples = 2000,
+                                        non_zero_points = 14,
+                                        stan = stan_opts(samples = 2000,
                                                          warmup = 250, 
                                                          cores = no_cores, 
-                                                         chains = ifelse(no_cores <= 4, 4, no_cores)), 
-                                        non_zero_points = 14,
+                                                         chains = ifelse(no_cores <= 4, 4, no_cores)),
                                         output = c("region", "samples", "summary", "timing"))
   # Run Rt - ORIGINAL -------------------------------------------------------
    if ("original" %in% models) {
@@ -62,7 +63,7 @@ run_rt_forecast <- function(deaths,
                          summary_args = list(summary_dir = summary[["original"]],
                                              all_regions = FALSE),
                          logs = "rt-forecast-2/logs/original",
-                         delays = list(incubation_period, reporting_delay),
+                         delays = delay_opts(incubation_period, reporting_delay),
                          rt = list(prior = list(mean = 1, sd = 0.2), 
                                    future = "project"))
    }
@@ -75,7 +76,7 @@ run_rt_forecast <- function(deaths,
                          summary_args = list(summary_dir = summary[["fixed_future_rt"]],
                                              all_regions = FALSE),
                          logs = "rt-forecast-2/logs/fixed_future_rt",
-                         delays = list(incubation_period, reporting_delay),
+                         delays = delay_opts(incubation_period, reporting_delay),
                          rt = list(prior = list(mean = 1, sd = 0.2), 
                                    future = "latest"))
    }
@@ -90,7 +91,7 @@ run_rt_forecast <- function(deaths,
                         summary_args = list(summary_dir = summary[["fixed_rt"]],
                                             all_regions = FALSE),
                         logs = "rt-forecast-2/logs/fixed_rt",
-                        delays = list(incubation_period, reporting_delay),
+                        delays = delay_opts(incubation_period, reporting_delay),
                          rt = list(prior = list(mean = 1, sd = 0.2), 
                                    future = "estimate"))
   }  
@@ -116,6 +117,7 @@ run_rt_forecast <- function(deaths,
                         summary_args = list(summary_dir = summary[["backcalc"]],
                                             all_regions = FALSE),
                         rt = NULL,
+                        delays = delay_opts(incubation_period, reporting_delay),
                         logs = "rt-forecast-2/logs/backcalculation")
   }
   

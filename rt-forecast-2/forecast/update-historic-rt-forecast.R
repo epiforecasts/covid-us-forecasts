@@ -25,13 +25,8 @@ models <- list("backcalc")
 # Or leave the list empty to run all models by default
 # models <- list()
 
-# Run forecast for current data -------------------------------------------
-
-run_rt_forecast(deaths = deaths, 
-                models = models,
-                submission_date = submission_dates[4])
+# Run forecast for current data -----------------------------------
 
 purrr::walk(submission_dates, ~ run_rt_forecast(deaths = deaths, 
                                                 models = models,
                                                 submission_date = .))
-
