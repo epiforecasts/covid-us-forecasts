@@ -10,12 +10,17 @@ require(cowplot)
 require(data.table)
 
 
-format_rt <- function(forecast_date, submission_date, include_latest = FALSE,
+format_rt <- function(forecast_date, 
+                      submission_date, 
+                      include_latest = FALSE,
+                      rt_models = list(),
                       sample_range = 1) {
   
   # Get names Rt models
+  if (length(rt_models) == 0) {
   source("utils/meta-model-list.R")
   rt_models <- names(model_list$single_models)[grepl("rt", names(model_list$single_models))] 
+  }
   
   i <- rt_models[1]
   
@@ -45,7 +50,7 @@ format_rt <- function(forecast_date, submission_date, include_latest = FALSE,
     
     # Load forecasts ----------------------------------------------------------
     
-    # Try forecast date date for latest Rt forecast file
+    # Try forecast date for latest Rt forecast file
     forecasts_raw <- suppressWarnings(
       EpiNow2::get_regional_results(results_dir = file.path(forecast_dir, "state"),
                                                    date = lubridate::ymd(forecast_date),

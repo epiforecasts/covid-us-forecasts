@@ -2,13 +2,20 @@
 require(lubridate, quietly = TRUE)
 # Set up running a single Rt forecast -------------------------------------
 
-run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
+run_rt_forecast <- function(deaths, 
+                            submission_date, 
+                            models = list(),
+                            rerun = FALSE) {
   
   if (missing(submission_date)) {
     rerun <- TRUE
   }
   # Set up directories for models -------------------------------------------
-  models <- list("original", "fixed_future_rt", "fixed_rt", "no_delay")
+  if (length(models) == 0) {
+    source("utils/meta-model-list.R")
+    models <- names(model_list$single_models)[grepl("rt", names(model_list$single_models))] 
+    models <- gsub("rt2_", "", models)
+    }
   
   targets <- purrr::map(models, ~ paste0("rt-forecast-2/forecast/deaths_forecast/", .x, "/state"))
   names(targets) <- models
@@ -24,7 +31,7 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
     models <- models[!targets_present]
   }
   
-  if(length(models) == 0){
+  if (length(models) == 0) {
     return(invisible(NULL))
   }
 
@@ -39,14 +46,15 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
   data.table::setorder(deaths, date)
   
   # Set up common settings --------------------------------------------------
-  std_regional_epinow <- purrr::partial(regional_epinow, samples = 2000, horizon = 30, 
+
+  std_regional_epinow <- purrr::partial(regional_epinow, 
+                                        horizon = 30, 
                                         generation_time = generation_time,
-                                        stan_args = list(warmup = 500, cores = no_cores, 
-                                                         control = list(adapt_delta = 0.95,
-                                                                        max_treedepth = 15), 
-                                                         chains = ifelse(no_cores <= 4, 4, no_cores)), 
-                                        burn_in = 14, non_zero_points = 14,
-                                        max_execution_time = Inf, future = FALSE,
+                                        non_zero_points = 14,
+                                        stan = stan_opts(samples = 2000,
+                                                         warmup = 250, 
+                                                         cores = no_cores, 
+                                                         chains = ifelse(no_cores <= 4, 4, no_cores)),
                                         output = c("region", "samples", "summary", "timing"))
   # Run Rt - ORIGINAL -------------------------------------------------------
    if ("original" %in% models) {
@@ -55,7 +63,9 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
                          summary_args = list(summary_dir = summary[["original"]],
                                              all_regions = FALSE),
                          logs = "rt-forecast-2/logs/original",
-                         delays = list(incubation_period, reporting_delay))
+                         delays = delay_opts(incubation_period, reporting_delay),
+                         rt = rt_opts(prior = list(mean = 1, sd = 0.2), 
+                                   future = "project"))
    }
 
   # Run Rt - FIXED RT --------------------------------------------------
@@ -66,8 +76,9 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
                          summary_args = list(summary_dir = summary[["fixed_future_rt"]],
                                              all_regions = FALSE),
                          logs = "rt-forecast-2/logs/fixed_future_rt",
-                         delays = list(incubation_period, reporting_delay),
-                         future_rt = "latest")
+                         delays = delay_opts(incubation_period, reporting_delay),
+                         rt = rt_opts(prior = list(mean = 1, sd = 0.2), 
+                                   future = "latest"))
    }
 
   
@@ -80,8 +91,9 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
                         summary_args = list(summary_dir = summary[["fixed_rt"]],
                                             all_regions = FALSE),
                         logs = "rt-forecast-2/logs/fixed_rt",
-                        delays = list(incubation_period, reporting_delay),
-                       future_rt = "estimate")
+                        delays = delay_opts(incubation_period, reporting_delay),
+                         rt = rt_opts(prior = list(mean = 1, sd = 0.2), 
+                                   future = "estimate"))
   }  
   
 
@@ -93,7 +105,20 @@ run_rt_forecast <- function(deaths, submission_date, rerun = FALSE) {
                         summary_args = list(summary_dir = summary[["no_delay"]],
                                             all_regions = FALSE),
                         logs = "rt-forecast-2/logs/no_delay",
-                        future_rt = "latest")
+                         rt = rt_opts(prior = list(mean = 1, sd = 0.2), 
+                                   future = "latest"))
+  }
+  
+  # Backcalculation ----------------------------------------------------------------
+  
+  if ("backcalc" %in% models) {
+    std_regional_epinow(reported_cases = deaths,
+                        target_folder = targets[["backcalc"]],
+                        summary_args = list(summary_dir = summary[["backcalc"]],
+                                            all_regions = FALSE),
+                        rt = NULL,
+                        delays = delay_opts(incubation_period, reporting_delay),
+                        logs = "rt-forecast-2/logs/backcalculation")
   }
   
   

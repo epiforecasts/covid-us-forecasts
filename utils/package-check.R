@@ -1,6 +1,5 @@
 # Checking all dependencies ----------------
 devtools::install_deps()
-# 
 # library(EpiNow);library(EpiSoon)
 # library(magrittr);library(furrr)
 # library(dplyr);library(tidyr)
@@ -11,13 +10,7 @@ devtools::install_deps()
 # library(quantgen);library(tigris); library(scoringutils)
 
 # For Rt estimates -------------------------
-# Check that EpiNow / EpiSoon and their deps are up to date
-# install.packages("drat")
-# library(drat)
-# drat::addRepo("epiforecasts")
-# install.packages("EpiSoon")
-# library(devtools)
-# devtools::install_deps(repos = "https://epiforecasts.io/drat/")
+# remotes::install_github("epiforecasts/EpiNow2")
 
 
 # For ensembling ----------------------------

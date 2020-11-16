@@ -1,0 +1,40 @@
+INFO [2020-11-16 11:40:05] Reporting estimates using data up to: 2020-11-15
+INFO [2020-11-16 11:40:05] Saving estimates to : rt-forecast-2/forecast/deaths_forecast/backcalc/state
+INFO [2020-11-16 11:40:05] Producing estimates for: 52 regions
+INFO [2020-11-16 11:40:05] Regions excluded: 5 regions
+INFO [2020-11-16 11:40:05] Showing progress using progressr. Modify this behaviour using progressr::handlers.
+INFO [2020-11-16 11:41:27] Completed regional estimates
+INFO [2020-11-16 11:41:27] Regions with estimates: 0
+INFO [2020-11-16 11:41:27] Regions with runtime errors: 52
+INFO [2020-11-16 11:41:27] Producing summary
+INFO [2020-11-16 11:41:27] Saving summary to : rt-forecast-2/forecast/deaths_forecast/backcalc/summary
+INFO [2020-11-16 11:41:27] Errors caught whilst generating summary statistics: 
+INFO [2020-11-16 11:41:27] Error in .checkTypos(e, names_x): Object 'variable' not found amongst 
+
+INFO [2020-11-16 11:41:27] Saving timings information to : rt-forecast-2/forecast/deaths_forecast/backcalc/state
+INFO [2020-11-16 11:43:45] Producing following optional outputs: regions, samples, summary, timing
+INFO [2020-11-16 11:43:45] Reporting estimates using data up to: 2020-11-15
+INFO [2020-11-16 11:43:45] Saving estimates to : rt-forecast-2/forecast/deaths_forecast/backcalc/state
+INFO [2020-11-16 11:43:45] Producing estimates for: 52 regions
+INFO [2020-11-16 11:43:45] Regions excluded: 5 regions
+INFO [2020-11-16 11:43:45] Showing progress using progressr. Modify this behaviour using progressr::handlers.
+INFO [2020-11-16 11:45:09] Completed regional estimates
+INFO [2020-11-16 11:45:09] Regions with estimates: 0
+INFO [2020-11-16 11:45:09] Regions with runtime errors: 52
+INFO [2020-11-16 11:45:11] Producing summary
+INFO [2020-11-16 11:45:11] Saving summary to : rt-forecast-2/forecast/deaths_forecast/backcalc/summary
+INFO [2020-11-16 11:45:11] Errors caught whilst generating summary statistics: 
+INFO [2020-11-16 11:45:11] Error in .checkTypos(e, names_x): Object 'variable' not found amongst 
+
+INFO [2020-11-16 11:45:11] Saving timings information to : rt-forecast-2/forecast/deaths_forecast/backcalc/state
+INFO [2020-11-16 11:56:18] Producing following optional outputs: regions, samples, summary, timing
+INFO [2020-11-16 11:56:18] Reporting estimates using data up to: 2020-11-15
+INFO [2020-11-16 11:56:18] Saving estimates to : rt-forecast-2/forecast/deaths_forecast/backcalc/state
+INFO [2020-11-16 11:56:18] Producing estimates for: 52 regions
+INFO [2020-11-16 11:56:18] Regions excluded: 5 regions
+INFO [2020-11-16 11:56:18] Showing progress using progressr. Modify this behaviour using progressr::handlers.
+INFO [2020-11-16 12:17:54] Producing following optional outputs: regions, samples, summary, timing
+INFO [2020-11-16 12:19:36] Reporting estimates using data up to: 2020-11-15
+INFO [2020-11-16 12:24:42] Producing following optional outputs: regions, samples, summary, timing
+INFO [2020-11-16 12:24:56] Producing following optional outputs: regions, samples, summary, timing
+INFO [2020-11-16 12:25:09] Producing following optional outputs: regions, samples, summary, timing
