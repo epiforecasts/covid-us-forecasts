@@ -44,10 +44,10 @@ model_list <- list(
            "colour" = "#FF4500"),
      # Rt Epinow2 - using backcalculation
     "rt2_backcalc" =
-      list("name" = "Rt2 (backcaculation)",
+      list("name" = "Rt2 backcaculation",
            "root" = "rt-forecast-2",
            "update" = "update.R",
-           "submission_files" = "output/backcalculation/submission-files",
+           "submission_files" = "output/backcalc/submission-files",
            "colour" = "#GF4500"),
     # Timeseries - weekly
     "ts_weekly_deaths_only" = 
