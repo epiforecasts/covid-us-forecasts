@@ -48,7 +48,7 @@ model_list <- list(
            "root" = "rt-forecast-2",
            "update" = "update.R",
            "submission_files" = "output/backcalc/submission-files",
-           "colour" = "#GF4500"),
+           "colour" = "#ffc500"),
     # Timeseries - weekly
     "ts_weekly_deaths_only" = 
       list("name" = "TS weekly deaths",
