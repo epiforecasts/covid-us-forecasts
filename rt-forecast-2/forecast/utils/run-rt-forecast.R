@@ -64,7 +64,7 @@ run_rt_forecast <- function(deaths,
                                              all_regions = FALSE),
                          logs = "rt-forecast-2/logs/original",
                          delays = delay_opts(incubation_period, reporting_delay),
-                         rt = list(prior = list(mean = 1, sd = 0.2), 
+                         rt = rt_opts(prior = list(mean = 1, sd = 0.2), 
                                    future = "project"))
    }
 
@@ -77,7 +77,7 @@ run_rt_forecast <- function(deaths,
                                              all_regions = FALSE),
                          logs = "rt-forecast-2/logs/fixed_future_rt",
                          delays = delay_opts(incubation_period, reporting_delay),
-                         rt = list(prior = list(mean = 1, sd = 0.2), 
+                         rt = rt_opts(prior = list(mean = 1, sd = 0.2), 
                                    future = "latest"))
    }
 
@@ -92,7 +92,7 @@ run_rt_forecast <- function(deaths,
                                             all_regions = FALSE),
                         logs = "rt-forecast-2/logs/fixed_rt",
                         delays = delay_opts(incubation_period, reporting_delay),
-                         rt = list(prior = list(mean = 1, sd = 0.2), 
+                         rt = rt_opts(prior = list(mean = 1, sd = 0.2), 
                                    future = "estimate"))
   }  
   
@@ -105,7 +105,7 @@ run_rt_forecast <- function(deaths,
                         summary_args = list(summary_dir = summary[["no_delay"]],
                                             all_regions = FALSE),
                         logs = "rt-forecast-2/logs/no_delay",
-                         rt = list(prior = list(mean = 1, sd = 0.2), 
+                         rt = rt_opts(prior = list(mean = 1, sd = 0.2), 
                                    future = "latest"))
   }
   
