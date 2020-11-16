@@ -58,9 +58,17 @@ format_rt <- function(forecast_date,
     )
     
       if(length(forecasts_raw) == 0){
+        forecasts_raw <- suppressWarnings(
+          EpiNow2::get_regional_results(results_dir = file.path(forecast_dir, "state"),
+                                        date = lubridate::ymd(forecast_date-1),
+                                        forecast = TRUE)$estimated_reported_cases$samples
+        )
+        
+        if(length(forecasts_raw)==0){
         warning("<format-rt.R> Latest Rt forecasts are not found. Check forecast_date matches directory paths")
-        }
-    
+       
+           }
+      }
      # Shrink samples ----------------------------------------------------------
 
     shrink_per <- (1 - sample_range) / 2
