@@ -1,15 +1,18 @@
 
 library(magrittr)
 source(here::here("utils", "load-submissions-function.R"))
-
+source(here::here("utils", "current-forecast-submission-date.R"))
 
 
 # get weights ------------------------------------------------------------------
 
 # Get past forecasts
 past_forecasts <- load_submission_files(dates = "all",
-                                        num_last = 4, #
+                                        num_last = 5, #
                                         models = "single") 
+# Remove latest week
+past_forecasts <- past_forecasts[past_forecasts$forecast_date < forecast_date , ]
+
 # Get latest forecasts
 latest_forecasts <- load_submission_files(dates = "all",
                                           num_last = 1,
@@ -28,6 +31,8 @@ deaths_national <- deaths_data %>%
 
 deaths_data <- dplyr::bind_rows(deaths_data, deaths_national)
 
+# Remove recent data
+deaths_data <- deaths_data[deaths_data$epiweek < lubridate::epiweek(forecast_date) , ]
 
 # QRA ensemble by state ---------------------------------------------------
 source(here::here("ensembling", "qra-state-ensemble", "regional-qra.R"))
