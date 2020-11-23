@@ -1,0 +1,11 @@
+﻿model_name,model_file,model_package,description,added_by,added_date,earliest_submitted,earliest_ensemble,earliest_forecast,latest_forecast
+Rt,,epinow1,,KS,,,,,
+Rt2 original,rt2_original,epinow2,,SA,,,,,
+Rt2 fixed future rt,rt2_fixed_future_rt,epinow2,,SA,,,,,
+Rt2 fixed rt,rt2_fixed_rt,epinow2,,SA,,,,,
+Rt2 (no delays),rt2_no_delay,epinow2,,SA,,,,,
+Rt2 backcaculation,rt2_backcalc,epinow2,,SA,,,,,
+TS weekly deaths,ts_weekly_deaths_only,forecast,,KS,,,,,
+TS weekly deaths-cases,ts_weekly_deaths_on_cases,forecast,,KS,,,,,
+TS daily deaths,,,,KS,,,,,
+TS daily deaths-cases,,,,KS,,,,,
