@@ -126,8 +126,6 @@ qra_ensemble <- forecasts_wide %>%
 
 
 # write dated file
-forecast_date <- max(unique(past_forecasts$submission_date))
-
 data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-ensemble", 
                                             "submission-files","dated",
                                             paste0(forecast_date, "-epiforecasts-ensemble1-qra.csv")))

@@ -51,12 +51,8 @@ state_qra <- purrr::map(states,
 qra_ensemble <- dplyr::bind_rows(state_qra) %>%
   dplyr::select(-state)
 
-# Output ------------------------------------------------------------------
-# write dated file
-forecast_date <- max(unique(past_forecasts$submission_date))
-
+# Output -------------------------------------------------------
 # Write to state-wise folder
-
 data.table::fwrite(qra_ensemble, here::here("ensembling", "qra-state-ensemble", 
                                             "submission-files","dated",
                                             paste0(forecast_date, "-epiforecasts-ensemble1-qra.csv")))

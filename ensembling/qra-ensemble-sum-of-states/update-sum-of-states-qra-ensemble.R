@@ -20,7 +20,7 @@ national_qra <- state_qra %>%
 
 
 # save results (dated and latest)
-forecast_date <- max(unique(past_forecasts$submission_date))
+source(here::here("utils", "current-forecast-submission-date.R"))
 data.table::fwrite(national_qra, here::here("ensembling",
                                             "qra-ensemble-sum-of-states", 
                                             "submission-files",

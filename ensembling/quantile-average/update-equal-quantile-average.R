@@ -12,9 +12,6 @@ forecasts <- load_submission_files(dates = "all",
                                    num_last = 1,
                                    models = "single")
 
-# get forecast_date
-# forecast_date <- Sys.Date()
-forecast_date <- max(forecasts$forecast_date)
 
 # average quantiles ------------------------------------------------------------
 
