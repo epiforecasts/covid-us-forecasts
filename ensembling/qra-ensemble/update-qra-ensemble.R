@@ -8,16 +8,13 @@ source(here::here("utils", "current-forecast-submission-date.R"))
 
 # load past forecasts
 past_forecasts <- load_submission_files(dates = "all",
-                                        num_last = 4, #
+                                        num_last = 5, #
                                         models = "single") 
 
-# create complete set
-## Note: code to remove duplicates has been commented out. 
-## If duplicates exist this is likely to be a near-duplicate forecast,
-## that was made but updated the same/next day.
-## The model producer should move these near-duplicate forecasts  
-## to the relevant model's "out-of-date" folder - before ensembling.
+# Remove latest week
+past_forecasts <- past_forecasts[past_forecasts$forecast_date < forecast_date , ]
 
+## Note: code to remove duplicates has been commented out. 
 full_set <- past_forecasts %>%
   dplyr::select(-forecast_date) %>%
   # remove complete duplicates
@@ -44,15 +41,18 @@ tau <- full_set$quantile %>%
 
 # load deaths
 source(here::here("utils", "get-us-data.R"))
-deaths <- get_us_deaths(data = "daily") %>%
+deaths_data <- get_us_deaths(data = "daily") %>%
   dplyr::group_by(epiweek, state) %>%
   dplyr::summarise(deaths = sum(deaths), .groups = "drop_last")
+
+# Remove recent data
+deaths_data <- deaths_data[deaths_data$epiweek < lubridate::epiweek(forecast_date) , ]
 
 
 # join deaths with past forecasts and reformat
 combined <- full_set %>%
   dplyr::mutate(epiweek = lubridate::epiweek(target_end_date)) %>%
-  dplyr::inner_join(deaths, by = c("state", "epiweek")) %>%
+  dplyr::inner_join(deaths_data, by = c("state", "epiweek")) %>%
   tidyr::pivot_wider(values_from = value, names_from = quantile, 
                      names_prefix="quantile_") %>%
   dplyr::arrange(submission_date, target, target_end_date, location, model, epiweek) %>%
