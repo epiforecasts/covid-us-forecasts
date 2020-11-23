@@ -1,5 +1,7 @@
 
-library(magrittr); library(ggplot2); library(dplyr); library(tidyr); library(cowplot); library(data.table)
+library(ggplot2); library(dplyr); library(tidyr); library(cowplot); library(data.table)
+
+source(here::here("utils", "current-forecast-submission-date.R"))
 
 # load latest qra-ensemble
 state_qra <- readr::read_csv(file = here::here("ensembling",
