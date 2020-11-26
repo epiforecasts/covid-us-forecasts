@@ -1,0 +1,52 @@
+commit,tree,author,date,type,type_detail,model_affected,commit_message
+53174c38,c57227c3,kathsherratt,11/06/2020,model-add,rt,rt,Adding Rt forecast code
+9589c9c4,2ef42605,Sophie Meakin,15/06/2020,submission,submission,,Update and rename metadata-EpiForecasts-ensemble1 to metadata-epiforecasts-ensemble1
+20615039,841192bf,sophiemeakin,20/06/2020,model-add,expert elicitation app- first draft,expert,First draft forecasting app
+3e0b777e,016a1351,kathsherratt,20/06/2020,model-add,ts,ts,add timeseries forecasting
+28b9ebd8,75faa2ab,nikosbosse,22/06/2020,submission,submission,,updated submission file with only two models
+b4936a08,e1874d64,nikosbosse,22/06/2020,model-add,quantile average,mean,added functionality to do quantile averaging - changed format function to format-rt - created new folder for submissions
+b2c9c991,2cdcffaa,kathsherratt,27/06/2020,bug-fix,used epiweeks,all,Switch to epiweek
+d54ed518,52fda1e2,kathsherratt,29/06/2020,submission,submission,,final submission file
+aaab31ff,d6f5b712,kathsherratt,03/07/2020,model-add,ts - daily,ts,Daily forecasts
+405c6a91,e6b2472c,kathsherratt,03/07/2020,model-add,ts - log,ts,Adding log timeseries models
+c2c54578,6f1ba07d,kathsherratt,06/07/2020,submission,submission,,updated forecast for submission
+29a5ee35,ad74a756,kathsherratt,06/07/2020,bug-fix,data anomalies,all,Data anomalies
+6b4c615a,db5b4184,kathsherratt,07/07/2020,bug-fix,rt format fix,rt,Rt forecast formatting issue
+466e4ec8,8bb7bac4,nikosbosse,09/07/2020,model-add,qra,qra,finalised work on quantile regression ensemble
+2ac5879c,3616b41b,kathsherratt,12/07/2020,model-add,qra - bug fixes,qra,add QRA to update-final-submission
+e091f868,8285ac0b,Kath Sherratt,13/07/2020,submission,submission,,reformatting
+6a6cb374,b7cb9a92,sophiemeakin,20/07/2020,submission,submission,,Ensemble forecast for 2020-07-20
+edd55926,2da7a6c9,Kath Sherratt,24/07/2020,bug-fix,epiweek fixes,all,epiweek conversion fixes
+ab50c05c,e1f6c911,kathsherratt,26/07/2020,submission,submission,,update-2020-07-26
+bbf460a3,44a5df0d,kathsherratt,30/07/2020,model-add,rt - epinow2,rt,Add epinow2
+56f14f02,abf25ca6,kathsherratt,03/08/2020,submission,submission,,submission-csv
+b8ac8864,84d2a120,kathsherratt,10/08/2020,model-add,qra - qra by state,qra,qra-by-state
+fe118df4,93fd310e,seabbs,10/08/2020,model-add,rt - formatting,rt,reviewed EpiNow2 formatting
+3d440e28,89ed487c,seabbs,10/08/2020,submission,submission,,add updated forecasts
+fe53f433,03f8f057,kathsherratt,14/08/2020,model-add,epinow1 removed,rt,remove all epinow1 code
+5cb403d9,2db2f313,kathsherratt,17/08/2020,submission,submission,,Update 2020-08-17-epiforecasts-ensemble1.csv
+ac38a2ac,ce97a1da,seabbs,17/08/2020,model-add,rt - historic estimates for new models,rt,complete historic data
+1f0855e4,53609edd,seabbs,17/08/2020,submission,submission,,updated forecasts
+79eda8f9,de16e9c4,Sam Abbott,17/08/2020,model-add,rt - add rt models,rt,Merge pull request #53 from epiforecasts/add-rt-models
+6c9be290,e5817670,seabbs,18/08/2020,model-add,rt - new models,rt,add new models and processing
+e6126019,2780ba42,sophiemeakin,18/08/2020,model-add,app - update,expert,Update expert forecast pipeline
+0494c4c3,6ee04245,kathsherratt,24/08/2020,submission,submission,,Create 2020-08-24-epiforecasts-ensemble1.csv
+ee302a97,df8d31f6,seabbs,24/08/2020,model-add,rt - original,rt,add timeseries and original EpiNow2
+a8f109f9,8edbb9b1,seabbs,24/08/2020,model-add,rt - daily effect,rt,add daily effect
+9a689c91,fc6d2cbe,seabbs,31/08/2020,submission,submission,,update everything
+868c49e7,4c574cfa,kathsherratt,07/09/2020,bug-fix,format - bug fixes,all,lepidopterology II
+ad177841,8eebe865,seabbs,07/09/2020,submission,submission,,update forecasts
+664b8237,82059617,Sam Abbott,07/09/2020,model-add,rt - add no delay model,rt,Merge pull request #65 from epiforecasts/no_delay_rt
+e765cfed,0b834d16,kathsherratt,14/09/2020,submission,submission,,submitted csv
+a9412964,a625a7e5,seabbs,21/09/2020,submission,submission,,updated submission
+b75e8286,6b93acb2,seabbs,28/09/2020,submission,submission,,update forecast
+21384135,d679fa12,seabbs,28/09/2020,model-add,rt - epinow2 args update,rt,update ready for vb  EpiNow2 PR
+f355f617,101164dd,seabbs,12/10/2020,submission,submission,,update forecast
+dcb109e8,14205bef,seabbs,12/10/2020,model-add,rt - new version of epinow2,rt,update EpiNow2 version
+0996735a,9c27329e,kathsherratt,19/10/2020,submission,submission,,Update 2020-10-19-epiforecasts-ensemble1.csv
+828e2fd0,536f93fa,kathsherratt,26/10/2020,submission,submission,,submission csv
+4f19fc99,8a03d19d,kathsherratt,02/11/2020,submission,submission,,final submission csv update
+debe10b6,8716378a,kathsherratt,09/11/2020,submission,submission,,timeseries + ensembling + eval + final csv
+fe47ce58,21751310,kathsherratt,16/11/2020,submission,submission,,final forecasts
+2d51b873,1105f11b,Kath Sherratt,16/11/2020,model-add,rt - add backcalc,rt,Merge pull request #75 from epiforecasts/historic-backcalc
+2b5d848b,d2a134f5,kathsherratt,16/11/2020,model-add,rt - update opts arguments,rt,rt_opts
