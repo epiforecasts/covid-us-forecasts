@@ -65,7 +65,7 @@ run_rt_forecast <- function(deaths,
                                                          cores = no_cores, 
                                                          chains = ifelse(no_cores <= 4, 4, no_cores)),
                                         output = c("region", "samples", "summary", "timing"),
-                                        obs = obs_opts(scale = list(mean = 0.01, sd = 0.001)))
+                                        obs = obs_opts(scale = list(mean = 0.005, sd = 0.001)))
   # Run Rt - ORIGINAL -------------------------------------------------------
    if ("original" %in% models) {
      # Rt options
