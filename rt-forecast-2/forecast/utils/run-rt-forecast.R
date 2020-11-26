@@ -42,7 +42,7 @@ run_rt_forecast <- function(deaths,
   data.table::setorder(deaths, date)
   
   # Rt global options
-  rt <- opts_list(rt_opts(), deaths) %>%
+  rt <- opts_list(rt_opts(prior = list(mean = 1, sd = 0.2)), deaths) %>%
     purrr::transpose()
   
   # - Population data
@@ -50,8 +50,6 @@ run_rt_forecast <- function(deaths,
     dplyr::pull(tot_pop, name = state_name) %>%
     as.list()
   
-  # - Prior
-  rt$prior <- purrr::map(rt$prior, ~ list(mean = 1, sd = 0.2))
   
   
   # Set up common settings --------------------------------------------------
