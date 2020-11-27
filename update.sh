@@ -3,7 +3,7 @@
 # Source this script to run a complete submission update end-to-end
 
 # Update packages
-# Rscript utils/package-check.R
+Rscript utils/package-check.R
 
 # Update the data
 Rscript utils/get-us-data.R
