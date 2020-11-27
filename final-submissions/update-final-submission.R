@@ -31,16 +31,8 @@ submit_ensemble <- dplyr::filter(submit_ensemble, (target_end_date - submission_
 
 
 # 1. Check population limit
-#   (back up copy of population totals saved in "data/pop_totals.csv")
-pop <- readr::read_csv("https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/counties/totals/co-est2019-alldata.csv") %>%
-  dplyr::filter(COUNTY == "000") %>%
-  dplyr::select(STATE, tot_pop = POPESTIMATE2019) %>%
-  dplyr::bind_rows(tibble::tibble("STATE" = c("US", 
-                                              "66"), # Guam
-                                  "tot_pop" = c(331002651,
-                                                165768)))
-
-pop_check <- dplyr::left_join(submit_ensemble, pop, by = c("location" = "STATE")) %>%
+pop_check <- dplyr::left_join(submit_ensemble, readr::read_csv("utils/state_pop_totals.csv"), 
+                              by = c("location" = "state_code")) %>%
   dplyr::mutate(pop_check = ifelse(value > tot_pop, FALSE, TRUE)) %>%
   dplyr::filter(pop_check == FALSE) %>%
   dplyr::pull(location) %>%
