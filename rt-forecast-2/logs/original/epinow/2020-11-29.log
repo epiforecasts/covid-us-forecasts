@@ -1,0 +1,413 @@
+INFO [2020-11-30 10:37:35] Initialising estimates for: Alabama
+INFO [2020-11-30 10:37:35] Initialising estimates for: Alaska
+INFO [2020-11-30 10:37:36] Initialising estimates for: Arizona
+INFO [2020-11-30 10:37:37] Initialising estimates for: Arkansas
+INFO [2020-11-30 10:37:39] Initialising estimates for: California
+INFO [2020-11-30 10:37:41] Initialising estimates for: Colorado
+INFO [2020-11-30 10:37:43] Initialising estimates for: Connecticut
+INFO [2020-11-30 10:37:46] Initialising estimates for: Delaware
+INFO [2020-11-30 10:37:49] Initialising estimates for: District of Columbia
+INFO [2020-11-30 10:37:53] Initialising estimates for: Florida
+INFO [2020-11-30 10:37:57] Initialising estimates for: Georgia
+INFO [2020-11-30 10:38:01] Initialising estimates for: Guam
+INFO [2020-11-30 10:38:06] Initialising estimates for: Hawaii
+INFO [2020-11-30 10:38:12] Initialising estimates for: Idaho
+INFO [2020-11-30 10:38:17] Initialising estimates for: Illinois
+INFO [2020-11-30 10:38:23] Initialising estimates for: Indiana
+INFO [2020-11-30 10:38:30] Initialising estimates for: Iowa
+INFO [2020-11-30 10:38:37] Initialising estimates for: Kansas
+WARN [2020-11-30 10:38:54] Delaware (chain: 1): There were 242 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:38:54] Delaware (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:38:59] District of Columbia (chain: 1): There were 231 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:38:59] District of Columbia (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:38:59] Alabama (chain: 1): There were 180 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:38:59] Alabama (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:39:00] Alaska (chain: 1): There were 280 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:39:00] Alaska (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:39:10] Completed estimates for: Alaska
+INFO [2020-11-30 10:39:10] Completed estimates for: Delaware
+INFO [2020-11-30 10:39:10] Completed estimates for: Alabama
+WARN [2020-11-30 10:39:13] Guam (chain: 1): There were 308 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:39:13] Guam (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:39:14] Completed estimates for: District of Columbia
+WARN [2020-11-30 10:39:14] Connecticut (chain: 1): There were 97 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:39:14] Connecticut (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:39:18] Guam (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+WARN [2020-11-30 10:39:18] Arizona (chain: 1): There were 149 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:39:18] Arizona (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:39:20] Arizona (chain: 1): Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#bulk-ess - 
+WARN [2020-11-30 10:39:21] Arizona (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+WARN [2020-11-30 10:39:23] Idaho (chain: 1): There were 159 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:39:23] Idaho (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:39:24] Completed estimates for: Connecticut
+INFO [2020-11-30 10:39:26] Completed estimates for: Guam
+INFO [2020-11-30 10:39:27] Completed estimates for: Arizona
+INFO [2020-11-30 10:39:32] Completed estimates for: Idaho
+WARN [2020-11-30 10:39:43] Hawaii (chain: 1): There were 949 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:39:43] Hawaii (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:39:44] Arkansas (chain: 1): There were 85 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:39:44] Arkansas (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:39:45] Hawaii (chain: 1): Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#bulk-ess - 
+INFO [2020-11-30 10:39:45] Initialising estimates for: Kentucky
+WARN [2020-11-30 10:39:46] Hawaii (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+INFO [2020-11-30 10:39:49] Initialising estimates for: Louisiana
+WARN [2020-11-30 10:39:52] Georgia (chain: 1): There were 149 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:39:52] Georgia (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:39:52] Completed estimates for: Hawaii
+INFO [2020-11-30 10:39:53] Completed estimates for: Arkansas
+INFO [2020-11-30 10:39:59] Initialising estimates for: Maine
+INFO [2020-11-30 10:40:01] Completed estimates for: Georgia
+WARN [2020-11-30 10:40:03] California (chain: 1): There were 150 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:40:03] California (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:40:06] Initialising estimates for: Maryland
+WARN [2020-11-30 10:40:07] Kansas (chain: 1): There were 298 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:40:07] Kansas (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:40:10] Initialising estimates for: Massachusetts
+INFO [2020-11-30 10:40:12] Completed estimates for: California
+WARN [2020-11-30 10:40:14] Florida (chain: 1): There were 279 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:40:14] Florida (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:40:15] Florida (chain: 1): The largest R-hat is 1.15, indicating chains have not mixed.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#r-hat - 
+WARN [2020-11-30 10:40:16] Iowa (chain: 1): There were 78 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:40:16] Iowa (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:40:16] Completed estimates for: Kansas
+WARN [2020-11-30 10:40:16] Florida (chain: 1): Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#bulk-ess - 
+WARN [2020-11-30 10:40:18] Florida (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+INFO [2020-11-30 10:40:20] Initialising estimates for: Michigan
+INFO [2020-11-30 10:40:24] Initialising estimates for: Minnesota
+INFO [2020-11-30 10:40:24] Completed estimates for: Florida
+INFO [2020-11-30 10:40:25] Completed estimates for: Iowa
+INFO [2020-11-30 10:40:34] Initialising estimates for: Mississippi
+WARN [2020-11-30 10:40:34] Indiana (chain: 1): There were 22 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:40:34] Indiana (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:40:36] Colorado (chain: 1): There were 227 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:40:36] Colorado (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:40:38] Initialising estimates for: Missouri
+WARN [2020-11-30 10:40:42] Louisiana (chain: 1): There were 71 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:40:42] Louisiana (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:40:43] Initialising estimates for: Montana
+INFO [2020-11-30 10:40:43] Completed estimates for: Indiana
+INFO [2020-11-30 10:40:46] Completed estimates for: Colorado
+INFO [2020-11-30 10:40:51] Initialising estimates for: Nebraska
+INFO [2020-11-30 10:40:51] Completed estimates for: Louisiana
+INFO [2020-11-30 10:41:01] Initialising estimates for: Nevada
+INFO [2020-11-30 10:41:06] Initialising estimates for: New Hampshire
+INFO [2020-11-30 10:41:11] Initialising estimates for: New Jersey
+WARN [2020-11-30 10:41:15] Maine (chain: 1): There were 408 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:41:15] Maine (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:41:17] Initialising estimates for: New Mexico
+INFO [2020-11-30 10:41:23] Initialising estimates for: New York
+WARN [2020-11-30 10:41:29] Illinois (chain: 1): There were 126 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:41:29] Illinois (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:41:29] Michigan (chain: 1): There were 172 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:41:29] Michigan (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:41:30] Initialising estimates for: North Carolina
+INFO [2020-11-30 10:41:30] Completed estimates for: Maine
+INFO [2020-11-30 10:41:39] Completed estimates for: Michigan
+INFO [2020-11-30 10:41:40] Initialising estimates for: North Dakota
+INFO [2020-11-30 10:41:45] Completed estimates for: Illinois
+WARN [2020-11-30 10:41:49] Kentucky (chain: 1): There were 91 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:41:49] Kentucky (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:41:54] Kentucky (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+WARN [2020-11-30 10:41:54] Montana (chain: 1): There were 97 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:41:54] Montana (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:41:54] Initialising estimates for: Ohio
+WARN [2020-11-30 10:41:57] Mississippi (chain: 1): There were 77 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:41:57] Mississippi (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:41:57] Missouri (chain: 1): There were 157 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:41:57] Missouri (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:42:00] Initialising estimates for: Oklahoma
+WARN [2020-11-30 10:42:02] Mississippi (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+WARN [2020-11-30 10:42:04] Massachusetts (chain: 1): There were 82 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:42:04] Massachusetts (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:42:05] Completed estimates for: Kentucky
+WARN [2020-11-30 10:42:05] Maryland (chain: 1): There were 84 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:42:05] Maryland (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:42:07] Initialising estimates for: Oregon
+INFO [2020-11-30 10:42:08] Completed estimates for: Missouri
+INFO [2020-11-30 10:42:10] Completed estimates for: Mississippi
+INFO [2020-11-30 10:42:10] Completed estimates for: Montana
+INFO [2020-11-30 10:42:16] Completed estimates for: Maryland
+WARN [2020-11-30 10:42:17] Nebraska (chain: 1): There were 157 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:42:17] Nebraska (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:42:18] Completed estimates for: Massachusetts
+WARN [2020-11-30 10:42:19] Nevada (chain: 1): There were 197 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:42:19] Nevada (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:42:23] New Hampshire (chain: 1): There were 309 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:42:23] New Hampshire (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:42:26] Completed estimates for: Nebraska
+INFO [2020-11-30 10:42:28] Completed estimates for: Nevada
+INFO [2020-11-30 10:42:33] Completed estimates for: New Hampshire
+WARN [2020-11-30 10:42:38] Minnesota (chain: 1): There were 44 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:42:38] Minnesota (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:42:41] Initialising estimates for: Pennsylvania
+INFO [2020-11-30 10:42:46] Initialising estimates for: Puerto Rico
+INFO [2020-11-30 10:42:48] Completed estimates for: Minnesota
+WARN [2020-11-30 10:42:48] New York (chain: 1): There were 100 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:42:48] New York (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:42:52] Initialising estimates for: Rhode Island
+INFO [2020-11-30 10:42:57] Initialising estimates for: South Carolina
+INFO [2020-11-30 10:42:58] Completed estimates for: New York
+INFO [2020-11-30 10:43:04] Initialising estimates for: South Dakota
+WARN [2020-11-30 10:43:06] Oregon (chain: 1): There were 180 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:43:06] Oregon (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:43:09] North Dakota (chain: 1): There were 177 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:43:09] North Dakota (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:43:09] Initialising estimates for: Tennessee
+WARN [2020-11-30 10:43:14] North Carolina (chain: 1): There were 135 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:43:14] North Carolina (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:43:14] Initialising estimates for: Texas
+WARN [2020-11-30 10:43:16] North Carolina (chain: 1): Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#bulk-ess - 
+INFO [2020-11-30 10:43:16] Completed estimates for: Oregon
+WARN [2020-11-30 10:43:17] North Carolina (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+INFO [2020-11-30 10:43:18] Completed estimates for: North Dakota
+INFO [2020-11-30 10:43:24] Completed estimates for: North Carolina
+INFO [2020-11-30 10:43:25] Initialising estimates for: Utah
+WARN [2020-11-30 10:43:25] Ohio (chain: 1): There were 97 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:43:25] Ohio (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:43:25] Oklahoma (chain: 1): There were 64 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:43:25] Oklahoma (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:43:33] Initialising estimates for: Virginia
+INFO [2020-11-30 10:43:35] Completed estimates for: Oklahoma
+INFO [2020-11-30 10:43:41] Completed estimates for: Ohio
+INFO [2020-11-30 10:43:41] Initialising estimates for: Washington
+WARN [2020-11-30 10:43:46] Rhode Island (chain: 1): There were 123 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:43:46] Rhode Island (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:43:49] Initialising estimates for: West Virginia
+INFO [2020-11-30 10:43:54] Initialising estimates for: Wisconsin
+WARN [2020-11-30 10:43:56] South Dakota (chain: 1): There were 181 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:43:56] South Dakota (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:43:57] Completed estimates for: Rhode Island
+INFO [2020-11-30 10:44:00] Initialising estimates for: Wyoming
+WARN [2020-11-30 10:44:01] South Dakota (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+WARN [2020-11-30 10:44:06] New Mexico (chain: 1): There were 92 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:44:06] New Mexico (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:44:09] Initialising estimates for: US
+INFO [2020-11-30 10:44:11] Completed estimates for: South Dakota
+INFO [2020-11-30 10:44:16] Completed estimates for: New Mexico
+WARN [2020-11-30 10:44:19] South Carolina (chain: 1): There were 97 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:44:19] South Carolina (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:44:30] Completed estimates for: South Carolina
+WARN [2020-11-30 10:44:41] Tennessee (chain: 1): There were 94 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:44:41] Tennessee (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:44:43] Utah (chain: 1): There were 105 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:44:43] Utah (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:44:47] Washington (chain: 1): There were 167 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:44:47] Washington (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:44:51] Completed estimates for: Tennessee
+INFO [2020-11-30 10:44:53] Completed estimates for: Utah
+INFO [2020-11-30 10:44:56] Completed estimates for: Washington
+WARN [2020-11-30 10:45:01] Wyoming (chain: 1): There were 267 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:45:01] Wyoming (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:45:08] Texas (chain: 1): There were 143 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:45:08] Texas (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:45:10] Completed estimates for: Wyoming
+WARN [2020-11-30 10:45:11] Puerto Rico (chain: 1): There were 135 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:45:11] Puerto Rico (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:45:14] West Virginia (chain: 1): There were 220 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:45:14] West Virginia (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:45:17] Completed estimates for: Texas
+WARN [2020-11-30 10:45:18] Virginia (chain: 1): There were 273 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:45:18] Virginia (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:45:20] Completed estimates for: Puerto Rico
+WARN [2020-11-30 10:45:22] Wisconsin (chain: 1): There were 106 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:45:22] Wisconsin (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:45:24] Completed estimates for: West Virginia
+INFO [2020-11-30 10:45:27] Completed estimates for: Virginia
+INFO [2020-11-30 10:45:32] Completed estimates for: Wisconsin
+WARN [2020-11-30 10:45:47] Pennsylvania (chain: 1): There were 167 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:45:47] Pennsylvania (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:45:55] Completed estimates for: Pennsylvania
+WARN [2020-11-30 10:46:18] New Jersey (chain: 1): There were 277 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:46:18] New Jersey (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+WARN [2020-11-30 10:46:20] New Jersey (chain: 1): Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#bulk-ess - 
+INFO [2020-11-30 10:46:27] Completed estimates for: New Jersey
+WARN [2020-11-30 10:51:19] US (chain: 1): There were 72 divergent transitions after warmup. See
+http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+to find out why this is a problem and how to eliminate them. - 
+WARN [2020-11-30 10:51:19] US (chain: 1): Examine the pairs() plot to diagnose sampling problems
+ - 
+INFO [2020-11-30 10:51:28] Completed estimates for: US

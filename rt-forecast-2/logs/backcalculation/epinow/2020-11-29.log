@@ -1,0 +1,112 @@
+INFO [2020-11-30 11:15:30] Initialising estimates for: Alabama
+INFO [2020-11-30 11:15:30] Initialising estimates for: Alaska
+INFO [2020-11-30 11:15:31] Initialising estimates for: Arizona
+INFO [2020-11-30 11:15:32] Initialising estimates for: Arkansas
+INFO [2020-11-30 11:15:34] Initialising estimates for: California
+INFO [2020-11-30 11:15:36] Initialising estimates for: Colorado
+INFO [2020-11-30 11:15:39] Initialising estimates for: Connecticut
+INFO [2020-11-30 11:15:42] Initialising estimates for: Delaware
+INFO [2020-11-30 11:15:45] Initialising estimates for: District of Columbia
+INFO [2020-11-30 11:15:49] Initialising estimates for: Florida
+INFO [2020-11-30 11:15:53] Initialising estimates for: Georgia
+INFO [2020-11-30 11:15:54] Completed estimates for: Alabama
+INFO [2020-11-30 11:15:56] Completed estimates for: Arizona
+INFO [2020-11-30 11:15:56] Completed estimates for: Arkansas
+INFO [2020-11-30 11:15:59] Completed estimates for: California
+INFO [2020-11-30 11:16:00] Completed estimates for: Alaska
+INFO [2020-11-30 11:16:00] Completed estimates for: Colorado
+INFO [2020-11-30 11:16:04] Completed estimates for: Connecticut
+INFO [2020-11-30 11:16:07] Initialising estimates for: Guam
+INFO [2020-11-30 11:16:09] Completed estimates for: District of Columbia
+INFO [2020-11-30 11:16:10] Initialising estimates for: Hawaii
+INFO [2020-11-30 11:16:11] Completed estimates for: Delaware
+INFO [2020-11-30 11:16:13] Completed estimates for: Florida
+INFO [2020-11-30 11:16:14] Initialising estimates for: Idaho
+INFO [2020-11-30 11:16:17] Initialising estimates for: Illinois
+INFO [2020-11-30 11:16:18] Completed estimates for: Georgia
+INFO [2020-11-30 11:16:19] Initialising estimates for: Indiana
+INFO [2020-11-30 11:16:23] Initialising estimates for: Iowa
+INFO [2020-11-30 11:16:25] Initialising estimates for: Kansas
+INFO [2020-11-30 11:16:28] Initialising estimates for: Kentucky
+INFO [2020-11-30 11:16:31] Completed estimates for: Guam
+INFO [2020-11-30 11:16:31] Initialising estimates for: Louisiana
+INFO [2020-11-30 11:16:35] Completed estimates for: Hawaii
+INFO [2020-11-30 11:16:38] Initialising estimates for: Maine
+WARN [2020-11-30 11:16:38] Indiana (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+INFO [2020-11-30 11:16:39] Completed estimates for: Idaho
+INFO [2020-11-30 11:16:43] Completed estimates for: Illinois
+INFO [2020-11-30 11:16:43] Initialising estimates for: Maryland
+INFO [2020-11-30 11:16:45] Completed estimates for: Indiana
+INFO [2020-11-30 11:16:47] Completed estimates for: Iowa
+INFO [2020-11-30 11:16:49] Completed estimates for: Kansas
+INFO [2020-11-30 11:16:50] Initialising estimates for: Massachusetts
+INFO [2020-11-30 11:16:53] Completed estimates for: Kentucky
+INFO [2020-11-30 11:16:54] Initialising estimates for: Michigan
+INFO [2020-11-30 11:16:56] Completed estimates for: Louisiana
+INFO [2020-11-30 11:16:58] Initialising estimates for: Minnesota
+INFO [2020-11-30 11:17:00] Initialising estimates for: Mississippi
+WARN [2020-11-30 11:17:02] Maryland (chain: 1): Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+Running the chains for more iterations may help. See
+http://mc-stan.org/misc/warnings.html#tail-ess - 
+INFO [2020-11-30 11:17:03] Initialising estimates for: Missouri
+INFO [2020-11-30 11:17:06] Initialising estimates for: Montana
+INFO [2020-11-30 11:17:06] Completed estimates for: Maine
+INFO [2020-11-30 11:17:08] Completed estimates for: Maryland
+INFO [2020-11-30 11:17:12] Initialising estimates for: Nebraska
+INFO [2020-11-30 11:17:15] Initialising estimates for: Nevada
+INFO [2020-11-30 11:17:16] Completed estimates for: Massachusetts
+INFO [2020-11-30 11:17:19] Completed estimates for: Michigan
+INFO [2020-11-30 11:17:20] Initialising estimates for: New Hampshire
+INFO [2020-11-30 11:17:25] Initialising estimates for: New Jersey
+INFO [2020-11-30 11:17:25] Completed estimates for: Minnesota
+INFO [2020-11-30 11:17:26] Completed estimates for: Mississippi
+INFO [2020-11-30 11:17:28] Completed estimates for: Missouri
+INFO [2020-11-30 11:17:31] Completed estimates for: Montana
+INFO [2020-11-30 11:17:31] Initialising estimates for: New Mexico
+INFO [2020-11-30 11:17:35] Initialising estimates for: New York
+INFO [2020-11-30 11:17:36] Completed estimates for: Nebraska
+INFO [2020-11-30 11:17:39] Initialising estimates for: North Carolina
+INFO [2020-11-30 11:17:40] Completed estimates for: Nevada
+INFO [2020-11-30 11:17:41] Initialising estimates for: North Dakota
+INFO [2020-11-30 11:17:44] Completed estimates for: New Hampshire
+INFO [2020-11-30 11:17:45] Initialising estimates for: Ohio
+INFO [2020-11-30 11:17:49] Initialising estimates for: Oklahoma
+INFO [2020-11-30 11:17:50] Completed estimates for: New Jersey
+INFO [2020-11-30 11:17:54] Initialising estimates for: Oregon
+INFO [2020-11-30 11:17:57] Initialising estimates for: Pennsylvania
+INFO [2020-11-30 11:17:57] Completed estimates for: New Mexico
+INFO [2020-11-30 11:18:00] Completed estimates for: New York
+INFO [2020-11-30 11:18:01] Initialising estimates for: Puerto Rico
+INFO [2020-11-30 11:18:04] Completed estimates for: North Carolina
+INFO [2020-11-30 11:18:06] Completed estimates for: North Dakota
+INFO [2020-11-30 11:18:07] Initialising estimates for: Rhode Island
+INFO [2020-11-30 11:18:11] Completed estimates for: Ohio
+INFO [2020-11-30 11:18:11] Initialising estimates for: South Carolina
+INFO [2020-11-30 11:18:14] Completed estimates for: Oklahoma
+INFO [2020-11-30 11:18:17] Initialising estimates for: South Dakota
+INFO [2020-11-30 11:18:18] Completed estimates for: Oregon
+INFO [2020-11-30 11:18:21] Initialising estimates for: Tennessee
+INFO [2020-11-30 11:18:21] Completed estimates for: Pennsylvania
+INFO [2020-11-30 11:18:24] Initialising estimates for: Texas
+INFO [2020-11-30 11:18:27] Completed estimates for: Puerto Rico
+INFO [2020-11-30 11:18:27] Initialising estimates for: Utah
+INFO [2020-11-30 11:18:31] Initialising estimates for: Virginia
+INFO [2020-11-30 11:18:34] Initialising estimates for: Washington
+INFO [2020-11-30 11:18:35] Completed estimates for: Rhode Island
+INFO [2020-11-30 11:18:36] Completed estimates for: South Carolina
+INFO [2020-11-30 11:18:40] Initialising estimates for: West Virginia
+INFO [2020-11-30 11:18:43] Completed estimates for: South Dakota
+INFO [2020-11-30 11:18:43] Initialising estimates for: Wisconsin
+INFO [2020-11-30 11:18:45] Completed estimates for: Tennessee
+INFO [2020-11-30 11:18:49] Initialising estimates for: Wyoming
+INFO [2020-11-30 11:18:49] Completed estimates for: Texas
+INFO [2020-11-30 11:18:52] Completed estimates for: Utah
+INFO [2020-11-30 11:18:54] Initialising estimates for: US
+INFO [2020-11-30 11:19:00] Completed estimates for: Washington
+INFO [2020-11-30 11:19:05] Completed estimates for: West Virginia
+INFO [2020-11-30 11:19:06] Completed estimates for: Virginia
+INFO [2020-11-30 11:19:09] Completed estimates for: Wisconsin
+INFO [2020-11-30 11:19:14] Completed estimates for: Wyoming
+INFO [2020-11-30 11:19:23] Completed estimates for: US
