@@ -9,7 +9,7 @@ library(ggplot2, quietly = TRUE)
 library(purrr, quietly = TRUE)
 
 # Set target date ---------------------------------------------------------
-target_date <- "2020-11-30" #as.character(Sys.Date()) 
+target_date <- as.character(Sys.Date()) 
 
 # Get Observations --------------------------------------------------------
 # assumes no missing data (either explicit or implicit)
