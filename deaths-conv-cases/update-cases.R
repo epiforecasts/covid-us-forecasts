@@ -4,32 +4,44 @@ library(data.table, quietly = TRUE)
 library(future, quietly = TRUE)
 library(here, quietly = TRUE)
 library(lubridate, quietly = TRUE)
+library(purrr, quietly = TRUE)
 
 # Set target date ---------------------------------------------------------
 target_date <- as.character(Sys.Date()) 
 
 # Update delays -----------------------------------------------------------
-generation_time <- readRDS(here("rt-forecast", "data", "delays", "generation_time.rds"))
-incubation_period <- readRDS(here("rt-forecast", "data" ,"delays", "incubation_period.rds"))
-onset_to_report <- readRDS(here("rt-forecast", "data", "delays", "onset_to_report.rds"))
+generation_time <- readRDS(here("deaths-conv-cases", "data", "delays", "generation_time.rds"))
+incubation_period <- readRDS(here("deaths-conv-cases", "data" ,"delays", "incubation_period.rds"))
+onset_to_report <- readRDS(here("deaths-conv-cases", "data", "delays", "onset_to_report.rds"))
 
 # Get cases  ---------------------------------------------------------------
-cases <- fread(file.path("data", "daily-incidence-cases-Germany_Poland.csv"))
-cases <- cases[, .(region = as.character(location_name), date = as.Date(date), 
-                   confirm = value)]
-cases <- cases[date >= (max(date) - weeks(12))]
-data.table::setorder(cases, region, date)
+source(here("utils", "get-us-data.R"))
+cases <- get_us_cases(data = "daily")
+cases <- as.data.table(cases)
+cases <- cases[, .(region = state, date = as.Date(date), 
+                   confirm = cases)]
+us_cases <- copy(cases)[, .(confirm = sum(confirm, na.rm = TRUE)), by = "date"]
+us_cases <- us_cases[, region := "US"]
+cases <- rbindlist(list(us_cases, cases), use.names = TRUE)
+cases <- cases[date >= (as.Date(target_date) - weeks(12))]
+setorder(cases, region, date)
+
+# Set up options ----------------------------------------------------------
+# Add maximum susceptible population
+rt <- opts_list(rt_opts(prior = list(mean = 1, sd = 0.2), 
+                        future = "latest"), cases)
+pops <- fread(here("utils", "state_pop_totals.csv"))
+rt <- map(names(rt), function(x) {
+  y <- rt[[x]]
+  y$pop <- pops[state_name %in% x]$tot_pop
+  return(y)
+})
+names(rt) <- unique(cases$region)
 
 # Set up parallel execution -----------------------------------------------
 no_cores <- setup_future(cases)
 
 # Run Rt estimation -------------------------------------------------------
-rt <- opts_list(rt_opts(prior = list(mean = 1.1, sd = 0.2), 
-                        future = "latest"), cases)
-# add population adjustment for each country
-rt$Germany$pop <- 80000000
-rt$Poland$pop <- 40000000
-
 regional_epinow(reported_cases = cases,
                 generation_time = generation_time, 
                 delays = delay_opts(incubation_period, onset_to_report),
@@ -40,10 +52,10 @@ regional_epinow(reported_cases = cases,
                 horizon = 30,
                 output = c("region", "summary", "timing", "samples"),
                 target_date = target_date,
-                target_folder = here("rt-forecast", "data", "samples", "cases"), 
-                summary_args = list(summary_dir = here("rt-forecast", "data", "summary", 
-                                                       "cases", target_date),
-                                    all_regions = TRUE),
-                logs = "rt-forecast/logs/cases", verbose = TRUE)
+                target_folder = here("deaths-conv-cases", "data", "samples", "cases"), 
+                summary_args = list(summary_dir = here("deaths-conv-cases", "data", 
+                                                       "summary", "cases", target_date),
+                                    all_regions = FALSE),
+                logs = "deaths-conv-cases/logs/cases", verbose = TRUE)
 
 plan("sequential")

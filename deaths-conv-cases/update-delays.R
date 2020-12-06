@@ -26,4 +26,4 @@ samples <- round(length(report_delay$delay_onset_report) / 100)
 onset_to_report <- estimate_delay(report_delay$delay_onset_report,
                                   bootstraps = 100, bootstrap_samples = 1000,
                                   max_value = 15)
-saveRDS(onset_to_report, here::here("rt-forecast", "data", "delays", "onset_to_report.rds"))
+saveRDS(onset_to_report, here::here("deaths-conv-cases", "data", "delays", "onset_to_report.rds"))
