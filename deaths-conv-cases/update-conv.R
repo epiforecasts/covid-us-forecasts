@@ -32,7 +32,7 @@ case_forecast <- suppressWarnings(
                        date = ymd(target_date),
                        forecast = TRUE, samples = TRUE)$estimates$samples)
 # extracte infections
-case_forecast <- case_forecast[variable == "infections"]
+case_forecast <- case_forecast[variable == "reported_cases"]
 case_forecast <- case_forecast[, .(region, date, sample, value)]
 
 # summarise for observations
