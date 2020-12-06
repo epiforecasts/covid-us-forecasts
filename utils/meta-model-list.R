@@ -53,7 +53,7 @@ model_list <- list(
       list("name" = "secondary",
            "root" = "deaths-conv-cases",
            "update" = "update.R",
-           "submission_files" = "submission-files",
+           "submission_files" = "deaths-conv-cases/data/submission",
            "colour" = "#326194"),
     # Timeseries - weekly
     "ts_weekly_deaths_only" = 
