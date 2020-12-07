@@ -11,8 +11,6 @@ library(purrr, quietly = TRUE)
 # Set target date ---------------------------------------------------------
 target_date <- as.character(Sys.Date()) 
 
-for (target_date in dates) {
-
 # Get Observations --------------------------------------------------------
 # assumes no missing data (either explicit or implicit)
 source(here("utils", "get-us-data.R"))
