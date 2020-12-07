@@ -6,14 +6,9 @@ library(here, quietly = TRUE)
 library(lubridate, quietly = TRUE)
 library(purrr, quietly = TRUE)
 
-dates <- c(ymd("2020-11-30"))
-dates <- c(dates, map_chr(1:3, ~ as.character(dates - weeks(.))))
-dates <- as.character(dates)
-
 # Set target date ---------------------------------------------------------
-#target_date <- as.character(Sys.Date()) 
+target_date <- as.character(Sys.Date()) 
 
-for (target_date in dates) {
 # Update delays -----------------------------------------------------------
 generation_time <- readRDS(here("deaths-conv-cases", "data", "delays", "generation_time.rds"))
 incubation_period <- readRDS(here("deaths-conv-cases", "data" ,"delays", "incubation_period.rds"))
@@ -28,6 +23,7 @@ cases <- cases[, .(region = state, date = as.Date(date),
 us_cases <- copy(cases)[, .(confirm = sum(confirm, na.rm = TRUE)), by = "date"]
 us_cases <- us_cases[, region := "US"]
 cases <- rbindlist(list(us_cases, cases), use.names = TRUE)
+cases <- cases[date <= as.Date(target_date)]
 cases <- cases[date >= (as.Date(target_date) - weeks(12))]
 setorder(cases, region, date)
 
@@ -64,4 +60,3 @@ regional_epinow(reported_cases = cases,
                 logs = "deaths-conv-cases/logs/cases", verbose = FALSE)
 
 plan("sequential")
-}

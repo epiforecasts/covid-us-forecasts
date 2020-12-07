@@ -84,11 +84,6 @@ date,confirm,region
 2020-11-28,2119,Alabama
 2020-11-29,2236,Alabama
 2020-11-30,2295,Alabama
-2020-12-01,3376,Alabama
-2020-12-02,3928,Alabama
-2020-12-03,3531,Alabama
-2020-12-04,3840,Alabama
-2020-12-05,3390,Alabama
 2020-09-07,35,Alaska
 2020-09-08,34,Alaska
 2020-09-09,65,Alaska
@@ -174,11 +169,6 @@ date,confirm,region
 2020-11-28,668,Alaska
 2020-11-29,621,Alaska
 2020-11-30,511,Alaska
-2020-12-01,539,Alaska
-2020-12-02,687,Alaska
-2020-12-03,761,Alaska
-2020-12-04,762,Alaska
-2020-12-05,946,Alaska
 2020-09-07,197,Arizona
 2020-09-08,81,Arizona
 2020-09-09,496,Arizona
@@ -264,11 +254,6 @@ date,confirm,region
 2020-11-28,4136,Arizona
 2020-11-29,3221,Arizona
 2020-11-30,822,Arizona
-2020-12-01,10322,Arizona
-2020-12-02,3840,Arizona
-2020-12-03,5442,Arizona
-2020-12-04,5680,Arizona
-2020-12-05,6799,Arizona
 2020-09-07,350,Arkansas
 2020-09-08,294,Arkansas
 2020-09-09,385,Arkansas
@@ -354,11 +339,6 @@ date,confirm,region
 2020-11-28,1349,Arkansas
 2020-11-29,1221,Arkansas
 2020-11-30,1112,Arkansas
-2020-12-01,1950,Arkansas
-2020-12-02,2212,Arkansas
-2020-12-03,2789,Arkansas
-2020-12-04,2827,Arkansas
-2020-12-05,2245,Arkansas
 2020-09-07,2109,California
 2020-09-08,3379,California
 2020-09-09,2946,California
@@ -444,11 +424,6 @@ date,confirm,region
 2020-11-28,15048,California
 2020-11-29,14831,California
 2020-11-30,14809,California
-2020-12-01,15778,California
-2020-12-02,19140,California
-2020-12-03,21368,California
-2020-12-04,23757,California
-2020-12-05,27634,California
 2020-09-07,213,Colorado
 2020-09-08,187,Colorado
 2020-09-09,240,Colorado
@@ -534,11 +509,6 @@ date,confirm,region
 2020-11-28,4330,Colorado
 2020-11-29,3489,Colorado
 2020-11-30,4133,Colorado
-2020-12-01,4405,Colorado
-2020-12-02,3862,Colorado
-2020-12-03,6037,Colorado
-2020-12-04,5013,Colorado
-2020-12-05,5125,Colorado
 2020-09-07,0,Connecticut
 2020-09-08,417,Connecticut
 2020-09-09,89,Connecticut
@@ -624,11 +594,6 @@ date,confirm,region
 2020-11-28,0,Connecticut
 2020-11-29,0,Connecticut
 2020-11-30,4714,Connecticut
-2020-12-01,1459,Connecticut
-2020-12-02,2672,Connecticut
-2020-12-03,4751,Connecticut
-2020-12-04,1538,Connecticut
-2020-12-05,0,Connecticut
 2020-09-07,206,Delaware
 2020-09-08,59,Delaware
 2020-09-09,0,Delaware
@@ -714,11 +679,6 @@ date,confirm,region
 2020-11-28,500,Delaware
 2020-11-29,581,Delaware
 2020-11-30,403,Delaware
-2020-12-01,689,Delaware
-2020-12-02,355,Delaware
-2020-12-03,758,Delaware
-2020-12-04,942,Delaware
-2020-12-05,698,Delaware
 2020-09-07,36,District of Columbia
 2020-09-08,47,District of Columbia
 2020-09-09,25,District of Columbia
@@ -804,11 +764,6 @@ date,confirm,region
 2020-11-28,371,District of Columbia
 2020-11-29,140,District of Columbia
 2020-11-30,104,District of Columbia
-2020-12-01,133,District of Columbia
-2020-12-02,157,District of Columbia
-2020-12-03,322,District of Columbia
-2020-12-04,316,District of Columbia
-2020-12-05,392,District of Columbia
 2020-09-07,1838,Florida
 2020-09-08,1823,Florida
 2020-09-09,2167,Florida
@@ -894,11 +849,6 @@ date,confirm,region
 2020-11-28,6277,Florida
 2020-11-29,7363,Florida
 2020-11-30,6659,Florida
-2020-12-01,8847,Florida
-2020-12-02,9994,Florida
-2020-12-03,10870,Florida
-2020-12-04,10177,Florida
-2020-12-05,10431,Florida
 2020-09-07,608,Georgia
 2020-09-08,1543,Georgia
 2020-09-09,1950,Georgia
@@ -984,11 +934,6 @@ date,confirm,region
 2020-11-28,3038,Georgia
 2020-11-29,1952,Georgia
 2020-11-30,2047,Georgia
-2020-12-01,4842,Georgia
-2020-12-02,5734,Georgia
-2020-12-03,5839,Georgia
-2020-12-04,6376,Georgia
-2020-12-05,5017,Georgia
 2020-09-07,0,Guam
 2020-09-08,42,Guam
 2020-09-09,45,Guam
@@ -1074,11 +1019,6 @@ date,confirm,region
 2020-11-28,14,Guam
 2020-11-29,36,Guam
 2020-11-30,34,Guam
-2020-12-01,37,Guam
-2020-12-02,31,Guam
-2020-12-03,22,Guam
-2020-12-04,17,Guam
-2020-12-05,0,Guam
 2020-09-07,104,Hawaii
 2020-09-08,66,Hawaii
 2020-09-09,98,Hawaii
@@ -1164,11 +1104,6 @@ date,confirm,region
 2020-11-28,76,Hawaii
 2020-11-29,56,Hawaii
 2020-11-30,85,Hawaii
-2020-12-01,43,Hawaii
-2020-12-02,76,Hawaii
-2020-12-03,142,Hawaii
-2020-12-04,121,Hawaii
-2020-12-05,133,Hawaii
 2020-09-07,74,Idaho
 2020-09-08,240,Idaho
 2020-09-09,322,Idaho
@@ -1254,11 +1189,6 @@ date,confirm,region
 2020-11-28,1160,Idaho
 2020-11-29,824,Idaho
 2020-11-30,1214,Idaho
-2020-12-01,1607,Idaho
-2020-12-02,1429,Idaho
-2020-12-03,1721,Idaho
-2020-12-04,1911,Idaho
-2020-12-05,1339,Idaho
 2020-09-07,1369,Illinois
 2020-09-08,1392,Illinois
 2020-09-09,1337,Illinois
@@ -1344,11 +1274,6 @@ date,confirm,region
 2020-11-28,7873,Illinois
 2020-11-29,7178,Illinois
 2020-11-30,6190,Illinois
-2020-12-01,12542,Illinois
-2020-12-02,9757,Illinois
-2020-12-03,10959,Illinois
-2020-12-04,10526,Illinois
-2020-12-05,9887,Illinois
 2020-09-07,590,Indiana
 2020-09-08,386,Indiana
 2020-09-09,705,Indiana
@@ -1434,11 +1359,6 @@ date,confirm,region
 2020-11-28,4471,Indiana
 2020-11-29,4304,Indiana
 2020-11-30,5665,Indiana
-2020-12-01,5396,Indiana
-2020-12-02,6597,Indiana
-2020-12-03,8460,Indiana
-2020-12-04,7899,Indiana
-2020-12-05,7690,Indiana
 2020-09-07,322,Iowa
 2020-09-08,482,Iowa
 2020-09-09,576,Iowa
@@ -1524,11 +1444,6 @@ date,confirm,region
 2020-11-28,2123,Iowa
 2020-11-29,1511,Iowa
 2020-11-30,1941,Iowa
-2020-12-01,2431,Iowa
-2020-12-02,3097,Iowa
-2020-12-03,2565,Iowa
-2020-12-04,2807,Iowa
-2020-12-05,1854,Iowa
 2020-09-07,507,Kansas
 2020-09-08,675,Kansas
 2020-09-09,412,Kansas
@@ -1614,11 +1529,6 @@ date,confirm,region
 2020-11-28,89,Kansas
 2020-11-29,0,Kansas
 2020-11-30,4415,Kansas
-2020-12-01,318,Kansas
-2020-12-02,4622,Kansas
-2020-12-03,301,Kansas
-2020-12-04,5990,Kansas
-2020-12-05,217,Kansas
 2020-09-07,290,Kentucky
 2020-09-08,255,Kentucky
 2020-09-09,658,Kentucky
@@ -1704,11 +1614,6 @@ date,confirm,region
 2020-11-28,2427,Kentucky
 2020-11-29,2743,Kentucky
 2020-11-30,2116,Kentucky
-2020-12-01,4123,Kentucky
-2020-12-02,3601,Kentucky
-2020-12-03,3835,Kentucky
-2020-12-04,3592,Kentucky
-2020-12-05,3872,Kentucky
 2020-09-07,309,Louisiana
 2020-09-08,256,Louisiana
 2020-09-09,1571,Louisiana
@@ -1794,11 +1699,6 @@ date,confirm,region
 2020-11-28,0,Louisiana
 2020-11-29,1643,Louisiana
 2020-11-30,169,Louisiana
-2020-12-01,5326,Louisiana
-2020-12-02,3595,Louisiana
-2020-12-03,2743,Louisiana
-2020-12-04,3099,Louisiana
-2020-12-05,0,Louisiana
 2020-09-07,18,Maine
 2020-09-08,13,Maine
 2020-09-09,0,Maine
@@ -1884,11 +1784,6 @@ date,confirm,region
 2020-11-28,23,Maine
 2020-11-29,220,Maine
 2020-11-30,249,Maine
-2020-12-01,224,Maine
-2020-12-02,227,Maine
-2020-12-03,346,Maine
-2020-12-04,290,Maine
-2020-12-05,283,Maine
 2020-09-07,764,Maryland
 2020-09-08,356,Maryland
 2020-09-09,336,Maryland
@@ -1974,11 +1869,6 @@ date,confirm,region
 2020-11-28,1590,Maryland
 2020-11-29,1999,Maryland
 2020-11-30,1923,Maryland
-2020-12-01,2765,Maryland
-2020-12-02,2220,Maryland
-2020-12-03,2044,Maryland
-2020-12-04,3792,Maryland
-2020-12-05,3193,Maryland
 2020-09-07,229,Massachusetts
 2020-09-08,171,Massachusetts
 2020-09-09,181,Massachusetts
@@ -2064,11 +1954,6 @@ date,confirm,region
 2020-11-28,3217,Massachusetts
 2020-11-29,2495,Massachusetts
 2020-11-30,1168,Massachusetts
-2020-12-01,3073,Massachusetts
-2020-12-02,5027,Massachusetts
-2020-12-03,6675,Massachusetts
-2020-12-04,5491,Massachusetts
-2020-12-05,5619,Massachusetts
 2020-09-07,1212,Michigan
 2020-09-08,499,Michigan
 2020-09-09,970,Michigan
@@ -2154,11 +2039,6 @@ date,confirm,region
 2020-11-28,8351,Michigan
 2020-11-29,0,Michigan
 2020-11-30,10790,Michigan
-2020-12-01,6511,Michigan
-2020-12-02,7433,Michigan
-2020-12-03,7957,Michigan
-2020-12-04,9425,Michigan
-2020-12-05,6308,Michigan
 2020-09-07,638,Minnesota
 2020-09-08,383,Minnesota
 2020-09-09,260,Minnesota
@@ -2244,11 +2124,6 @@ date,confirm,region
 2020-11-28,9022,Minnesota
 2020-11-29,8946,Minnesota
 2020-11-30,5794,Minnesota
-2020-12-01,3549,Minnesota
-2020-12-02,5165,Minnesota
-2020-12-03,6149,Minnesota
-2020-12-04,5347,Minnesota
-2020-12-05,6308,Minnesota
 2020-09-07,242,Mississippi
 2020-09-08,249,Mississippi
 2020-09-09,426,Mississippi
@@ -2334,11 +2209,6 @@ date,confirm,region
 2020-11-28,1553,Mississippi
 2020-11-29,1845,Mississippi
 2020-11-30,1485,Mississippi
-2020-12-01,1141,Mississippi
-2020-12-02,2457,Mississippi
-2020-12-03,2168,Mississippi
-2020-12-04,2480,Mississippi
-2020-12-05,1942,Mississippi
 2020-09-07,914,Missouri
 2020-09-08,775,Missouri
 2020-09-09,1323,Missouri
@@ -2424,11 +2294,6 @@ date,confirm,region
 2020-11-28,2430,Missouri
 2020-11-29,3314,Missouri
 2020-11-30,3797,Missouri
-2020-12-01,2963,Missouri
-2020-12-02,2877,Missouri
-2020-12-03,4189,Missouri
-2020-12-04,4237,Missouri
-2020-12-05,5116,Missouri
 2020-09-07,52,Montana
 2020-09-08,65,Montana
 2020-09-09,87,Montana
@@ -2514,11 +2379,6 @@ date,confirm,region
 2020-11-28,1049,Montana
 2020-11-29,956,Montana
 2020-11-30,397,Montana
-2020-12-01,1007,Montana
-2020-12-02,1135,Montana
-2020-12-03,782,Montana
-2020-12-04,1314,Montana
-2020-12-05,633,Montana
 2020-09-07,89,Nebraska
 2020-09-08,494,Nebraska
 2020-09-09,448,Nebraska
@@ -2604,11 +2464,6 @@ date,confirm,region
 2020-11-28,1257,Nebraska
 2020-11-29,1143,Nebraska
 2020-11-30,1941,Nebraska
-2020-12-01,1787,Nebraska
-2020-12-02,2336,Nebraska
-2020-12-03,2180,Nebraska
-2020-12-04,1615,Nebraska
-2020-12-05,2243,Nebraska
 2020-09-07,357,Nevada
 2020-09-08,137,Nevada
 2020-09-09,154,Nevada
@@ -2694,11 +2549,6 @@ date,confirm,region
 2020-11-28,2912,Nevada
 2020-11-29,1298,Nevada
 2020-11-30,1644,Nevada
-2020-12-01,2671,Nevada
-2020-12-02,2155,Nevada
-2020-12-03,2535,Nevada
-2020-12-04,2902,Nevada
-2020-12-05,3194,Nevada
 2020-09-07,29,New Hampshire
 2020-09-08,18,New Hampshire
 2020-09-09,0,New Hampshire
@@ -2784,11 +2634,6 @@ date,confirm,region
 2020-11-28,702,New Hampshire
 2020-11-29,491,New Hampshire
 2020-11-30,514,New Hampshire
-2020-12-01,772,New Hampshire
-2020-12-02,566,New Hampshire
-2020-12-03,625,New Hampshire
-2020-12-04,782,New Hampshire
-2020-12-05,457,New Hampshire
 2020-09-07,332,New Jersey
 2020-09-08,277,New Jersey
 2020-09-09,327,New Jersey
@@ -2874,11 +2719,6 @@ date,confirm,region
 2020-11-28,3080,New Jersey
 2020-11-29,4561,New Jersey
 2020-11-30,3190,New Jersey
-2020-12-01,4606,New Jersey
-2020-12-02,4296,New Jersey
-2020-12-03,4793,New Jersey
-2020-12-04,5663,New Jersey
-2020-12-05,5324,New Jersey
 2020-09-07,37,New Mexico
 2020-09-08,37,New Mexico
 2020-09-09,87,New Mexico
@@ -2964,11 +2804,6 @@ date,confirm,region
 2020-11-28,2130,New Mexico
 2020-11-29,1435,New Mexico
 2020-11-30,1678,New Mexico
-2020-12-01,2324,New Mexico
-2020-12-02,1544,New Mexico
-2020-12-03,1899,New Mexico
-2020-12-04,2073,New Mexico
-2020-12-05,1921,New Mexico
 2020-09-07,520,New York
 2020-09-08,557,New York
 2020-09-09,576,New York
@@ -3054,11 +2889,6 @@ date,confirm,region
 2020-11-28,6063,New York
 2020-11-29,6723,New York
 2020-11-30,6819,New York
-2020-12-01,7285,New York
-2020-12-02,8973,New York
-2020-12-03,9855,New York
-2020-12-04,11271,New York
-2020-12-05,10761,New York
 2020-09-07,817,North Carolina
 2020-09-08,1065,North Carolina
 2020-09-09,1250,North Carolina
@@ -3144,11 +2974,6 @@ date,confirm,region
 2020-11-28,3444,North Carolina
 2020-11-29,3820,North Carolina
 2020-11-30,2734,North Carolina
-2020-12-01,2883,North Carolina
-2020-12-02,4199,North Carolina
-2020-12-03,5637,North Carolina
-2020-12-04,5303,North Carolina
-2020-12-05,6018,North Carolina
 2020-09-07,170,North Dakota
 2020-09-08,71,North Dakota
 2020-09-09,238,North Dakota
@@ -3234,11 +3059,6 @@ date,confirm,region
 2020-11-28,703,North Dakota
 2020-11-29,723,North Dakota
 2020-11-30,594,North Dakota
-2020-12-01,403,North Dakota
-2020-12-02,480,North Dakota
-2020-12-03,970,North Dakota
-2020-12-04,844,North Dakota
-2020-12-05,555,North Dakota
 2020-09-07,1,Northern Mariana Islands
 2020-09-08,0,Northern Mariana Islands
 2020-09-09,0,Northern Mariana Islands
@@ -3324,11 +3144,6 @@ date,confirm,region
 2020-11-28,0,Northern Mariana Islands
 2020-11-29,1,Northern Mariana Islands
 2020-11-30,1,Northern Mariana Islands
-2020-12-01,0,Northern Mariana Islands
-2020-12-02,0,Northern Mariana Islands
-2020-12-03,0,Northern Mariana Islands
-2020-12-04,0,Northern Mariana Islands
-2020-12-05,0,Northern Mariana Islands
 2020-09-07,778,Ohio
 2020-09-08,656,Ohio
 2020-09-09,973,Ohio
@@ -3414,11 +3229,6 @@ date,confirm,region
 2020-11-28,6895,Ohio
 2020-11-29,7729,Ohio
 2020-11-30,6631,Ohio
-2020-12-01,9030,Ohio
-2020-12-02,7835,Ohio
-2020-12-03,8921,Ohio
-2020-12-04,10114,Ohio
-2020-12-05,10469,Ohio
 2020-09-07,613,Oklahoma
 2020-09-08,833,Oklahoma
 2020-09-09,876,Oklahoma
@@ -3504,11 +3314,6 @@ date,confirm,region
 2020-11-28,6257,Oklahoma
 2020-11-29,1721,Oklahoma
 2020-11-30,2200,Oklahoma
-2020-12-01,1737,Oklahoma
-2020-12-02,2859,Oklahoma
-2020-12-03,1707,Oklahoma
-2020-12-04,4827,Oklahoma
-2020-12-05,4370,Oklahoma
 2020-09-07,146,Oregon
 2020-09-08,166,Oregon
 2020-09-09,115,Oregon
@@ -3594,11 +3399,6 @@ date,confirm,region
 2020-11-28,1674,Oregon
 2020-11-29,1613,Oregon
 2020-11-30,1312,Oregon
-2020-12-01,1223,Oregon
-2020-12-02,1506,Oregon
-2020-12-03,1133,Oregon
-2020-12-04,2144,Oregon
-2020-12-05,1806,Oregon
 2020-09-07,716,Pennsylvania
 2020-09-08,616,Pennsylvania
 2020-09-09,873,Pennsylvania
@@ -3684,11 +3484,6 @@ date,confirm,region
 2020-11-28,6707,Pennsylvania
 2020-11-29,4999,Pennsylvania
 2020-11-30,5891,Pennsylvania
-2020-12-01,5695,Pennsylvania
-2020-12-02,8421,Pennsylvania
-2020-12-03,11483,Pennsylvania
-2020-12-04,12087,Pennsylvania
-2020-12-05,11114,Pennsylvania
 2020-09-07,423,Puerto Rico
 2020-09-08,96,Puerto Rico
 2020-09-09,1,Puerto Rico
@@ -3774,11 +3569,6 @@ date,confirm,region
 2020-11-28,903,Puerto Rico
 2020-11-29,121,Puerto Rico
 2020-11-30,843,Puerto Rico
-2020-12-01,775,Puerto Rico
-2020-12-02,388,Puerto Rico
-2020-12-03,397,Puerto Rico
-2020-12-04,492,Puerto Rico
-2020-12-05,935,Puerto Rico
 2020-09-07,0,Rhode Island
 2020-09-08,349,Rhode Island
 2020-09-09,84,Rhode Island
@@ -3864,11 +3654,6 @@ date,confirm,region
 2020-11-28,0,Rhode Island
 2020-11-29,0,Rhode Island
 2020-11-30,2769,Rhode Island
-2020-12-01,1183,Rhode Island
-2020-12-02,1099,Rhode Island
-2020-12-03,1717,Rhode Island
-2020-12-04,1415,Rhode Island
-2020-12-05,0,Rhode Island
 2020-09-07,655,South Carolina
 2020-09-08,301,South Carolina
 2020-09-09,305,South Carolina
@@ -3954,11 +3739,6 @@ date,confirm,region
 2020-11-28,1791,South Carolina
 2020-11-29,1218,South Carolina
 2020-11-30,1358,South Carolina
-2020-12-01,1425,South Carolina
-2020-12-02,1923,South Carolina
-2020-12-03,2228,South Carolina
-2020-12-04,2950,South Carolina
-2020-12-05,3222,South Carolina
 2020-09-07,191,South Dakota
 2020-09-08,103,South Dakota
 2020-09-09,168,South Dakota
@@ -4044,11 +3824,6 @@ date,confirm,region
 2020-11-28,819,South Dakota
 2020-11-29,801,South Dakota
 2020-11-30,564,South Dakota
-2020-12-01,448,South Dakota
-2020-12-02,1291,South Dakota
-2020-12-03,1145,South Dakota
-2020-12-04,1050,South Dakota
-2020-12-05,906,South Dakota
 2020-09-07,983,Tennessee
 2020-09-08,645,Tennessee
 2020-09-09,852,Tennessee
@@ -4134,11 +3909,6 @@ date,confirm,region
 2020-11-28,6750,Tennessee
 2020-11-29,3052,Tennessee
 2020-11-30,7975,Tennessee
-2020-12-01,5693,Tennessee
-2020-12-02,4099,Tennessee
-2020-12-03,3967,Tennessee
-2020-12-04,4356,Tennessee
-2020-12-05,4914,Tennessee
 2020-09-07,867,Texas
 2020-09-08,3428,Texas
 2020-09-09,5119,Texas
@@ -4224,11 +3994,6 @@ date,confirm,region
 2020-11-28,6334,Texas
 2020-11-29,11541,Texas
 2020-11-30,13634,Texas
-2020-12-01,12182,Texas
-2020-12-02,18012,Texas
-2020-12-03,17423,Texas
-2020-12-04,13100,Texas
-2020-12-05,12174,Texas
 2020-09-07,23545,US
 2020-09-08,26845,US
 2020-09-09,33896,US
@@ -4314,11 +4079,6 @@ date,confirm,region
 2020-11-28,155880,US
 2020-11-29,138669,US
 2020-11-30,157851,US
-2020-12-01,180637,US
-2020-12-02,200055,US
-2020-12-03,217664,US
-2020-12-04,227885,US
-2020-12-05,213875,US
 2020-09-07,373,Utah
 2020-09-08,326,Utah
 2020-09-09,314,Utah
@@ -4404,11 +4164,6 @@ date,confirm,region
 2020-11-28,2043,Utah
 2020-11-29,1722,Utah
 2020-11-30,1897,Utah
-2020-12-01,2510,Utah
-2020-12-02,4004,Utah
-2020-12-03,3945,Utah
-2020-12-04,3005,Utah
-2020-12-05,3674,Utah
 2020-09-07,3,Vermont
 2020-09-08,3,Vermont
 2020-09-09,2,Vermont
@@ -4494,11 +4249,6 @@ date,confirm,region
 2020-11-28,28,Vermont
 2020-11-29,67,Vermont
 2020-11-30,72,Vermont
-2020-12-01,67,Vermont
-2020-12-02,222,Vermont
-2020-12-03,181,Vermont
-2020-12-04,121,Vermont
-2020-12-05,131,Vermont
 2020-09-07,9,Virgin Islands
 2020-09-08,1,Virgin Islands
 2020-09-09,6,Virgin Islands
@@ -4584,11 +4334,6 @@ date,confirm,region
 2020-11-28,17,Virgin Islands
 2020-11-29,6,Virgin Islands
 2020-11-30,0,Virgin Islands
-2020-12-01,6,Virgin Islands
-2020-12-02,39,Virgin Islands
-2020-12-03,0,Virgin Islands
-2020-12-04,24,Virgin Islands
-2020-12-05,20,Virgin Islands
 2020-09-07,645,Virginia
 2020-09-08,836,Virginia
 2020-09-09,882,Virginia
@@ -4674,11 +4419,6 @@ date,confirm,region
 2020-11-28,3173,Virginia
 2020-11-29,2325,Virginia
 2020-11-30,1893,Virginia
-2020-12-01,2228,Virginia
-2020-12-02,2417,Virginia
-2020-12-03,2023,Virginia
-2020-12-04,2877,Virginia
-2020-12-05,3793,Virginia
 2020-09-07,310,Washington
 2020-09-08,0,Washington
 2020-09-09,464,Washington
@@ -4764,11 +4504,6 @@ date,confirm,region
 2020-11-28,2467,Washington
 2020-11-29,2066,Washington
 2020-11-30,2319,Washington
-2020-12-01,2197,Washington
-2020-12-02,3126,Washington
-2020-12-03,2095,Washington
-2020-12-04,1853,Washington
-2020-12-05,1503,Washington
 2020-09-07,157,West Virginia
 2020-09-08,87,West Virginia
 2020-09-09,152,West Virginia
@@ -4854,11 +4589,6 @@ date,confirm,region
 2020-11-28,799,West Virginia
 2020-11-29,1152,West Virginia
 2020-11-30,845,West Virginia
-2020-12-01,976,West Virginia
-2020-12-02,1087,West Virginia
-2020-12-03,1120,West Virginia
-2020-12-04,1147,West Virginia
-2020-12-05,1400,West Virginia
 2020-09-07,567,Wisconsin
 2020-09-08,717,Wisconsin
 2020-09-09,857,Wisconsin
@@ -4944,11 +4674,6 @@ date,confirm,region
 2020-11-28,5473,Wisconsin
 2020-11-29,4055,Wisconsin
 2020-11-30,2676,Wisconsin
-2020-12-01,4635,Wisconsin
-2020-12-02,4565,Wisconsin
-2020-12-03,5604,Wisconsin
-2020-12-04,5673,Wisconsin
-2020-12-05,5711,Wisconsin
 2020-09-07,0,Wyoming
 2020-09-08,73,Wyoming
 2020-09-09,47,Wyoming
@@ -5034,8 +4759,3 @@ date,confirm,region
 2020-11-28,155,Wyoming
 2020-11-29,561,Wyoming
 2020-11-30,816,Wyoming
-2020-12-01,500,Wyoming
-2020-12-02,686,Wyoming
-2020-12-03,555,Wyoming
-2020-12-04,631,Wyoming
-2020-12-05,189,Wyoming

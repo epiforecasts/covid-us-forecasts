@@ -1,113 +1,113 @@
 region,estimate,median,mean,sd,lower_90,lower_50,lower_20,upper_20,upper_50,upper_90,metric,Expected change in daily cases
-US,548630 (361865 -- 907570),548630,584270,175091,361865,461427,514031,589404,670630,907570,New confirmed cases by infection date,Likely increasing
-California,61023 (42380 -- 85887),61023,62317,14333,42380,53381,58029,63839,69176,85887,New confirmed cases by infection date,Likely increasing
-Texas,32396 (19885 -- 55072),32396,34475,11990,19885,26794,30166,34907,39472,55072,New confirmed cases by infection date,Likely increasing
-New York,29806 (19207 -- 49090),29806,31357,9404,19207,24754,27869,32003,36077,49090,New confirmed cases by infection date,Likely increasing
-Pennsylvania,26829 (17221 -- 61139),26829,31436,16080,17221,22162,24812,29387,35307,61139,New confirmed cases by infection date,Increasing
-Florida,23241 (15274 -- 34486),23241,23822,5975,15274,19789,21864,24606,27262,34486,New confirmed cases by infection date,Likely increasing
-Illinois,18878 (11479 -- 34888),18878,20562,8117,11479,15171,17234,20629,24141,34888,New confirmed cases by infection date,Unsure
-Indiana,17089 (10092 -- 32748),17089,18914,8010,10092,13578,15561,18869,22356,32748,New confirmed cases by infection date,Unsure
-Ohio,15327 (9925 -- 23307),15327,15800,4228,9925,12857,14353,16357,18071,23307,New confirmed cases by infection date,Unsure
-Michigan,14872 (7377 -- 26220),14872,15624,5965,7377,11542,13554,16312,18780,26220,New confirmed cases by infection date,Unsure
-Arizona,14450 (8701 -- 23911),14450,15186,4797,8701,11974,13520,15626,17517,23911,New confirmed cases by infection date,Likely increasing
-Georgia,12690 (6271 -- 32781),12690,15326,10055,6271,9320,11212,14377,18041,32781,New confirmed cases by infection date,Unsure
-Tennessee,11922 (8493 -- 17265),11922,12210,2716,8493,10466,11331,12468,13459,17265,New confirmed cases by infection date,Increasing
-Massachusetts,11558 (8724 -- 16770),11558,12088,3075,8724,10294,11077,12089,13193,16770,New confirmed cases by infection date,Increasing
-Colorado,11474 (6549 -- 20917),11474,12312,4603,6549,9029,10478,12522,14645,20917,New confirmed cases by infection date,Unsure
-North Carolina,10507 (7743 -- 15496),10507,10914,2483,7743,9313,10035,11039,12050,15496,New confirmed cases by infection date,Increasing
-New Jersey,10200 (6457 -- 15226),10200,10445,2748,6457,8549,9569,10792,12090,15226,New confirmed cases by infection date,Likely increasing
-Kentucky,8821 (6428 -- 11429),8821,8856,1564,6428,7843,8439,9144,9799,11429,New confirmed cases by infection date,Increasing
-Connecticut,8128 (3932 -- 14183),8128,8456,3273,3932,6243,7405,8830,10178,14183,New confirmed cases by infection date,Likely increasing
-Wisconsin,8115 (4583 -- 13747),8115,8523,3091,4583,6457,7472,8795,9985,13747,New confirmed cases by infection date,Unsure
-Louisiana,7648 (2925 -- 15275),7648,8216,4135,2925,5419,6770,8607,10223,15275,New confirmed cases by infection date,Unsure
-Minnesota,7541 (4345 -- 12974),7541,7978,2825,4345,6085,6935,8162,9317,12974,New confirmed cases by infection date,Unsure
-Alabama,7425 (5206 -- 11866),7425,7834,2252,5206,6423,7025,7880,8730,11866,New confirmed cases by infection date,Likely increasing
-Kansas,7184 (2226 -- 21147),7184,8810,6706,2226,4654,6231,8333,10831,21147,New confirmed cases by infection date,Unsure
-Missouri,6989 (3017 -- 14388),6989,7702,3940,3017,5025,6144,7852,9492,14388,New confirmed cases by infection date,Unsure
-Virginia,6075 (3729 -- 8889),6075,6157,1614,3729,5067,5681,6485,7137,8889,New confirmed cases by infection date,Unsure
-Nevada,6018 (3606 -- 8559),6018,6051,1515,3606,4984,5619,6438,7050,8559,New confirmed cases by infection date,Likely increasing
-Utah,5948 (3694 -- 10514),5948,6394,2299,3694,4895,5529,6382,7407,10514,New confirmed cases by infection date,Unsure
-Oklahoma,5693 (3094 -- 10244),5693,6041,2367,3094,4390,5143,6216,7201,10244,New confirmed cases by infection date,Unsure
-Maryland,5615 (3595 -- 9509),5615,5968,1997,3595,4675,5271,5959,6772,9509,New confirmed cases by infection date,Unsure
-South Carolina,5213 (3505 -- 8055),5213,5482,1571,3505,4480,4920,5541,6233,8055,New confirmed cases by infection date,Unsure
-Arkansas,4712 (3339 -- 6638),4712,4843,1159,3339,4127,4470,4984,5418,6638,New confirmed cases by infection date,Likely increasing
-Mississippi,4480 (3207 -- 7182),4480,4746,1333,3207,3875,4237,4766,5307,7182,New confirmed cases by infection date,Increasing
-Rhode Island,4148 (2386 -- 6218),4148,4214,1205,2386,3383,3856,4430,4925,6218,New confirmed cases by infection date,Increasing
-Washington,3807 (1085 -- 9656),3807,4403,2688,1085,2325,3179,4518,5969,9656,New confirmed cases by infection date,Unsure
-Iowa,3613 (1761 -- 8543),3613,4205,2413,1761,2665,3228,4057,5007,8543,New confirmed cases by infection date,Unsure
-Oregon,3542 (2305 -- 5137),3542,3625,895,2305,3014,3335,3767,4164,5137,New confirmed cases by infection date,Likely increasing
-Nebraska,3272 (1781 -- 6108),3272,3537,1367,1781,2597,3015,3622,4186,6108,New confirmed cases by infection date,Unsure
-Idaho,3081 (2213 -- 4347),3081,3159,654,2213,2721,2933,3252,3531,4347,New confirmed cases by infection date,Likely increasing
-New Mexico,2589 (1291 -- 4793),2589,2756,1095,1291,1969,2341,2870,3340,4793,New confirmed cases by infection date,Unsure
-West Virginia,2297 (1493 -- 3490),2297,2380,651,1493,1935,2170,2464,2727,3490,New confirmed cases by infection date,Unsure
-Delaware,1872 (1104 -- 3051),1872,1946,668,1104,1525,1739,1998,2253,3051,New confirmed cases by infection date,Likely increasing
-Puerto Rico,1702 (955 -- 2851),1702,1773,611,955,1406,1574,1816,2031,2851,New confirmed cases by infection date,Likely increasing
-New Hampshire,1700 (739 -- 2894),1700,1740,704,739,1269,1536,1843,2107,2894,New confirmed cases by infection date,Likely increasing
-Alaska,1639 (1188 -- 2387),1639,1699,400,1188,1437,1560,1725,1891,2387,New confirmed cases by infection date,Likely increasing
-Montana,1411 (781 -- 2264),1411,1457,460,781,1143,1313,1517,1713,2264,New confirmed cases by infection date,Unsure
-South Dakota,1296 (845 -- 1986),1296,1340,364,845,1093,1220,1377,1545,1986,New confirmed cases by infection date,Unsure
-North Dakota,684 (412 -- 1165),684,732,250,412,568,638,744,854,1165,New confirmed cases by infection date,Unsure
-Maine,652 (301 -- 1701),652,783,506,301,478,580,740,939,1701,New confirmed cases by infection date,Unsure
-Wyoming,632 (284 -- 1270),632,684,309,284,459,560,715,848,1270,New confirmed cases by infection date,Unsure
-District of Columbia,630 (400 -- 993),630,657,199,400,528,585,676,757,993,New confirmed cases by infection date,Likely increasing
-Vermont,369 (154 -- 749),369,412,271,154,265,330,413,486,749,New confirmed cases by infection date,Likely increasing
-Hawaii,189 (126 -- 270),189,192,44,126,163,178,199,219,270,New confirmed cases by infection date,Unsure
-Virgin Islands,38 (8 -- 251),38,87,253,8,20,30,48,73,251,New confirmed cases by infection date,Unsure
-Guam,15 (2 -- 56),15,21,24,2,8,12,19,27,56,New confirmed cases by infection date,Unsure
-California,1.2 (1 -- 1.3),1.2,1.2,0.1,1,1.1,1.1,1.2,1.2,1.3,Effective reproduction no.,Likely increasing
-New York,1.2 (1 -- 1.5),1.2,1.2,0.2,1,1.1,1.2,1.3,1.3,1.5,Effective reproduction no.,Likely increasing
-Pennsylvania,1.2 (1 -- 1.7),1.2,1.2,0.2,1,1.1,1.1,1.2,1.3,1.7,Effective reproduction no.,Increasing
-Virgin Islands,1.2 (0.7 -- 2),1.2,1.2,0.5,0.7,1,1.1,1.2,1.4,2,Effective reproduction no.,Unsure
-Alabama,1.1 (1 -- 1.2),1.1,1.1,0.1,1,1.1,1.1,1.1,1.1,1.2,Effective reproduction no.,Likely increasing
-Alaska,1.1 (1 -- 1.2),1.1,1.1,0.1,1,1,1,1.1,1.1,1.2,Effective reproduction no.,Likely increasing
-Arizona,1.1 (1 -- 1.3),1.1,1.1,0.1,1,1.1,1.1,1.1,1.2,1.3,Effective reproduction no.,Likely increasing
-Arkansas,1.1 (1 -- 1.1),1.1,1.1,0.1,1,1,1,1.1,1.1,1.1,Effective reproduction no.,Likely increasing
-Colorado,1.1 (0.9 -- 1.5),1.1,1.1,0.2,0.9,1,1.1,1.2,1.2,1.5,Effective reproduction no.,Unsure
-Connecticut,1.1 (0.9 -- 1.2),1.1,1.1,0.1,0.9,1,1.1,1.1,1.1,1.2,Effective reproduction no.,Likely increasing
-Delaware,1.1 (1 -- 1.3),1.1,1.1,0.1,1,1.1,1.1,1.2,1.2,1.3,Effective reproduction no.,Likely increasing
-District of Columbia,1.1 (1 -- 1.3),1.1,1.1,0.1,1,1.1,1.1,1.1,1.2,1.3,Effective reproduction no.,Likely increasing
-Florida,1.1 (0.9 -- 1.2),1.1,1.1,0.1,0.9,1,1,1.1,1.1,1.2,Effective reproduction no.,Likely increasing
-Georgia,1.1 (0.9 -- 1.6),1.1,1.2,0.2,0.9,1,1.1,1.2,1.3,1.6,Effective reproduction no.,Unsure
-Indiana,1.1 (0.9 -- 1.5),1.1,1.2,0.2,0.9,1,1.1,1.2,1.3,1.5,Effective reproduction no.,Unsure
-Kansas,1.1 (0.7 -- 1.3),1.1,1,0.2,0.7,0.9,1,1.1,1.1,1.3,Effective reproduction no.,Unsure
-Kentucky,1.1 (1 -- 1.1),1.1,1.1,0,1,1,1.1,1.1,1.1,1.1,Effective reproduction no.,Increasing
-Louisiana,1.1 (0.8 -- 1.3),1.1,1.1,0.2,0.8,1,1,1.1,1.2,1.3,Effective reproduction no.,Unsure
-Maine,1.1 (0.8 -- 1.6),1.1,1.2,0.3,0.8,1,1.1,1.2,1.3,1.6,Effective reproduction no.,Unsure
-Maryland,1.1 (0.9 -- 1.3),1.1,1.1,0.1,0.9,1,1,1.1,1.1,1.3,Effective reproduction no.,Unsure
-Massachusetts,1.1 (1.1 -- 1.3),1.1,1.1,0.1,1.1,1.1,1.1,1.1,1.2,1.3,Effective reproduction no.,Increasing
-Mississippi,1.1 (1 -- 1.2),1.1,1.1,0.1,1,1.1,1.1,1.1,1.1,1.2,Effective reproduction no.,Increasing
-Nevada,1.1 (0.9 -- 1.1),1.1,1,0.1,0.9,1,1,1.1,1.1,1.1,Effective reproduction no.,Likely increasing
-New Hampshire,1.1 (0.8 -- 1.3),1.1,1.1,0.2,0.8,1,1.1,1.1,1.2,1.3,Effective reproduction no.,Likely increasing
+US,712807 (451232 -- 1201995),712807,755606,245011,451232,588810,662799,765021,870165,1201995,New confirmed cases by infection date,Unsure
+California,90959 (53902 -- 154142),90959,95792,32371,53902,74128,84304,98052,111494,154142,New confirmed cases by infection date,Unsure
+Texas,54983 (26791 -- 107004),54983,59784,27079,26791,42142,49900,60629,71689,107004,New confirmed cases by infection date,Unsure
+Florida,45928 (28914 -- 76802),45928,48450,15754,28914,37971,42558,49682,56044,76802,New confirmed cases by infection date,Likely increasing
+Michigan,41862 (20319 -- 79561),41862,45680,22764,20319,32004,37445,46466,55030,79561,New confirmed cases by infection date,Likely increasing
+New York,40675 (24725 -- 77430),40675,44544,17492,24725,32708,37479,44399,51257,77430,New confirmed cases by infection date,Likely increasing
+Ohio,34804 (19361 -- 59902),34804,36952,13356,19361,27701,32103,38096,44084,59902,New confirmed cases by infection date,Unsure
+Pennsylvania,23118 (12391 -- 42826),23118,25005,9925,12391,17913,21220,25644,30206,42826,New confirmed cases by infection date,Unsure
+Minnesota,22920 (12544 -- 42813),22920,24710,9889,12544,17951,20993,25174,29319,42813,New confirmed cases by infection date,Unsure
+Tennessee,21537 (14008 -- 35906),21537,22801,7252,14008,17899,20141,23201,26158,35906,New confirmed cases by infection date,Likely increasing
+North Carolina,19525 (12851 -- 34002),19525,20964,7465,12851,16195,18278,20827,23608,34002,New confirmed cases by infection date,Increasing
+Arizona,19017 (6162 -- 38129),19017,20099,9987,6162,13266,16756,21331,25306,38129,New confirmed cases by infection date,Unsure
+Kansas,18582 (5623 -- 61851),18582,24182,21433,5623,11677,15680,21873,28905,61851,New confirmed cases by infection date,Unsure
+Kentucky,18250 (12615 -- 28438),18250,19131,5283,12615,15532,17209,19394,21632,28438,New confirmed cases by infection date,Increasing
+Washington,18168 (8338 -- 35684),18168,19631,8631,8338,13739,16406,20075,23826,35684,New confirmed cases by infection date,Likely increasing
+Missouri,17941 (6099 -- 39728),17941,19733,10802,6099,12350,15668,20107,24680,39728,New confirmed cases by infection date,Unsure
+Indiana,17248 (9155 -- 31771),17248,18409,7327,9155,13520,15649,18893,21787,31771,New confirmed cases by infection date,Unsure
+New Jersey,17115 (9229 -- 28900),17115,17941,6495,9229,13319,15773,18882,21343,28900,New confirmed cases by infection date,Likely increasing
+Illinois,16379 (9358 -- 28575),16379,17407,6038,9358,12972,15081,17947,20718,28575,New confirmed cases by infection date,Unsure
+Colorado,14793 (7873 -- 28282),14793,16292,7898,7873,11596,13559,16281,19221,28282,New confirmed cases by infection date,Unsure
+Wisconsin,13825 (5170 -- 28889),13825,14926,7395,5170,9722,12140,15508,18678,28889,New confirmed cases by infection date,Unsure
+Georgia,13815 (6026 -- 32926),13815,16300,10413,6026,10243,12347,15885,19423,32926,New confirmed cases by infection date,Unsure
+Connecticut,13055 (5396 -- 24462),13055,13707,6065,5396,9478,11621,14485,16897,24462,New confirmed cases by infection date,Likely increasing
+Oklahoma,12902 (5814 -- 25120),12902,13859,6266,5814,9385,11417,14354,17226,25120,New confirmed cases by infection date,Unsure
+Virginia,12794 (7158 -- 21262),12794,13302,4502,7158,10355,11791,13802,15469,21262,New confirmed cases by infection date,Unsure
+Alabama,11293 (7059 -- 19369),11293,12011,4198,7059,9334,10519,12104,13738,19369,New confirmed cases by infection date,Likely increasing
+Louisiana,11253 (2274 -- 28642),11253,12686,8542,2274,6877,9435,13186,16579,28642,New confirmed cases by infection date,Unsure
+Massachusetts,11101 (5944 -- 19893),11101,11867,4460,5944,8639,10122,12315,14550,19893,New confirmed cases by infection date,Unsure
+Nevada,10921 (5352 -- 17638),10921,11080,3764,5352,8713,10014,11699,13247,17638,New confirmed cases by infection date,Likely increasing
+New Mexico,9616 (3848 -- 20369),9616,10570,5775,3848,6514,8411,10906,13339,20369,New confirmed cases by infection date,Unsure
+Oregon,9071 (5646 -- 14986),9071,9502,3012,5646,7442,8423,9665,10955,14986,New confirmed cases by infection date,Increasing
+South Carolina,8860 (5097 -- 15829),8860,9447,3405,5097,7119,8099,9696,11105,15829,New confirmed cases by infection date,Unsure
+Mississippi,8366 (5328 -- 18121),8366,9589,4577,5328,6695,7665,9268,10923,18121,New confirmed cases by infection date,Increasing
+Arkansas,7863 (4029 -- 14648),7863,8485,3723,4029,6221,7182,8563,10098,14648,New confirmed cases by infection date,Unsure
+Idaho,7627 (4665 -- 13099),7627,8198,3328,4665,6309,7086,8161,9281,13099,New confirmed cases by infection date,Likely increasing
+Nebraska,7515 (3302 -- 15409),7515,8305,4032,3302,5393,6709,8596,10414,15409,New confirmed cases by infection date,Unsure
+Rhode Island,7125 (4281 -- 11394),7125,7439,2344,4281,5869,6640,7663,8623,11394,New confirmed cases by infection date,Increasing
+Utah,6246 (3052 -- 11791),6246,6716,2811,3052,4727,5643,6901,8264,11791,New confirmed cases by infection date,Unsure
+Maryland,5571 (3014 -- 10132),5571,5973,2325,3014,4344,5105,6136,7178,10132,New confirmed cases by infection date,Unsure
+Iowa,4594 (1946 -- 11358),4594,5527,4460,1946,3274,4075,5225,6545,11358,New confirmed cases by infection date,Unsure
+West Virginia,4414 (2444 -- 7542),4414,4662,1622,2444,3530,4063,4871,5545,7542,New confirmed cases by infection date,Unsure
+Puerto Rico,3268 (1384 -- 6196),3268,3490,1642,1384,2526,2956,3560,4143,6196,New confirmed cases by infection date,Likely increasing
+South Dakota,3158 (1865 -- 5241),3158,3301,1045,1865,2558,2910,3395,3908,5241,New confirmed cases by infection date,Unsure
+New Hampshire,3151 (1460 -- 6093),3151,3401,1547,1460,2427,2872,3426,4043,6093,New confirmed cases by infection date,Likely increasing
+Alaska,2731 (1710 -- 4706),2731,2917,958,1710,2239,2541,2955,3402,4706,New confirmed cases by infection date,Unsure
+Delaware,2635 (1265 -- 4702),2635,2768,1123,1265,2004,2404,2874,3332,4702,New confirmed cases by infection date,Likely increasing
+Montana,2586 (1051 -- 5220),2586,2813,1362,1051,1872,2309,2926,3502,5220,New confirmed cases by infection date,Unsure
+Wyoming,2421 (1040 -- 5053),2421,2653,1276,1040,1740,2140,2727,3289,5053,New confirmed cases by infection date,Unsure
+North Dakota,2088 (1097 -- 4243),2088,2316,1034,1097,1613,1904,2340,2771,4243,New confirmed cases by infection date,Unsure
+District of Columbia,971 (508 -- 1667),971,1021,370,508,766,887,1065,1224,1667,New confirmed cases by infection date,Likely increasing
+Maine,795 (322 -- 2041),795,942,602,322,553,692,914,1140,2041,New confirmed cases by infection date,Unsure
+Hawaii,370 (222 -- 609),370,386,122,222,300,344,398,450,609,New confirmed cases by infection date,Unsure
+Vermont,230 (48 -- 806),230,312,275,48,128,185,289,410,806,New confirmed cases by infection date,Unsure
+Guam,96 (22 -- 311),96,123,104,22,54,80,117,160,311,New confirmed cases by infection date,Unsure
+Virgin Islands,19 (1 -- 147),19,45,120,1,8,14,27,45,147,New confirmed cases by infection date,Unsure
+New York,1.2 (1 -- 1.5),1.2,1.2,0.2,1,1.1,1.1,1.2,1.3,1.5,Effective reproduction no.,Likely increasing
+Alabama,1.1 (1 -- 1.2),1.1,1.1,0.1,1,1,1,1.1,1.1,1.2,Effective reproduction no.,Likely increasing
+California,1.1 (0.9 -- 1.2),1.1,1.1,0.1,0.9,1,1.1,1.1,1.2,1.2,Effective reproduction no.,Unsure
+Connecticut,1.1 (0.8 -- 1.2),1.1,1.1,0.1,0.8,1,1.1,1.1,1.2,1.2,Effective reproduction no.,Likely increasing
+Delaware,1.1 (0.9 -- 1.3),1.1,1.1,0.1,0.9,1,1.1,1.1,1.2,1.3,Effective reproduction no.,Likely increasing
+District of Columbia,1.1 (0.9 -- 1.2),1.1,1.1,0.1,0.9,1,1.1,1.1,1.1,1.2,Effective reproduction no.,Likely increasing
+Florida,1.1 (0.9 -- 1.2),1.1,1.1,0.1,0.9,1,1.1,1.1,1.1,1.2,Effective reproduction no.,Likely increasing
+Kansas,1.1 (0.8 -- 1.4),1.1,1.1,0.2,0.8,1,1.1,1.1,1.2,1.4,Effective reproduction no.,Unsure
+Kentucky,1.1 (1 -- 1.1),1.1,1.1,0,1,1.1,1.1,1.1,1.1,1.1,Effective reproduction no.,Increasing
+Mississippi,1.1 (1 -- 1.4),1.1,1.2,0.1,1,1.1,1.1,1.1,1.2,1.4,Effective reproduction no.,Increasing
+Nevada,1.1 (0.8 -- 1.2),1.1,1,0.1,0.8,1,1,1.1,1.1,1.2,Effective reproduction no.,Likely increasing
+New Hampshire,1.1 (0.9 -- 1.3),1.1,1.1,0.1,0.9,1.1,1.1,1.2,1.2,1.3,Effective reproduction no.,Likely increasing
 North Carolina,1.1 (1 -- 1.2),1.1,1.1,0.1,1,1.1,1.1,1.1,1.1,1.2,Effective reproduction no.,Increasing
+Oregon,1.1 (1 -- 1.3),1.1,1.1,0.1,1,1.1,1.1,1.1,1.2,1.3,Effective reproduction no.,Increasing
 Rhode Island,1.1 (1 -- 1.2),1.1,1.1,0.1,1,1.1,1.1,1.1,1.1,1.2,Effective reproduction no.,Increasing
-South Carolina,1.1 (1 -- 1.2),1.1,1.1,0.1,1,1,1.1,1.1,1.1,1.2,Effective reproduction no.,Unsure
-Tennessee,1.1 (1 -- 1.1),1.1,1.1,0.1,1,1,1.1,1.1,1.1,1.1,Effective reproduction no.,Increasing
-Texas,1.1 (0.9 -- 1.2),1.1,1.1,0.1,0.9,1,1,1.1,1.1,1.2,Effective reproduction no.,Likely increasing
-US,1.1 (1 -- 1.4),1.1,1.2,0.1,1,1.1,1.1,1.2,1.2,1.4,Effective reproduction no.,Likely increasing
-Vermont,1.1 (0.8 -- 1.4),1.1,1.1,0.2,0.8,1,1.1,1.2,1.2,1.4,Effective reproduction no.,Likely increasing
-Hawaii,1 (0.9 -- 1.1),1,1,0.1,0.9,0.9,1,1,1,1.1,Effective reproduction no.,Unsure
+South Carolina,1.1 (0.9 -- 1.2),1.1,1.1,0.1,0.9,1,1,1.1,1.1,1.2,Effective reproduction no.,Unsure
+Tennessee,1.1 (1 -- 1.2),1.1,1.1,0.1,1,1,1.1,1.1,1.1,1.2,Effective reproduction no.,Likely increasing
+Virginia,1.1 (0.9 -- 1.2),1.1,1.1,0.1,0.9,1,1.1,1.1,1.1,1.2,Effective reproduction no.,Unsure
+Washington,1.1 (0.9 -- 1.3),1.1,1.1,0.1,0.9,1,1.1,1.1,1.2,1.3,Effective reproduction no.,Likely increasing
+Alaska,1 (0.9 -- 1.1),1,1,0.1,0.9,0.9,1,1,1,1.1,Effective reproduction no.,Unsure
+Arizona,1 (0.6 -- 1.2),1,1,0.2,0.6,0.9,1,1.1,1.1,1.2,Effective reproduction no.,Unsure
+Arkansas,1 (0.8 -- 1.1),1,1,0.1,0.8,0.9,1,1,1,1.1,Effective reproduction no.,Unsure
+Georgia,1 (0.8 -- 1.3),1,1,0.2,0.8,0.9,1,1,1.1,1.3,Effective reproduction no.,Unsure
+Hawaii,1 (0.8 -- 1.1),1,1,0.1,0.8,0.9,1,1,1,1.1,Effective reproduction no.,Unsure
 Idaho,1 (0.9 -- 1.1),1,1,0.1,0.9,1,1,1,1,1.1,Effective reproduction no.,Likely increasing
-Illinois,1 (0.8 -- 1.4),1,1.1,0.2,0.8,0.9,1,1.1,1.1,1.4,Effective reproduction no.,Unsure
-Iowa,1 (0.7 -- 1.4),1,1,0.2,0.7,0.8,0.9,1,1.1,1.4,Effective reproduction no.,Unsure
-New Jersey,1 (0.9 -- 1.2),1,1,0.1,0.9,1,1,1.1,1.1,1.2,Effective reproduction no.,Likely increasing
-Oklahoma,1 (0.8 -- 1.2),1,1,0.1,0.8,0.9,0.9,1,1,1.2,Effective reproduction no.,Unsure
-Oregon,1 (0.9 -- 1.2),1,1,0.1,0.9,1,1,1.1,1.1,1.2,Effective reproduction no.,Likely increasing
-Puerto Rico,1 (0.9 -- 1.2),1,1,0.1,0.9,1,1,1.1,1.1,1.2,Effective reproduction no.,Likely increasing
-Utah,1 (0.8 -- 1.3),1,1,0.1,0.8,0.9,1,1,1.1,1.3,Effective reproduction no.,Unsure
-Virginia,1 (0.9 -- 1.2),1,1,0.1,0.9,1,1,1.1,1.1,1.2,Effective reproduction no.,Unsure
-West Virginia,1 (0.9 -- 1.2),1,1,0.1,0.9,1,1,1,1.1,1.2,Effective reproduction no.,Unsure
-Michigan,0.9 (0.7 -- 1.1),0.9,0.9,0.1,0.7,0.9,0.9,1,1,1.1,Effective reproduction no.,Unsure
-Missouri,0.9 (0.7 -- 1.1),0.9,0.9,0.1,0.7,0.8,0.9,1,1,1.1,Effective reproduction no.,Unsure
-Montana,0.9 (0.7 -- 1),0.9,0.9,0.1,0.7,0.8,0.9,0.9,1,1,Effective reproduction no.,Unsure
-Nebraska,0.9 (0.7 -- 1.2),0.9,0.9,0.1,0.7,0.9,0.9,1,1,1.2,Effective reproduction no.,Unsure
-Northern Mariana Islands,0.9 (0.5 -- 1.2),0.9,0.8,0.3,0.5,0.7,0.8,0.9,1,1.2,Effective reproduction no.,Unsure
-Ohio,0.9 (0.8 -- 1.1),0.9,0.9,0.1,0.8,0.9,0.9,0.9,1,1.1,Effective reproduction no.,Unsure
+Louisiana,1 (0.5 -- 1.3),1,1,0.2,0.5,0.9,1,1.1,1.1,1.3,Effective reproduction no.,Unsure
+Maine,1 (0.7 -- 1.3),1,1,0.2,0.7,0.8,0.9,1,1.1,1.3,Effective reproduction no.,Unsure
+Massachusetts,1 (0.8 -- 1.1),1,1,0.1,0.8,0.9,0.9,1,1,1.1,Effective reproduction no.,Unsure
+Michigan,1 (0.8 -- 1.2),1,1,0.1,0.8,1,1,1.1,1.1,1.2,Effective reproduction no.,Likely increasing
+Missouri,1 (0.7 -- 1.2),1,1,0.2,0.7,0.9,0.9,1,1.1,1.2,Effective reproduction no.,Unsure
+Nebraska,1 (0.7 -- 1.1),1,0.9,0.1,0.7,0.9,0.9,1,1,1.1,Effective reproduction no.,Unsure
+New Jersey,1 (0.8 -- 1.1),1,1,0.1,0.8,0.9,1,1,1.1,1.1,Effective reproduction no.,Likely increasing
+New Mexico,1 (0.6 -- 1.1),1,0.9,0.2,0.6,0.8,0.9,1,1.1,1.1,Effective reproduction no.,Unsure
+Northern Mariana Islands,1 (0 -- 4),1,1,4,0,0,0,1,1,4,New confirmed cases by infection date,Unsure
+Oklahoma,1 (0.7 -- 1.2),1,1,0.2,0.7,0.9,0.9,1,1.1,1.2,Effective reproduction no.,Unsure
+Puerto Rico,1 (0.8 -- 1.2),1,1,0.1,0.8,1,1,1.1,1.1,1.2,Effective reproduction no.,Likely increasing
+Texas,1 (0.8 -- 1.2),1,1,0.1,0.8,1,1,1.1,1.1,1.2,Effective reproduction no.,Unsure
+West Virginia,1 (0.8 -- 1.2),1,1,0.1,0.8,0.9,1,1,1.1,1.2,Effective reproduction no.,Unsure
+Colorado,0.9 (0.7 -- 1.2),0.9,0.9,0.2,0.7,0.8,0.8,0.9,1,1.2,Effective reproduction no.,Unsure
+Minnesota,0.9 (0.7 -- 1.2),0.9,0.9,0.1,0.7,0.9,0.9,1,1,1.2,Effective reproduction no.,Unsure
+Northern Mariana Islands,0.9 (0.6 -- 1.3),0.9,0.9,0.2,0.6,0.8,0.9,1,1,1.3,Effective reproduction no.,Unsure
+Ohio,0.9 (0.7 -- 1.1),0.9,0.9,0.1,0.7,0.8,0.9,0.9,1,1.1,Effective reproduction no.,Unsure
+Pennsylvania,0.9 (0.7 -- 1.1),0.9,0.9,0.1,0.7,0.8,0.9,0.9,1,1.1,Effective reproduction no.,Unsure
 South Dakota,0.9 (0.8 -- 1),0.9,0.9,0.1,0.8,0.8,0.9,0.9,0.9,1,Effective reproduction no.,Unsure
-Washington,0.9 (0.5 -- 1.1),0.9,0.9,0.2,0.5,0.7,0.8,0.9,1,1.1,Effective reproduction no.,Unsure
-Wisconsin,0.9 (0.8 -- 1.1),0.9,0.9,0.1,0.8,0.9,0.9,1,1,1.1,Effective reproduction no.,Unsure
-Minnesota,0.8 (0.7 -- 1),0.8,0.8,0.1,0.7,0.8,0.8,0.9,0.9,1,Effective reproduction no.,Unsure
-New Mexico,0.8 (0.6 -- 1.1),0.8,0.8,0.1,0.6,0.7,0.8,0.9,0.9,1.1,Effective reproduction no.,Unsure
-North Dakota,0.8 (0.6 -- 1),0.8,0.8,0.1,0.6,0.7,0.7,0.8,0.8,1,Effective reproduction no.,Unsure
-Wyoming,0.8 (0.6 -- 1),0.8,0.8,0.1,0.6,0.7,0.8,0.8,0.9,1,Effective reproduction no.,Unsure
-Guam,0.6 (0.3 -- 1),0.6,0.7,0.2,0.3,0.5,0.6,0.7,0.8,1,Effective reproduction no.,Unsure
-Northern Mariana Islands,0 (0 -- 1),0,0,2,0,0,0,0,0,1,New confirmed cases by infection date,Unsure
+US,0.9 (0.8 -- 1.1),0.9,0.9,0.1,0.8,0.9,0.9,0.9,1,1.1,Effective reproduction no.,Unsure
+Virgin Islands,0.9 (0.3 -- 1.6),0.9,0.9,0.4,0.3,0.6,0.8,1,1.1,1.6,Effective reproduction no.,Unsure
+Wyoming,0.9 (0.7 -- 1.1),0.9,0.9,0.1,0.7,0.8,0.9,1,1,1.1,Effective reproduction no.,Unsure
+Guam,0.8 (0.4 -- 1.1),0.8,0.8,0.2,0.4,0.7,0.7,0.8,0.9,1.1,Effective reproduction no.,Unsure
+Indiana,0.8 (0.7 -- 1),0.8,0.8,0.1,0.7,0.8,0.8,0.9,0.9,1,Effective reproduction no.,Unsure
+Maryland,0.8 (0.6 -- 1.1),0.8,0.8,0.1,0.6,0.8,0.8,0.9,0.9,1.1,Effective reproduction no.,Unsure
+Montana,0.8 (0.6 -- 1),0.8,0.8,0.1,0.6,0.7,0.8,0.9,0.9,1,Effective reproduction no.,Unsure
+North Dakota,0.8 (0.6 -- 0.9),0.8,0.8,0.1,0.6,0.7,0.7,0.8,0.8,0.9,Effective reproduction no.,Unsure
+Utah,0.8 (0.6 -- 1),0.8,0.8,0.1,0.6,0.7,0.7,0.8,0.8,1,Effective reproduction no.,Unsure
+Vermont,0.8 (0.4 -- 1.2),0.8,0.8,0.3,0.4,0.6,0.8,0.9,1,1.2,Effective reproduction no.,Unsure
+Wisconsin,0.8 (0.6 -- 1),0.8,0.8,0.1,0.6,0.7,0.8,0.9,0.9,1,Effective reproduction no.,Unsure
+Illinois,0.7 (0.6 -- 0.9),0.7,0.7,0.1,0.6,0.7,0.7,0.8,0.8,0.9,Effective reproduction no.,Unsure
+Iowa,0.7 (0.5 -- 1.1),0.7,0.8,0.2,0.5,0.6,0.7,0.8,0.9,1.1,Effective reproduction no.,Unsure

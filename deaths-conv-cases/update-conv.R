@@ -73,7 +73,7 @@ forecast <- regional_secondary(observations, case_forecast,
 
 # Save results to disk ----------------------------------------------------
 samples_path <- here("deaths-conv-cases", "data", "samples", "deaths", target_date)
-summarised_path <- here("deaths-conv-cases", "data", "summarised", "deaths", target_date)
+summarised_path <- here("deaths-conv-cases", "data", "summary", "deaths", target_date)
 check_dir <- function(dir) {
   if (!dir.exists(dir)) {
     dir.create(dir, recursive = TRUE)
@@ -90,7 +90,7 @@ fwrite(forecast$summarised, file.path(summarised_path, "summary.csv"))
 # save plots 
 walk2(forecast$region, names(forecast$region), function(f, n) {
   walk(1:length(f$plots),
-       ~ suppressMessage(
+       ~ suppressMessages(
          ggsave(filename = paste0(n, "-", names(f$plots)[.], ".png"), 
                 plot = f$plots[[.]], 
                 path = paste0(samples_path, "/"))))
