@@ -8,12 +8,8 @@ library(lubridate, quietly = TRUE)
 library(ggplot2, quietly = TRUE)
 library(purrr, quietly = TRUE)
 
-dates <- c(ymd("2020-11-30"))
-dates <- c(dates, map_chr(1:3, ~ as.character(dates - weeks(.))))
-dates <- as.character(dates)
-dates <- rev(dates)
 # Set target date ---------------------------------------------------------
-#target_date <- as.character(Sys.Date()) 
+target_date <- as.character(Sys.Date()) 
 
 for (target_date in dates) {
 
@@ -108,4 +104,3 @@ dated_submission <- here("deaths-conv-cases", "data", "submission", "dated")
 check_dir(dated_submission)
 fwrite(formatted_forecasts, here("deaths-conv-cases", "data", "submission", "latest.csv"))
 fwrite(formatted_forecasts, paste0(dated_submission, "/", target_date, ".csv"))
-}
