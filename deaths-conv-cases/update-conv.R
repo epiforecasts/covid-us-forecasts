@@ -48,8 +48,7 @@ case_forecast <- case_forecast[date >= min(observations$date)]
 
 # Forecast deaths from cases ----------------------------------------------
 # set up parallel options
-plan("multisession", workers = floor(availableCores() / 4))
-options(mc.cores = 4)
+plan("multisession")
 data.table::setDTthreads(1)
 
 # load the prototype regional_secondary function
@@ -57,13 +56,15 @@ source_gist("https://gist.github.com/seabbs/4dad3958ca8d83daca8f02b143d152e6")
 
 # run across Poland and Germany specifying options for estimate_secondary (EpiNow2)
 forecast <- regional_secondary(observations, case_forecast,
-                               return_fit = FALSE,
+                               return_fit = FALSE, return_plots = FALSE,
                                delays = delay_opts(list(mean = 3, mean_sd = 0.5, 
                                                         sd = 0.4, sd_sd = 0.1, max = 30)),
                                secondary = secondary_opts(type = "incidence"),
                                obs = obs_opts(scale = list(mean = 0.005, sd = 0.0025)),
                                burn_in = as.integer(max(observations$date) - min(observations$date)) - 4*7,
                                control = list(adapt_delta = 0.95, max_treedepth = 15))
+
+plan("sequential")
 
 # Save results to disk ----------------------------------------------------
 samples_path <- here("deaths-conv-cases", "data", "samples", "deaths", target_date)
@@ -81,22 +82,13 @@ check_dir(summarised_path)
 fwrite(forecast$samples, file.path(samples_path, "samples.csv"))
 fwrite(forecast$summarised, file.path(summarised_path, "summary.csv"))
 
-# save plots 
-walk2(forecast$region, names(forecast$region), function(f, n) {
-  walk(1:length(f$plots),
-       ~ suppressMessages(
-         ggsave(filename = paste0(n, "-", names(f$plots)[.], ".png"), 
-                plot = f$plots[[.]], 
-                path = paste0(samples_path, "/"))))
-})
-
 # save formatted forecasts - repurpose the Rt submission function
 source(here::here("rt-forecast-2/format/utils/format-forecast-us.R"))
 formatted_forecasts <- copy(forecast$samples)
 setnames(formatted_forecasts, c("value", "region"), c("deaths", "state"))
 formatted_forecasts <- format_forecast_us(forecasts = formatted_forecasts,
-                                          forecast_date = target_date, 
-                                          submission_date = target_date,
+                                          forecast_date = target_date - 1, 
+                                          submission_date = target_date - 1,
                                           shrink_per = 0)
 dated_submission <- here("deaths-conv-cases", "data", "submission", "dated")
 check_dir(dated_submission)

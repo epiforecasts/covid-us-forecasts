@@ -26,24 +26,6 @@ forecast_date <- unique(dplyr::pull(submit_ensemble, forecast_date))
 submit_ensemble <- dplyr::filter(submit_ensemble, (target_end_date - submission_date) <= 30) %>%
   dplyr::select(-submission_date)
 
-
-# Checks ------------------------------------------------------------------
-
-
-# 1. Check population limit
-pop_check <- dplyr::left_join(submit_ensemble, readr::read_csv("utils/state_pop_totals.csv"), 
-                              by = c("location" = "state_code")) %>%
-  dplyr::mutate(pop_check = ifelse(value > tot_pop, FALSE, TRUE)) %>%
-  dplyr::filter(pop_check == FALSE) %>%
-  dplyr::pull(location) %>%
-    unique()
-
-# 2. Check for NA values
-na_check <- submit_ensemble %>%
-  dplyr::filter(is.na(value)) %>%
-  dplyr::pull(location)
-
-
 # 3. Incident and cumulative add up ------------------------------------------
 #  - check each model to find the issue
 # Check incident forecast adds to cumulative
@@ -54,7 +36,7 @@ state_codes <- readRDS("utils/state_codes.rds")
 cumulative <- get_us_deaths(data = "cumulative") %>%
   dplyr::ungroup() %>%
   dplyr::filter(date == forecast_date-2) %>%
-  dplyr::add_row(state="US", deaths = sum(.$deaths), date = forecast_date-2) %>%
+  dplyr::add_row(state="US", deaths = sum(.$deaths, na.rm = TRUE), date = forecast_date-2) %>%
   dplyr::left_join(state_codes, by = "state")
 # Check each model to find the issue
 forecasts <- load_submission_files(dates = "all", num_last = 1, models = "single") %>%
@@ -89,7 +71,7 @@ if(!mean(us_join$diff_inc_cum) == 0){
   cumulative_deaths <- cumulative_data %>%
     dplyr::ungroup() %>%
     dplyr::filter(date == min(max(date), forecast_date)) %>%
-    dplyr::add_row(state="US", deaths = sum(.$deaths), date = forecast_date) %>%
+    dplyr::add_row(state="US", deaths = sum(.$deaths, na.rm = TRUE), date = forecast_date) %>%
     dplyr::left_join(state_codes, by = "state")
   
   cumulative_forecast <- incident_forecast %>%
@@ -113,6 +95,22 @@ if(!mean(us_join$diff_inc_cum) == 0){
   submit_ensemble <- dplyr::bind_rows(incident_forecast, cumulative_forecast)
 
 }
+
+# Checks ------------------------------------------------------------------
+
+
+# 1. Check population limit
+pop_check <- dplyr::left_join(submit_ensemble, readr::read_csv("utils/state_pop_totals.csv"), 
+                              by = c("location" = "state_code")) %>%
+  dplyr::mutate(pop_check = ifelse(value > tot_pop, FALSE, TRUE)) %>%
+  dplyr::filter(pop_check == FALSE) %>%
+  dplyr::pull(location) %>%
+  unique()
+
+# 2. Check for NA values
+na_check <- submit_ensemble %>%
+  dplyr::filter(is.na(value)) %>%
+  dplyr::pull(location)
 
 # Filter failing checks ---------------------------------------------------
 if((length(na_check) | length(pop_check)) > 0){
