@@ -5,3 +5,5 @@
 .secrets
 **/state
 **/samples
+**/raw-samples
+**/logs/
