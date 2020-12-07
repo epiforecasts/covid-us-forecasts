@@ -9,7 +9,6 @@ library(purrr, quietly = TRUE)
 dates <- c(ymd("2020-11-30"))
 dates <- c(dates, map_chr(1:3, ~ as.character(dates - weeks(.))))
 dates <- as.character(dates)
-dates <- dates[-c(1,2)]
 
 # Set target date ---------------------------------------------------------
 #target_date <- as.character(Sys.Date()) 
@@ -54,7 +53,7 @@ regional_epinow(reported_cases = cases,
                 rt = rt,
                 stan = stan_opts(samples = 2000, warmup = 250, 
                                  chains = 4, cores = no_cores),
-                obs = obs_opts(scale = list(mean = 0.5, sd = 0.05)),
+                obs = obs_opts(scale = list(mean = 0.25, sd = 0.05)),
                 horizon = 30,
                 output = c("region", "summary", "timing", "samples"),
                 target_date = target_date,
