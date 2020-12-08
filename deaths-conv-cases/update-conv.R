@@ -45,6 +45,7 @@ case_forecast <- suppressWarnings(
                        date = ymd(target_date),
                        forecast = TRUE, samples = TRUE)$estimated_reported_cases$samples)
 case_forecast <- case_forecast[date >= min(observations$date)]
+case_forecast <- case_forecast[sample <= 1000]
 
 # Forecast deaths from cases ----------------------------------------------
 # set up parallel options
