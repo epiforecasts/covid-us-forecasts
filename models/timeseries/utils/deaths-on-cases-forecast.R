@@ -6,19 +6,20 @@ library(forecastHybrid)
 library(lubridate)
 library(data.table)
 
-deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile, sample_count,
+deaths_on_cases_forecast <- function(case_data, deaths_data, sample_count = 1000,
                                      window = 6, horizon = 30) {
     # Set up observations ----------------------------------------------------------
     case_data <- case_data %>%
       group_by(state) %>%
       filter(date >= max(date) - weeks(window + 3)) %>%
-      ungroup()
+      ungroup() %>% 
+      select(state, date, cases)
     
     deaths_data <- deaths_data %>%
       group_by(state) %>%
       filter(date >= max(date) - weeks(window)) %>%
       ungroup()
-    
+     
     # Forecast cases ---------------------------------------------------------
     case_forecast <- suppressMessages(
       case_data %>%
@@ -45,10 +46,8 @@ deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile, samp
       select(state, date, cases)
     
     # Forecast deaths ---------------------------------------------------------
-    
     # Join deaths and cases
-    cases_deaths <- dplyr::bind_rows(case_data %>%
-                                       select(-epiweek), case_forecast) %>%
+    cases_deaths <- dplyr::bind_rows(case_data, case_forecast) %>%
       arrange(date) %>%
       group_by(state) %>%
       mutate(cases_lag1 = dplyr::lag(cases, 7),
@@ -67,7 +66,7 @@ deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile, samp
       full_join(deaths_data, by = c("state", "date"))
     
     # Forecast deaths (y) using cases
-    death_forecast <- suppressMessages(
+    death_forecast <- suppressWarnings(suppressMessages(
       cases_deaths %>%
         group_by(state) %>%
         group_modify(
@@ -94,7 +93,7 @@ deaths_on_cases_forecast <- function(case_data, deaths_data, case_quantile, samp
             )
           )
         )
-    ) %>%
+    )) %>%
       mutate(sample = rep(1:sample_count)) %>%
       tidyr::pivot_longer(cols = starts_with("..."), names_to = "day") %>%
       mutate(day = day %>%

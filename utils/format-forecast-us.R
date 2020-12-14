@@ -9,6 +9,8 @@ source(here("utils/get-us-data.R"))
 # forecast_date -> date forecast was made
 format_forecast_us <- function(forecasts, shrink_per = 0,
                                forecast_date = NULL, submission_date = NULL){
+   
+  forecasts <- as.data.table(forecasts)
   
   # Filter to full epiweeks
   forecasts <- dates_to_epiweek(forecasts)

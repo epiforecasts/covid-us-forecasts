@@ -1,8 +1,15 @@
-# Update deaths forecasts from timeseries
-library(magrittr); library(dplyr); library(readr); library(here)
+# Packages ----------------------------------------------------------------
+library(magrittr)
+library(dplyr)
+library(readr)
+library(here)
+library(data.table)
 
+dates <- as.character(Sys.Date() - 7*4:0)
+for (forecast_date in dates) {
 # forecast date -----------------------------------------------------------
-forecast_date <- Sys.Date()
+#forecast_date <- Sys.Date()
+forecast_date <- as.Date(forecast_date)
 
 # Set up functions and data -----------------------------------------------
 source(here::here("utils", "get-us-data.R"))
@@ -25,29 +32,15 @@ cases_national <- cases_state %>%
   mutate(state = "US")
 
 # Set forecast parameters -------------------------------------------------
-sample_count <- 1000
-case_quantile <- 0.5
-
-# 4 wk ahead forecast:
-horizon_weeks <- 4
-right_truncate_weeks <- 1
 
 # Forecast with case regressor --------------------------------------------
 # State forecast
 state_deaths_on_cases_forecast <- deaths_on_cases_forecast(case_data = cases_state,
-                                                           deaths_data = deaths_state,
-                                                           case_quantile = case_quantile,
-                                                           sample_count = sample_count, 
-                                                           horizon_weeks = horizon_weeks,
-                                                           right_truncate_weeks = right_truncate_weeks)
+                                                           deaths_data = deaths_state)
 
 # National forecast
 national_deaths_on_cases_forecast <- deaths_on_cases_forecast(case_data = cases_national,
-                                                              deaths_data = deaths_national,
-                                                              case_quantile = case_quantile,
-                                                              sample_count = sample_count, 
-                                                              horizon_weeks = horizon_weeks,
-                                                              right_truncate_weeks = right_truncate_weeks)
+                                                              deaths_data = deaths_national)
 
 # Bind
 deaths_on_cases_forecast <- bind_rows(national_deaths_on_cases_forecast, state_deaths_on_cases_forecast)
@@ -56,15 +49,14 @@ readr::write_csv(deaths_on_cases_forecast, here("models", "timeseries", "data", 
                                                 paste0(forecast_date, ".csv")))
 
 # Save formatted timeseries -----------------------------------------------
-deaths_on_cases <- format_timeseries(deaths_on_cases_forecast,
-                                     right_truncate_weeks = 1, 
-                                     forecast_date = forecast_date,
-                                     submission_date = forecast_date,
-                                     quantiles_out = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99))
+# save formatted forecasts 
+source(here::here("utils", "format-forecast-us.R"))
+formatted_forecasts <- format_forecast_us(forecasts = deaths_on_cases_forecast,
+                                          forecast_date = forecast_date, 
+                                          submission_date = forecast_date,
+                                          shrink_per = 0)
 
-# Save under "latest"
-readr::write_csv(deaths_on_cases, here::here("model", "timeseries", "data", "submission",
-                                             paste0("latest.csv")))
-# Save under forecast date
-readr::write_csv(deaths_on_cases, here::here("model", "timeseries", "data", "submission", "dated",
-                                             paste0(forecast_date, ".csv")))
+dated_submission <- here("models", "timeseries", "data", "submission", "dated")
+fwrite(formatted_forecasts, here("models", "timeseries", "data", "submission", "latest.csv"))
+fwrite(formatted_forecasts, paste0(dated_submission, "/", forecast_date, ".csv"))
+}
