@@ -1,6 +1,11 @@
 # Forecasting Covid-19 in the US
 
-#### 2020-07-11: tidier files and formatting
+
+
+## 2020-12-14
+
+## 2020-07-11
+
 - General tidying:
   - `get-us-data`: added function calls on dplyr
 - `visualisation` folder:
