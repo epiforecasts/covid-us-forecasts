@@ -117,13 +117,4 @@ deaths_on_cases_forecast <- function(case_data, deaths_data, sample_count = 1000
       mutate(deaths = ifelse(deaths < 0, 0, deaths),
              deaths = round(deaths))
     return(samples)
-  }
-
-
-
-      
-      
-
-      
-      
-  
+}

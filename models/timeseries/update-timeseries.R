@@ -5,11 +5,8 @@ library(readr)
 library(here)
 library(data.table)
 
-dates <- as.character(Sys.Date() - 7*4:0)
-for (forecast_date in dates) {
 # forecast date -----------------------------------------------------------
-#forecast_date <- Sys.Date()
-forecast_date <- as.Date(forecast_date)
+forecast_date <- Sys.Date()
 
 # Set up functions and data -----------------------------------------------
 source(here::here("utils", "get-us-data.R"))
@@ -59,4 +56,3 @@ formatted_forecasts <- format_forecast_us(forecasts = deaths_on_cases_forecast,
 dated_submission <- here("models", "timeseries", "data", "submission", "dated")
 fwrite(formatted_forecasts, here("models", "timeseries", "data", "submission", "latest.csv"))
 fwrite(formatted_forecasts, paste0(dated_submission, "/", forecast_date, ".csv"))
-}
