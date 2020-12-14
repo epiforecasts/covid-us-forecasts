@@ -51,14 +51,11 @@ format_forecast_us <- function(forecasts, shrink_per = 0,
   # dates and types
   forecasts_format <- weekly_forecasts[, `:=` (forecast_date = forecast_date,
                                   submission_date = submission_date,
-                                  type = "quantile",
-                                  horizon = 1 + epiweek - lubridate::epiweek(submission_date))][
-                                  , `:=` (target = paste0(horizon, " wk ahead ", target_value, " death"))]
+                                  type = "quantile"))
                           
    # Add point forecasts
   forecasts_point <- forecasts_format[quantile == 0.5]
   forecasts_point <- forecasts_point[, `:=` (type = "point", quantile = NA)]
-  
   forecasts_format <- rbind(forecasts_format, forecasts_point)
   
    # state codes
@@ -68,13 +65,16 @@ format_forecast_us <- function(forecasts, shrink_per = 0,
   # drop unnecessary columns
   forecasts_format <- forecasts_format[, !c("horizon", "target_value", "epiweek", "state")]
                                   
-  # Set column order
+  # assign horizon
+  forecasts_format <- forecasts_format[target_end_date > forecast_date]
+  forecasts_format <- forecasts_format[, horizon := 1 + as.numeric(target_end_date - min(target_end_date)) / 7]
+  forecasts_format <- forecasts_format[, target := paste0(horizon, " wk ahead inc ", target_value)]
+  data.table::setorder(forecasts_format, location_name, horizon, quantile)
+                                       
+   # Set column order
   forecasts_format <- data.table::setcolorder(forecasts_format,
                                        c("forecast_date", "submission_date", 
                                          "target", "target_end_date", "location", 
                                          "type", "quantile", "value"))
-  
-  forecasts_format <- forecasts_format[target_end_date > forecast_date]
-  
   return(forecasts_format)
 }
