@@ -70,12 +70,8 @@ plan("sequential")
 # Save results to disk ----------------------------------------------------
 samples_path <- here("deaths-conv-cases", "data", "samples", "deaths", target_date)
 summarised_path <- here("deaths-conv-cases", "data", "summary", "deaths", target_date)
-check_dir <- function(dir) {
-  if (!dir.exists(dir)) {
-    dir.create(dir, recursive = TRUE)
-  }
-  return(invisible(NULL))
-}
+
+source(here("utils", "check_dir.R"))
 check_dir(samples_path)
 check_dir(summarised_path)
 

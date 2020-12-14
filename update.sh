@@ -17,9 +17,6 @@ Rscript evaluation/utils/update-visualise-raw-data.R
 # Update single models
 Rscript utils/update-single-models.R
 
-# # Update intermediate models (expert etc.)
-# Rscript utils/update-intermediate-models.R
-
 # Update ensembles models
 Rscript utils/update-ensemble-models.R
 
@@ -27,7 +24,7 @@ Rscript utils/update-ensemble-models.R
 Rscript evaluation/update.R
 
 # Update submission
-Rscript final-submissions/update-final-submission.R
+Rscript submissions/update.R
 
 # Submit
 # See: https://github.com/reichlab/covid19-forecast-hub/blob/master/data-processed/README.md
