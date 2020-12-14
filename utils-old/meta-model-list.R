@@ -14,13 +14,6 @@ model_list <- list(
     #      "colour" = "colour_name")                                    # Plotting colour: try https://htmlcolorcodes.com/color-chart/
     # --------------
     # 
-    # Rt Epinow2 - original
-    "rt2_original" = 
-      list("name" = "Rt2 original",
-           "root" = "rt-forecast-2",
-           "update" = "update.R",
-           "submission_files" = "output/original/submission-files",
-           "colour" = "#800000"),
     # Rt Epinow2 - fixed future Rt
     "rt2_fixed_future_rt" =
       list("name" = "Rt2 fixed future rt",
@@ -28,55 +21,18 @@ model_list <- list(
            "update" = "update.R",
            "submission_files" = "output/fixed_future_rt/submission-files",
            "colour" = "#DB7093"),
-    # Rt Epinow2 - fixed Rt
-    "rt2_fixed_rt" =
-      list("name" = "Rt2 fixed rt",
-           "root" = "rt-forecast-2",
-           "update" = "update.R",
-           "submission_files" = "output/fixed_rt/submission-files",
-           "colour" = "#E9967A"),
-    # Rt Epinow2 - no modelling of delays
-    "rt2_no_delay" =
-      list("name" = "Rt2 (no delays)",
-           "root" = "rt-forecast-2",
-           "update" = "update.R",
-           "submission_files" = "output/no_delay/submission-files",
-           "colour" = "#FF4500"),
-     # Rt Epinow2 - using backcalculation - drop as clearly bugged
-    # "rt2_backcalc" =
-    #   list("name" = "Rt2 backcaculation",
-    #        "root" = "rt-forecast-2",
-    #        "update" = "update.R",
-    #        "submission_files" = "output/backcalc/submission-files",
-    #        "colour" = "#ffc500"),
     "secondary" =
       list("name" = "secondary",
            "root" = "deaths-conv-cases",
            "update" = "update.R",
            "submission_files" = "data/submission",
            "colour" = "#326194"),
-    # Timeseries - weekly
-    "ts_weekly_deaths_only" = 
-      list("name" = "TS weekly deaths",
-           "root" ="timeseries-forecast",
-           "update" =  "update.R",
-           "submission_files" = "deaths-only/submission-files",
-           "colour" = "#336600"),
     "ts_weekly_deaths_on_cases" = 
       list("name" = "TS weekly deaths-cases",
            "root" = "timeseries-forecast",
            "update" = "update.R",
            "submission_files" = "deaths-on-cases/submission-files",
            "colour" = "#33CC00")
-    # ,
-    # # Expert elicitation
-    # "expert" = 
-    #   list("name" = "Expert",
-    #        "root" = here::here("expert-forecast"),
-    #        "update" = "/update-expert.R",
-    #        "submission_files" = "/submission-files",
-    #        "colour" = "#00FFFF")
-    # Add new single models here
     ),
   # Ensembles
   "ensemble_models" = list( 
@@ -107,5 +63,4 @@ model_list <- list(
     # Add new ensemble models here
   )
 )
-
-saveRDS(model_list, here::here("utils", "model_list.rds"))
+saveRDS(model_list, here::here("data", "model_list.rds"))

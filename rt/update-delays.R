@@ -11,11 +11,8 @@ saveRDS(generation_time , here("rt", "forecast", "delays", "data", "generation_t
 saveRDS(incubation_period, here("rt", "forecast", "delays", "data", "incubation_period.rds"))
 
 # Set up parallel ---------------------------------------------------------
-if (!interactive()) {
-  ## If running as a script enable this
-  options(future.fork.enable = TRUE)
-}
 plan(multiprocess)
+
 # Fit delay from onset to deaths ------------------------------------------
 deaths <- readRDS(here("rt", "forecast", "delays", "data", "deaths.rds"))
 

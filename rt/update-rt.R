@@ -6,8 +6,11 @@ library(here, quietly = TRUE)
 library(lubridate, quietly = TRUE)
 library(purrr, quietly = TRUE)
 
+dates <- as.character(Sys.Date() - 7 * 4:0)
+for (target_date in dates) {
+  
 # Set target date ---------------------------------------------------------
-target_date <- as.character(Sys.Date()) 
+#target_date <- as.character(Sys.Date()) 
 
 # Update delays -----------------------------------------------------------
 generation_time <- readRDS(here("rt", "data", "delays", "generation_time.rds"))
@@ -30,17 +33,17 @@ setorder(deaths, region, date)
 # Set up options ----------------------------------------------------------
 # Add maximum susceptible population
 rt <- opts_list(rt_opts(prior = list(mean = 1, sd = 0.2), 
-                        future = "latest"), cases)
-pops <- fread(here("utils", "state_pop_totals.csv"))
+                        future = "latest"), deaths)
+pops <- fread(here("data", "state_pop_totals.csv"))
 rt <- map(names(rt), function(x) {
   y <- rt[[x]]
   y$pop <- pops[state_name %in% x]$tot_pop
   return(y)
 })
-names(rt) <- unique(cases$region)
+names(rt) <- unique(deaths$region)
 
 # Set up parallel execution -----------------------------------------------
-no_cores <- setup_future(cases)
+no_cores <- setup_future(deaths)
 
 # Run Rt estimation -------------------------------------------------------
 regional_epinow(reported_cases = deaths,
@@ -53,10 +56,11 @@ regional_epinow(reported_cases = deaths,
                 horizon = 30,
                 output = c("region", "summary", "timing", "samples"),
                 target_date = target_date,
-                target_folder = here("rt", "data", "samples", "cases"), 
+                target_folder = here("rt", "data", "samples"), 
                 summary_args = list(summary_dir = here("rt", "data", 
-                                                       "summary", "cases", target_date),
+                                                       "summary", target_date),
                                     all_regions = FALSE),
                 logs = "rt/logs/cases", verbose = FALSE)
 
 plan("sequential")
+}

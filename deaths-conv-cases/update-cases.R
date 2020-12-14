@@ -31,7 +31,7 @@ setorder(cases, region, date)
 # Add maximum susceptible population
 rt <- opts_list(rt_opts(prior = list(mean = 1, sd = 0.2), 
                         future = "latest"), cases)
-pops <- fread(here("utils", "state_pop_totals.csv"))
+pops <- fread(here("data", "state_pop_totals.csv"))
 rt <- map(names(rt), function(x) {
   y <- rt[[x]]
   y$pop <- pops[state_name %in% x]$tot_pop

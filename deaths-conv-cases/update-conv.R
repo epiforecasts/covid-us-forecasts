@@ -61,7 +61,7 @@ forecast <- regional_secondary(observations, case_forecast,
                                delays = delay_opts(list(mean = 3, mean_sd = 0.5, 
                                                         sd = 0.4, sd_sd = 0.1, max = 30)),
                                secondary = secondary_opts(type = "incidence"),
-                               obs = obs_opts(scale = list(mean = 0.005, sd = 0.0025)),
+                               obs = obs_opts(scale = list(mean = 0.01, sd = 0.02)),
                                burn_in = as.integer(max(observations$date) - min(observations$date)) - 4*7,
                                control = list(adapt_delta = 0.95, max_treedepth = 15))
 
@@ -79,7 +79,7 @@ check_dir(summarised_path)
 fwrite(forecast$samples, file.path(samples_path, "samples.csv"))
 fwrite(forecast$summarised, file.path(summarised_path, "summary.csv"))
 
-# save formatted forecasts - repurpose the Rt submission function
+# save formatted forecasts 
 source(here::here("rt-forecast-2/format/utils/format-forecast-us.R"))
 formatted_forecasts <- copy(forecast$samples)
 setnames(formatted_forecasts, c("value", "region"), c("deaths", "state"))

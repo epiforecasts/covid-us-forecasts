@@ -36,7 +36,7 @@ For an end-to-end run (including new Rt and timeseries models, mean and QRA ense
 - Run `update.sh` from the terminal
 - Check the output by looking plots saved in the most recent folder: `evaluation/plots/yyyy-mm-dd
 - A properly formatted csv, ready to be submitted to the Reich forecast hub, will be saved in 
-  - `final-submissions/death-forecast/yyyy-mm-dd-epiforecasts-ensemble1.csv`
+  - `submissions/submitted/yyyy-mm-dd-epiforecasts-ensemble1.csv`
 
 Note that the final submission file can be either the quantile mean average or the QRA ensemble. To check or change this:
   - Open `final-submissions/update-final-submission.R`
