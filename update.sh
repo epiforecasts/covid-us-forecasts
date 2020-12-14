@@ -7,7 +7,7 @@ Rscript -e 'devtools::install_dev_deps()'
 bash models/update.sh
 
 # Update ensemble
-bash ensemble/update.sh
+bash ensembles/update.sh
 
 # Update evaluation
 bash evaluation/update.sh
