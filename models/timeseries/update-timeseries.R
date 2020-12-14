@@ -11,7 +11,6 @@ forecast_date <- Sys.Date()
 # Set up functions and data -----------------------------------------------
 source(here::here("utils", "get-us-data.R"))
 source(here::here("models", "timeseries", "utils", "deaths-on-cases-forecast.R"))
-source(here::here("models", "timeseries", "utils", "format-timeseries.R"))
 
 # Get data
 deaths_state <- get_us_deaths(data = "daily")
@@ -38,9 +37,9 @@ state_deaths_on_cases_forecast <- deaths_on_cases_forecast(case_data = cases_sta
 # National forecast
 national_deaths_on_cases_forecast <- deaths_on_cases_forecast(case_data = cases_national,
                                                               deaths_data = deaths_national)
-
 # Bind
-deaths_on_cases_forecast <- bind_rows(national_deaths_on_cases_forecast, state_deaths_on_cases_forecast)
+deaths_on_cases_forecast <- rbindlist(list(national_deaths_on_cases_forecast, 
+                                           state_deaths_on_cases_forecast))
 
 readr::write_csv(deaths_on_cases_forecast, here("models", "timeseries", "data", "samples",
                                                 paste0(forecast_date, ".csv")))

@@ -1,7 +1,5 @@
 #!bin/bash
 
-# Source this script to run a complete submission update end-to-end
-
 # Update packages
 Rscript -e 'devtools::install_dev_deps()'
 

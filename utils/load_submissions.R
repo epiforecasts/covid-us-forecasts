@@ -4,7 +4,7 @@ library(here)
 load_submissions <- function(target_date, folder = "all-models") {
   forecasts <- fread(here("submissions", "all-models", paste0(target_date, ".csv")))
   forecasts <- forecasts[, .(date = target_end_date, location, quantile, value, model, target)]
-  forecasts <- forecasts[grepl("inc inc", target)]
+  forecasts <- forecasts[grepl("inc", target)]
   
   state_codes <- readRDS(here("data", "state_codes.rds"))
   forecasts <- forecasts[state_codes, on = "location"]

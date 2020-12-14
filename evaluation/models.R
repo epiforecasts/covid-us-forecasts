@@ -16,7 +16,7 @@ source(here("utils", "load_submissions.R"))
 forecasts <- load_submissions(target_date, "all-models")
 
 # Plot forecasts ----------------------------------------------------------
-source("evaluation", "utils", "plot_forecast.R")
+source(here("evaluation", "utils", "plot_forecast.R"))
 
 # plot usa 
 us <- plot_forecast(forecasts[state == "US"], 
@@ -30,4 +30,4 @@ ggsave(paste0(plot_dir, "/us.png"), us, height = 7, width = 7)
 # plot states
 states <- plot_forecast(forecasts[state != "US"], 
                         obs[state != "US" & date < target_date & date > (target_date - 7*6)])
-ggsave(paste0(plot_dir, "/states.png"), states, height = 36, width = 36)
+ggsave(paste0(plot_dir, "/states.png"), states, height = 48, width = 48)

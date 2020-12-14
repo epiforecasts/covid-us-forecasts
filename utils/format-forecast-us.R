@@ -11,7 +11,7 @@ format_forecast_us <- function(forecasts, shrink_per = 0,
                                forecast_date = NULL, submission_date = NULL){
    
   forecasts <- as.data.table(forecasts)
-  
+   
   # Filter to full epiweeks
   forecasts <- dates_to_epiweek(forecasts)
   forecasts <- forecasts[epiweek_full == TRUE]
@@ -31,7 +31,7 @@ format_forecast_us <- function(forecasts, shrink_per = 0,
                              quantile = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99), 
                              target_end_date = max(target_end_date), target_value = "inc"), 
                          by = .(state, epiweek)][order(state, epiweek)]
-  
+   
   
   # Add cumulative from last week
   cumulative_state <- data.table(get_us_deaths(data = "cumulative"))

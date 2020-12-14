@@ -52,18 +52,17 @@ deaths_on_cases_forecast <- function(case_data, deaths_data, sample_count = 1000
       group_by(state) %>%
       mutate(cases_lag1 = dplyr::lag(cases, 7),
              cases_lag2 = dplyr::lag(cases, 14)) %>%
-      
       mutate(
         cases = data.table::frollsum(cases, 7),
         cases_lag1 = data.table::frollsum(cases_lag1, 7),
         cases_lag2 = data.table::frollsum(cases_lag2, 7)
       ) %>%
       filter(date >= min(deaths_data$date)) %>%
-      mutate(forecast = ifelse(date > max(deaths_data$date), TRUE, FALSE)) %>%
       ungroup() %>%
       drop_na() %>%
       arrange(state) %>%
-      full_join(deaths_data, by = c("state", "date"))
+      full_join(deaths_data, by = c("state", "date")) %>% 
+      mutate(forecast = ifelse(is.na(deaths), TRUE, FALSE))
     
     # Forecast deaths (y) using cases
     death_forecast <- suppressWarnings(suppressMessages(
@@ -99,7 +98,7 @@ deaths_on_cases_forecast <- function(case_data, deaths_data, sample_count = 1000
       mutate(day = day %>%
                stringr::str_remove_all("...") %>%
                as.numeric()) %>%
-      mutate(date = max(deaths_data$date) + day, deaths = value) %>%
+      mutate(date = max(deaths_data$date) + day - 1, deaths = value) %>%
       select(state, sample, date, deaths)
     
 # Link in observations ----------------------------------------------------
@@ -116,5 +115,6 @@ deaths_on_cases_forecast <- function(case_data, deaths_data, sample_count = 1000
     samples <- samples %>%
       mutate(deaths = ifelse(deaths < 0, 0, deaths),
              deaths = round(deaths))
+    setorder(samples, state, sample, date)
     return(samples)
 }
