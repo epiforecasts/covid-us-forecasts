@@ -6,16 +6,13 @@ library(here, quietly = TRUE)
 library(lubridate, quietly = TRUE)
 library(purrr, quietly = TRUE)
 
-dates <- as.character(Sys.Date() - 7 * 4:0)
-for (target_date in dates) {
-  
 # Set target date ---------------------------------------------------------
-#target_date <- as.character(Sys.Date()) 
+target_date <- as.character(Sys.Date()) 
 
 # Update delays -----------------------------------------------------------
-generation_time <- readRDS(here("rt", "data", "delays", "generation_time.rds"))
-incubation_period <- readRDS(here("rt", "data" ,"delays", "incubation_period.rds"))
-onset_to_report <- readRDS(here("rt", "data", "delays", "onset_to_death_delay.rds"))
+generation_time <- readRDS(here("models", "rt", "data", "delays", "generation_time.rds"))
+incubation_period <- readRDS(here("models", "rt", "data" ,"delays", "incubation_period.rds"))
+onset_to_report <- readRDS(here("models", "rt", "data", "delays", "onset_to_death_delay.rds"))
 
 # Get cases  ---------------------------------------------------------------
 source(here("utils", "get-us-data.R"))
@@ -56,11 +53,10 @@ regional_epinow(reported_cases = deaths,
                 horizon = 30,
                 output = c("region", "summary", "timing", "samples"),
                 target_date = target_date,
-                target_folder = here("rt", "data", "samples"), 
-                summary_args = list(summary_dir = here("rt", "data", 
+                target_folder = here("models", "rt", "data", "samples"), 
+                summary_args = list(summary_dir = here("models", "rt", "data", 
                                                        "summary", target_date),
                                     all_regions = FALSE),
-                logs = "rt/logs/cases", verbose = FALSE)
+                logs = "models/rt/logs/cases", verbose = FALSE)
 
 plan("sequential")
-}
