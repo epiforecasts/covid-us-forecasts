@@ -84,8 +84,8 @@ source(here::here("utils", "format-forecast-us.R"))
 formatted_forecasts <- copy(forecast$samples)
 setnames(formatted_forecasts, c("value", "region"), c("deaths", "state"))
 formatted_forecasts <- format_forecast_us(forecasts = formatted_forecasts,
-                                          forecast_date = target_date - 1, 
-                                          submission_date = target_date - 1,
+                                          forecast_date = target_date, 
+                                          submission_date = target_date,
                                           shrink_per = 0)
 dated_submission <- here("models", "deaths-conv-cases", "data", "submission", "dated")
 check_dir(dated_submission)
