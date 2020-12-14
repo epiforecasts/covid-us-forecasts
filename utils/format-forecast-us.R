@@ -67,7 +67,7 @@ format_forecast_us <- function(forecasts, shrink_per = 0,
   # assign horizon
   forecasts_format <- forecasts_format[target_end_date > forecast_date]
   forecasts_format <- forecasts_format[, horizon := 1 + as.numeric(target_end_date - min(target_end_date)) / 7]
-  forecasts_format <- forecasts_format[, target := paste0(horizon, " wk ahead inc ", target_value)]
+  forecasts_format <- forecasts_format[, target := paste0(horizon, " wk ahead ", target_value)]
   data.table::setorder(forecasts_format, location, horizon, quantile)
        
   # drop unnecessary columns
