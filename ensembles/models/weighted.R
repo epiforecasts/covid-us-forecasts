@@ -62,7 +62,7 @@ train_array <- combine_into_array(train_array)
 # Define generic QRA ------------------------------------------------------
 ensemble <- function(name, train = train_array, true = true_values, quantiles = tau, 
                      models = unique(train_forecasts$model), fit_args = NULL,
-                     forecast) {
+                     forecasts = current_forecast) {
   # fit QRA
   fit <- do.call(quantile_ensemble, 
                  c(list(qarr = train, y = true, tau = quantiles), fit_args))
@@ -76,7 +76,7 @@ ensemble <- function(name, train = train_array, true = true_values, quantiles = 
   }else{
     weights <- melt(weights, id.vars = c("ensemble", "model"), variable.name = "quantile",
                     value.name = "weight")
-    weights <- weights[, quantile := str_remove_all(quantile, "weight.")]
+    weights <- weights[, quantile := as.numeric(str_remove_all(quantile, "weight."))]
   }
   
   #add NA (i.e point) and order
@@ -86,8 +86,17 @@ ensemble <- function(name, train = train_array, true = true_values, quantiles = 
   ))
   setorder(weights, ensemble, quantile, model)
   
+  # make ensemble forecast
+  forecast <- copy(forecasts)[weights, on = c("quantile", "model")]
+  forecast <- forecast[, value := value * weight]
+  forecast <- forecast[, .(value = sum(value)), by = setdiff(colnames(forecast), c("model", "value", "weight"))]
+  forecast <- forecast[, model := ensemble][, ensemble := NULL]
+  setorder(forecast, forecast_date, location, target_end_date, type)
+  
+  # return output
   out <- list()
   out$weights <- weights
+  out$forecast <- forecast
   return(out)
 }
 
@@ -114,7 +123,20 @@ inverse_counts <- ensemble(name = "QRA (inverse weighted counts)", fit_args = li
 inverse_weighted <- ensemble(name = "QRA (weighted counts and quantiles)", 
                              fit_args = list(tau_groups = weighted_tau, weights = weights))
 
+
+#combine QRA weights and forecasts
+weights <- rbindlist(list(overall$weights,
+                          weighted_ci$weights,
+                          inverse_weighted$weights), use.names = TRUE)
+
+forecasts <- rbindlist(list(overall$forecast,
+                            weighted_ci$forecast,
+                            inverse_weighted$forecast))
+
 # Save ensembles ----------------------------------------------------------
+
+
+
 ensembles <- rbindlist(list(mean, median))
 fwrite(ensembles, here("ensembles", "data", "weighted", paste0(target_date, ".csv")))
 
