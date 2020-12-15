@@ -58,27 +58,62 @@ tau <- as.numeric(colnames(train_array[[1]]))
 train_array <- map(train_array, as.matrix)
 train_array <- combine_into_array(train_array)
 
-# Make ensembles ----------------------------------------------------------
-# simple ensemble over all time
-overall <- quantile_ensemble(train_array, true_values, tau)
 
-# construction CI weighting
+# Define generic QRA ------------------------------------------------------
+ensemble <- function(name, train = train_array, true = true_values, quantiles = tau, 
+                     models = unique(train_forecasts$model), fit_args = NULL,
+                     forecast) {
+  # fit QRA
+  fit <- do.call(quantile_ensemble, 
+                 c(list(qarr = train, y = true, tau = quantiles), fit_args))
+  # extract weights
+  weights <- data.table(ensemble = name, model = models, weight = round(fit$alpha, 3))
+  
+  # allocate weights depending on if by quantile or not
+  if (length(fit$alpha) == length(models)) {
+    weights <- weights[, quantile := list(tau)]
+    weights <- weights[, .(quantile = unlist(quantile)), by = setdiff(colnames(weights), "quantile")]
+  }else{
+    weights <- melt(weights, id.vars = c("ensemble", "model"), variable.name = "quantile",
+                    value.name = "weight")
+    weights <- weights[, quantile := str_remove_all(quantile, "weight.")]
+  }
+  
+  #add NA (i.e point) and order
+  weights <- rbindlist(list(
+    weights, 
+    copy(weights)[quantile == 0.5][, quantile := NA]
+  ))
+  setorder(weights, ensemble, quantile, model)
+  
+  out <- list()
+  out$weights <- weights
+  return(out)
+}
+
+# Generate QRAs -----------------------------------------------------------
+# overall
+overall <- ensemble(name = "QRA")
+
+# CI weighted
 weighted_tau <- fcase(tau >= 0.4 & tau <= 0.6, 1,
                       tau >= 0.2 & tau < 0.4, 2,
                       tau < 0.2, 3,
                       tau > 0.6 & tau <= 0.8, 4,
                       tau > 0.8, 5)
-weighted_ci <- quantile_ensemble(train_array, true_values, tau,
-                                 tau_groups = weighted_tau)
+weighted_ci <- ensemble(name = "QRA (weighted quantiles)", fit_args = list(tau_groups = weighted_tau))
 
-# inverse weight counts (assigning zero weight to 0 counts to avoid infinity)
+# inverse weighted counts (assigning zero weight to 0 counts to avoid infinity)
 weights <- 1 / true_values
 weights <- ifelse(is.infinite(weights), 0, weights)
 weights <- weights / max(weights)
 
-inverse_counts <- quantile_ensemble(train_array, true_values, tau,
-                                       weights = weights,
-                                       tau_groups = weighted_tau)
+inverse_counts <- ensemble(name = "QRA (inverse weighted counts)", fit_args = list(weights = weights))
+
+# inverse weighted and weighted quantiles
+inverse_weighted <- ensemble(name = "QRA (weighted counts and quantiles)", 
+                             fit_args = list(tau_groups = weighted_tau, weights = weights))
+
 # Save ensembles ----------------------------------------------------------
 ensembles <- rbindlist(list(mean, median))
 fwrite(ensembles, here("ensembles", "data", "weighted", paste0(target_date, ".csv")))
