@@ -13,21 +13,21 @@ source(here::here("utils", "get-us-data.R"))
 source(here::here("models", "timeseries", "utils", "deaths-on-cases-forecast.R"))
 
 # Get data
-deaths_state <- get_us_deaths(data = "daily")
+deaths_state <- get_us_deaths(data = "daily") %>% 
+  filter(date <= forecast_date)
+
 deaths_national <- deaths_state %>%
-  filter(date <= forecast_date) %>% 
   group_by(date) %>%
   summarise(deaths = sum(deaths), .groups = "drop_last") %>%
   mutate(state = "US")
 
-cases_state <- get_us_cases(data = "daily")
+cases_state <- get_us_cases(data = "daily") %>% 
+  filter(date <= forecast_date)
+
 cases_national <- cases_state %>%
-  filter(date <= forecast_date) %>% 
   group_by(date) %>%
   summarise(cases = sum(cases), .groups = "drop_last") %>%
   mutate(state = "US")
-
-# Set forecast parameters -------------------------------------------------
 
 # Forecast with case regressor --------------------------------------------
 # State forecast
