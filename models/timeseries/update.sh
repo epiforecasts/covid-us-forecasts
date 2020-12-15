@@ -1,4 +1,4 @@
-# Update time series models -----------------------------------------------
+#!bin/bash
 
-source(here::here("timeseries-forecast", "update-timeseries.R"))
-source(here::here("timeseries-forecast", "run-format-timeseries.R"))
+# update  timeseries forecast
+Rscript models/timeseries/update-timeseries.R
