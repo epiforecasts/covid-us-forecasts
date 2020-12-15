@@ -9,7 +9,7 @@ library(ggplot2, quietly = TRUE)
 library(purrr, quietly = TRUE)
 
 # Set target date ---------------------------------------------------------
-target_date <- as.character(Sys.Date()) 
+target_date <- readRDS(here("data", "target_date.rds")) 
 
 # Get Observations --------------------------------------------------------
 # assumes no missing data (either explicit or implicit)

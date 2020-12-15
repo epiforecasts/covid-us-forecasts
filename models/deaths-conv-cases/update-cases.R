@@ -7,7 +7,7 @@ library(lubridate, quietly = TRUE)
 library(purrr, quietly = TRUE)
 
 # Set target date ---------------------------------------------------------
-target_date <- as.character(Sys.Date()) 
+target_date <- readRDS(here("data", "target_date.rds"))
 
 # Update delays -----------------------------------------------------------
 generation_time <- readRDS(here("models", "deaths-conv-cases", "data", "delays", "generation_time.rds"))

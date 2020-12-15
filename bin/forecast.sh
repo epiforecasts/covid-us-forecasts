@@ -1,16 +1,13 @@
 #!bin/bash
 
+# Update target to today
+Rscript -e 'source("utils/update_target.R"); update_target()'
+
 # Update packages
 Rscript -e 'devtools::install_dev_deps()'
 
-# Update models
-bash models/update.sh
-
-# Update ensemble
-bash ensembles/update.sh
-
-# Update evaluation
-bash evaluation/update.sh
+# Update for given target
+bash bin/update-for-target-date.sh
 
 # Finalise submission
 Rscript submission/finalise.R

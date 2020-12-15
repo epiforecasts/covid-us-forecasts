@@ -6,7 +6,7 @@ library(here)
 library(data.table)
 
 # Dates -------------------------------------------------------------------
-target_date <- Sys.Date()
+target_date <- readRDS(here("data", "target_date.rds"))
 
 # Get forecasts -----------------------------------------------------------
 forecast <- suppressWarnings(

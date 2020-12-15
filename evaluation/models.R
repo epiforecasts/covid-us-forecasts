@@ -6,7 +6,7 @@ library(purrr)
 library(cowplot)
 
 # Target date -------------------------------------------------------------
-target_date <- Sys.Date()
+target_date <- readRDS(here("data", "target_date.rds"))
 
 # Load observations -------------------------------------------------------
 source(here("utils", "load_observations.R"))

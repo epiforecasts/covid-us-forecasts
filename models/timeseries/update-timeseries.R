@@ -6,7 +6,7 @@ library(here)
 library(data.table)
 
 # forecast date -----------------------------------------------------------
-forecast_date <- Sys.Date()
+forecast_date <- readRDS(here("data", "target_date.rds"))
 
 # Set up functions and data -----------------------------------------------
 source(here::here("utils", "get-us-data.R"))
