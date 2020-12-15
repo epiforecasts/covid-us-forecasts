@@ -3,7 +3,7 @@ library(data.table)
 library(here)
 
 # Target date -------------------------------------------------------------
-target_date <- readRDS(here("data", "target_date.rds"))
+target_date <- as.Date(readRDS(here("data", "target_date.rds")))
 
 # Load models -------------------------------------------------------------
 source(here("utils", "load_submissions.R"))

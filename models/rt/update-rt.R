@@ -7,7 +7,7 @@ library(lubridate, quietly = TRUE)
 library(purrr, quietly = TRUE)
 
 # Set target date ---------------------------------------------------------
-target_date <- readRDS(here("data", "target_date.rds")) 
+target_date <- readRDS(here("data", "target_date.rds"))
 
 # Update delays -----------------------------------------------------------
 generation_time <- readRDS(here("models", "rt", "data", "delays", "generation_time.rds"))
