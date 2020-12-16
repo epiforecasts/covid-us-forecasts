@@ -35,7 +35,8 @@ Imports:
     Rglpk,
     quantgen,
     tigris,
-    scoringutils
+    scoringutils,
+    lubridate
 Remotes:
     epiforecasts/EpiNow2,
     epiforecasts/scoringutils,

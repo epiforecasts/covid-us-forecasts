@@ -1,8 +1,11 @@
 # Forecasting Covid-19 in the US
 
+## 2020-12-16
 
-
-## 2020-12-14
+* Code refactor and review.
+* Timeseries updated to be daily.
+* Reimplementation of ensembling and extension to a grid of options.
+* Cumulative forecast now only calculated at forecast submission.
 
 ## 2020-07-11
 

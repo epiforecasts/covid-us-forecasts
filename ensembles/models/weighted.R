@@ -9,12 +9,11 @@ library(future)
 library(future.apply)
 
 # Target date -------------------------------------------------------------
-#target_date <- as.Date(readRDS(here("data", "target_date.rds")))
+target_date <- as.Date(readRDS(here("data", "target_date.rds")))
 target_date <- as.Date("2020-08-10")
-
 # Training ----------------------------------------------------------------
 train_windows <- c(2, 4, 8, 12)
-train_horizons <- list(1:4, 1, 2, 3 ,4)
+train_horizons <- list(1:4, 1, 2, 4)
 
 # Observations ------------------------------------------------------------
 # requires Rt model to have been fit for this period
@@ -35,7 +34,7 @@ train_forecasts <- copy(forecasts)[!(location %in% "US")]
 
 # Run Ensemble grids ------------------------------------------------------
 # get ensemble tools
-source(here("ensembles", "models", "utils", "weighted-tools.R"))
+source(here("ensembles", "utils", "weighted-tools.R"))
 
 # define grid
 ensembles <- expand.grid(windows = train_windows, horizons = train_horizons)
