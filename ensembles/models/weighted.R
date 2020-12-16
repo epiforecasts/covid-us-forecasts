@@ -8,10 +8,10 @@ library(lubridate)
 
 # Target date -------------------------------------------------------------
 #target_date <- as.Date(readRDS(here("data", "target_date.rds")))
-target_date <- as.Date("2020-12-14")
+target_date <- as.Date("2020-08-10")
 
 # Training ----------------------------------------------------------------
-train_window <- 4
+train_windows <- c(2, 4, 8)
 
 source(here("utils", "load_observations.R"))
 obs <- load_observations(target_date)
@@ -22,19 +22,21 @@ obs <- obs[!(location %in% "US")]
 forecasts <- list.files(here("submissions", "all-models"))
 forecasts <- map(forecasts, ~ fread(here("submissions", "all-models", .)))
 forecasts <- rbindlist(forecasts)[grepl("inc", target)]
-forecasts <- forecasts[!(model %in% "Timeseries")]
 
 # get current forecast
-current_forecast <- forecasts[forecast_date == target_date]
+current_forecasts <- forecasts[forecast_date == target_date]
+# exclude US from training
+train_forecasts <- copy(forecasts)[!(location %in% "US")]
+
+# Run Ensemble grids ------------------------------------------------------
+source(here("ensembles", "models", "utils", "weighted-tools.R"))
+ensembles <- ensemble_grid(train_forecasts, obs, target_date, train_window = 6, 
+                           train_horizons = 2, current_forecasts)
+
 
 # get forecasts for training
 train_forecasts <- forecasts[forecast_date < target_date & forecast_date >= (target_date - weeks(train_window))]
 train_forecasts <- train_forecasts[!(location %in% "US")]
-
-# throw error if not enough training forecasts for specified window
-if (length(unique(train_forecasts$forecast_date)) != train_window) {
- stop("Insufficient training data for specified window") 
-}
 
 # Munge training ----------------------------------------------------------
 train_forecasts <- train_forecasts[, c("submission_date", "target", "type") := NULL]
@@ -60,45 +62,7 @@ train_array <- combine_into_array(train_array)
 
 
 # Define generic QRA ------------------------------------------------------
-ensemble <- function(name, train = train_array, true = true_values, quantiles = tau, 
-                     models = unique(train_forecasts$model), fit_args = NULL,
-                     forecasts = current_forecast) {
-  # fit QRA
-  fit <- do.call(quantile_ensemble, 
-                 c(list(qarr = train, y = true, tau = quantiles), fit_args))
-  # extract weights
-  weights <- data.table(ensemble = name, model = models, weight = round(fit$alpha, 3))
-  
-  # allocate weights depending on if by quantile or not
-  if (length(fit$alpha) == length(models)) {
-    weights <- weights[, quantile := list(tau)]
-    weights <- weights[, .(quantile = unlist(quantile)), by = setdiff(colnames(weights), "quantile")]
-  }else{
-    weights <- melt(weights, id.vars = c("ensemble", "model"), variable.name = "quantile",
-                    value.name = "weight")
-    weights <- weights[, quantile := as.numeric(str_remove_all(quantile, "weight."))]
-  }
-  
-  #add NA (i.e point) and order
-  weights <- rbindlist(list(
-    weights, 
-    copy(weights)[quantile == 0.5][, quantile := NA]
-  ))
-  setorder(weights, ensemble, quantile, model)
-  
-  # make ensemble forecast
-  forecast <- copy(forecasts)[weights, on = c("quantile", "model")]
-  forecast <- forecast[, value := value * weight]
-  forecast <- forecast[, .(value = sum(value)), by = setdiff(colnames(forecast), c("model", "value", "weight"))]
-  forecast <- forecast[, model := ensemble][, ensemble := NULL]
-  setorder(forecast, forecast_date, location, target_end_date, type)
-  
-  # return output
-  out <- list()
-  out$weights <- weights
-  out$forecast <- forecast
-  return(out)
-}
+
 
 # Generate QRAs -----------------------------------------------------------
 # overall

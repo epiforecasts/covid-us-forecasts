@@ -6,7 +6,7 @@ library(here)
 source(here("utils", "update_target.R"))
 
 # Set up historic generator -----------------------------------------------
-dates <- as.character(as.Date("2020-12-14") - 7*32:1)
+dates <- as.character(as.Date("2020-06-22") - 7*7:0)
 dates <- rev(dates)
 
 for (date in dates) {
