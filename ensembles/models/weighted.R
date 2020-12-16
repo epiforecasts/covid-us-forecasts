@@ -10,7 +10,7 @@ library(future.apply)
 
 # Target date -------------------------------------------------------------
 target_date <- as.Date(readRDS(here("data", "target_date.rds")))
-target_date <- as.Date("2020-08-10")
+
 # Training ----------------------------------------------------------------
 train_windows <- c(2, 4, 8, 12)
 train_horizons <- list(1:4, 1, 2, 4)

@@ -22,7 +22,7 @@ For an end-to-end run:
 - A properly formatted csv, ready to be submitted to the Reich forecast hub, will be saved in 
   - `submissions/submitted/yyyy-mm-dd-epiforecasts-ensemble1.csv`
 
-Note that the final submission file is mean ensemble by default. To check or change this:
+Note that the final submission file is a QRA ensemble with weighted quantiles by default. To check or change this:
   - Open `submissions/finalise.R`
   - Set global variables:
     - alter line 12 to filter for a different model.

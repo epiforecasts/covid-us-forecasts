@@ -9,7 +9,7 @@ target_date <- as.Date(readRDS(here("data", "target_date.rds")))
 
 # Choose submission -------------------------------------------------------
 submission <- fread(here("submissions", "ensembles", paste0(target_date, ".csv")))
-submission <- submission[model == "mean"]
+submission <- submission[model == "QRA (weighted quantiles)"]
 
 # Convert -----------------------------------------------------------------
 submission <- submission[, model := NULL]
