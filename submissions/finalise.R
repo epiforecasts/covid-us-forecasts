@@ -6,7 +6,7 @@ library(stringr)
 
 # Target date -------------------------------------------------------------
 target_date <- as.Date(readRDS(here("data", "target_date.rds")))
-target_date <- as.Date("2020-12-14")
+
 # Choose submission -------------------------------------------------------
 submission <- fread(here("submissions", "ensembles", paste0(target_date, ".csv")))
 submission <- submission[model == "mean"]
@@ -35,10 +35,8 @@ cum_submission <- copy(submission)[cumulative, on = "location"]
 cum_submission <- cum_submission[, `:=`(value = value + deaths,
                                         target = str_replace_all(target, " inc ", " cum "),
                                         deaths = NULL)]
-
 # link inc and cum submissions
 submission <- rbindlist(list(submission, cum_submission))
-# Check  ------------------------------------------------------------------
 
 # Save submission ---------------------------------------------------------
 fwrite(submission, here("submissions", "submitted",

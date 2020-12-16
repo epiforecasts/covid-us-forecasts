@@ -5,9 +5,9 @@ This repository is set up to contribute to the [Covid-19 Forecast Hub](https://g
 ## Models
 
 We use an ensemble of models to forecast deaths from Covid-19 in US states. These include:
-- Rt estimation: `models/rt`
-- Deaths as a convolution of cases (using an Rt method to forecast cases): `models/deaths-conv-cases`
-- Time-series: `models/timeseries`
+- Rt estimation (`EpiNow2`): `models/rt`
+- Deaths as a convolution of cases (`EpiNow2`): `models/deaths-conv-cases`
+- A mean ensemble of time series approaches: `models/timeseries`
 
 These models are then ensembled using quantile regression averaging over a range of horizons and training windows. The final submission is then selected using proper scoring rules from `scoringutils`.
 
@@ -19,8 +19,8 @@ For national and sub-national Rt estimates and forecasts in other countries, see
 
 LSHTM, Centre for Mathematical Modelling of Infectious Disease:
 - Sam Abbott (@seabbs)
-- Sophie Meakin (@sophiemeakin)
 - Kath Sherratt (@kathsherratt)
 - Nikos Bosse (@nikosbosse)
+- Sophie Meakin (@sophiemeakin)
 - Sebastian Funk (@sbfnk) and [Epiforecasts](https://github.com/epiforecasts) team
 

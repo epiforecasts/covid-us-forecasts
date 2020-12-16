@@ -14,13 +14,14 @@
 extract_training_data <- function(forecasts, obs, target_date, train_window, train_horizons) {
   # null variables to stop global error
   ... <- NULL;
-  
+   
   # get time window to train on
   forecasts <- as.data.table(forecasts)
   train_forecasts <- forecasts[forecast_date < target_date & forecast_date >= (target_date - weeks(train_window))]
   # get horizons of interest
-  train_forecasts <- forecasts[map_lgl(transpose(map(train_horizons, ~ grepl(., target))), ~ any(as.logical(.)))]
-  
+  target_horizons <- paste(train_horizons, collapse = " | ")
+  train_forecasts <- train_forecasts[grepl(target_horizons, target)]
+   
   # checks 
   if (nrow(train_forecasts) == 0) {
     stop("No training data")
@@ -169,12 +170,12 @@ ensemble_grid <- function(train_forecasts, obs, target_date, train_window, train
   weights <- rbindlist(list(overall$weights,
                             weighted_ci$weights,
                             inverse_weighted$weights), use.names = TRUE)
-  weights <- weights[, `:=`(window = train_window, horizons = list(train_horizons))]
+  weights <- weights[, `:=`(window = train_window, horizons = paste(train_horizons, collapse = ", "))]
   
   forecasts <- rbindlist(list(overall$forecast,
                               weighted_ci$forecast,
                               inverse_weighted$forecast))
-  forecasts <- forecasts[, `:=`(window = train_window, horizons = as.character(train_horizons))]
+  forecasts <- forecasts[, `:=`(window = train_window, horizons = paste(train_horizons, collapse = ", "))]
   
   # return output
   out <- list()
@@ -195,7 +196,7 @@ ensemble_grid <- function(train_forecasts, obs, target_date, train_window, train
 #' @export
 run_ensemble_grid <- function(i,train_forecasts, obs, 
                               target_date, forecasts) {
-  out <- ensemble_grid(train_window = i$windows, train_horizons = i$horizons, 
+  out <- ensemble_grid(train_window = i$windows[[1]], train_horizons = i$horizons[[1]], 
                        train_forecasts = train_forecasts, obs = obs, 
                        target_date = target_date, forecasts = forecasts)
   return(out)

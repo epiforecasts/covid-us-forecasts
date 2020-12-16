@@ -23,6 +23,7 @@ obs <- obs[,.(location, target_end_date = date, value)]
 obs <- obs[!(location %in% "US")]
 
 # Load models -------------------------------------------------------------
+# load all single model forecasts
 forecasts <- list.files(here("submissions", "all-models"))
 forecasts <- map(forecasts, ~ fread(here("submissions", "all-models", .)))
 forecasts <- rbindlist(forecasts)[grepl("inc", target)]
@@ -51,7 +52,8 @@ ensembles <- future_lapply(split(ensembles, by = "id"), run_ensemble_grid,
                            future.globals = c("ensemble_grid", "extract_training_data",
                                               "ensemble"),
                            future.packages = c("data.table", "lubridate", "quantgen",
-                                               "purrr", "stringr"))
+                                               "purrr", "stringr"),
+                           future.seed = TRUE)
 plan("sequential")
 
 # organise output

@@ -13,13 +13,18 @@ source(here("utils", "load_observations.R"))
 obs <- load_observations(target_date)
 # Load models -------------------------------------------------------------
 source(here("utils", "load_submissions.R"))
-forecasts <- load_submissions(target_date, "ensembles", summarise = TRUE)
+forecasts <- load_submissions(target_date, "ensembles", summarise = FALSE)
 
 # Plot forecasts ----------------------------------------------------------
 source(here("evaluation", "utils", "plot_forecast.R"))
+source(here("evaluation", "utils", "summarise_submissions.R"))
+
+# forecasts to plot
+plotted_forecasts <- copy(forecasts)[(window == 4 & horizons == "1, 2, 3, 4") | (is.na(window) & horizons == "")]
+plotted_forecasts <- summarise_submissions(plotted_forecasts)
 
 # plot usa 
-us <- plot_forecast(forecasts[state == "US"], 
+us <- plot_forecast(plotted_forecasts[state == "US"], 
                     obs[state == "US" & date < target_date & date > (target_date - 7*6)])
 
 source(here("utils", "check_dir.R"))
@@ -28,6 +33,6 @@ check_dir(plot_dir)
 ggsave(paste0(plot_dir, "/us.png"), us, height = 7, width = 7)
 
 # plot states
-states <- plot_forecast(forecasts[state != "US"], 
+states <- plot_forecast(plotted_forecasts[state != "US"], 
                         obs[state != "US" & date < target_date & date > (target_date - 7*6)])
 ggsave(paste0(plot_dir, "/states.png"), states, height = 48, width = 48)

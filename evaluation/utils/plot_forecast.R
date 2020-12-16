@@ -8,8 +8,8 @@ plot_forecast <- function(forecasts, obs) {
     geom_line(data = obs, aes(y = value, fill = NULL), col = "black") +
     geom_point(aes(y = value)) +
     geom_line(aes(y = value)) +
-    geom_ribbon(aes(ymin = `0.025`, ymax = `0.975`), color = NA, alpha = 0.2) +
-    geom_ribbon(aes(ymin = `0.25`, ymax = `0.75`), color = NA, alpha = 0.2) +
+    geom_ribbon(aes(ymin = `0.025`, ymax = `0.975`), color = NA, alpha = 0.1) +
+    geom_ribbon(aes(ymin = `0.25`, ymax = `0.75`), color = NA, alpha = 0.1) +
     scale_fill_brewer(palette = "Dark2") +
     scale_color_brewer(palette = "Dark2") + 
     facet_wrap(.~ state, scales = "free_y") +

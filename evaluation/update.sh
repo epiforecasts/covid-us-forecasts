@@ -1,5 +1,7 @@
 #!bin/bash
 
-# update rt deaths forecast
+# update single model evaluation
 Rscript evaluation/models.R
 
+# update ensemble evaluation
+Rscript evaluation/ensembles.R
