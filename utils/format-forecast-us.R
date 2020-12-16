@@ -54,7 +54,7 @@ format_forecast_us <- function(forecasts, shrink_per = 0,
   data.table::setorder(forecasts_format, location, horizon, quantile)
        
   # drop unnecessary columns
-  forecasts_format <- forecasts_format[, !c("horizon", "target_value", "epiweek", "state")]
+  forecasts_format <- forecasts_format[, !c("horizon", "epiweek", "state")]
   
    # Set column order
   forecasts_format <- data.table::setcolorder(forecasts_format,
