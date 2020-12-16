@@ -49,6 +49,7 @@ plan("multisession", earlySignal = TRUE)
 ensembles <- future_lapply(split(ensembles, by = "id"), run_ensemble_grid,
                            train_forecasts = train_forecasts, obs = obs, 
                            target_date = target_date, forecasts = current_forecasts,
+                           verbose = FALSE,
                            future.globals = c("ensemble_grid", "extract_training_data",
                                               "ensemble"),
                            future.packages = c("data.table", "lubridate", "quantgen",

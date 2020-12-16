@@ -122,14 +122,19 @@ ensemble <- function(name, train, true, quantiles, fit_args = NULL,
 #' @param target_date 
 #' @param train_window 
 #' @param forecasts 
+#' @param verbose
 #' @import data.table
 #' @return
 #' @export
-ensemble_grid <- function(train_forecasts, obs, target_date, train_window, train_horizons, forecasts){
+ensemble_grid <- function(train_forecasts, obs, target_date, train_window,
+                          train_horizons, forecasts, verbose = TRUE){
   
   # extract training data
-  message(sprintf("Generating training data with a window of %s and the following horizons: %s",
-                  train_window, paste(train_horizons, collapse = ", ")))
+  if (verbose) {
+    message(sprintf("Generating training data with a window of %s and the following horizons: %s",
+                    train_window, paste(train_horizons, collapse = ", ")))
+  }
+
   train_data <- extract_training_data(train_forecasts, obs, target_date, train_window, train_horizons)
   
   # define ensemble with inputs
@@ -140,11 +145,15 @@ ensemble_grid <- function(train_forecasts, obs, target_date, train_window, train
   }
   
   # overall
-  message("Fitting overall ensemble")
+  if (verbose) {
+    message("Fitting overall ensemble")
+  }
   overall <- def_ensemble(name = "QRA")
    
   # CI weighted
-  message("Fitting weighted CI ensemble")
+  if (verbose) {
+    message("Fitting weighted CI ensemble")
+  }
   tau <- train_data$tau
   weighted_tau <- fcase(tau >= 0.4 & tau <= 0.6, 1,
                         tau >= 0.2 & tau < 0.4, 2,
@@ -154,19 +163,25 @@ ensemble_grid <- function(train_forecasts, obs, target_date, train_window, train
   weighted_ci <- def_ensemble(name = "QRA (weighted quantiles)", fit_args = list(tau_groups = weighted_tau))
    
   # inverse weighted counts (assigning zero weight to 0 counts to avoid infinity)
-  message("Fitting inverse counts ensemble")
+  if (verbose) {
+    message("Fitting inverse counts ensemble")
+  }
   weights <- 1 / train_data$true
   weights <- ifelse(is.infinite(weights), 0, weights)
   weights <- weights / max(weights)
   
   inverse_counts <- def_ensemble(name = "QRA (inverse weighted counts)", fit_args = list(weights = weights))
-  message("Fitting inverse counts weighted CI ensemble")
+  if (verbose) {
+    message("Fitting inverse counts weighted CI ensemble")
+  }
   # inverse weighted and weighted quantiles
   inverse_weighted <- def_ensemble(name = "QRA (weighted counts and quantiles)", 
                                    fit_args = list(tau_groups = weighted_tau, weights = weights))
   
   #combine QRA weights and forecasts
-  message("Returning combined output")
+  if (verbose) {
+    message("Returning combined output")
+  }
   weights <- rbindlist(list(overall$weights,
                             weighted_ci$weights,
                             inverse_weighted$weights), use.names = TRUE)
@@ -192,12 +207,15 @@ ensemble_grid <- function(train_forecasts, obs, target_date, train_window, train
 #' @param obs 
 #' @param target_date 
 #' @param forecasts 
+#' @param verbose
 #' @return
 #' @export
 run_ensemble_grid <- function(i,train_forecasts, obs, 
-                              target_date, forecasts) {
+                              target_date, forecasts,
+                              verbose) {
   out <- ensemble_grid(train_window = i$windows[[1]], train_horizons = i$horizons[[1]], 
                        train_forecasts = train_forecasts, obs = obs, 
-                       target_date = target_date, forecasts = forecasts)
+                       target_date = target_date, forecasts = forecasts,
+                       verbose = verbose)
   return(out)
 }
