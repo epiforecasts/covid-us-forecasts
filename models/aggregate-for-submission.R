@@ -7,7 +7,7 @@ forecast_date <- readRDS(here("data", "target_date.rds"))
 
 # Load target forecasts ---------------------------------------------------
 load_forecast <- function(model, date = forecast_date) {
-  fread(here("models",  model, "data", "submission", "dated", paste0(date, ".csv")))
+  fread(here("models",  model, "data", "submission", paste0(date, ".csv")))
 }
 
 rt <- load_forecast("rt")[, model := "Rt"]

@@ -25,7 +25,6 @@ formatted_forecasts <- format_forecast_us(forecasts = forecast,
 # Save submissions --------------------------------------------------------
 source(here("utils", "check_dir.R"))
 # write to disk
-dated_submission <- here("models", "rt", "data", "submission", "dated")
+dated_submission <- here("models", "rt", "data", "submission")
 check_dir(dated_submission)
-fwrite(formatted_forecasts, here("models", "rt", "data", "submission", "latest.csv"))
 fwrite(formatted_forecasts, paste0(dated_submission, "/", target_date, ".csv"))

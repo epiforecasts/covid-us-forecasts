@@ -52,6 +52,5 @@ formatted_forecasts <- format_forecast_us(forecasts = deaths_on_cases_forecast,
                                           submission_date = forecast_date,
                                           shrink_per = 0)
 
-dated_submission <- here("models", "timeseries", "data", "submission", "dated")
-fwrite(formatted_forecasts, here("models", "timeseries", "data", "submission", "latest.csv"))
+dated_submission <- here("models", "timeseries", "data", "submission")
 fwrite(formatted_forecasts, paste0(dated_submission, "/", forecast_date, ".csv"))

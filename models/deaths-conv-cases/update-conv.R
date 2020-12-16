@@ -87,7 +87,6 @@ formatted_forecasts <- format_forecast_us(forecasts = formatted_forecasts,
                                           forecast_date = target_date, 
                                           submission_date = target_date,
                                           shrink_per = 0)
-dated_submission <- here("models", "deaths-conv-cases", "data", "submission", "dated")
+dated_submission <- here("models", "deaths-conv-cases", "data", "submission")
 check_dir(dated_submission)
-fwrite(formatted_forecasts, here("models", "deaths-conv-cases", "data", "submission", "latest.csv"))
 fwrite(formatted_forecasts, paste0(dated_submission, "/", target_date, ".csv"))
