@@ -26,28 +26,11 @@ format_forecast_us <- function(forecasts, shrink_per = 0,
                                     by = .(epiweek, state)]
 
   # Take quantiles
-  weekly_forecasts_inc <- weekly_forecasts_inc[, 
+  weekly_forecasts <- weekly_forecasts_inc[, 
                             .(value = quantile(deaths, probs = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99), na.rm=T),
                              quantile = c(0.01, 0.025, seq(0.05, 0.95, by = 0.05), 0.975, 0.99), 
-                             target_end_date = max(target_end_date), target_value = "inc"), 
+                             target_end_date = max(target_end_date)), 
                          by = .(state, epiweek)][order(state, epiweek)]
-   
-  
-  # Add cumulative from last week
-  cumulative_state <- data.table(get_us_deaths(data = "cumulative"))
-  cumulative_state <- cumulative_state[date == forecast_date, 
-                                               .(state, deaths)]
-  cumulative_national <- cumulative_state[, .(deaths = sum(deaths), 
-                                              state = "US")]
-  cumulative <- rbind(cumulative_state, cumulative_national)
-  cumulative <- cumulative[state %chin% weekly_forecasts_inc$state]
-  
-  weekly_forecasts_cum <- weekly_forecasts_inc[cumulative, on = "state"]
-  weekly_forecasts_cum <- weekly_forecasts_cum[, `:=`(value = value + deaths,
-                                                      target_value = "cum",
-                                                      deaths = NULL)]
-  # Bind incident and cumulative
-  weekly_forecasts <- rbind(weekly_forecasts_inc, weekly_forecasts_cum)
    
   # Add necessary columns
   # dates and types
@@ -67,7 +50,7 @@ format_forecast_us <- function(forecasts, shrink_per = 0,
   # assign horizon
   forecasts_format <- forecasts_format[target_end_date > forecast_date]
   forecasts_format <- forecasts_format[, horizon := 1 + as.numeric(target_end_date - min(target_end_date)) / 7]
-  forecasts_format <- forecasts_format[, target := paste0(horizon, " wk ahead ", target_value, " death")]
+  forecasts_format <- forecasts_format[, target := paste0(horizon, " wk ahead inc death")]
   data.table::setorder(forecasts_format, location, horizon, quantile)
        
   # drop unnecessary columns

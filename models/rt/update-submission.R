@@ -20,7 +20,7 @@ setnames(forecast, c("cases", "region"), c("deaths", "state"))
 formatted_forecasts <- format_forecast_us(forecasts = forecast,
                                           forecast_date = target_date, 
                                           submission_date = target_date,
-                                          shrink_per = 0.2)
+                                          shrink_per = 0.1)
 
 # Save submissions --------------------------------------------------------
 source(here("utils", "check_dir.R"))

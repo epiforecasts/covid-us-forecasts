@@ -10,7 +10,7 @@ library(future.apply)
 
 # Target date -------------------------------------------------------------
 #target_date <- as.Date(readRDS(here("data", "target_date.rds")))
-target_date <- as.Date("2020-12-14")
+target_date <- as.Date("2020-08-10")
 
 # Training ----------------------------------------------------------------
 train_windows <- c(2, 4, 8, 12)
@@ -44,21 +44,19 @@ ensembles <- as.data.table(ensembles)[, id := 1:.N]
 # prune grid of impossible combinations
 ensembles <- ensembles[, min_horizon := map(horizons, min)][windows >= min_horizon]
 
-# define access
-run_ensemble_grid <- function(i, ...) {
-  out <- ensemble_grid(train_window = i$windows, train_horizons = i$horizons, ...)
-  return(out)
-}
 # set run grid in parallel
-plan("multisession", early)
+plan("multisession", earlySignal = TRUE)
 ensembles <- future_lapply(split(ensembles, by = "id"), run_ensemble_grid,
                            train_forecasts = train_forecasts, obs = obs, 
                            target_date = target_date, forecasts = current_forecasts,
-                           future.globals = FALSE)
+                           future.globals = c("ensemble_grid", "extract_training_data",
+                                              "ensemble"),
+                           future.packages = c("data.table", "lubridate", "quantgen",
+                                               "purrr", "stringr"))
 plan("sequential")
 
 # organise output
-ensembles <- tranpose(ensembles)
+ensembles <- transpose(ensembles)
 ensembles$weights <- rbindlist(ensembles$weights)
 ensembles$forecasts <- rbindlist(ensembles$forecasts)
 

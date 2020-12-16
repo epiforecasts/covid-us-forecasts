@@ -8,10 +8,15 @@
 #' @import data.table
 #' @import quantgen
 #' @import purrr
+#' @import weeks
 #' @return
 #' @export
 extract_training_data <- function(forecasts, obs, target_date, train_window, train_horizons) {
+  # null variables to stop global error
+  ... <- NULL;
+  
   # get time window to train on
+  forecasts <- as.data.table(forecasts)
   train_forecasts <- forecasts[forecast_date < target_date & forecast_date >= (target_date - weeks(train_window))]
   # get horizons of interest
   train_forecasts <- forecasts[map_lgl(transpose(map(train_horizons, ~ grepl(., target))), any)]
@@ -113,7 +118,7 @@ ensemble <- function(name, train, true, quantiles, fit_args = NULL,
 ensemble_grid <- function(train_forecasts, obs, target_date, train_window, train_horizons, forecasts){
   
   # extract training data
-  message(sprintf("Generating training data with a window %s and following horizons: %s",
+  message(sprintf("Generating training data with a window of %s and the following horizons: %s",
                   train_window, paste(train_horizons, collapse = ", ")))
   train_data <- extract_training_data(train_forecasts, obs, target_date, train_window, train_horizons)
   
@@ -160,11 +165,29 @@ ensemble_grid <- function(train_forecasts, obs, target_date, train_window, train
   forecasts <- rbindlist(list(overall$forecast,
                               weighted_ci$forecast,
                               inverse_weighted$forecast))
-  forecasts <- forecasts[, `:=`(window = train_window, horizons = list(train_horizons))]
+  forecasts <- forecasts[, `:=`(window = train_window, horizons = as.character(train_horizons))]
   
   # return output
   out <- list()
   out$weights <- weights
   out$forecasts <- forecasts
+  return(out)
+}
+
+
+#' Wrapper Compatible with future_lapply
+#'
+#' @param i 
+#' @param train_forecasts 
+#' @param obs 
+#' @param target_date 
+#' @param forecasts 
+#' @return
+#' @export
+run_ensemble_grid <- function(i,train_forecasts, obs, 
+                              target_date, forecasts) {
+  out <- ensemble_grid(train_window = i$windows, train_horizons = i$horizons, 
+                       train_forecasts = train_forecasts, obs = obs, 
+                       target_date = target_date, forecasts = forecasts)
   return(out)
 }
