@@ -9,10 +9,10 @@ Authors@R: c(
     person("Katharine", "Sherratt",
            email = "katharine.sherratt@lshtm.ac.uk",
            role = c("aut")),
+    person("Nikos", "Bosse",
+           role = c("aut")),
     person("Sophie", "Meakin",
            email = "sophie.meakin@lshtm.ac.uk",
-           role = c("aut")),
-    person("Nikos", "Bosse",
            role = c("aut")),
     person("Sebastian", "Funk",
             email = "sebastian.funk@lshtm.ac.uk",
@@ -35,7 +35,8 @@ Imports:
     Rglpk,
     quantgen,
     tigris,
-    scoringutils
+    scoringutils,
+    lubridate
 Remotes:
     epiforecasts/EpiNow2,
     epiforecasts/scoringutils,
