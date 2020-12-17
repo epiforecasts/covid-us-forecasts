@@ -1,7 +1,4 @@
-
 # System Maintenance Guide 
-
-
 
 ## Using Azure
 
