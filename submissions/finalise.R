@@ -28,7 +28,7 @@ cumulative <- rbind(cumulative_state, cumulative_national)
 state_codes <- readRDS(here("data", "state_codes.rds"))
 cumulative <- cumulative[state_codes, on = "state", nomatch = 0]
 cumulative <- cumulative[location %chin% submission$location]
-cumlative <- cumulative[, state := NULL]
+cumulative <- cumulative[, state := NULL]
 
 cum_submission <- copy(submission)[cumulative, on = "location"]
 cum_submission <- cum_submission[, `:=`(value = value + deaths,
