@@ -20,7 +20,7 @@ source(here("evaluation", "utils", "plot_forecast.R"))
 source(here("utils", "summarise_submissions.R"))
 
 # forecasts to plot
-plotted_forecasts <- copy(forecasts)[(window == 4 & horizons == "1, 2, 3, 4") | (is.na(window) & horizons == "")]
+plotted_forecasts <- copy(forecasts)[(window == 4 & horizons == "4") | (is.na(window) & horizons == "")]
 plotted_forecasts <- plotted_forecasts[model %in% c("mean", "median", "QRA (weighted quantiles)")]
 plotted_forecasts <- summarise_submissions(plotted_forecasts)
 

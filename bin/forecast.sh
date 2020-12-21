@@ -10,7 +10,7 @@ Rscript -e 'devtools::install_dev_deps()'
 bash bin/update-for-target-date.sh
 
 # Finalise submission
-Rscript submission/finalise.R
+Rscript submissions/finalise.R
 
 # Submit
 # See: https://github.com/reichlab/covid19-forecast-hub/blob/master/data-processed/README.md

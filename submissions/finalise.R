@@ -9,11 +9,10 @@ target_date <- as.Date(readRDS(here("data", "target_date.rds")))
 
 # Choose submission -------------------------------------------------------
 submission <- fread(here("submissions", "ensembles", paste0(target_date, ".csv")))
-submission <- submission[model == "QRA (weighted quantiles)"]
+submission <- submission[model == "mean"]
 
 # Convert -----------------------------------------------------------------
-submission <- submission[, model := NULL]
-submission <- submission[, submission_date := NULL]
+submission <- submission[, c("window", "model", "horizons", "submission_date") := NULL]
 
 # Add cumulative forecast -------------------------------------------------
 # get cumulative data
