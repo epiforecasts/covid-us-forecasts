@@ -37,6 +37,30 @@ cum_submission <- cum_submission[, `:=`(value = value + deaths,
 # link inc and cum submissions
 submission <- rbindlist(list(submission, cum_submission))
 
+# Checks ------------------------------------------------------------------
+# 1. Check population limit
+pop_check <- dplyr::left_join(submission, readr::read_csv("data/state_pop_totals.csv"), 
+                              by = c("location" = "state_code")) %>%
+  dplyr::mutate(pop_check = ifelse(value > tot_pop, FALSE, TRUE)) %>%
+  dplyr::filter(pop_check == FALSE) %>%
+  dplyr::pull(location) %>%
+  unique()
+# 2. Check for NA values
+na_check <- submission %>%
+  dplyr::filter(is.na(value)) %>%
+  dplyr::pull(location)
+
+# Filter failing checks 
+if ((length(na_check) | length(pop_check)) > 0) {
+  message("Excluding states failing checks:")
+  print(dplyr::filter(state_codes, location %in% c(pop_check, na_check)) %>%
+          dplyr::pull(state))
+}
+
+submission <- submission %>%
+  dplyr::filter(!location %in% pop_check & 
+                  !location %in% na_check)
+
 # Save submission ---------------------------------------------------------
 fwrite(submission, here("submissions", "submitted",
                         paste0(target_date, "-epiforecasts-ensemble1.csv")))
