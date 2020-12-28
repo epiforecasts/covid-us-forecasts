@@ -33,33 +33,37 @@ cumulative <- cumulative[, state := NULL]
 cum_submission <- copy(submission)[cumulative, on = "location"]
 cum_submission <- cum_submission[, `:=`(value = value + deaths,
                                         target = str_replace_all(target, " inc ", " cum "),
-                                        deaths = NULL)]
+                                        deaths = NULL)]  
 # link inc and cum submissions
 submission <- rbindlist(list(submission, cum_submission))
 
-# Checks ------------------------------------------------------------------
-# 1. Check population limit
-pop_check <- dplyr::left_join(submission, readr::read_csv("data/state_pop_totals.csv"), 
-                              by = c("location" = "state_code")) %>%
-  dplyr::mutate(pop_check = ifelse(value > tot_pop, FALSE, TRUE)) %>%
-  dplyr::filter(pop_check == FALSE) %>%
-  dplyr::pull(location) %>%
-  unique()
-# 2. Check for NA values
-na_check <- submission %>%
-  dplyr::filter(is.na(value)) %>%
-  dplyr::pull(location)
 
-# Filter failing checks 
-if ((length(na_check) | length(pop_check)) > 0) {
-  message("Excluding states failing checks:")
-  print(dplyr::filter(state_codes, location %in% c(pop_check, na_check)) %>%
-          dplyr::pull(state))
+# Checks ------------------------------------------------------------------
+# adjust to total population if greater than
+state_pop <- fread(here("data", "state_pop.csv"))
+state_pop <- state_pop[, .(location = state_code, pop = tot_pop)]
+submission <- merge(submission, state_pop, by = "location")
+submission <- submission[pop < value, `:=`(value = pop, value_exceeds_pop = 1)]
+
+if (sum(submission$value_exceeds_pop, na.rm = TRUE) > 0) {
+  warning("Forecast values exceed total population")
+  print(submission[value_exceeds_pop == 1])
+}
+submission[, value_exceeds_pop := NULL]
+
+
+# check for NAs
+na_submissions <- submission[is.na(value)]
+submission <- submission[!is.na(value)]
+if (nrow(na_submissions) > 0) {
+  warning("Forecast values are NA")
+  print(na_submissions)
 }
 
-submission <- submission %>%
-  dplyr::filter(!location %in% pop_check & 
-                  !location %in% na_check)
+# check for identically 0
+if (sum(submission$value) == 0) {
+  stop("Forecast is zero for all submission targets and values")
+}
 
 # Save submission ---------------------------------------------------------
 fwrite(submission, here("submissions", "submitted",
