@@ -9,7 +9,8 @@ target_date <- as.Date(readRDS(here("data", "target_date.rds")))
 
 # Choose submission -------------------------------------------------------
 submission <- fread(here("submissions", "ensembles", paste0(target_date, ".csv")))
-submission <- submission[model == "mean"]
+submission <- submission[(window == 8 & horizons == "4")]
+submission <- submission[model == "QRA (weighted quantiles)"]
 
 # Convert -----------------------------------------------------------------
 submission <- submission[, c("window", "model", "horizons", "submission_date") := NULL]
@@ -36,7 +37,6 @@ cum_submission <- cum_submission[, `:=`(value = value + deaths,
                                         deaths = NULL)]  
 # link inc and cum submissions
 submission <- rbindlist(list(submission, cum_submission))
-
 
 # Checks ------------------------------------------------------------------
 # adjust to total population if greater than
