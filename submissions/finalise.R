@@ -72,9 +72,6 @@ if (sum(submission$value) == 0) {
   stop("Forecast is zero for all submission targets and values")
 }
 
-# check forecasts are monotonic increasing
-
-
 # Save submission ---------------------------------------------------------
 fwrite(submission, here("submissions", "submitted",
                         paste0(target_date, "-epiforecasts-ensemble1.csv")))
