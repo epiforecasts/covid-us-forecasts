@@ -14,6 +14,7 @@
 
 For an end-to-end run:
 
+- Check your local version of the repository is up to date with `git pull`.
 - Run `bash/forecast.sh` from the terminal
 - Check the output by looking plots saved in the most recent folder: `evaluation/plots/yyyy-mm-dd`
 - A properly formatted csv, ready to be submitted to the Reich forecast hub, will be saved in 
