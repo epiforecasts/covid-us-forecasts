@@ -32,9 +32,16 @@ cumulative <- cumulative[location %chin% submission$location]
 cumulative <- cumulative[, state := NULL]
 
 cum_submission <- copy(submission)[cumulative, on = "location"]
-cum_submission <- cum_submission[, `:=`(value = value + deaths,
+
+# Make forecast values cumulative
+cum_submission <- cum_submission[, c("lag1", "lag2", "lag3") := shift(value, 1:3, fill = 0, type = "lag"), 
+                                 by = c("location", "type", "quantile")]  
+
+cum_submission <- cum_submission[, `:=`(value = value + lag1 + lag2 + lag3 + deaths,
                                         target = str_replace_all(target, " inc ", " cum "),
-                                        deaths = NULL)]  
+                                        deaths = NULL,
+                                        lag1 = NULL, lag2 = NULL, lag3 = NULL)]  
+
 # link inc and cum submissions
 submission <- rbindlist(list(submission, cum_submission))
 
@@ -64,6 +71,9 @@ if (nrow(na_submissions) > 0) {
 if (sum(submission$value) == 0) {
   stop("Forecast is zero for all submission targets and values")
 }
+
+# check forecasts are monotonic increasing
+
 
 # Save submission ---------------------------------------------------------
 fwrite(submission, here("submissions", "submitted",
