@@ -15,7 +15,7 @@
 For an end-to-end run:
 
 - Run `bash/forecast.sh` from the terminal
-- Check the output by looking plots saved in the most recent folder: `evaluation/plots/yyyy-mm-dd
+- Check the output by looking plots saved in the most recent folder: `evaluation/plots/yyyy-mm-dd`
 - A properly formatted csv, ready to be submitted to the Reich forecast hub, will be saved in 
   - `submissions/submitted/yyyy-mm-dd-epiforecasts-ensemble1.csv`
 
