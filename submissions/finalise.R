@@ -15,6 +15,33 @@ submission <- submission[model == "QRA (weighted quantiles)"]
 # Convert -----------------------------------------------------------------
 submission <- submission[, c("window", "model", "horizons", "submission_date") := NULL]
 
+# check non-crossing quantiles
+submission <- submission %>%
+  dplyr::group_by(target, location, type) %>%
+  dplyr::mutate(quantile_incr = ifelse(value <= lag(value), lag(value), value),
+                quantile_incr = ifelse(quantile_incr <= lag(quantile_incr), lag(quantile_incr), quantile_incr),
+                quantile_incr = ifelse(quantile_incr <= lag(quantile_incr), lag(quantile_incr), quantile_incr),
+                quantile_incr = ifelse(quantile_incr <= lag(quantile_incr), lag(quantile_incr), quantile_incr),
+                quantile_incr = ifelse(quantile_incr <= lag(quantile_incr), lag(quantile_incr), quantile_incr),
+                value = ifelse(is.na(quantile_incr), value, quantile_incr),
+                quantile_incr = NULL) %>%
+  dplyr::ungroup()
+
+# if there are still more than 5 quantiles that cross then maybe we discard ?!
+quantile_check <- submission %>%
+  dplyr::group_by(target, location, type) %>%
+  dplyr::mutate(increase = value - lag(value)) %>%
+  dplyr::filter(increase < 0) %>%
+  dplyr::pull(location) %>%
+  unique()
+
+submission <- submission %>%
+  dplyr::filter(!location %in% quantile_check)
+
+submission <- as.data.table(submission)
+
+
+
 # Add cumulative forecast -------------------------------------------------
 # get cumulative data
 source(here("utils", "get-us-data.R"))
@@ -45,6 +72,7 @@ cum_submission <- cum_submission[, `:=`(value = value + deaths,
 submission <- rbindlist(list(submission, cum_submission))
 
 # Checks ------------------------------------------------------------------
+
 # adjust to total population if greater than
 state_pop <- fread(here("data", "state_pop.csv"))
 state_pop <- state_pop[, .(location = state_code, pop = tot_pop)]
