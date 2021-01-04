@@ -34,13 +34,12 @@ cumulative <- cumulative[, state := NULL]
 cum_submission <- copy(submission)[cumulative, on = "location"]
 
 # Make forecast values cumulative
-cum_submission <- cum_submission[, c("lag1", "lag2", "lag3") := shift(value, 1:3, fill = 0, type = "lag"), 
+cum_submission <- cum_submission[, "value" := cumsum(value), 
                                  by = c("location", "type", "quantile")]  
 
-cum_submission <- cum_submission[, `:=`(value = value + lag1 + lag2 + lag3 + deaths,
+cum_submission <- cum_submission[, `:=`(value = value + deaths,
                                         target = str_replace_all(target, " inc ", " cum "),
-                                        deaths = NULL,
-                                        lag1 = NULL, lag2 = NULL, lag3 = NULL)]  
+                                        deaths = NULL)]  
 
 # link inc and cum submissions
 submission <- rbindlist(list(submission, cum_submission))
