@@ -30,7 +30,7 @@ Note that the final submission file is a QRA ensemble with weighted quantiles by
 
 ## Runtime
 
-Using the Epiforecasts azure VM (72 core), if `update.sh` runs perfectly then the runtime is typically 1-2 hours
+Using the Epiforecasts azure VM (72 core), if `bash/forecast.sh` runs perfectly then the runtime is typically 1-2 hours
 
 ## Debugging
 
