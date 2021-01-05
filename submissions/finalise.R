@@ -6,7 +6,7 @@ library(stringr)
 
 # Target date -------------------------------------------------------------
 target_date <- as.Date(readRDS(here("data", "target_date.rds"))) 
-
+  
 # Choose submission -------------------------------------------------------
 submission <- fread(here("submissions", "ensembles", paste0(target_date, ".csv")))
 submission <- submission[(window == 8 & horizons == "4")]
@@ -18,11 +18,11 @@ submission <- submission[, c("window", "model", "horizons", "submission_date") :
 # check non-crossing quantiles
 submission <- submission %>%
   dplyr::group_by(target, location, type) %>%
-  dplyr::mutate(quantile_incr = ifelse(value <= lag(value), lag(value), value),
-                quantile_incr = ifelse(quantile_incr <= lag(quantile_incr), lag(quantile_incr), quantile_incr),
-                quantile_incr = ifelse(quantile_incr <= lag(quantile_incr), lag(quantile_incr), quantile_incr),
-                quantile_incr = ifelse(quantile_incr <= lag(quantile_incr), lag(quantile_incr), quantile_incr),
-                quantile_incr = ifelse(quantile_incr <= lag(quantile_incr), lag(quantile_incr), quantile_incr),
+  dplyr::mutate(quantile_incr = ifelse(value <= dplyr::lag(value), dplyr::lag(value), value),
+                quantile_incr = ifelse(quantile_incr <= dplyr::lag(quantile_incr), dplyr::lag(quantile_incr), quantile_incr),
+                quantile_incr = ifelse(quantile_incr <= dplyr::lag(quantile_incr), dplyr::lag(quantile_incr), quantile_incr),
+                quantile_incr = ifelse(quantile_incr <= dplyr::lag(quantile_incr), dplyr::lag(quantile_incr), quantile_incr),
+                quantile_incr = ifelse(quantile_incr <= dplyr::lag(quantile_incr), dplyr::lag(quantile_incr), quantile_incr),
                 value = ifelse(is.na(quantile_incr), value, quantile_incr),
                 quantile_incr = NULL) %>%
   dplyr::ungroup()
@@ -30,7 +30,7 @@ submission <- submission %>%
 # if there are still more than 5 quantiles that cross then maybe we discard ?!
 quantile_check <- submission %>%
   dplyr::group_by(target, location, type) %>%
-  dplyr::mutate(increase = value - lag(value)) %>%
+  dplyr::mutate(increase = value - dplyr::lag(value)) %>%
   dplyr::filter(increase < 0) %>%
   dplyr::pull(location) %>%
   unique()
