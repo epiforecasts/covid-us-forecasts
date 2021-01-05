@@ -77,7 +77,7 @@ submission <- rbindlist(list(submission, cum_submission))
 state_pop <- fread(here("data", "state_pop.csv"))
 state_pop <- state_pop[, .(location = state_code, pop = tot_pop)]
 submission <- merge(submission, state_pop, by = "location")
-submission <- submission[pop < value, `:=`(value = pop, value_exceeds_pop = 1)]
+submission <- submission[pop < value, `:=`(value = pop - 1, value_exceeds_pop = 1)]
 
 if (sum(submission$value_exceeds_pop, na.rm = TRUE) > 0) {
   warning("Forecast values exceed total population")
