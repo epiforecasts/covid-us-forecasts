@@ -6,7 +6,7 @@ library(stringr)
 
 # Target date -------------------------------------------------------------
 target_date <- as.Date(readRDS(here("data", "target_date.rds"))) 
-
+  
 # Choose submission -------------------------------------------------------
 submission <- fread(here("submissions", "ensembles", paste0(target_date, ".csv")))
 submission <- submission[(window == 8 & horizons == "4")]
@@ -14,6 +14,33 @@ submission <- submission[model == "QRA (weighted quantiles)"]
 
 # Convert -----------------------------------------------------------------
 submission <- submission[, c("window", "model", "horizons", "submission_date") := NULL]
+
+# check non-crossing quantiles
+submission <- submission %>%
+  dplyr::group_by(target, location, type) %>%
+  dplyr::mutate(quantile_incr = ifelse(value <= dplyr::lag(value), dplyr::lag(value), value),
+                quantile_incr = ifelse(quantile_incr <= dplyr::lag(quantile_incr), dplyr::lag(quantile_incr), quantile_incr),
+                quantile_incr = ifelse(quantile_incr <= dplyr::lag(quantile_incr), dplyr::lag(quantile_incr), quantile_incr),
+                quantile_incr = ifelse(quantile_incr <= dplyr::lag(quantile_incr), dplyr::lag(quantile_incr), quantile_incr),
+                quantile_incr = ifelse(quantile_incr <= dplyr::lag(quantile_incr), dplyr::lag(quantile_incr), quantile_incr),
+                value = ifelse(is.na(quantile_incr), value, quantile_incr),
+                quantile_incr = NULL) %>%
+  dplyr::ungroup()
+
+# if there are still more than 5 quantiles that cross then maybe we discard ?!
+quantile_check <- submission %>%
+  dplyr::group_by(target, location, type) %>%
+  dplyr::mutate(increase = value - dplyr::lag(value)) %>%
+  dplyr::filter(increase < 0) %>%
+  dplyr::pull(location) %>%
+  unique()
+
+submission <- submission %>%
+  dplyr::filter(!location %in% quantile_check)
+
+submission <- as.data.table(submission)
+
+
 
 # Add cumulative forecast -------------------------------------------------
 # get cumulative data
@@ -45,11 +72,12 @@ cum_submission <- cum_submission[, `:=`(value = value + deaths,
 submission <- rbindlist(list(submission, cum_submission))
 
 # Checks ------------------------------------------------------------------
+
 # adjust to total population if greater than
 state_pop <- fread(here("data", "state_pop.csv"))
 state_pop <- state_pop[, .(location = state_code, pop = tot_pop)]
 submission <- merge(submission, state_pop, by = "location")
-submission <- submission[pop < value, `:=`(value = pop, value_exceeds_pop = 1)]
+submission <- submission[pop < value, `:=`(value = pop - 1, value_exceeds_pop = 1)]
 
 if (sum(submission$value_exceeds_pop, na.rm = TRUE) > 0) {
   warning("Forecast values exceed total population")
