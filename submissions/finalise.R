@@ -14,34 +14,29 @@ submission <- submission[model == "QRA (weighted quantiles)"]
 
 # Convert -----------------------------------------------------------------
 submission <- submission[, c("window", "model", "horizons", "submission_date") := NULL]
+submission <- submission[, value := as.integer(value)]
 
-# check non-crossing quantiles
-submission <- submission %>%
-  dplyr::group_by(target, location, type) %>%
-  dplyr::mutate(quantile_incr = ifelse(value <= dplyr::lag(value), dplyr::lag(value), value),
-                quantile_incr = ifelse(quantile_incr <= dplyr::lag(quantile_incr), dplyr::lag(quantile_incr), quantile_incr),
-                quantile_incr = ifelse(quantile_incr <= dplyr::lag(quantile_incr), dplyr::lag(quantile_incr), quantile_incr),
-                quantile_incr = ifelse(quantile_incr <= dplyr::lag(quantile_incr), dplyr::lag(quantile_incr), quantile_incr),
-                quantile_incr = ifelse(quantile_incr <= dplyr::lag(quantile_incr), dplyr::lag(quantile_incr), quantile_incr),
-                value = ifelse(is.na(quantile_incr), value, quantile_incr),
-                quantile_incr = NULL) %>%
-  dplyr::ungroup()
+# Check for crossing quantiles --------------------------------------------
+cross_submission <- copy(submission)[!is.na(quantile), .(quantile, value, crossing = value < shift(value, fill = 0)),
+                                     by = .(forecast_date, target, target_end_date, location, type)]
 
-# if there are still more than 5 quantiles that cross then maybe we discard ?!
-quantile_check <- submission %>%
-  dplyr::group_by(target, location, type) %>%
-  dplyr::mutate(increase = value - dplyr::lag(value)) %>%
-  dplyr::filter(increase < 0) %>%
-  dplyr::pull(location) %>%
-  unique()
+crossing_locations <- copy(cross_submission)[, .(crossing = as.numeric(sum(crossing))), by = .(location)]
+crossing_locations <- unique(crossing_locations[crossing > 0, ]$location)
 
-submission <- submission %>%
-  dplyr::filter(!location %in% quantile_check)
-
-submission <- as.data.table(submission)
-
-
-
+if (length(crossing_locations) > 0) {
+  warning("Following locations contain crossing quantiles (but will be corrected): ", paste(crossing_locations, collapse = ", "))
+  while (sum(cross_submission$crossing) > 0) {
+    cross_submission <- cross_submission[, value := ifelse(crossing, shift(value, fill = 0), value),
+                                         by = .(forecast_date, target, target_end_date, location, type)]
+    cross_submission <- cross_submission[, .(quantile, value, crossing = value < shift(value, fill = 0)),
+                                         by = .(forecast_date, target, target_end_date, location, type)]
+  }
+  cross_submission <- cross_submission[, crossing := NULL]
+  point_submission <- cross_submission[quantile == 0.5][, `:=`(type = "point", quantile = NA)]
+  submission <- rbindlist(list(point_submission, cross_submission))
+  setorder(submission, location, target, target_end_date, type)
+}
+  
 # Add cumulative forecast -------------------------------------------------
 # get cumulative data
 source(here("utils", "get-us-data.R"))
@@ -67,7 +62,6 @@ cum_submission <- cum_submission[, "value" := cumsum(value),
 cum_submission <- cum_submission[, `:=`(value = value + deaths,
                                         target = str_replace_all(target, " inc ", " cum "),
                                         deaths = NULL)]  
-
 # link inc and cum submissions
 submission <- rbindlist(list(submission, cum_submission))
 
@@ -83,8 +77,7 @@ if (sum(submission$value_exceeds_pop, na.rm = TRUE) > 0) {
   warning("Forecast values exceed total population")
   print(submission[value_exceeds_pop == 1])
 }
-submission[, value_exceeds_pop := NULL]
-submission[, pop := NULL]
+submission[, c("value_exceeds_pop", "pop") := NULL]
 
 # check for NAs
 na_submissions <- submission[is.na(value)]
@@ -98,7 +91,6 @@ if (nrow(na_submissions) > 0) {
 if (sum(submission$value) == 0) {
   stop("Forecast is zero for all submission targets and values")
 }
-
 # Save submission ---------------------------------------------------------
 fwrite(submission, here("submissions", "submitted",
                         paste0(target_date, "-epiforecasts-ensemble1.csv")))
