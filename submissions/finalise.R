@@ -56,7 +56,7 @@ if (sum(submission$value_exceeds_pop, na.rm = TRUE) > 0) {
   print(submission[value_exceeds_pop == 1])
 }
 submission[, value_exceeds_pop := NULL]
-
+submission[, pop := NULL]
 
 # check for NAs
 na_submissions <- submission[is.na(value)]
