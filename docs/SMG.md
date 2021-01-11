@@ -1,16 +1,6 @@
 # System Maintenance Guide 
 
-## Using Azure
-
-  - Log in to Azure portal and start [epiforecasts-general-purpose VM](https://portal.azure.com/#@epiforecastsoutlook.onmicrosoft.com/resource/subscriptions/2d9a656e-d2ff-4b55-9f35-99bddf874f1b/resourceGroups/epiforecasts-general-purpose/providers/Microsoft.Compute/virtualMachines/epiforecasts-general-purpose/overview)
-  - Connect to the azure VM over ssh, with IP 13.92.183.137 and given username and password
-  - Run: `sudo docker start epinow2`
-  - Open a local internet browser, navigate to http://13.92.183.137:8787/, and login with epinow2
-  - Use R Studio (checkout this repository, create forecasts as below)
-  - When finished, reopen the ssh terminal (logged in to azure VM) and run `sudo docker stop epinow2`
-  - Back in Azure portal, stop the VM
-
-## Create fresh forecasts
+## Create fresh forecasts manually
 
 For an end-to-end run:
 
@@ -30,7 +20,7 @@ Note that the final submission file is a QRA ensemble with weighted quantiles by
 
 ## Runtime
 
-Using the Epiforecasts azure VM (72 core), if `bash/forecast.sh` runs perfectly then the runtime is typically 1-2 hours
+Using the Epiforecasts azure VM (16 core), if `bash/forecast.sh` runs perfectly then the runtime is typically 1-2 hours
 
 ## Debugging
 
