@@ -41,8 +41,11 @@ national_deaths_on_cases_forecast <- deaths_on_cases_forecast(case_data = cases_
 deaths_on_cases_forecast <- rbindlist(list(national_deaths_on_cases_forecast, 
                                            state_deaths_on_cases_forecast))
 
-readr::write_csv(deaths_on_cases_forecast, here("models", "timeseries", "data", "samples",
-                                                paste0(forecast_date, ".csv")))
+samples_dir <- here("models", "timeseries", "data", "samples")
+if (!dir.exists(samples_dir)) {
+  dir.create(samples_dir, recursive = TRUE)
+}
+readr::write_csv(deaths_on_cases_forecast, file.path(samples_dir, paste0(forecast_date, ".csv")))
 
 # Save formatted timeseries -----------------------------------------------
 # save formatted forecasts 
@@ -52,5 +55,8 @@ formatted_forecasts <- format_forecast_us(forecasts = deaths_on_cases_forecast,
                                           submission_date = forecast_date,
                                           shrink_per = 0)
 
-dated_submission <- here("models", "timeseries", "data", "submission")
-fwrite(formatted_forecasts, paste0(dated_submission, "/", forecast_date, ".csv"))
+submission_dir <- here("models", "timeseries", "data", "submission")
+if (!dir.exists(submission_dir)) {
+  dir.create(submission_dir, recursive = TRUE)
+}
+fwrite(formatted_forecasts, paste0(submission_dir, "/", forecast_date, ".csv"))
