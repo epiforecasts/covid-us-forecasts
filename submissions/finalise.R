@@ -9,8 +9,8 @@ target_date <- as.Date(readRDS(here("data", "target_date.rds")))
   
 # Choose submission -------------------------------------------------------
 submission <- fread(here("submissions", "ensembles", paste0(target_date, ".csv")))
-submission <- submission[(window == 8 & horizons == "4")]
-submission <- submission[model == "QRA (weighted quantiles)"]
+submission <- submission[(window == 4 & horizons == "4")]
+submission <- submission[model == "QRA"]
 
 # Convert -----------------------------------------------------------------
 submission <- submission[, c("window", "model", "horizons", "submission_date") := NULL]
