@@ -108,14 +108,14 @@ inc_submission <- copy(inc_submission)[three_wk_mean, on = "location"]
 inc_submission <- inc_submission[target == "1 wk ahead inc death" & type == "point"]
 inc_submission <- inc_submission[, .(value_on_three_wk_mean = value / three_wk_mean,
                                      value_on_last_wk = value / last_wk), by = location]
-states_near_data <- inc_submission[(value_on_three_wk_mean >= 0.8 & 
-                                     value_on_three_wk_mean <= 1.2) |
-                                     (value_on_last_wk >= 0.8 & 
-                                     value_on_last_wk <= 1.2), 
+states_near_data <- inc_submission[(value_on_three_wk_mean >= 0.5 & 
+                                     value_on_three_wk_mean <= 2) |
+                                     (value_on_last_wk >= 0.5 & 
+                                     value_on_last_wk <= 2), 
                                      location]
 
 if (length(states_near_data) > 0) {
-  print("some states excluded as forecasts >20% from data")
+  warning("some states excluded as 1 wk forecast count is < half or > double recent data")
 }
 
 submission <- submission[location %in% states_near_data]
