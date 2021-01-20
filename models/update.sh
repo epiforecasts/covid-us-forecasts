@@ -1,5 +1,8 @@
 #!bin/bash
 
+# update constant baseline model
+bash models/constant-baseline/update.sh
+
 # update rt deaths forecast
 bash models/rt/update.sh
 
