@@ -1,30 +1,10 @@
-if (baseline == "constant baseline") {
-  # get last observed value for median 
-  
-  last_value <- filtered_observations$value[nrow(filtered_observations)]
-  median <- rep(last_value, num_horizons)
-  
-  # get width
-  sigma <-  filtered_observations %>%
-    dplyr::mutate(difference = c(NA, diff(log(value)))) %>%
-    dplyr::filter(target_end_date > max(target_end_date) - 4 * 7) %>%
-    dplyr::pull(difference) %>%
-    sd()
-  width <- rep(sigma, num_horizons)
-}
-
-
 # Packages ----------------------------------------------------------------
-library(magrittr)
 library(dplyr)
-library(readr)
 library(here)
-library(data.table)
 
 # forecast date -----------------------------------------------------------
 forecast_date <- readRDS(here("data", "target_date.rds"))
 
-sigma <-  filtered_observations %>%
 # Set up functions and data -----------------------------------------------
 source(here::here("utils", "get-us-data.R"))
 source(here::here("models", "timeseries", "utils", "deaths-on-cases-forecast.R"))
@@ -44,8 +24,7 @@ weekly_deaths_national <- weekly_deaths_state %>%
   summarise(deaths = sum(deaths), .groups = "drop_last") %>%
   mutate(state = "US")
 
-obs <- rbindlist(list(weekly_deaths_state, weekly_deaths_national), 
-                 use.names = TRUE) %>%
+obs <- dplyr::bind_rows(weekly_deaths_state, weekly_deaths_national) %>%
   dplyr::filter(target_end_date <= as.Date(forecast_date))
 
 # get median and sd of forecast ------------------------------------------------
@@ -87,8 +66,7 @@ forecasts <- combined %>%
 # do formatting for submission -------------------------------------------------
 formatted_forecasts <- 0
 
-state_codes <- readRDS(here::here("data/state_codes.rds"))
-
+state_codes <- readRDS(here::here("data", "state_codes.rds"))
 
 formatted <- dplyr::left_join(forecasts, state_codes, by = "state") %>%
   dplyr::mutate(forecast_date = forecast_date, 
@@ -114,4 +92,4 @@ if (!dir.exists(submission_dir)) {
   dir.create(submission_dir, recursive = TRUE)
 }
 
-fwrite(formatted_forecasts, paste0(submission_dir, "/", forecast_date, ".csv"))
+data.table::fwrite(formatted_forecasts, paste0(submission_dir, "/", forecast_date, ".csv"))
