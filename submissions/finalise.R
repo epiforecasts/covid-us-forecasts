@@ -69,7 +69,7 @@ cum_submission <- cum_submission[, `:=`(value = value + deaths,
                                         target = str_replace_all(target, " inc ", " cum "),
                                         deaths = NULL)]  
 # link inc and cum submissions
-submission <- rbindlist(list(submission, cum_submission))
+submission <- rbindlist(list(submission, cum_submission), fill = TRUE)
 
 # Checks ------------------------------------------------------------------
 
@@ -97,6 +97,37 @@ if (nrow(na_submissions) > 0) {
 if (sum(submission$value) == 0) {
   stop("Forecast is zero for all submission targets and values")
 }
+
+# Check next forecast incidence is near data
+# - 1 wk ahead incidence should be within 20% of EITHER
+#    - incident last week OR 
+#    - mean of last three weeks
+source(here("utils", "load_observations.R"))
+obs <- load_observations(target_date)
+obs <- obs[date > (max(as.Date(date)) - weeks(3))]
+last_wk <- obs[date == (max(as.Date(date))), .(last_wk = value), by = location]
+three_wk_mean <- obs[, .(three_wk_mean = mean(value)), by = location]
+
+inc_submission <- copy(submission)[last_wk, on = "location"]
+inc_submission <- copy(inc_submission)[three_wk_mean, on = "location"]
+
+inc_submission <- inc_submission[target == "1 wk ahead inc death" & type == "point"]
+inc_submission <- inc_submission[, .(value_on_three_wk_mean = value / three_wk_mean,
+                                     value_on_last_wk = value / last_wk), by = location]
+states_near_data <- inc_submission[(value_on_three_wk_mean >= 0.5 & 
+                                     value_on_three_wk_mean <= 2) |
+                                     (value_on_last_wk >= 0.5 & 
+                                     value_on_last_wk <= 2), 
+                                     location]
+
+if (length(states_near_data) > 0) {
+  warning("some states excluded as 1 wk forecast count is < half or > double recent data")
+}
+
+submission <- submission[location %in% states_near_data]
+
+
 # Save submission ---------------------------------------------------------
 fwrite(submission, here("submissions", "submitted",
                         paste0(target_date, "-epiforecasts-ensemble1.csv")))
+
