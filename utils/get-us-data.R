@@ -34,69 +34,15 @@ get_us_deaths <- function(data = "daily", anomaly_threshold = 100, check_adjustm
      dplyr::group_by(state) %>% 
      dplyr::mutate(deaths = c(0, diff(deaths)),
                    deaths = replace(deaths, deaths < 0 , 0)) %>%
-     dplyr::ungroup() %>%
-     # Adjust known data issues
-     dplyr::left_join(state_data_issues %>% 
-                        dplyr::select(state, date, lag, lag_days),
-                      by = c("state", "date")) %>%
-       dplyr::mutate(raw_deaths = deaths,
-                     lag = ifelse(is.na(lag), FALSE, lag),
-                     deaths = ifelse(lag == TRUE & lag_days == 1, 
-                                   dplyr::lag(raw_deaths, n = 1),
-                                   ifelse(lag == TRUE & lag_days == 7,
-                                          dplyr::lag(raw_deaths, n = 7),
-                                          raw_deaths))) %>%
-     dplyr::group_by(state) %>% 
-     # Detect & adjust anomalies (>1000% change)
-     dplyr::mutate(p_diff = deaths / dplyr::lag(deaths),
-                   p_diff = ifelse(p_diff == "Inf", 0, p_diff),
-                   extreme_diff = ifelse(abs(p_diff) > 10, TRUE, FALSE),
-                   anomaly_adjusted = ifelse(extreme_diff == TRUE & deaths > anomaly_threshold, TRUE, FALSE),
-                   deaths = ifelse(anomaly_adjusted == TRUE,
-                                   dplyr::lag(deaths, n = 1),
-                                   deaths)) %>%
-     dplyr::ungroup() %>%
-     dplyr::select(state, date, epiweek, deaths, raw_deaths,
-                   -extreme_diff, -p_diff, -lag_days, 
-                   known_issue_adjusted = lag, anomaly_adjusted)
-   
-   
-   # Print adjusted states
-     if(check_adjustment){
-       # Get states with known data issues
-       known_issues <- dplyr::filter(daily, known_issue_adjusted == TRUE) %>%
-         dplyr::pull(state) %>%
-         unique()
-         
-       # Get states with new detected anomalies
-       anomaly_adjusted <- dplyr::filter(daily, anomaly_adjusted == TRUE) %>%
-         dplyr::pull(state) %>%
-         unique()
-       
-        message(writeLines(text = c("* Known data issues adjusted in:", 
-                                    known_issues,
-                                    "* New anomalies detected, data adjusted in:",
-                                    anomaly_adjusted
-                                    )))
-     }
-     
-     # Re-accumulate over adjusted data
-     cumulative_adj <- daily %>%
-       dplyr::group_by(state) %>% 
-       dplyr::mutate(deaths = cumsum(deaths),
-                     raw_deaths = cumsum(raw_deaths)
-                     )
+     dplyr::ungroup()
      
 # Return data
      if(data == "daily"){
-     # Save daily deaths in all states
-     # saveRDS(daily, here::here("data", "deaths-data-daily.rds"))
      return(daily)
    }
    
    if(data == "cumulative"){
-     # saveRDS(cumulative_adj, here::here("data", "deaths-data-cumulative.rds"))
-     return(cumulative_adj)
+     return(cumulative)
    }
    
 }
@@ -120,7 +66,6 @@ get_us_cases <- function(data = "daily"){
         dplyr::filter(!state %in% c("Diamond Princess", "Grand Princess"))
       
       if(data == "cumulative"){
-        saveRDS(case_cumulative, here::here("data", "case-data-cumulative.rds"))
         return(case_cumulative)
       }
       
@@ -131,8 +76,6 @@ get_us_cases <- function(data = "daily"){
           dplyr::mutate(cases = c(0, diff(cases)),
                         cases = replace(cases, cases < 0 , 0)) %>% 
           dplyr::ungroup() 
-        # Save daily cases in all states
-        # saveRDS(case_daily, here::here("data", "case-data-daily.rds"))
         
         return(case_daily)
       }
