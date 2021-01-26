@@ -23,12 +23,6 @@ get_us_deaths <- function(data = "daily", anomaly_threshold = 100, check_adjustm
       dplyr::arrange(date) %>%
       dplyr::filter(!state %in% c("Diamond Princess", "Grand Princess"))
 
-   # Import known data issues
-   # The source for this is NYT: https://github.com/nytimes/covid-19-data
-   state_data_issues <- suppressMessages(readr::read_csv(here::here("data", "state_data_issues.csv"))) %>%
-     dplyr::mutate(date = lubridate::dmy(date)) %>%
-     dplyr::filter(problematic == TRUE)
-   
    # Convert to daily data
    daily <- cumulative %>%
      dplyr::group_by(state) %>% 
