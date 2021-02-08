@@ -8,7 +8,9 @@ library(stringr)
 target_date <- as.Date(readRDS(here("data", "target_date.rds"))) 
   
 # Choose submission -------------------------------------------------------
-submission <- fread(here("submissions", "ensembles", paste0(target_date, ".csv")))
+source(here("utils", "load_submissions.R"))
+submission <- load_submissions(target_date, "ensembles", summarise = FALSE)
+
 submission <- submission[(window == 4 & horizons == "4")]
 submission <- submission[model == "QRA"]
 
