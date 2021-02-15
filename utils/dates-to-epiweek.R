@@ -22,27 +22,28 @@
 #   dplyr::filter(epiweek_full == TRUE) %>%
 #   dplyr::group_by(epiweek) %>%
 #   dplyr::summarise(weekly_incidence = sum(daily_incidence))
-
-
 dates_to_epiweek <- function(df){
   
   seq <- tibble::tibble(date = unique(df$date),
                         epiweek = lubridate::epiweek(date),
+                        year = lubridate::epiyear(date),
                         day = weekdays(date))
   
   epiweek_end_date <- seq %>%
     dplyr::filter(day == "Saturday")
   
   epiweek_complete <- seq %>%
-    dplyr::group_by(epiweek) %>%
+    dplyr::group_by(epiweek, year) %>%
     dplyr::count() %>%
     dplyr::filter(n == 7) %>%
-    dplyr::left_join(epiweek_end_date, by = "epiweek")
+    dplyr::left_join(epiweek_end_date, by = c("epiweek", "year")) %>%
+    dplyr::mutate(date = list(date - 0:6)) %>%
+    tidyr::unnest(cols = c(date))
   
   df_dated <- df %>%
     dplyr::mutate(epiweek = lubridate::epiweek(date),
                   epiweek_end = date %in% epiweek_end_date$date,
-                  epiweek_full = epiweek %in% epiweek_complete$epiweek)
+                  epiweek_full = date %in% epiweek_complete$date)
   
   return(df_dated)
 }
