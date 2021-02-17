@@ -1,8 +1,11 @@
+
+prepare_submission <- function(ensemble = "QRA", exclude_locations = NULL) {
+
 # Packages ----------------------------------------------------------------
-library(here)
-library(data.table)
-library(lubridate)
-library(stringr)
+  library(here)
+  library(data.table)
+  library(lubridate)
+  library(stringr)
 
 # Target date -------------------------------------------------------------
 target_date <- as.Date(readRDS(here("data", "target_date.rds"))) 
@@ -11,8 +14,10 @@ target_date <- as.Date(readRDS(here("data", "target_date.rds")))
 source(here("utils", "load_submissions.R"))
 submission <- load_submissions(target_date, "ensembles", summarise = FALSE)
 
+if (ensemble == "QRA") {
 submission <- submission[(window == 4 & horizons == "4")]
 submission <- submission[model == "QRA"]
+} else {submission <- submission[model == ensemble]}
 
 # Convert -----------------------------------------------------------------
 submission <- submission[, c("window", "model", "horizons", "submission_date") := NULL]
@@ -69,6 +74,8 @@ submission <- rbindlist(list(submission, cum_submission))
 
 # Checks ------------------------------------------------------------------
 
+print("Checked for NAs, 0s, and comparing forecast with population")
+
 # adjust to total population if greater than
 state_pop <- fread(here("data", "state_pop.csv"))
 state_pop <- state_pop[, .(location = state_code, pop = tot_pop)]
@@ -76,23 +83,35 @@ submission <- merge(submission, state_pop, by = "location")
 submission <- submission[pop < value, `:=`(value = pop - 1, value_exceeds_pop = 1)]
 
 if (sum(submission$value_exceeds_pop, na.rm = TRUE) > 0) {
-  warning("Forecast values exceed total population")
-  print(submission[value_exceeds_pop == 1])
+  warning(paste("Forecast values exceed total population in locations:",
+          unique(submission[value_exceeds_pop == 1, location])), ". 
+          Forecast values set to population. Consider excluding location")
 }
+
 submission[, c("value_exceeds_pop", "pop") := NULL]
 
 # check for NAs
 na_submissions <- submission[is.na(value)]
 submission <- submission[!is.na(value)]
 if (nrow(na_submissions) > 0) {
-  warning("Forecast values are NA")
-  print(na_submissions)
+  warning(paste("Forecast values are NA:", na_submissions))
 }
 
 # check for identically 0
 if (sum(submission$value) == 0) {
   stop("Forecast is zero for all submission targets and values")
 }
+
+# exclude specified locations
+if (length(exclude_locations) > 0) {
+  submission <- submission[location != exclude_locations,]
+  warning(paste("Excluded specified locations:", exclude_locations))
+}
+
 # Save submission ---------------------------------------------------------
 fwrite(submission, here("submissions", "submitted",
                         paste0(target_date, "-epiforecasts-ensemble1.csv")))
+
+print(paste("Saved", target_date, ensemble, "forecast"))
+
+}

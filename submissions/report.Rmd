@@ -1,0 +1,104 @@
+---
+title: "US forecasts: weekly review"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(here)
+library(dplyr)
+source(here::here("submissions", "finalise.R"))
+source(here("utils", "get-us-data.R"))
+source(here("utils", "load_observations.R"))
+source(here("evaluation", "utils", "plot_data.R"))
+
+target_date <- as.Date(readRDS(here::here("data", "target_date.rds"))) 
+
+# Change these options to alter the final submission
+ensemble = "QRA"
+exclude_locations = NULL
+```
+
+# `r target_date`
+
+## Evaluation {.tabset}
+
+### Data {.tabset .tabset-pills}
+
+```{r setup-data, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%", warning=FALSE, message=FALSE}
+weekly <- load_observations(target_date) 
+
+daily <- get_us_deaths("daily") %>%
+  filter(date >= min(weekly$date)) %>%
+  select(state, date, value = deaths)
+
+daily_us <- daily %>%
+  group_by(date) %>%
+  summarise(value = sum(value), .groups = "drop") %>%
+  mutate(state = "US")
+
+data_national <- plot_data(weekly[weekly$state == "US",], daily_us)
+data_state <- plot_data(weekly, daily)
+```
+
+#### National
+
+```{r plot-data-national, echo=FALSE, fig.align = 'center', out.width="40%", warning=FALSE, message=FALSE}
+plot(data_national)
+```
+
+#### State
+
+```{r plot-data-states, echo=FALSE, fig.align = 'center', fig.height=48, fig.width=48, warning=FALSE, message=FALSE}
+plot(data_state)
+```
+
+### Models {.tabset .tabset-pills}
+
+#### National
+
+```{r plot-models-national, echo=FALSE, fig.align = 'center', out.width="40%"}
+knitr::include_graphics(here::here("evaluation", "plots", target_date, "models", "us.png"), )
+```
+
+#### State
+
+```{r plot-models-states, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%"}
+knitr::include_graphics(here::here("evaluation", "plots", target_date, "models", "states.png"))
+```
+
+### Ensembles {.tabset .tabset-pills}
+
+#### National
+
+```{r plot-ensembles-national, echo=FALSE, fig.align = 'center', out.width="40%"}
+knitr::include_graphics(here::here("evaluation", "plots", target_date, "ensembles", "us.png"))
+```
+
+#### State
+
+```{r plot-ensembles-states, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%"}
+knitr::include_graphics(here::here("evaluation", "plots", target_date, "ensembles", "states.png"))
+```
+
+## Submission
+
+Prepared `r ensemble` ensemble:
+
+```{r prepare_submission, echo=FALSE, message=FALSE}
+prepare_submission(ensemble, exclude_locations = exclude_locations)
+```
+
+Change model submission by using options in [report.Rmd](https://github.com/epiforecasts/covid-us-forecasts/tree/master/submissions/report.Rmd):
+
+1.  Set options in {`r setup}` chunk, including
+
+    -   `ensemble = c("QRA", "mean", "median")`
+    -   `exclude_locations = c() # any combination of numeric state locations`
+    -   for more options, see [finalise.R]((https://github.com/epiforecasts/covid-us-forecasts/tree/master/submissions/finalise.R))
+
+2.  Execute (knit) the Rmd
