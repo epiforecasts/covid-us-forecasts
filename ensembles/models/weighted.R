@@ -28,6 +28,9 @@ forecasts <- list.files(here("submissions", "all-models"))
 forecasts <- map(forecasts, ~ fread(here("submissions", "all-models", .)))
 forecasts <- rbindlist(forecasts)[grepl("inc", target)]
 
+# filter out baseline models for ensembling
+forecasts <- forecasts[!(model == "Baseline")]
+
 # get current forecast
 current_forecasts <- forecasts[forecast_date == target_date]
 # exclude US from training
