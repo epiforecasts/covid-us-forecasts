@@ -24,8 +24,10 @@ weekly_deaths_national <- weekly_deaths_state %>%
   summarise(deaths = sum(deaths), .groups = "drop_last") %>%
   mutate(state = "US")
 
+# combine and only keep complete epiweeks, marked by the day 'Saturday'
 obs <- dplyr::bind_rows(weekly_deaths_state, weekly_deaths_national) %>%
-  dplyr::filter(target_end_date <= as.Date(forecast_date))
+  dplyr::filter(weekdays(target_end_date) == "Saturday", 
+                target_end_date <= as.Date(forecast_date))
 
 # get median and sd of forecast ------------------------------------------------
 median <- obs %>%
