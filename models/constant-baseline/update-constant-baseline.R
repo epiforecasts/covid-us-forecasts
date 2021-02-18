@@ -45,7 +45,9 @@ sigma <-  obs %>%
   dplyr::summarise(sd = sd(difference, na.rm = TRUE), 
                    .groups = "drop_last") %>%
   dplyr::group_by(state) %>%
-  dplyr::mutate(horizon = list(1:4), 
+  # if sd > 1, assume some kind of error caused by low numbers
+  dplyr::mutate(sd = ifelse(sd > 1, 0.4, sd),
+                horizon = list(1:4), 
                 sd = list(sd * c(0.8, 0.9, 1, 1.1))) %>%
   tidyr::unnest(cols = c(horizon, sd)) %>%
   dplyr::ungroup()
