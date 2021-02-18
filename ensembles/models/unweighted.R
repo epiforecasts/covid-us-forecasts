@@ -9,6 +9,10 @@ target_date <- as.Date(readRDS(here("data", "target_date.rds")))
 source(here("utils", "load_submissions.R"))
 forecasts <- load_submissions(target_date, "all-models", summarise = FALSE)
 
+# filter out baseline models for ensembling
+forecasts <- forecasts[!(model == "Baseline")]
+
+
 # Make ensembles ----------------------------------------------------------
 cols <- setdiff(colnames(forecasts), c("value", "model"))
 mean <- copy(forecasts)[, .(value = mean(value)), by = cols]
