@@ -95,10 +95,12 @@ prepare_submission(ensemble, exclude_locations = exclude_locations)
 
 Change model submission by using options in [report.Rmd](https://github.com/epiforecasts/covid-us-forecasts/tree/master/submissions/report.Rmd):
 
-1.  Set options in {`r setup}` chunk, including
+1.  Set options in {`r setup`} chunk, including
 
-    -   `ensemble = c("QRA", "mean", "median")`
+    -   ensemble = c("QRA", "mean", "median")
+    
     -   `exclude_locations = c() # any combination of numeric state locations`
+    
     -   for more options, see [finalise.R]((https://github.com/epiforecasts/covid-us-forecasts/tree/master/submissions/finalise.R))
 
 2.  Execute (knit) the Rmd
