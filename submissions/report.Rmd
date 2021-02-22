@@ -30,19 +30,31 @@ exclude_locations = NULL
 ### Data {.tabset .tabset-pills}
 
 ```{r setup-data, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%", warning=FALSE, message=FALSE}
-weekly <- load_observations(target_date) 
+weekly <- load_observations(target_date) %>%
+  mutate(date = as.character(date)) %>%
+  rename(weekly = value)
 
-daily <- get_us_deaths("daily") %>%
+state <- get_us_deaths("daily") %>%
   filter(date >= min(weekly$date)) %>%
-  select(state, date, value = deaths)
+  select(state, date, daily = deaths) %>%
+  mutate(date = as.character(date)) %>%
+  left_join(weekly, by = c("state", "date")) %>%
+  filter(!state %in% "US") %>%
+  group_by(state) %>%
+  tidyr::fill(location)
 
-daily_us <- daily %>%
+us <- state %>%
   group_by(date) %>%
-  summarise(value = sum(value), .groups = "drop") %>%
-  mutate(state = "US")
+  summarise(daily = sum(daily), .groups = "drop") %>%
+  mutate(state = "US") %>%
+  left_join(filter(weekly, state == "US"), by = c("state", "date")) %>%
+  tidyr::fill(location)
 
-data_national <- plot_data(weekly[weekly$state == "US",], daily_us)
-data_state <- plot_data(weekly, daily)
+state$date <- lubridate::ymd(state$date)
+us$date <- lubridate::ymd(us$date)
+
+data_national <- plot_data(us)
+data_state <- plot_data(state)
 ```
 
 #### National
