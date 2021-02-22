@@ -8,7 +8,7 @@ prepare_submission <- function(ensemble = "QRA", exclude_locations = NULL) {
   library(stringr)
 
 # Target date -------------------------------------------------------------
-target_date <- as.Date(readRDS(here("data", "target_date.rds"))) 
+target_date <- as.Date(readRDS(here("data", "target_date.rds")))
   
 # Choose submission -------------------------------------------------------
 source(here("utils", "load_submissions.R"))
