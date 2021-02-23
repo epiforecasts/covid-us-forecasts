@@ -21,13 +21,12 @@ submission <- submission[, value := as.integer(value)]
 
 # # Replace some states with a single model ---------------------------------
 swap_model <- NULL
-swap_locs <- NULL 
+swap_locs <- NULL
 if (!is.null(swap_model) && !is.null(swap_locs)) {
   alt_subs <- load_submissions(target_date, "all-models", summarise = FALSE) 
-  alt_subs <- alt_subs[(model == "Rt" & location %in% c("19", "51"))]
+  alt_subs <- alt_subs[(model == swap_model & location %in% swap_locs)]
   alt_subs <- alt_subs[, c("model", "submission_date") := NULL]
-
-  submission <- submission[(!location %in% c("19", "51"))]
+  submission <- submission[(!location %in% swap_locs)]
   submission <- rbind(submission, alt_subs)
 }
 

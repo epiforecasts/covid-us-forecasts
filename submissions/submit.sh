@@ -1,7 +1,7 @@
 #!bin/bash
 
 #define date
-ForecastDate=$(date +'%Y-%m-%d')
+ForecastDate=$(date +'%Y-%m-%d' -d "yesterday")
 
 # Clone the hub repository if not already present
 #git clone --depth 1 https://github.com/reichlab/covid19-forecast-hub.git
@@ -37,5 +37,5 @@ gh pr create --title "$ForecastDate - EpiForecast submission" --body "This is an
 
 # Remove local submission branch 
 git checkout master
-git branch -d submission
+git branch -D submission
 cd ../covid-us-forecasts
