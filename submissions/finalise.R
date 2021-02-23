@@ -18,6 +18,14 @@ submission <- submission[model == "QRA"]
 submission <- submission[, c("window", "model", "horizons", "submission_date") := NULL]
 submission <- submission[, value := as.integer(value)]
 
+# # Replace some states with a single model ---------------------------------
+# submission_models <- load_submissions(target_date, "all-models", summarise = FALSE) 
+# submission_models <- submission_models[(model == "Rt" & location %in% c("19", "51"))]
+# submission_models <- submission_models[, c("model", "submission_date") := NULL]
+# 
+# submission <- submission[(!location %in% c("19", "51"))]
+# submission <- rbind(submission, submission_models)
+
 # Check for crossing quantiles --------------------------------------------
 cross_submission <- copy(submission)[!is.na(quantile), .(quantile, value, crossing = value < shift(value, fill = 0)),
                                      by = .(forecast_date, target, target_end_date, location, type)]
