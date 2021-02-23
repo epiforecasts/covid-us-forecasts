@@ -1,7 +1,7 @@
 #!bin/bash
 
 #define date
-ForecastDate=$(date +'%Y-%m-%d' -d "yesterday")
+ForecastDate=$(date +'%Y-%m-%d')
 
 # Clone the hub repository if not already present
 #git clone --depth 1 https://github.com/reichlab/covid19-forecast-hub.git
