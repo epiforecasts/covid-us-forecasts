@@ -24,7 +24,7 @@
 #   dplyr::summarise(weekly_incidence = sum(daily_incidence))
 dates_to_epiweek <- function(df){
   
-  seq <- tibble::tibble(date = unique(df$date),
+  seq <- tibble::tibble(date = as.Date(unique(df$date)),
                         epiweek = lubridate::epiweek(date),
                         year = lubridate::epiyear(date),
                         day = weekdays(date))
