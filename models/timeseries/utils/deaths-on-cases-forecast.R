@@ -30,7 +30,7 @@ deaths_on_cases_forecast <- function(case_data, deaths_data, sample_count = 1000
             samples = 1,
             horizon = horizon,
             model_params = list(
-              models = "aez",
+              models = "ae",
               weights = "equal",
               a.args = list()
             ),
@@ -74,7 +74,7 @@ deaths_on_cases_forecast <- function(case_data, deaths_data, sample_count = 1000
             samples = sample_count,
             horizon = horizon,
             model_params = list(
-              models = "aez",
+              models = "ae",
               weights = "equal",
               a.args = list(xreg =
                               as.matrix(

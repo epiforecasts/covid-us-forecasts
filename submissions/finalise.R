@@ -1,11 +1,8 @@
-
-prepare_submission <- function(ensemble = "QRA", exclude_locations = NULL) {
-
 # Packages ----------------------------------------------------------------
-  library(here)
-  library(data.table)
-  library(lubridate)
-  library(stringr)
+library(here)
+library(data.table)
+library(lubridate)
+library(stringr)
 
 # Target date -------------------------------------------------------------
 target_date <- as.Date(readRDS(here("data", "target_date.rds")))
@@ -14,32 +11,49 @@ target_date <- as.Date(readRDS(here("data", "target_date.rds")))
 source(here("utils", "load_submissions.R"))
 submission <- load_submissions(target_date, "ensembles", summarise = FALSE)
 
-if (ensemble == "QRA") {
 submission <- submission[(window == 4 & horizons == "4")]
 submission <- submission[model == "QRA"]
-} else {submission <- submission[model == ensemble]}
 
 # Convert -----------------------------------------------------------------
-submission <- submission[, c("window", "model", "horizons", "submission_date") := NULL]
+submission <- submission[, 
+ c("window", "model", "horizons", "submission_date") := NULL]
 submission <- submission[, value := as.integer(value)]
 
-# Check for crossing quantiles --------------------------------------------
-cross_submission <- copy(submission)[!is.na(quantile), .(quantile, value, crossing = value < shift(value, fill = 0)),
-                                     by = .(forecast_date, target, target_end_date, location, type)]
+# # Replace some states with a single model ---------------------------------
+swap_model <- NULL
+swap_locs <- NULL
+if (!is.null(swap_model) && !is.null(swap_locs)) {
+  alt_subs <- load_submissions(target_date, "all-models", summarise = FALSE) 
+  alt_subs <- alt_subs[(model == swap_model & location %in% swap_locs)]
+  alt_subs <- alt_subs[, c("model", "submission_date") := NULL]
+  submission <- submission[(!location %in% swap_locs)]
+  submission <- rbind(submission, alt_subs)
+}
 
-crossing_locations <- copy(cross_submission)[, .(crossing = as.numeric(sum(crossing))), by = .(location)]
+# Check for crossing quantiles --------------------------------------------
+cross_submission <- copy(submission)[!is.na(quantile), 
+  .(quantile, value, crossing = value < shift(value, fill = 0)),
+  by = .(forecast_date, target, target_end_date, location, type)]
+
+crossing_locations <- copy(cross_submission)[, 
+  .(crossing = as.numeric(sum(crossing))), by = .(location)]
 crossing_locations <- unique(crossing_locations[crossing > 0, ]$location)
 
 if (length(crossing_locations) > 0) {
-  warning("Following locations contain crossing quantiles (but will be corrected): ", paste(crossing_locations, collapse = ", "))
+  warning(
+    "Following locations contain crossing quantiles (but will be corrected): ", 
+    paste(crossing_locations, collapse = ", "))
   while (sum(cross_submission$crossing) > 0) {
-    cross_submission <- cross_submission[, value := ifelse(crossing, shift(value, fill = 0), value),
-                                         by = .(forecast_date, target, target_end_date, location, type)]
-    cross_submission <- cross_submission[, .(quantile, value, crossing = value < shift(value, fill = 0)),
-                                         by = .(forecast_date, target, target_end_date, location, type)]
+    cross_submission <- cross_submission[, 
+      value := ifelse(crossing, shift(value, fill = 0), value),
+      by = .(forecast_date, target, target_end_date, location, type)]
+    cross_submission <- cross_submission[, 
+      .(quantile, value, crossing = value < shift(value, fill = 0)),
+      by = .(forecast_date, target, target_end_date, location, type)]
   }
   cross_submission <- cross_submission[, crossing := NULL]
-  point_submission <- cross_submission[quantile == 0.5][, `:=`(type = "point", quantile = NA)]
+  point_submission <- cross_submission[quantile == 0.5][, 
+    `:=`(type = "point", quantile = NA)]
   submission <- rbindlist(list(point_submission, cross_submission))
   setorder(submission, location, target, target_end_date, type)
 }
@@ -48,9 +62,10 @@ if (length(crossing_locations) > 0) {
 # get cumulative data
 source(here("utils", "get-us-data.R"))
 cumulative_state <- setDT(get_us_deaths(data = "cumulative"))
-cumulative_state <- cumulative_state[date == min(as.Date(submission$target_end_date)) - weeks(1), 
-                                     .(state, deaths)]
-cumulative_national <- cumulative_state[, .(deaths = sum(deaths), 
+cumulative_state <- 
+  cumulative_state[date == min(as.Date(submission$target_end_date)) - weeks(1),
+                   .(state, deaths)]
+cumulative_national <- cumulative_state[, .(deaths = sum(deaths),
                                             state = "US")]
 cumulative <- rbind(cumulative_state, cumulative_national)
 
@@ -66,52 +81,39 @@ cum_submission <- copy(submission)[cumulative, on = "location"]
 cum_submission <- cum_submission[, "value" := cumsum(value), 
                                  by = c("location", "type", "quantile")]  
 
-cum_submission <- cum_submission[, `:=`(value = value + deaths,
-                                        target = str_replace_all(target, " inc ", " cum "),
-                                        deaths = NULL)]  
+cum_submission <- cum_submission[,
+  `:=`(value = value + deaths, 
+       target = str_replace_all(target, " inc ", " cum "), 
+       deaths = NULL)]
 # link inc and cum submissions
 submission <- rbindlist(list(submission, cum_submission))
 
 # Checks ------------------------------------------------------------------
-
-print("Checked for NAs, 0s, and comparing forecast with population")
-
 # adjust to total population if greater than
 state_pop <- fread(here("data", "state_pop.csv"))
 state_pop <- state_pop[, .(location = state_code, pop = tot_pop)]
 submission <- merge(submission, state_pop, by = "location")
-submission <- submission[pop < value, `:=`(value = pop - 1, value_exceeds_pop = 1)]
+submission <- submission[pop < value,
+  `:=`(value = pop - 1, value_exceeds_pop = 1)]
 
 if (sum(submission$value_exceeds_pop, na.rm = TRUE) > 0) {
-  warning(paste("Forecast values exceed total population in locations:",
-          unique(submission[value_exceeds_pop == 1, location])), ". 
-          Forecast values set to population. Consider excluding location")
+  warning("Forecast values exceed total population")
+  print(submission[value_exceeds_pop == 1])
 }
-
 submission[, c("value_exceeds_pop", "pop") := NULL]
 
 # check for NAs
 na_submissions <- submission[is.na(value)]
 submission <- submission[!is.na(value)]
 if (nrow(na_submissions) > 0) {
-  warning(paste("Forecast values are NA:", na_submissions))
+  warning("Forecast values are NA")
+  print(na_submissions)
 }
 
 # check for identically 0
 if (sum(submission$value) == 0) {
   stop("Forecast is zero for all submission targets and values")
 }
-
-# exclude specified locations
-if (length(exclude_locations) > 0) {
-  submission <- submission[location != exclude_locations,]
-  warning(paste("Excluded specified locations:", exclude_locations))
-}
-
 # Save submission ---------------------------------------------------------
 fwrite(submission, here("submissions", "submitted",
                         paste0(target_date, "-epiforecasts-ensemble1.csv")))
-
-print(paste("Saved", target_date, ensemble, "forecast"))
-
-}
