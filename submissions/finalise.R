@@ -20,14 +20,21 @@ submission <- submission[,
 submission <- submission[, value := as.integer(value)]
 
 # # Replace some states with a single model ---------------------------------
-swap_model <- NULL
-swap_locs <- NULL
-if (!is.null(swap_model) && !is.null(swap_locs)) {
-  alt_subs <- load_submissions(target_date, "all-models", summarise = FALSE) 
-  alt_subs <- alt_subs[(model == swap_model & location %in% swap_locs)]
-  alt_subs <- alt_subs[, c("model", "submission_date") := NULL]
-  submission <- submission[(!location %in% swap_locs)]
-  submission <- rbind(submission, alt_subs)
+source(here("utils", "get-locations.R"))
+swap <- list(
+  "Case convolution" = c("Delaware", "Ohio", "Rhode Island", "Virginia", "Utah", "Hawaii", "Maine"),
+  "Rt" = c("Arkansas", "Colorado", "Columbia")
+)
+if (length(swap) > 0) {
+  for(swap_model in names(swap)) {
+    swap_names <- data.frame("state" = swap[swap_model][[1]])
+    swap_locs <- merge(swap_names, state_locations, by = "state")$location
+    alt_subs <- load_submissions(target_date, "all-models", summarise = FALSE) 
+    alt_subs <- alt_subs[(model == swap_model & location %in% swap_locs)]
+    alt_subs <- alt_subs[, c("model", "submission_date") := NULL]
+    submission <- submission[(!location %in% swap_locs)]
+    submission <- rbind(submission, alt_subs)
+  }
 }
 
 # Check for crossing quantiles --------------------------------------------
