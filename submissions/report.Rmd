@@ -11,16 +11,11 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 library(here)
 library(dplyr)
-source(here::here("submissions", "finalise.R"))
 source(here("utils", "get-us-data.R"))
 source(here("utils", "load_observations.R"))
 source(here("evaluation", "utils", "plot_data.R"))
 
 target_date <- as.Date(readRDS(here::here("data", "target_date.rds"))) 
-
-# Change these options to alter the final submission
-ensemble = "QRA"
-exclude_locations = NULL
 ```
 
 # `r target_date`
@@ -99,20 +94,19 @@ knitr::include_graphics(here::here("evaluation", "plots", target_date, "ensemble
 
 ## Submission
 
-Prepared `r ensemble` ensemble:
-
-```{r prepare_submission, echo=FALSE, message=FALSE}
-prepare_submission(ensemble, exclude_locations = exclude_locations)
+Be aware of the following states:
+```{r anomalies, echo=FALSE, message = FALSE}
+if (file.exists(here("data", "anomalies", paste0(target_date, ".txt")))) {
+  anomalies <- suppressMessages(scan(here("data", "anomalies", paste0(target_date, ".txt")), what = "character", sep = ","))
+  print(anomalies)
+} else {
+  print("No anomalies recorded (no .txt file for target_date in 'data/anomalies')")
+}
 ```
 
-Change model submission by using options in [report.Rmd](https://github.com/epiforecasts/covid-us-forecasts/tree/master/submissions/report.Rmd):
-
-1.  Set options in `{r setup}` chunk, including
-
-    -   ensemble = c("QRA", "mean", "median")
-    
-    -   `exclude_locations = c() # any combination of numeric state locations`
-    
-    -   for more options, see [finalise.R]((https://github.com/epiforecasts/covid-us-forecasts/tree/master/submissions/finalise.R))
-
-2.  Execute (knit) the Rmd
+Submission validity checked with the following result:
+```{r finalise, echo=FALSE, message=FALSE}
+errors <- readRDS(here("submissions", "errors", paste0(target_date, "-errors.rds")))
+print(errors)
+```
+Change model submission by using options in `submissions/finalise.R`.

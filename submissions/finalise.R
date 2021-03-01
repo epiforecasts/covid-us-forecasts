@@ -4,6 +4,9 @@ library(data.table)
 library(lubridate)
 library(stringr)
 
+# Error catching ----------------------------------------------------------
+error_message <- list()
+
 # Target date -------------------------------------------------------------
 target_date <- as.Date(readRDS(here("data", "target_date.rds")))
   
@@ -40,9 +43,10 @@ crossing_locations <- copy(cross_submission)[,
 crossing_locations <- unique(crossing_locations[crossing > 0, ]$location)
 
 if (length(crossing_locations) > 0) {
-  warning(
-    "Following locations contain crossing quantiles (but will be corrected): ", 
-    paste(crossing_locations, collapse = ", "))
+  error_message <- c(error_message,
+    list("Following locations contain crossing quantiles (but will be corrected):" = 
+           crossing_locations))
+  
   while (sum(cross_submission$crossing) > 0) {
     cross_submission <- cross_submission[, 
       value := ifelse(crossing, shift(value, fill = 0), value),
@@ -97,23 +101,35 @@ submission <- submission[pop < value,
   `:=`(value = pop - 1, value_exceeds_pop = 1)]
 
 if (sum(submission$value_exceeds_pop, na.rm = TRUE) > 0) {
-  warning("Forecast values exceed total population")
-  print(submission[value_exceeds_pop == 1])
+  error_message <- c(error_message,
+                     list("Forecast values exceed total population in:" =
+                            submission[value_exceeds_pop == 1, location]))
 }
 submission[, c("value_exceeds_pop", "pop") := NULL]
 
 # check for NAs
-na_submissions <- submission[is.na(value)]
+na_submissions <- submission[is.na(value), location]
 submission <- submission[!is.na(value)]
-if (nrow(na_submissions) > 0) {
-  warning("Forecast values are NA")
-  print(na_submissions)
+if (length(na_submissions) > 0) {
+  error_message <- c(error_message,
+                     list("Forecast values are NA in:" = na_submissions))
 }
 
 # check for identically 0
 if (sum(submission$value) == 0) {
+  error_message <- c(error_message,
+                     list("Forecast is zero for all submission targets and values"))
   stop("Forecast is zero for all submission targets and values")
 }
+
+if (length(error_message) > 0) {
+  error_message <- list("Checks completed:" = "All checks passed")
+}
+
 # Save submission ---------------------------------------------------------
 fwrite(submission, here("submissions", "submitted",
                         paste0(target_date, "-epiforecasts-ensemble1.csv")))
+
+saveRDS(error_message, here("submissions", "errors", paste0(target_date, "-errors.rds")))
+
+        
