@@ -3,6 +3,7 @@ library(here)
 library(data.table)
 library(lubridate)
 library(stringr)
+library(dplyr)
 
 # Error catching ----------------------------------------------------------
 error_message <- list()
@@ -14,6 +15,48 @@ target_date <- as.Date(readRDS(here("data", "target_date.rds")))
 source(here("utils", "load_submissions.R"))
 submission <- load_submissions(target_date, "ensembles", summarise = FALSE)
 
+# Check distance between ensemble forecasts -------------------------------
+single_models <- load_submissions(target_date, "all-models", summarise = FALSE)
+distance <- submission %>%
+  filter(model == "median") %>%
+  select(target, location, type, quantile, ensemble_median = value)
+
+distance <- left_join(single_models, distance, 
+                        by = c("target", "location", "type", "quantile")) %>%
+  mutate(ensemble_distance = value - ensemble_median,
+         relative_ensemble = ifelse(ensemble_median > 0, 
+                                    value / ensemble_median,
+                                    ifelse(ensemble_distance < 50, # If median == 0, any forecast <50 is OK
+                                           NA, ensemble_distance)))
+
+# in these states, models diverge: a model is on average < 1/5 or > 5x the median ensemble
+central_diverge_locations <- distance %>%
+  filter(quantile %in% c(0.25, 0.5, 0.75)) %>%
+  group_by(target, location, model) %>%
+  summarise(n = n(),
+            mean_percent_distance = mean(relative_ensemble, na.rm = T)) %>% 
+  filter(mean_percent_distance > 5 | mean_percent_distance < 0.2) %>% 
+  pull(location) %>% 
+  unique() %>%
+  sort()
+error_message <- c(error_message,
+                   list("Following locations have models with central estimates >5x median:" = 
+                          central_diverge_locations))
+
+outer_diverge_locations <- distance %>%
+  filter(quantile %in% c(0.1, 0.9)) %>%
+  group_by(target, location, model) %>%
+  summarise(n = n(),
+            mean_percent_distance = mean(relative_ensemble, na.rm = T)) %>% 
+  filter(mean_percent_distance > 10 | mean_percent_distance < 0.1) %>% 
+  pull(location) %>% 
+  unique() %>%
+  sort()
+error_message <- c(error_message,
+                   list("Following locations have models with uncertainty >10x median:" = 
+                          outer_diverge_locations[!outer_diverge_locations %in% central_diverge_locations]))
+
+# Use QRA by default ------------------------------------------------------
 submission <- submission[(window == 4 & horizons == "4")]
 submission <- submission[model == "QRA"]
 

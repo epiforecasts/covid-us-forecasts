@@ -22,6 +22,16 @@ target_date <- as.Date(readRDS(here::here("data", "target_date.rds")))
 
 ## Evaluation {.tabset}
 
+Be aware of the following states:
+```{r anomalies, echo=FALSE, message = FALSE}
+if (file.exists(here("data", "anomalies", paste0(target_date, ".txt")))) {
+  anomalies <- suppressMessages(scan(here("data", "anomalies", paste0(target_date, ".txt")), what = "character", sep = ","))
+  print(anomalies)
+} else {
+  print("No anomalies recorded (no .txt file for target_date in 'data/anomalies')")
+}
+```
+
 ### Data {.tabset .tabset-pills}
 
 ```{r setup-data, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%", warning=FALSE, message=FALSE}
@@ -45,6 +55,13 @@ us <- state %>%
   left_join(filter(weekly, state == "US"), by = c("state", "date")) %>%
   tidyr::fill(location)
 
+state_cases <- get_us_cases("daily") %>%
+  filter(date >= min(weekly$date)) %>%
+  select(state, date, daily = cases) %>%
+  mutate(date = as.character(date),
+         weekly = NULL) %>%
+  left_join(select(state, location, state), by = "state") 
+
 state$date <- lubridate::ymd(state$date)
 us$date <- lubridate::ymd(us$date)
 
@@ -63,6 +80,8 @@ plot(data_national)
 ```{r plot-data-states, echo=FALSE, fig.align = 'center', fig.height=48, fig.width=48, warning=FALSE, message=FALSE}
 plot(data_state)
 ```
+
+#### Anomalous
 
 ### Models {.tabset .tabset-pills}
 
@@ -93,16 +112,6 @@ knitr::include_graphics(here::here("evaluation", "plots", target_date, "ensemble
 ```
 
 ## Submission
-
-Be aware of the following states:
-```{r anomalies, echo=FALSE, message = FALSE}
-if (file.exists(here("data", "anomalies", paste0(target_date, ".txt")))) {
-  anomalies <- suppressMessages(scan(here("data", "anomalies", paste0(target_date, ".txt")), what = "character", sep = ","))
-  print(anomalies)
-} else {
-  print("No anomalies recorded (no .txt file for target_date in 'data/anomalies')")
-}
-```
 
 Submission validity checked with the following result:
 ```{r finalise, echo=FALSE, message=FALSE}
