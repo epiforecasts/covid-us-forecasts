@@ -84,6 +84,9 @@ plot(data_state)
 ```
 
 #### Anomalous
+```{r plot-data-anomalous, echo=FALSE, fig.align = 'center', out.width="40%", warning=FALSE, message=FALSE}
+plot(data_anomalous)
+```
 
 ### Models {.tabset .tabset-pills}
 
