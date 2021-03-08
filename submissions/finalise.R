@@ -67,12 +67,9 @@ submission <- submission[, value := as.integer(value)]
 
 # # Replace some states with a single model ---------------------------------
 source(here("utils", "get-locations.R"))
-swap <- list(
-  # "Case convolution" = c("Delaware", "Ohio", "Rhode Island", "Virginia", "Utah", "Hawaii", "Maine"),
-  # "Rt" = c("Arkansas", "Colorado", "Columbia")
-)
-if (length(swap) > 0) {
-  for(swap_model in names(swap)) {
+if (file.exists(here("submission", "utils", paste0(target_date, "-swap-ensemble.rds")))) {
+  swap <- readRDS(here("submission", "utils", paste0(target_date, "-swap-ensemble.rds")))
+  for (swap_model in names(swap)) {
     swap_names <- data.frame("state" = swap[swap_model][[1]])
     swap_locs <- merge(swap_names, state_locations, by = "state")$location
     alt_subs <- load_submissions(target_date, "all-models", summarise = FALSE)
@@ -180,6 +177,6 @@ if (length(error_message) > 0) {
 fwrite(submission, here("submissions", "submitted",
                         paste0(target_date, "-epiforecasts-ensemble1.csv")))
 
-saveRDS(error_message, here("submissions", "errors", paste0(target_date, "-errors.rds")))
+saveRDS(error_message, here("submissions", "utils", paste0(target_date, "-errors.rds")))
 
         

@@ -120,7 +120,7 @@ knitr::include_graphics(here::here("evaluation", "plots", target_date, "ensemble
 
 Submission validity checked with the following result:
 ```{r finalise, echo=FALSE, message=FALSE}
-errors <- readRDS(here("submissions", "errors", paste0(target_date, "-errors.rds")))
+errors <- readRDS(here("submissions", "utils", paste0(target_date, "-errors.rds")))
 print(errors)
 ```
 Change model submission by using options in `submissions/finalise.R`.
