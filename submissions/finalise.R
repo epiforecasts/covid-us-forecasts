@@ -3,6 +3,10 @@ library(here)
 library(data.table)
 library(lubridate)
 library(stringr)
+library(dplyr)
+
+# Error catching ----------------------------------------------------------
+error_message <- list()
 
 # Target date -------------------------------------------------------------
 target_date <- as.Date(readRDS(here("data", "target_date.rds")))
@@ -11,6 +15,48 @@ target_date <- as.Date(readRDS(here("data", "target_date.rds")))
 source(here("utils", "load_submissions.R"))
 submission <- load_submissions(target_date, "ensembles", summarise = FALSE)
 
+# Check distance between ensemble forecasts -------------------------------
+single_models <- load_submissions(target_date, "all-models", summarise = FALSE)
+distance <- submission %>%
+  filter(model == "median") %>%
+  select(target, location, type, quantile, ensemble_median = value)
+
+distance <- left_join(single_models, distance, 
+                        by = c("target", "location", "type", "quantile")) %>%
+  mutate(ensemble_distance = value - ensemble_median,
+         relative_ensemble = ifelse(ensemble_median > 0, 
+                                    value / ensemble_median,
+                                    ifelse(ensemble_distance < 50, # If median == 0, any forecast <50 is OK
+                                           NA, ensemble_distance)))
+
+# in these states, models diverge: a model is on average < 1/5 or > 5x the median ensemble
+central_diverge_locations <- distance %>%
+  filter(quantile %in% c(0.25, 0.5, 0.75)) %>%
+  group_by(target, location, model) %>%
+  summarise(n = n(),
+            mean_percent_distance = mean(relative_ensemble, na.rm = T)) %>% 
+  filter(mean_percent_distance > 5 | mean_percent_distance < 0.2) %>% 
+  pull(location) %>% 
+  unique() %>%
+  sort()
+error_message <- c(error_message,
+                   list("Following locations have models with central estimates >5x median:" = 
+                          central_diverge_locations))
+
+outer_diverge_locations <- distance %>%
+  filter(quantile %in% c(0.1, 0.9)) %>%
+  group_by(target, location, model) %>%
+  summarise(n = n(),
+            mean_percent_distance = mean(relative_ensemble, na.rm = T)) %>% 
+  filter(mean_percent_distance > 10 | mean_percent_distance < 0.1) %>% 
+  pull(location) %>% 
+  unique() %>%
+  sort()
+error_message <- c(error_message,
+                   list("Following locations have models with uncertainty >10x median:" = 
+                          outer_diverge_locations[!outer_diverge_locations %in% central_diverge_locations]))
+
+# Use QRA by default ------------------------------------------------------
 submission <- submission[(window == 4 & horizons == "4")]
 submission <- submission[model == "QRA"]
 
@@ -21,17 +67,21 @@ submission <- submission[, value := as.integer(value)]
 
 # # Replace some states with a single model ---------------------------------
 source(here("utils", "get-locations.R"))
-swap <- list(
-  "Case convolution" = c("Delaware", "Ohio", "Rhode Island", "Virginia", "Utah", "Hawaii", "Maine"),
-  "Rt" = c("Arkansas", "Colorado", "Columbia")
-)
-if (length(swap) > 0) {
-  for(swap_model in names(swap)) {
+if (file.exists(here("submissions", "utils", paste0(target_date, "-swap-ensemble.rds")))) {
+  swap <- readRDS(here("submissions", "utils", paste0(target_date, "-swap-ensemble.rds")))
+  
+  for (swap_model in names(swap)) {
     swap_names <- data.frame("state" = swap[swap_model][[1]])
     swap_locs <- merge(swap_names, state_locations, by = "state")$location
-    alt_subs <- load_submissions(target_date, "all-models", summarise = FALSE) 
+    if ("US" %in% swap_names$state) {
+      swap_locs <- c(swap_locs, "US")
+    }
+    all_ensembles <- load_submissions(target_date, "ensembles", summarise = FALSE)
+    all_models <- load_submissions(target_date, "all-models", summarise = FALSE)
+    alt_subs <- rbind(all_ensembles, all_models, fill = TRUE)
     alt_subs <- alt_subs[(model == swap_model & location %in% swap_locs)]
-    alt_subs <- alt_subs[, c("model", "submission_date") := NULL]
+    keep_cols <- names(submission)
+    alt_subs <- alt_subs[, ..keep_cols]
     submission <- submission[(!location %in% swap_locs)]
     submission <- rbind(submission, alt_subs)
   }
@@ -47,9 +97,10 @@ crossing_locations <- copy(cross_submission)[,
 crossing_locations <- unique(crossing_locations[crossing > 0, ]$location)
 
 if (length(crossing_locations) > 0) {
-  warning(
-    "Following locations contain crossing quantiles (but will be corrected): ", 
-    paste(crossing_locations, collapse = ", "))
+  error_message <- c(error_message,
+    list("Following locations contain crossing quantiles (but will be corrected):" = 
+           crossing_locations))
+  
   while (sum(cross_submission$crossing) > 0) {
     cross_submission <- cross_submission[, 
       value := ifelse(crossing, shift(value, fill = 0), value),
@@ -104,23 +155,35 @@ submission <- submission[pop < value,
   `:=`(value = pop - 1, value_exceeds_pop = 1)]
 
 if (sum(submission$value_exceeds_pop, na.rm = TRUE) > 0) {
-  warning("Forecast values exceed total population")
-  print(submission[value_exceeds_pop == 1])
+  error_message <- c(error_message,
+                     list("Forecast values exceed total population in:" =
+                            submission[value_exceeds_pop == 1, location]))
 }
 submission[, c("value_exceeds_pop", "pop") := NULL]
 
 # check for NAs
-na_submissions <- submission[is.na(value)]
+na_submissions <- submission[is.na(value), location]
 submission <- submission[!is.na(value)]
-if (nrow(na_submissions) > 0) {
-  warning("Forecast values are NA")
-  print(na_submissions)
+if (length(na_submissions) > 0) {
+  error_message <- c(error_message,
+                     list("Forecast values are NA in:" = na_submissions))
 }
 
 # check for identically 0
 if (sum(submission$value) == 0) {
+  error_message <- c(error_message,
+                     list("Forecast is zero for all submission targets and values"))
   stop("Forecast is zero for all submission targets and values")
 }
+
+if (length(error_message) > 0) {
+  error_message <- list("Checks completed:" = "All checks passed")
+}
+
 # Save submission ---------------------------------------------------------
 fwrite(submission, here("submissions", "submitted",
                         paste0(target_date, "-epiforecasts-ensemble1.csv")))
+
+saveRDS(error_message, here("submissions", "utils", paste0(target_date, "-errors.rds")))
+
+        

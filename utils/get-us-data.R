@@ -9,7 +9,7 @@ library(magrittr)
 # check_adjustmente = boolean, if TRUE prints which states have had data adjusted
   
 # Deaths data -------------------------------------------------------------
-get_us_deaths <- function(data = "daily", anomaly_threshold = 100, check_adjustment = FALSE){  
+get_us_deaths <- function(data = "daily"){  
 
    # Get & reshape data
    cumulative <- suppressMessages(readr::read_csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv")) %>% 
