@@ -67,14 +67,21 @@ submission <- submission[, value := as.integer(value)]
 
 # # Replace some states with a single model ---------------------------------
 source(here("utils", "get-locations.R"))
-if (file.exists(here("submission", "utils", paste0(target_date, "-swap-ensemble.rds")))) {
-  swap <- readRDS(here("submission", "utils", paste0(target_date, "-swap-ensemble.rds")))
+if (file.exists(here("submissions", "utils", paste0(target_date, "-swap-ensemble.rds")))) {
+  swap <- readRDS(here("submissions", "utils", paste0(target_date, "-swap-ensemble.rds")))
+  
   for (swap_model in names(swap)) {
     swap_names <- data.frame("state" = swap[swap_model][[1]])
     swap_locs <- merge(swap_names, state_locations, by = "state")$location
-    alt_subs <- load_submissions(target_date, "all-models", summarise = FALSE)
+    if ("US" %in% swap_names$state) {
+      swap_locs <- c(swap_locs, "US")
+    }
+    all_ensembles <- load_submissions(target_date, "ensembles", summarise = FALSE)
+    all_models <- load_submissions(target_date, "all-models", summarise = FALSE)
+    alt_subs <- rbind(all_ensembles, all_models, fill = TRUE)
     alt_subs <- alt_subs[(model == swap_model & location %in% swap_locs)]
-    alt_subs <- alt_subs[, c("model", "submission_date") := NULL]
+    keep_cols <- names(submission)
+    alt_subs <- alt_subs[, ..keep_cols]
     submission <- submission[(!location %in% swap_locs)]
     submission <- rbind(submission, alt_subs)
   }
