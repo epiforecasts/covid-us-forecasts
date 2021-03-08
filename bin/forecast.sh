@@ -12,5 +12,8 @@ bash bin/update-for-target-date.sh
 # Finalise submission
 Rscript submissions/finalise.R
 
+# Render report
+Rscript -e "rmarkdown::render('submissions/report.Rmd')"
+
 # Submit
 # See: https://github.com/reichlab/covid19-forecast-hub/blob/master/data-processed/README.md
