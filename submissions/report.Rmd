@@ -26,6 +26,7 @@ Be aware of the following states:
 ```{r anomalies, echo=FALSE, message = FALSE}
 if (file.exists(here("data", "anomalies", paste0(target_date, ".txt")))) {
   anomalies <- suppressMessages(scan(here("data", "anomalies", paste0(target_date, ".txt")), what = "character", sep = ","))
+  anomalies <- stringr::str_trim(anomalies)
   print(anomalies)
 } else {
   print("No anomalies recorded (no .txt file for target_date in 'data/anomalies')")
@@ -67,6 +68,7 @@ us$date <- lubridate::ymd(us$date)
 
 data_national <- plot_data(us)
 data_state <- plot_data(state)
+data_anomalous <- plot_data(state %>% filter(state %in% anomalies))
 ```
 
 #### National
