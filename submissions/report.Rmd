@@ -107,6 +107,7 @@ knitr::include_graphics(here::here("evaluation", "plots", target_date, "models",
 knitr::include_graphics(here::here("evaluation", "plots", target_date, "models", "states.png"))
 ```
 #### Anomalous
+
 ```{r plot-models-anomalous, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%"}
 if (exists("anomalies")) {
   knitr::include_graphics(here::here("evaluation", "plots", target_date,
@@ -129,6 +130,7 @@ knitr::include_graphics(here::here("evaluation", "plots", target_date, "ensemble
 ```
 
 #### Anomalous
+
 ```{r plot-ensembles-anomalous, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%"}
 if (exists("anomalies")) {
   knitr::include_graphics(here::here("evaluation", "plots", target_date,
