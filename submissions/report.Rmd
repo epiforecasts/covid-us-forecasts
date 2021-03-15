@@ -106,6 +106,7 @@ knitr::include_graphics(here::here("evaluation", "plots", target_date, "models",
 ```{r plot-models-states, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%"}
 knitr::include_graphics(here::here("evaluation", "plots", target_date, "models", "states.png"))
 ```
+
 #### Anomalous
 
 ```{r plot-models-anomalous, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%"}
