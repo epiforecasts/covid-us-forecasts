@@ -57,8 +57,8 @@ error_message <- c(error_message,
                           outer_diverge_locations[!outer_diverge_locations %in% central_diverge_locations]))
 
 # Use QRA by default ------------------------------------------------------
-submission <- submission[(window == 4 & horizons == "4")]
-submission <- submission[model == "QRA"]
+# submission <- submission[(window == 4 & horizons == "4")]
+submission <- submission[model == "median"]
 
 # Convert -----------------------------------------------------------------
 submission <- submission[, 
