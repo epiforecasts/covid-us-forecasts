@@ -68,7 +68,10 @@ us$date <- lubridate::ymd(us$date)
 
 data_national <- plot_data(us)
 data_state <- plot_data(state)
-data_anomalous <- plot_data(state %>% filter(state %in% anomalies))
+if (exists("anomalies")) {
+data_anomalous <- plot_data(state %>% 
+                              filter(state %in% anomalies))
+}
 ```
 
 #### National
@@ -85,7 +88,9 @@ plot(data_state)
 
 #### Anomalous
 ```{r plot-data-anomalous, echo=FALSE, fig.align = 'center', out.width="100%", warning=FALSE, message=FALSE}
-plot(data_anomalous)
+if (exists("data_anomalous")) {
+  plot(data_anomalous)
+}
 ```
 
 ### Models {.tabset .tabset-pills}
@@ -101,6 +106,13 @@ knitr::include_graphics(here::here("evaluation", "plots", target_date, "models",
 ```{r plot-models-states, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%"}
 knitr::include_graphics(here::here("evaluation", "plots", target_date, "models", "states.png"))
 ```
+#### Anomalous
+```{r plot-models-anomalous, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%"}
+if (exists("anomalies")) {
+  knitr::include_graphics(here::here("evaluation", "plots", target_date,
+                                     "models", "anomalies.png"))
+}
+```
 
 ### Ensembles {.tabset .tabset-pills}
 
@@ -115,6 +127,16 @@ knitr::include_graphics(here::here("evaluation", "plots", target_date, "ensemble
 ```{r plot-ensembles-states, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%"}
 knitr::include_graphics(here::here("evaluation", "plots", target_date, "ensembles", "states.png"))
 ```
+
+#### Anomalous
+```{r plot-ensembles-anomalous, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%"}
+if (exists("anomalies")) {
+  knitr::include_graphics(here::here("evaluation", "plots", target_date,
+                                     "ensembles", "anomalies.png"))
+}
+```
+
+-----
 
 ## Submission
 

@@ -3,6 +3,7 @@ library(cowplot)
 library(dplyr)
 
 plot_forecast <- function(forecasts, obs) {
+  obs <- mutate(obs, state_location = paste0(state, " (", location, ")"))
   plot <- forecasts %>%
     mutate(state_location = paste0(state, " (", location, ")")) %>%
     ggplot(aes(x = date, col = model, fill = model)) +

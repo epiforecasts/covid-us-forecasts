@@ -26,7 +26,9 @@ plotted_forecasts <- summarise_submissions(plotted_forecasts)
 
 # plot usa 
 us <- plot_forecast(plotted_forecasts[state == "US"], 
-                    obs[state == "US" & date < target_date & date > (target_date - 7*12)])
+                    obs[state == "US" & 
+                          date < target_date & 
+                          date > (target_date - 7*12)])
 
 source(here("utils", "check_dir.R"))
 plot_dir <- here("evaluation", "plots", target_date, "ensembles")
@@ -35,5 +37,20 @@ ggsave(paste0(plot_dir, "/us.png"), us, height = 7, width = 7)
 
 # plot states
 states <- plot_forecast(plotted_forecasts[state != "US"], 
-                        obs[state != "US" & date < target_date & date > (target_date - 7*12)])
+                        obs[state != "US" & 
+                              date < target_date & 
+                              date > (target_date - 7*12)])
 ggsave(paste0(plot_dir, "/states.png"), states, height = 48, width = 48)
+
+# plot states with anomalies
+if (file.exists(here("data", "anomalies", paste0(target_date, ".txt")))) {
+  anomalies <- suppressMessages(scan(here("data", "anomalies", paste0(target_date, ".txt")), what = "character", sep = ","))
+  anomalies <- stringr::str_trim(anomalies)
+  plot_anomalies <- plot_forecast(plotted_forecasts[state %in% anomalies], 
+                          obs[state %in% anomalies & 
+                                date < target_date & 
+                                date > (target_date - 7*12)])
+  ggsave(paste0(plot_dir, "/anomalies.png"), plot_anomalies, 
+         height = 12, width = 12)
+} 
+
