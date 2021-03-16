@@ -20,7 +20,3 @@ median <- median[, model := "median"]
 # Save ensembles ----------------------------------------------------------
 ensembles <- rbindlist(list(mean, median))
 fwrite(ensembles, here("ensembles", "data", "unweighted", paste0(target_date, ".csv")))
-
-
-
-
