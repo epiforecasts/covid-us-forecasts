@@ -3,10 +3,18 @@ library(here)
 
 target_date <- as.Date(readRDS(here("data", "target_date.rds")))
 
+# Add states here
 swap <- list(
-  "mean" = c("Virginia"),
-  "median" = c("New Jersey", "Minnesota", "Michigan"))
+  "mean" = c(),
+  "median" = c(),
+  "Rt" = c())
 
 saveRDS(swap, here("submissions", "utils", paste0(target_date, "-swap-ensemble.rds")))
+
+# Reset
+swap <- list(
+  "mean" = c(),
+  "median" = c(),
+  "Rt" = c())
 
 # source(here("submissions", "finalise.R"))
