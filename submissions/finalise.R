@@ -57,8 +57,7 @@ error_message <- c(error_message,
                           outer_diverge_locations[!outer_diverge_locations %in% central_diverge_locations]))
 
 # Use QRA by default ------------------------------------------------------
-# submission <- submission[(window == 4 & horizons == "4")]
-submission <- submission[model == "median"]
+submission <- submission[(window == 4 & horizons == "4" & model == "QRA")]
 
 # Convert -----------------------------------------------------------------
 submission <- submission[, 
@@ -176,7 +175,7 @@ if (sum(submission$value) == 0) {
   stop("Forecast is zero for all submission targets and values")
 }
 
-if (length(error_message) > 0) {
+if (length(error_message) == 0) {
   error_message <- list("Checks completed:" = "All checks passed")
 }
 
