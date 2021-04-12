@@ -8,6 +8,7 @@ swap <- list(
   # "mean" = c(),
   # "median" = c(),
   # "Timeseries" = c(),
+  "Rt" = c("Arizona", "California", "Illinois", "Florida", 
            "Massachusetts", "Nevada", "New Jersey", "Washington")
 )
 
