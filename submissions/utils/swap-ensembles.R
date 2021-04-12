@@ -6,10 +6,10 @@ target_date <- as.Date(readRDS(here("data", "target_date.rds")))
 # Add states here
 swap <- list(
   # "mean" = c(),
-  # "median" = c(),
+  "median" = c("Massachusetts", "Nevada", "New Jersey", "Puerto Rico"),
   # "Timeseries" = c(),
-  "Rt" = c("Arizona", "California", "Illinois", "Florida", 
-           "Massachusetts", "Nevada", "New Jersey", "Washington")
+  # "Rt" = c(),
+  "Case convolution" = c("California")
 )
 
 saveRDS(swap, here("submissions", "utils", paste0(target_date, "-swap-ensemble.rds")))
