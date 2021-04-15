@@ -13,7 +13,8 @@ load_forecast <- function(model, date = forecast_date) {
 rt <- load_forecast("rt")[, model := "Rt"]
 timeseries <-  load_forecast("timeseries")[, model := "Timeseries"]
 conv <-  load_forecast("deaths-conv-cases")[, model := "Case convolution"]
+baseline <-  load_forecast("constant-baseline")[, model := "Baseline"]
 
 # Combine and save -------------------------------------------------------
-forecasts <- rbindlist(list(rt, timeseries, conv), use.names = TRUE)
+forecasts <- rbindlist(list(rt, timeseries, conv, baseline), use.names = TRUE)
 fwrite(forecasts, here("submissions", "all-models", paste0(forecast_date, ".csv")))
