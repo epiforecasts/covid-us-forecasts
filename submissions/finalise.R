@@ -19,7 +19,8 @@ submission <- load_submissions(target_date, "ensembles", summarise = FALSE)
 single_models <- load_submissions(target_date, "all-models", summarise = FALSE)
 distance <- submission %>%
   filter(model == "median") %>%
-  select(target, location, type, quantile, ensemble_median = value)
+  select(target, location, type, quantile, ensemble_median = value) %>%
+  left_join(state_locations, by = "location")
 
 distance <- left_join(single_models, distance, 
                         by = c("target", "location", "type", "quantile")) %>%
@@ -32,28 +33,31 @@ distance <- left_join(single_models, distance,
 # in these states, models diverge: a model is on average < 1/5 or > 5x the median ensemble
 central_diverge_locations <- distance %>%
   filter(quantile %in% c(0.25, 0.5, 0.75)) %>%
-  group_by(target, location, model) %>%
+  group_by(target, location, state, model) %>%
   summarise(n = n(),
-            mean_percent_distance = mean(relative_ensemble, na.rm = T)) %>% 
+            mean_percent_distance = mean(relative_ensemble, na.rm = T),
+            .groups = "drop") %>% 
   filter(mean_percent_distance > 5 | mean_percent_distance < 0.2) %>% 
-  pull(location) %>% 
+  pull(state) %>% 
   unique() %>%
   sort()
+
 error_message <- c(error_message,
-                   list("Following locations have models with central estimates >5x median:" = 
+                   list("Check diverging models: Following locations have models with central estimates >5x median:" = 
                           central_diverge_locations))
 
 outer_diverge_locations <- distance %>%
   filter(quantile %in% c(0.1, 0.9)) %>%
-  group_by(target, location, model) %>%
+  group_by(target, location, state, model) %>%
   summarise(n = n(),
-            mean_percent_distance = mean(relative_ensemble, na.rm = T)) %>% 
+            mean_percent_distance = mean(relative_ensemble, na.rm = T),
+            .groups = "drop") %>% 
   filter(mean_percent_distance > 10 | mean_percent_distance < 0.1) %>% 
-  pull(location) %>% 
+  pull(state) %>% 
   unique() %>%
   sort()
 error_message <- c(error_message,
-                   list("Following locations have models with uncertainty >10x median:" = 
+                   list("Check diverging models: Following locations have models with central estimates >10x median:" = 
                           outer_diverge_locations[!outer_diverge_locations %in% central_diverge_locations]))
 
 # Use QRA by default ------------------------------------------------------
@@ -97,7 +101,7 @@ crossing_locations <- unique(crossing_locations[crossing > 0, ]$location)
 
 if (length(crossing_locations) > 0) {
   error_message <- c(error_message,
-    list("Following locations contain crossing quantiles (but will be corrected):" = 
+    list("Auto-corrected: Following locations contained crossing quantiles:" = 
            crossing_locations))
   
   while (sum(cross_submission$crossing) > 0) {
@@ -155,7 +159,7 @@ submission <- submission[pop < value,
 
 if (sum(submission$value_exceeds_pop, na.rm = TRUE) > 0) {
   error_message <- c(error_message,
-                     list("Forecast values exceed total population in:" =
+                     list("Auto-corrected: Forecast values exceeded total population in:" =
                             submission[value_exceeds_pop == 1, location]))
 }
 submission[, c("value_exceeds_pop", "pop") := NULL]
