@@ -4,6 +4,7 @@ library(data.table)
 library(lubridate)
 library(stringr)
 library(dplyr)
+state_locations <- readRDS(here("data", "state_codes.rds"))
 
 # Error catching ----------------------------------------------------------
 error_message <- list()
@@ -69,7 +70,6 @@ submission <- submission[,
 submission <- submission[, value := as.integer(value)]
 
 # # Replace some states with a single model ---------------------------------
-source(here("utils", "get-locations.R"))
 if (file.exists(here("submissions", "utils", paste0(target_date, "-swap-ensemble.rds")))) {
   swap <- readRDS(here("submissions", "utils", paste0(target_date, "-swap-ensemble.rds")))
   

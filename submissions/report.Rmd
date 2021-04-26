@@ -98,7 +98,7 @@ if (exists("data_anomalous")) {
 #### National
 
 ```{r plot-models-national, echo=FALSE, fig.align = 'center', out.width="40%"}
-knitr::include_graphics(here::here("evaluation", "plots", target_date, "models", "us.png"), )
+knitr::include_graphics(here::here("evaluation", "plots", target_date, "models", "us.png"))
 ```
 
 #### State
@@ -148,4 +148,4 @@ Submission validity checked with the following result:
 errors <- readRDS(here("submissions", "utils", paste0(target_date, "-errors.rds")))
 print(errors)
 ```
-Change model submission by using options in `submissions/finalise.R`.
+The QRA is submitted by default. Change this for any combination of states/models using `submissions/utils/swap-ensembles.R`. Specify state/model combinations in the `swap` list, then source the script.
