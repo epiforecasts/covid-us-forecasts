@@ -3,7 +3,7 @@ library(here)
 
 target_date <- as.Date(readRDS(here("data", "target_date.rds")))
 
-# Add states here
+# Add state - model combinations here
 swap <- list(
   # "mean" = c(
   #
@@ -13,11 +13,7 @@ swap <- list(
   # 
   # ),
   # 
-  "Rt" = c("Maryland",
-           "Michigan",
-           "Oklahoma",
-           "Ohio",
-           "US"
+  "Rt" = c("Oklahoma"
   )
   #,
   # "Case convolution" = c(
