@@ -51,8 +51,8 @@ if (file.exists(here("data", "anomalies", paste0(target_date, ".txt")))) {
 <div class="vscroll-plot">
   
 ```{r plot-data}
-knitr::include_graphics(here::here("evaluation", target_date, 
-                                   "data.png"))
+knitr::include_graphics(here::here("evaluation", "plots",
+                                   target_date, "data.png"))
 ```
 </div>
 
@@ -60,8 +60,8 @@ knitr::include_graphics(here::here("evaluation", target_date,
 
 <div class="vscroll-plot">
 ```{r plot-forecasts}
-knitr::include_graphics(here::here("evaluation", target_date, 
-                                   "forecasts.png"))
+knitr::include_graphics(here::here("evaluation", "plots",
+                                   target_date, "forecasts.png"))
 ```
 </div>
 

@@ -46,7 +46,9 @@ grid_data <- map(locations,
 names(grid_data) <- locations
 
 # Plot all together
-all_data <- plot_grid(plotlist = grid_data, ncol = 1)
+all_data <- plot_grid(plotlist = grid_data, 
+                      ncol = 1,
+                      align = "hv")
 ggsave(plot = all_data,
        filename = here("evaluation", "plots", target_date,
                        "data.png"), 
@@ -103,7 +105,9 @@ grid_forecasts <- map(locations,
 names(grid_forecasts) <- locations
 
 # Plot all together
-all_forecasts <- plot_grid(plotlist = grid_forecasts, ncol = 1)
+all_forecasts <- plot_grid(plotlist = grid_forecasts, 
+                           ncol = 1,
+                           align = "hv")
 ggsave(plot = all_forecasts,
        filename = here("evaluation", "plots", target_date,
                        "forecasts.png"), 
