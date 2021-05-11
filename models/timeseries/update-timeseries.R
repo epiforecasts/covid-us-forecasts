@@ -16,12 +16,14 @@ source(here::here("models", "timeseries", "utils", "deaths-on-cases-forecast.R")
 deaths_state <- get_us_data(data = "deaths", 
                             include_national = TRUE,
                             incident = TRUE) %>% 
-  filter(date <= forecast_date)
+  filter(date <= forecast_date) %>%
+  rename(deaths = value)
 
 cases_state <- get_us_data(data = "cases", 
                            include_national = TRUE,
                            incident = TRUE) %>% 
-  filter(date <= forecast_date)
+  filter(date <= forecast_date) %>%
+  rename(cases = value)
 
 # Forecast with case regressor --------------------------------------------
 state_deaths_on_cases_forecast <- deaths_on_cases_forecast(case_data = cases_state,
