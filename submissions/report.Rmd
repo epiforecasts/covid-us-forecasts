@@ -31,10 +31,6 @@ errors <- readRDS(here("submissions", "utils", paste0(target_date, "-errors.rds"
 print(errors)
 ```
 
-----
-
-## Evaluation {.tabset}
-
 Be aware of the following states:
 ```{r anomalies, message = FALSE}
 if (file.exists(here("data", "anomalies", paste0(target_date, ".txt")))) {
@@ -45,6 +41,10 @@ if (file.exists(here("data", "anomalies", paste0(target_date, ".txt")))) {
   print("No anomalies recorded.")
 }
 ```
+
+----
+
+## Evaluation {.tabset}
 
 ### Data {.tabset .tabset-pills}
 
