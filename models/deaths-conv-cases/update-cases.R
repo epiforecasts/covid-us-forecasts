@@ -16,13 +16,12 @@ onset_to_report <- readRDS(here("models", "deaths-conv-cases", "data", "delays",
 
 # Get cases  ---------------------------------------------------------------
 source(here("utils", "get-us-data.R"))
-cases <- get_us_cases(data = "daily")
+cases <- get_us_data(data = "cases",
+                     include_national = TRUE,
+                     incident = TRUE)
 cases <- as.data.table(cases)
 cases <- cases[, .(region = state, date = as.Date(date), 
-                   confirm = cases)]
-us_cases <- copy(cases)[, .(confirm = sum(confirm, na.rm = TRUE)), by = "date"]
-us_cases <- us_cases[, region := "US"]
-cases <- rbindlist(list(us_cases, cases), use.names = TRUE)
+                   confirm = value)]
 cases <- cases[date <= as.Date(target_date)]
 cases <- cases[date >= (as.Date(target_date) - weeks(12))]
 setorder(cases, region, date)
