@@ -15,21 +15,19 @@ target_date <- readRDS(here("data", "target_date.rds"))
 # assumes no missing data (either explicit or implicit)
 source(here("utils", "get-us-data.R"))
 # get observed deaths
-deaths_raw <- get_us_deaths(data = "daily")
+deaths_raw <- get_us_data("deaths", 
+                          include_national = TRUE,
+                          incident = TRUE)
 deaths_raw <- as.data.table(deaths_raw)
-observations <- deaths_raw[, .(region = state, date, secondary = deaths)]
-us_obs <- copy(observations)[, .(secondary = sum(secondary, na.rm = TRUE)), by = "date"]
-us_obs <- us_obs[, region := "US"]
-observations <- rbindlist(list(us_obs, observations), use.names = TRUE)
+observations <- deaths_raw[, .(region = state, date, secondary = value)]
 
 # get observed cases
-cases <- get_us_cases(data = "daily")
+cases <- get_us_data("cases", 
+                     include_national = TRUE,
+                     incident = TRUE)
 cases <- as.data.table(cases)
 cases <- cases[, .(region = state, date = as.Date(date), 
-                   primary = cases)]
-us_cases <- copy(cases)[, .(primary = sum(primary, na.rm = TRUE)), by = "date"]
-us_cases <- us_cases[, region := "US"]
-cases <- rbindlist(list(us_cases, cases), use.names = TRUE)
+                   primary = value)]
 
 # join observations and filter for the last 8 weeks
 observations <- merge(observations, cases, by = c("region", "date"))
