@@ -1,18 +1,21 @@
 ---
 title: "US forecasts: weekly review"
-output:
-  html_document:
-    toc: true
-    toc_float:
-      collapsed: false
+output: html_document
 ---
+<style>
+.vscroll-plot {
+    width: 1000px;
+    height: 600px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+</style>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(here)
 library(dplyr)
 source(here("utils", "get-us-data.R"))
-source(here("utils", "load_observations.R"))
 source(here("evaluation", "utils", "plot_data.R"))
 
 target_date <- as.Date(readRDS(here::here("data", "target_date.rds"))) 
@@ -20,132 +23,52 @@ target_date <- as.Date(readRDS(here::here("data", "target_date.rds")))
 
 # `r target_date`
 
+## Anomalies
+
+Submission validity checked with the following result:
+```{r finalise, message=FALSE}
+errors <- readRDS(here("submissions", "utils", paste0(target_date, "-errors.rds")))
+print(errors)
+```
+
+----
+
 ## Evaluation {.tabset}
 
 Be aware of the following states:
-```{r anomalies, echo=FALSE, message = FALSE}
+```{r anomalies, message = FALSE}
 if (file.exists(here("data", "anomalies", paste0(target_date, ".txt")))) {
   anomalies <- suppressMessages(scan(here("data", "anomalies", paste0(target_date, ".txt")), what = "character", sep = ","))
   anomalies <- stringr::str_trim(anomalies)
   print(anomalies)
 } else {
-  print("No anomalies recorded (no .txt file for target_date in 'data/anomalies')")
+  print("No anomalies recorded.")
 }
 ```
 
 ### Data {.tabset .tabset-pills}
 
-```{r setup-data, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%", warning=FALSE, message=FALSE}
-weekly <- load_observations(target_date) %>%
-  mutate(date = as.character(date)) %>%
-  rename(weekly = value)
-
-state <- get_us_deaths("daily") %>%
-  filter(date >= min(weekly$date)) %>%
-  select(state, date, daily = deaths) %>%
-  mutate(date = as.character(date)) %>%
-  left_join(weekly, by = c("state", "date")) %>%
-  filter(!state %in% "US") %>%
-  group_by(state) %>%
-  tidyr::fill(location)
-
-us <- state %>%
-  group_by(date) %>%
-  summarise(daily = sum(daily), .groups = "drop") %>%
-  mutate(state = "US") %>%
-  left_join(filter(weekly, state == "US"), by = c("state", "date")) %>%
-  tidyr::fill(location)
-
-state_cases <- get_us_cases("daily") %>%
-  filter(date >= min(weekly$date)) %>%
-  select(state, date, daily = cases) %>%
-  mutate(date = as.character(date),
-         weekly = NULL) %>%
-  left_join(select(state, location, state), by = "state") 
-
-state$date <- lubridate::ymd(state$date)
-us$date <- lubridate::ymd(us$date)
-
-data_national <- plot_data(us)
-data_state <- plot_data(state)
-if (exists("anomalies")) {
-data_anomalous <- plot_data(state %>% 
-                              filter(state %in% anomalies))
-}
+<div class="vscroll-plot">
+  
+```{r plot-data}
+knitr::include_graphics(here::here("evaluation", target_date, 
+                                   "data.png"))
 ```
+</div>
 
-#### National
+### Forecasts {.tabset .tabset-pills}
 
-```{r plot-data-national, echo=FALSE, fig.align = 'center', out.width="40%", warning=FALSE, message=FALSE}
-plot(data_national)
+<div class="vscroll-plot">
+```{r plot-forecasts}
+knitr::include_graphics(here::here("evaluation", target_date, 
+                                   "forecasts.png"))
 ```
+</div>
 
-#### State
-
-```{r plot-data-states, echo=FALSE, fig.align = 'center', fig.height=48, fig.width=48, warning=FALSE, message=FALSE}
-plot(data_state)
-```
-
-#### Anomalous
-```{r plot-data-anomalous, echo=FALSE, fig.align = 'center', out.width="100%", warning=FALSE, message=FALSE}
-if (exists("data_anomalous")) {
-  plot(data_anomalous)
-}
-```
-
-### Models {.tabset .tabset-pills}
-
-#### National
-
-```{r plot-models-national, echo=FALSE, fig.align = 'center', out.width="40%"}
-knitr::include_graphics(here::here("evaluation", "plots", target_date, "models", "us.png"))
-```
-
-#### State
-
-```{r plot-models-states, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%"}
-knitr::include_graphics(here::here("evaluation", "plots", target_date, "models", "states.png"))
-```
-
-#### Anomalous
-
-```{r plot-models-anomalous, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%"}
-if (exists("anomalies")) {
-  knitr::include_graphics(here::here("evaluation", "plots", target_date,
-                                     "models", "anomalies.png"))
-}
-```
-
-### Ensembles {.tabset .tabset-pills}
-
-#### National
-
-```{r plot-ensembles-national, echo=FALSE, fig.align = 'center', out.width="40%"}
-knitr::include_graphics(here::here("evaluation", "plots", target_date, "ensembles", "us.png"))
-```
-
-#### State
-
-```{r plot-ensembles-states, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%"}
-knitr::include_graphics(here::here("evaluation", "plots", target_date, "ensembles", "states.png"))
-```
-
-#### Anomalous
-
-```{r plot-ensembles-anomalous, echo=FALSE, fig.align = 'center', out.width="100%", out.height="100%"}
-if (exists("anomalies")) {
-  knitr::include_graphics(here::here("evaluation", "plots", target_date,
-                                     "ensembles", "anomalies.png"))
-}
-```
-
------
+---
 
 ## Submission
+The QRA is submitted by default. Change this for any combination of states/models using [`submissions/utils/swap-ensembles.R`](https://github.com/epiforecasts/covid-us-forecasts/blob/master/submissions/utils/swap-ensembles.R). Specify state/model combinations in the `swap` list, then source the script.
 
-Submission validity checked with the following result:
-```{r finalise, echo=FALSE, message=FALSE}
-errors <- readRDS(here("submissions", "utils", paste0(target_date, "-errors.rds")))
-print(errors)
-```
-The QRA is submitted by default. Change this for any combination of states/models using `submissions/utils/swap-ensembles.R`. Specify state/model combinations in the `swap` list, then source the script.
+
+
