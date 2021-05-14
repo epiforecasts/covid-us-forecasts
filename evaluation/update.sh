@@ -1,7 +1,4 @@
 #!bin/bash
 
-# update single model evaluation
-Rscript evaluation/models.R
-
-# update ensemble evaluation
-Rscript evaluation/ensembles.R
+# update plots for data and forecasts
+Rscript evaluation/plot-grid.R

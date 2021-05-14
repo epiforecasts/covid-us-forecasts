@@ -5,7 +5,6 @@ library(dplyr)
 
 plot_data <- function(data){
 plot <- data %>%
-    mutate(state_location = paste0(state, " (", location, ")")) %>%
     ggplot(aes(x = date, fill = NULL)) +
     geom_point(aes(y = value_weekly), col = "black") +
     geom_line(aes(y = value_weekly), col = "grey10") +
