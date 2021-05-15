@@ -125,8 +125,7 @@ source(here("utils", "get-us-data.R"))
 cumulative <- setDT(get_us_data(data = "deaths",
                                       include_national = TRUE,
                                       incident = FALSE))
-cumulative$deaths <- cumulative$value
-cumulative$value <- NULL
+cumulative <- setnames(cumulative, "value", "deaths")
 
 cumulative <- 
   cumulative[date == min(as.Date(submission$target_end_date)) - weeks(1),
