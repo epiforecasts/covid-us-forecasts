@@ -26,7 +26,7 @@ cases_state <- get_us_data(data = "cases",
   rename(cases = value)
 
 # Forecast with case regressor --------------------------------------------
-state_deaths_on_cases_forecast <- deaths_on_cases_forecast(case_data = cases_state,
+deaths_on_cases_forecast <- deaths_on_cases_forecast(case_data = cases_state,
                                                            deaths_data = deaths_state)
 samples_dir <- here("models", "timeseries", "data", "samples")
 if (!dir.exists(samples_dir)) {
