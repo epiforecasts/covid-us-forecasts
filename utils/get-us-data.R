@@ -12,12 +12,13 @@ library(dplyr)
 library(tidyr)
 library(readr)
 library(lubridate)
-  
+
 get_us_data <- function(data = c("deaths", "cases"),
                         include_national = FALSE,
                         incident = TRUE, 
                         incident_weekly = FALSE) {  
-  
+   
+  data <- match.arg(data)
   if (data == "cases") {
     url <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv"
   } else if (data == "deaths") {
