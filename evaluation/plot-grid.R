@@ -17,7 +17,7 @@ source(here("evaluation", "utils", "plot_data.R"))
 cases <- get_us_data("cases", 
                      include_national = TRUE, 
                      incident_weekly = TRUE) %>%
-  filter(date >= min_date & date < target_date - 6) %>%
+  filter(date >= min_date & date < target_date) %>%
   mutate(value_weekly = ifelse(date == max(date), NA, value_weekly)) %>%
   split(., .$state)
 
