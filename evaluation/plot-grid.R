@@ -17,7 +17,8 @@ source(here("evaluation", "utils", "plot_data.R"))
 cases <- get_us_data("cases", 
                      include_national = TRUE, 
                      incident_weekly = TRUE) %>%
-  filter(date >= min_date & date < target_date) %>%
+  filter(date >= min_date & date < target_date - 6) %>%
+  mutate(value_weekly = ifelse(date == max(date), NA, value_weekly)) %>%
   split(., .$state)
 
 plot_cases <- map(cases, ~ plot_data(.x) + 
@@ -29,6 +30,7 @@ deaths <- get_us_data("deaths",
                    include_national = TRUE, 
                    incident_weekly = TRUE) %>%
   filter(date >= min_date & date < target_date) %>%
+  mutate(value_weekly = ifelse(date == max(date), NA, value_weekly)) %>%
   split(., .$state)
 
 plot_deaths <- map(deaths, ~ plot_data(.x) + 
