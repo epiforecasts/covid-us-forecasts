@@ -14,13 +14,8 @@ swap <- list(
   # ),
   # 
   "Rt" = c(
-    "Arkansas",
-    "Florida",
-    "Michigan",
-    "New Jersey",
-    "Texas",
-    "Pennsylvania",
-    "US"
+    "Alabama",
+    "Illinois"
   )
   #,
   # "Case convolution" = c(
@@ -32,10 +27,3 @@ saveRDS(swap, here("submissions", "utils", paste0(target_date, "-swap-ensemble.r
 
 # Update submission
 source(here("submissions", "finalise.R"))
-
-# Reset
-swap <- list(
-  "mean" = c(),
-  "median" = c(),
-  "Timeseries" = c(),
-  "Rt" = c())
