@@ -122,13 +122,14 @@ if (length(crossing_locations) > 0) {
 # Add cumulative forecast -------------------------------------------------
 # get cumulative data
 source(here("utils", "get-us-data.R"))
-cumulative_state <- setDT(get_us_deaths(data = "cumulative"))
-cumulative_state <- 
-  cumulative_state[date == min(as.Date(submission$target_end_date)) - weeks(1),
+cumulative <- setDT(get_us_data(data = "deaths",
+                                      include_national = TRUE,
+                                      incident = FALSE))
+cumulative <- setnames(cumulative, "value", "deaths")
+
+cumulative <- 
+  cumulative[date == min(as.Date(submission$target_end_date)) - weeks(1),
                    .(state, deaths)]
-cumulative_national <- cumulative_state[, .(deaths = sum(deaths),
-                                            state = "US")]
-cumulative <- rbind(cumulative_state, cumulative_national)
 
 # link with state codes 
 state_codes <- readRDS(here("data", "state_codes.rds"))

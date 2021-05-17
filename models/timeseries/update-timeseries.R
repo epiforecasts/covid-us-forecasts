@@ -13,34 +13,21 @@ source(here::here("utils", "get-us-data.R"))
 source(here::here("models", "timeseries", "utils", "deaths-on-cases-forecast.R"))
 
 # Get data
-deaths_state <- get_us_deaths(data = "daily") %>% 
-  filter(date <= forecast_date)
+deaths_state <- get_us_data(data = "deaths", 
+                            include_national = TRUE,
+                            incident = TRUE) %>% 
+  filter(date <= forecast_date) %>%
+  rename(deaths = value)
 
-deaths_national <- deaths_state %>%
-  group_by(date) %>%
-  summarise(deaths = sum(deaths), .groups = "drop_last") %>%
-  mutate(state = "US")
-
-cases_state <- get_us_cases(data = "daily") %>% 
-  filter(date <= forecast_date)
-
-cases_national <- cases_state %>%
-  group_by(date) %>%
-  summarise(cases = sum(cases), .groups = "drop_last") %>%
-  mutate(state = "US")
+cases_state <- get_us_data(data = "cases", 
+                           include_national = TRUE,
+                           incident = TRUE) %>% 
+  filter(date <= forecast_date) %>%
+  rename(cases = value)
 
 # Forecast with case regressor --------------------------------------------
-# State forecast
-state_deaths_on_cases_forecast <- deaths_on_cases_forecast(case_data = cases_state,
+deaths_on_cases_forecast <- deaths_on_cases_forecast(case_data = cases_state,
                                                            deaths_data = deaths_state)
-
-# National forecast
-national_deaths_on_cases_forecast <- deaths_on_cases_forecast(case_data = cases_national,
-                                                              deaths_data = deaths_national)
-# Bind
-deaths_on_cases_forecast <- rbindlist(list(national_deaths_on_cases_forecast, 
-                                           state_deaths_on_cases_forecast))
-
 samples_dir <- here("models", "timeseries", "data", "samples")
 if (!dir.exists(samples_dir)) {
   dir.create(samples_dir, recursive = TRUE)
@@ -48,7 +35,6 @@ if (!dir.exists(samples_dir)) {
 readr::write_csv(deaths_on_cases_forecast, file.path(samples_dir, paste0(forecast_date, ".csv")))
 
 # Save formatted timeseries -----------------------------------------------
-# save formatted forecasts 
 source(here::here("utils", "format-forecast-us.R"))
 formatted_forecasts <- format_forecast_us(forecasts = deaths_on_cases_forecast,
                                           forecast_date = forecast_date, 

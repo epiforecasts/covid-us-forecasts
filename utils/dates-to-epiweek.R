@@ -4,10 +4,6 @@
 #   "epiweek_full" = TRUE if there are a complete 7 days of data in the epiweek
 #   
 # Example:
-# source("get_us_data.R")
-# daily <- get_us_deaths()
-# daily_date <- dates_to_epiweek(daily)
-# 
 # to only retain the last date of each epiweek (i.e. the forecasting target_end_date),
 #   df %>%
 #   dates_to_epiweek()
