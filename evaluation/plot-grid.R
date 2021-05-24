@@ -71,9 +71,12 @@ obs <- get_us_data("deaths",
                    include_national = TRUE, 
                    incident = TRUE,
                    incident_weekly = TRUE) %>%
-  filter(date >= min_date & date < target_date &
+  filter(date >= min_date & 
+           date < target_date &
          !is.na(value_weekly)) %>%
-  mutate(value = value_weekly,
+  mutate(value = ifelse(date < (target_date - 1), 
+                        value_weekly,
+                        NA),
          value_weekly = NULL) %>%
   split(., .$state)
 
