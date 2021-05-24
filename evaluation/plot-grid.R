@@ -8,6 +8,10 @@ library(here)
 # Target date -------------------------------------------------------------
 target_date <- as.Date(readRDS(here("data", "target_date.rds")))
 min_date <- target_date - (7*12)
+plot_dir <- here("evaluation", "plots", target_date)
+if (!dir.exists(plot_dir)) {
+  dir.create(plot_dir)
+}
 
 # Raw data ----------------------------------------------------------------
 source(here("utils", "get-us-data.R"))
@@ -52,8 +56,7 @@ all_data <- plot_grid(plotlist = grid_data,
                       ncol = 1,
                       align = "hv")
 ggsave(plot = all_data,
-       filename = here("evaluation", "plots", target_date,
-                       "data.png"), 
+       filename = paste0(plot_dir, "/data.png"), 
        height = 150,
        width = 10,
        limitsize = FALSE)
@@ -111,8 +114,7 @@ all_forecasts <- plot_grid(plotlist = grid_forecasts,
                            ncol = 1,
                            align = "hv")
 ggsave(plot = all_forecasts,
-       filename = here("evaluation", "plots", target_date,
-                       "forecasts.png"), 
+       filename = paste0(plot_dir, "/forecasts.png"), 
        height = 150,
        width = 10,
        limitsize = FALSE)
