@@ -31,9 +31,10 @@ setorder(deaths, region, date)
 rt <- opts_list(rt_opts(prior = list(mean = 1, sd = 0.2), 
                         future = "latest"), deaths)
 pops <- fread(here("data", "state_pop.csv"))
-rt <- map(names(rt), function(x) {
+rt <- map(names(rt), function(x, prov_pop = 0.2) {
   y <- rt[[x]]
   y$pop <- pops[state_name %in% x]$tot_pop
+  y$pop <- as.integer(y$pop * proc_pop)
   return(y)
 })
 names(rt) <- unique(deaths$region)
