@@ -14,8 +14,7 @@ swap <- list(
   # ),
   # 
   "Rt" = c(
-    "Alabama", "Colorado", "Connecticut", "Illinois", 
-    "Minnesota", "Pennsylvania", "Washington"
+    "Illinois", "Pennsylvania", "US", "Georgia", "Maryland"
   )
   #,
   # "Case convolution" = c(
@@ -23,7 +22,7 @@ swap <- list(
   # )
 )
 
-saveRDS(swap, here("submissions", "utils", paste0(target_date, "-swap-ensemble.rds")))
+saveRDS(swap, here("submissions", "submission-notes", paste0(target_date, "-swap-ensemble.rds")))
 
 # Update submission
 source(here("submissions", "finalise.R"))
