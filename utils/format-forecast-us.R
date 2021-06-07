@@ -62,6 +62,6 @@ format_forecast_us <- function(forecasts, shrink_per = 0,
                                        c("forecast_date", "submission_date", 
                                          "target", "target_end_date", "location", 
                                          "type", "quantile", "value"))
-  forecasts_format <- forecasts_format[, value = ifelse(value > max_value, max_value, value)]
+  forecasts_format <- forecasts_format[, value := ifelse(value > max_value, max_value, value)]
   return(forecasts_format)
 }

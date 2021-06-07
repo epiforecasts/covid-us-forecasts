@@ -27,7 +27,7 @@ target_date <- as.Date(readRDS(here::here("data", "target_date.rds")))
 
 Submission validity checked with the following result:
 ```{r finalise, message=FALSE}
-errors <- readRDS(here("submissions", "utils", paste0(target_date, "-errors.rds")))
+errors <- readRDS(here("submissions", "submission-notes", paste0(target_date, "-errors.rds")))
 print(errors)
 ```
 
@@ -68,7 +68,7 @@ knitr::include_graphics(here::here("evaluation", "plots",
 ---
 
 ## Submission
-The QRA is submitted by default. Change this for any combination of states/models using [`submissions/utils/swap-ensembles.R`](https://github.com/epiforecasts/covid-us-forecasts/blob/master/submissions/utils/swap-ensembles.R). Specify state/model combinations in the `swap` list, then source the script.
+The QRA is submitted by default. Change this for any combination of states/models using [`submissions/swap-ensembles.R`](https://github.com/epiforecasts/covid-us-forecasts/blob/master/submissions/swap-ensembles.R). Specify state/model combinations in the `swap` list, then source the script.
 
 
 

@@ -70,8 +70,8 @@ submission <- submission[,
 submission <- submission[, value := as.integer(value)]
 
 # # Replace some states with a single model ---------------------------------
-if (file.exists(here("submissions", "utils", paste0(target_date, "-swap-ensemble.rds")))) {
-  swap <- readRDS(here("submissions", "utils", paste0(target_date, "-swap-ensemble.rds")))
+if (file.exists(here("submissions", "submission-notes", paste0(target_date, "-swap-ensemble.rds")))) {
+  swap <- readRDS(here("submissions", "submission-notes", paste0(target_date, "-swap-ensemble.rds")))
   
   for (swap_model in names(swap)) {
     swap_names <- data.frame("state" = swap[swap_model][[1]])
@@ -188,6 +188,6 @@ if (length(error_message) == 0) {
 fwrite(submission, here("submissions", "submitted",
                         paste0(target_date, "-epiforecasts-ensemble1.csv")))
 
-saveRDS(error_message, here("submissions", "utils", paste0(target_date, "-errors.rds")))
+saveRDS(error_message, here("submissions", "submission-notes", paste0(target_date, "-errors.rds")))
 
         
