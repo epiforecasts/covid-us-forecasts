@@ -57,7 +57,7 @@ all_data <- plot_grid(plotlist = grid_data,
                       align = "hv")
 ggsave(plot = all_data,
        filename = paste0(plot_dir, "/data.png"), 
-       height = 100,
+       height = 150,
        width = 10,
        limitsize = FALSE)
 
@@ -118,6 +118,6 @@ all_forecasts <- plot_grid(plotlist = grid_forecasts,
                            align = "hv")
 ggsave(plot = all_forecasts,
        filename = paste0(plot_dir, "/forecasts.png"), 
-       height = 100,
+       height = 150,
        width = 10,
        limitsize = FALSE)
