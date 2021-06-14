@@ -1,0 +1,99 @@
+---
+params: 
+  report_date: "2021-03-29"
+  restrict_weeks: 4
+always_allow_html: true
+output:
+  html_document:
+    theme: yeti
+    self_contained: true
+    css: https://covid19forecasthub.eu/css/styles.css
+title: "European COVID-19 Forecast Hub Ensemble Report"
+date: "`r params$report_date`"
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(dplyr)
+library(DT)
+library(knitr)
+library(covidHubUtils)
+library(lubridate)
+library(here)
+library(data.table)
+library(readr)
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+
+include_calibration <- TRUE
+include_forecast_plot <- TRUE
+
+restrict_weeks <- params$restrict_weeks
+```
+
+```{r load-data}
+# load forecasts ---------------------------------------------------------------
+forecasts <- load_forecasts(
+  models = "epiforecasts-ensemble1",
+  source = "local_hub_repo",
+  hub_repo_path = here("submissions"),
+  hub = "US"
+)
+
+setDT(forecasts)
+# set forecast date to corresponding submission date
+forecasts[, forecast_date :=
+              ceiling_date(forecast_date, "week", week_start = 2) - 1]
+forecasts <- forecasts[forecast_date >= "2021-03-08"]
+forecasts <- forecasts[forecast_date <= as.Date(params$report_date)]
+
+setnames(forecasts, old = c("value"), new = c("prediction"))
+
+# load truth data --------------------------------------------------------------
+raw_truth <- load_truth(
+  truth_source = "JHU",
+  target_variable = c("inc death"),
+  truth_end_date = params$report_date,
+  hub = "US"
+)
+
+# include anomalies
+truth <- raw_truth
+# get anomalies
+# anomalies <- read_csv(here("data-truth", "anomalies", "anomalies.csv"))
+# truth <- anti_join(raw_truth, anomalies)
+
+
+setDT(truth)
+truth[, model := NULL]
+setnames(truth, old = c("value"), 
+         new = c("true_value"))
+
+data <- scoringutils::merge_pred_and_obs(forecasts, truth, 
+                                         join = "full")
+
+target_variables <- c(Cases = "inc case", Deaths = "inc death")
+```
+
+---
+
+# Forecast visualisation {.tabset .tabset-fade}
+
+Forecasts of cases/deaths per week per 100,000. The date of the tab marks the date on which a forecast was made (only the latest forecasts and the previous `r restrict_weeks` weeks shown).
+
+```{r forecast-vis, include = FALSE, eval = include_forecast_plot}
+
+locations <- unique(truth$location_name)
+forecast_dates <-
+  rev(as.character(unique(data$forecast_date[!is.na(data$forecast_date)])))
+
+out <- NULL
+out <- c(out, knit_child(here::here("evaluation", "evaluation",
+                                    "template-plot-ensemble.Rmd")))
+```
+
+`r paste(if (include_forecast_plot) knit(text = out), collapse = '\n\n')`
+
+# {.unlisted .unnumbered}
+
