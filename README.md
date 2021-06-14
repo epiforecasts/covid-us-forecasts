@@ -1,6 +1,6 @@
 # Forecasting Covid-19 in the US
 
-This repository is set up to contribute to the [Covid-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub), which is hosted by [Reich Lab](https://reichlab.io/covid19-forecast-hub/). See the [`docs/SMG.md`](docs/SMG.md) for technical submission details, or see [our fork](https://github.com/epiforecasts/covid19-forecast-hub) of the project
+This repository is set up to contribute to the [Covid-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub), which is hosted by [Reich Lab](https://reichlab.io/covid19-forecast-hub/). See the [`docs/SMG.md`](docs/SMG.md) for technical submission details, or see [our fork](https://github.com/epiforecasts/covid19-forecast-hub) of the project.
 
 ## Models
 
