@@ -14,7 +14,8 @@ swap <- list(
   # ),
   # 
   "Rt" = c(
-    "Maryland"
+    "Maryland",
+    "California"
   )
   #,
   # "Case convolution" = c(
