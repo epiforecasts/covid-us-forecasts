@@ -44,19 +44,30 @@ ensembles <- as.data.table(ensembles)[, id := 1:.N]
 # prune grid of impossible combinations
 ensembles <- ensembles[, min_horizon := map(horizons, min)][windows >= min_horizon]
 
+###
 # set run grid in parallel
-plan("multisession", earlySignal = TRUE)
-ensembles <- future_lapply(split(ensembles, by = "id"), run_ensemble_grid,
-                           train_forecasts = train_forecasts, obs = obs, 
-                           target_date = target_date, forecasts = current_forecasts,
-                           verbose = FALSE,
-                           future.globals = c("ensemble_grid", "extract_training_data",
-                                              "ensemble"),
-                           future.packages = c("data.table", "lubridate", "quantgen",
-                                               "purrr", "stringr"),
-                           future.seed = TRUE)
-plan("sequential")
+# plan("multisession", earlySignal = TRUE)
+# ensembles <- future_lapply(split(ensembles, by = "id"), run_ensemble_grid,
+#                            train_forecasts = train_forecasts, obs = obs, 
+#                            target_date = target_date, forecasts = current_forecasts,
+#                            verbose = TRUE,
+#                            future.globals = c("ensemble_grid", "extract_training_data",
+#                                               "ensemble"),
+#                            future.packages = c("data.table", "lubridate", "quantgen",
+#                                                "purrr", "stringr"),
+#                            future.seed = TRUE)
+# plan("sequential")
 
+### 
+# 
+# or run sequentially
+ensembles <- purrr::map(split(ensembles, by = "id"),
+                            ~ run_ensemble_grid(.x, 
+                                                train_forecasts = train_forecasts, 
+                                                obs = obs, 
+                                                target_date = target_date, 
+                                                forecasts = current_forecasts,
+                                                verbose = TRUE))
 # organise output
 ensembles <- transpose(ensembles)
 ensembles$weights <- rbindlist(ensembles$weights)
@@ -65,6 +76,9 @@ ensembles$forecasts <- rbindlist(ensembles$forecasts)
 # Save ensembles ----------------------------------------------------------
 fwrite(ensembles$forecasts, here("ensembles", "data", "weighted", "forecasts", paste0(target_date, ".csv")))
 fwrite(ensembles$weights, here("ensembles", "data", "weighted", "weights", paste0(target_date, ".csv")))
+
+
+#
 
 
 
