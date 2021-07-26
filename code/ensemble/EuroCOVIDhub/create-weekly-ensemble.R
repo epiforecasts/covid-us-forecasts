@@ -14,14 +14,11 @@ source(here("code", "config_utils", "get_hub_config.R"))
 method <- "relative_skill_weighted_mean"
 
 # Set current submission date
-forecast_date <- today()-7
-wday(forecast_date) <- get_hub_config("forecast_week_day")
+target_date <- readRDS(here("data/target_date.rds"))
+forecast_date <- target_date
 
 # Get model names for manual exclusion
-exclude_models <-
-  vroom(here("code", "ensemble", "EuroCOVIDhub", "manual-exclusions.csv")) %>%
-  filter(forecast_date == !!forecast_date) %>%
-  pull(model)
+exclude_models <- NULL
 
 # Run weekly automated ensemble -----------------------------------------
 hub_ensemble <- run_ensemble(
