@@ -15,8 +15,8 @@ render <- JS(
 
 if (nrow(df) > 0) {
   df %>%
-    select(model, n, n_loc, rel_wis, rel_ae, cov_50, cov_95, bias) %>%
-    arrange(rel_wis) %>%
+    select(model, n, n_loc, relative_skill_wis, relative_skill_ae, cov_50, cov_95, bias) %>%
+    arrange(relative_skill_wis) %>%
     dplyr::rename(
       "95% Cov." = cov_95,
       "50% Cov." = cov_50

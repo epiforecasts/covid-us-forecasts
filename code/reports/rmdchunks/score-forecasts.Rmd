@@ -87,7 +87,7 @@ bias <- score_df %>%
   select(model, target_variable, horizon, location, bias)
 
 ## relative absolute error of point forecast
-rel_ae <- score_df %>%
+relative_skill_ae <- score_df %>%
   filter(type == "point", !is.na(true_value)) %>%
   mutate(quantile = NA_real_) %>% ## scoringutils interprets these as point forecasts
   eval_forecasts(
@@ -96,10 +96,11 @@ rel_ae <- score_df %>%
       "horizon", "location"
     ),
     compute_relative_skill = TRUE,
-    baseline = "EuroCOVIDhub-baseline",
+    baseline = NULL,
     rel_skill_metric = "ae_point"
   ) %>%
-  select(model, target_variable, horizon, location, rel_ae = scaled_rel_skill)
+  select(model, target_variable, horizon, location, 
+         relative_skill_ae = relative_skill)
 
 ## for calculating WIS and bias, make sure all quantiles are there
 score_df <- score_df %>%
@@ -119,11 +120,10 @@ table <- score_df %>%
     ),
     metrics = "interval_score",
     compute_relative_skill = TRUE,
-    baseline = "EuroCOVIDhub-baseline"
+    baseline = NULL
   ) %>%
-  select(-relative_skill) %>%
-  rename(rel_wis = scaled_rel_skill) %>%
-  full_join(rel_ae, by = c(
+  rename(relative_skill_wis = relative_skill) %>%
+  full_join(relative_skill_ae, by = c(
                        "model", "target_variable", "horizon",
                        "location"
                      )) %>%
@@ -148,5 +148,5 @@ table <- score_df %>%
            if_else(location == "Overall", "Overall", location_name)) %>%
   mutate(across(c("interval_score", "sharpness",
                   "underprediction", "overprediction"), round)) %>%
-  mutate(across(c("bias", "rel_wis", "rel_ae", "cov_50", "cov_95"), round, 2))
+  mutate(across(c("bias", "relative_skill_wis", "relative_skill_ae", "cov_50", "cov_95"), round, 2))
 ```
