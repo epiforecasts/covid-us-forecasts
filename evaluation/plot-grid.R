@@ -93,8 +93,8 @@ plot_models <- map2(plotted_models, obs,
 ## Ensembles
 # Take only some ensembles, split by state, plot
 ensembles <- load_submissions(target_date, "ensembles", summarise = FALSE)
-plotted_ensembles <- copy(ensembles)[(window == 4 & horizons == "4") | (is.na(window) & horizons == "")]
-plotted_ensembles <- plotted_ensembles[model %in% c("mean", "median", "QRA")]
+plotted_ensembles <- copy(ensembles)[(model == "QRA" & window == 4 & horizons == "4") |
+                                     model %in% c("mean", "median", "relative-skill-wis")]
 plotted_ensembles <- summarise_submissions(plotted_ensembles)
 plotted_ensembles <- split(plotted_ensembles, plotted_ensembles$state)
 plotted_ensembles <- plotted_ensembles[names(plotted_ensembles) %in% locations]
