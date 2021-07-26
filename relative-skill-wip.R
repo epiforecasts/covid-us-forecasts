@@ -31,3 +31,10 @@ ensembles <- read_csv(ensemble_path,
   bind_rows(relskill)
 
 write_csv(ensembles, ensemble_path)
+
+
+# Run eval again ----------------------------------------------------------
+
+# for state by state plots
+source(here("code", "reports", "compile-evaluation-reports.R"))
+
