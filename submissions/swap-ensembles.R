@@ -10,7 +10,8 @@ swap <- list(
   #
   # ),
   "median" = c(
-    state_codes$state
+    "Michigan", "Massachusetts", "Georgia", 
+    "North Carolina", "Tennessee", "Wisconsin"
   )
   # 
   # "Timeseries" = c(
