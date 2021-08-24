@@ -67,6 +67,23 @@ knitr::include_graphics(here::here("evaluation", "plots",
 
 ---
 
+## Weights
+
+```{r weights, message=FALSE, fig.width=4, fig.height=2}
+weights <- readr::read_csv(here::here("ensembles", "data", "weighted", "weights", 
+                              paste0(target_date, ".csv"))) %>%
+  filter(horizons == "4", window == 4, ensemble == "QRA", is.na(quantile))
+
+library(ggplot2)
+weights %>%
+  ggplot(aes(y = ensemble, fill = model)) +
+  geom_bar(aes(weight = weight), position = position_stack(reverse = TRUE)) +
+  labs(x = "Ensemble weight", y = NULL) +
+  scale_fill_viridis_d(option = 7) +
+  theme_classic()
+
+```
+
 ## Submission
 The QRA is submitted by default. Change this for any combination of states/models using [`submissions/swap-ensembles.R`](https://github.com/epiforecasts/covid-us-forecasts/blob/master/submissions/swap-ensembles.R). Specify state/model combinations in the `swap` list, then source the script.
 
