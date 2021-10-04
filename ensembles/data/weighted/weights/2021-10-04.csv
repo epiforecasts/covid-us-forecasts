@@ -1,0 +1,3241 @@
+ensemble,model,weight,quantile,window,horizons
+QRA,Case convolution,0.495,,2,"1, 2, 3, 4"
+QRA,Rt,0.066,,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.01,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.01,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.01,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.025,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.025,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.025,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.05,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.05,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.05,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.1,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.1,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.1,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.15,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.15,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.15,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.2,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.2,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.2,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.25,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.25,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.25,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.3,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.3,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.3,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.35,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.35,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.35,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.4,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.4,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.4,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.45,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.45,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.45,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.5,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.5,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.5,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.55,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.55,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.55,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.6,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.6,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.6,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.65,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.65,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.65,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.7,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.7,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.7,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.75,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.75,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.75,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.8,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.8,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.8,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.85,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.85,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.85,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.9,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.9,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.9,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.95,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.95,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.95,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.975,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.975,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.975,2,"1, 2, 3, 4"
+QRA,Case convolution,0.495,0.99,2,"1, 2, 3, 4"
+QRA,Rt,0.066,0.99,2,"1, 2, 3, 4"
+QRA,Timeseries,0.439,0.99,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.442,,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.179,,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.379,,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.328,0.01,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.302,0.01,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.37,0.01,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.328,0.025,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.302,0.025,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.37,0.025,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.328,0.05,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.302,0.05,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.37,0.05,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.328,0.1,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.302,0.1,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.37,0.1,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.328,0.15,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.302,0.15,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.37,0.15,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.391,0.2,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.217,0.2,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.392,0.2,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.391,0.25,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.217,0.25,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.392,0.25,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.391,0.3,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.217,0.3,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.392,0.3,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.391,0.35,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.217,0.35,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.392,0.35,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.442,0.4,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.179,0.4,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.379,0.4,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.442,0.45,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.179,0.45,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.379,0.45,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.442,0.5,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.179,0.5,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.379,0.5,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.442,0.55,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.179,0.55,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.379,0.55,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.442,0.6,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.179,0.6,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.379,0.6,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.465,0.65,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.127,0.65,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.409,0.65,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.465,0.7,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.127,0.7,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.409,0.7,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.465,0.75,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.127,0.75,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.409,0.75,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.465,0.8,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.127,0.8,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.409,0.8,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.85,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.084,0.85,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.42,0.85,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.9,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.084,0.9,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.42,0.9,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.95,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.084,0.95,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.42,0.95,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.975,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.084,0.975,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.42,0.975,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.99,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.084,0.99,2,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.42,0.99,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.51,,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.103,,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.388,,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.423,0.01,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.207,0.01,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.37,0.01,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.423,0.025,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.207,0.025,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.37,0.025,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.423,0.05,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.207,0.05,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.37,0.05,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.423,0.1,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.207,0.1,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.37,0.1,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.423,0.15,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.207,0.15,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.37,0.15,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.48,0.2,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.125,0.2,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.395,0.2,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.48,0.25,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.125,0.25,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.395,0.25,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.48,0.3,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.125,0.3,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.395,0.3,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.48,0.35,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.125,0.35,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.395,0.35,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.51,0.4,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.103,0.4,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.388,0.4,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.51,0.45,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.103,0.45,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.388,0.45,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.51,0.5,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.103,0.5,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.388,0.5,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.51,0.55,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.103,0.55,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.388,0.55,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.51,0.6,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.103,0.6,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.388,0.6,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.555,0.65,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.068,0.65,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.376,0.65,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.555,0.7,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.068,0.7,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.376,0.7,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.555,0.75,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.068,0.75,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.376,0.75,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.555,0.8,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.068,0.8,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.376,0.8,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.625,0.85,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.039,0.85,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.336,0.85,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.625,0.9,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.039,0.9,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.336,0.9,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.625,0.95,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.039,0.95,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.336,0.95,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.625,0.975,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.039,0.975,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.336,0.975,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.625,0.99,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.039,0.99,2,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.336,0.99,2,"1, 2, 3, 4"
+QRA,Case convolution,0.403,,4,"1, 2, 3, 4"
+QRA,Rt,0.094,,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.01,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.01,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.01,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.025,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.025,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.025,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.05,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.05,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.05,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.1,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.1,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.1,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.15,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.15,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.15,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.2,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.2,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.2,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.25,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.25,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.25,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.3,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.3,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.3,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.35,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.35,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.35,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.4,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.4,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.4,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.45,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.45,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.45,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.5,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.5,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.5,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.55,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.55,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.55,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.6,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.6,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.6,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.65,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.65,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.65,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.7,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.7,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.7,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.75,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.75,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.75,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.8,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.8,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.8,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.85,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.85,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.85,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.9,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.9,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.9,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.95,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.95,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.95,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.975,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.975,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.975,4,"1, 2, 3, 4"
+QRA,Case convolution,0.403,0.99,4,"1, 2, 3, 4"
+QRA,Rt,0.094,0.99,4,"1, 2, 3, 4"
+QRA,Timeseries,0.502,0.99,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.369,,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.154,,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.476,,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.268,0.01,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.284,0.01,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.448,0.01,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.268,0.025,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.284,0.025,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.448,0.025,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.268,0.05,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.284,0.05,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.448,0.05,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.268,0.1,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.284,0.1,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.448,0.1,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.268,0.15,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.284,0.15,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.448,0.15,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.337,0.2,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.2,0.2,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.463,0.2,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.337,0.25,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.2,0.25,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.463,0.25,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.337,0.3,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.2,0.3,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.463,0.3,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.337,0.35,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.2,0.35,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.463,0.35,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.369,0.4,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.154,0.4,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.476,0.4,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.369,0.45,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.154,0.45,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.476,0.45,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.369,0.5,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.154,0.5,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.476,0.5,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.369,0.55,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.154,0.55,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.476,0.55,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.369,0.6,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.154,0.6,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.476,0.6,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.406,0.65,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.127,0.65,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.467,0.65,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.406,0.7,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.127,0.7,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.467,0.7,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.406,0.75,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.127,0.75,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.467,0.75,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.406,0.8,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.127,0.8,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.467,0.8,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.36,0.85,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.091,0.85,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.549,0.85,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.36,0.9,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.091,0.9,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.549,0.9,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.36,0.95,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.091,0.95,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.549,0.95,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.36,0.975,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.091,0.975,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.549,0.975,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.36,0.99,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.091,0.99,4,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.549,0.99,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.499,,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.022,,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.479,,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.44,0.01,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.112,0.01,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.448,0.01,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.44,0.025,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.112,0.025,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.448,0.025,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.44,0.05,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.112,0.05,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.448,0.05,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.44,0.1,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.112,0.1,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.448,0.1,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.44,0.15,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.112,0.15,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.448,0.15,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.499,0.2,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.032,0.2,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.468,0.2,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.499,0.25,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.032,0.25,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.468,0.25,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.499,0.3,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.032,0.3,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.468,0.3,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.499,0.35,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.032,0.35,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.468,0.35,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.499,0.4,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.022,0.4,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.479,0.4,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.499,0.45,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.022,0.45,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.479,0.45,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.499,0.5,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.022,0.5,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.479,0.5,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.499,0.55,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.022,0.55,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.479,0.55,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.499,0.6,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.022,0.6,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.479,0.6,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.504,0.65,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.018,0.65,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.478,0.65,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.504,0.7,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.018,0.7,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.478,0.7,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.504,0.75,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.018,0.75,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.478,0.75,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.504,0.8,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.018,0.8,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.478,0.8,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.491,0.85,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0,0.85,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.509,0.85,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.491,0.9,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0,0.9,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.509,0.9,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.491,0.95,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0,0.95,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.509,0.95,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.491,0.975,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0,0.975,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.509,0.975,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.491,0.99,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0,0.99,4,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.509,0.99,4,"1, 2, 3, 4"
+QRA,Case convolution,0.488,,8,"1, 2, 3, 4"
+QRA,Rt,0.097,,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.01,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.01,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.01,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.025,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.025,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.025,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.05,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.05,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.05,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.1,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.1,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.1,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.15,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.15,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.15,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.2,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.2,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.2,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.25,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.25,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.25,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.3,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.3,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.3,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.35,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.35,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.35,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.4,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.4,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.4,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.45,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.45,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.45,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.5,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.5,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.5,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.55,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.55,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.55,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.6,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.6,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.6,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.65,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.65,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.65,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.7,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.7,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.7,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.75,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.75,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.75,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.8,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.8,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.8,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.85,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.85,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.85,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.9,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.9,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.9,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.95,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.95,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.95,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.975,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.975,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.975,8,"1, 2, 3, 4"
+QRA,Case convolution,0.488,0.99,8,"1, 2, 3, 4"
+QRA,Rt,0.097,0.99,8,"1, 2, 3, 4"
+QRA,Timeseries,0.415,0.99,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.479,,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.116,,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.405,,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.479,0.01,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.173,0.01,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.348,0.01,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.479,0.025,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.173,0.025,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.348,0.025,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.479,0.05,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.173,0.05,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.348,0.05,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.479,0.1,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.173,0.1,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.348,0.1,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.479,0.15,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.173,0.15,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.348,0.15,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.479,0.2,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.136,0.2,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.384,0.2,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.479,0.25,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.136,0.25,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.384,0.25,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.479,0.3,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.136,0.3,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.384,0.3,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.479,0.35,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.136,0.35,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.384,0.35,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.479,0.4,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.116,0.4,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.405,0.4,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.479,0.45,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.116,0.45,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.405,0.45,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.479,0.5,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.116,0.5,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.405,0.5,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.479,0.55,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.116,0.55,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.405,0.55,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.479,0.6,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.116,0.6,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.405,0.6,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.484,0.65,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.099,0.65,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.417,0.65,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.484,0.7,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.099,0.7,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.417,0.7,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.484,0.75,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.099,0.75,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.417,0.75,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.484,0.8,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.099,0.8,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.417,0.8,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.484,0.85,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.083,0.85,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.433,0.85,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.484,0.9,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.083,0.9,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.433,0.9,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.484,0.95,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.083,0.95,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.433,0.95,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.484,0.975,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.083,0.975,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.433,0.975,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.484,0.99,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.083,0.99,8,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.433,0.99,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.426,,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.107,,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.466,,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.403,0.01,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.16,0.01,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.438,0.01,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.403,0.025,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.16,0.025,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.438,0.025,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.403,0.05,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.16,0.05,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.438,0.05,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.403,0.1,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.16,0.1,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.438,0.1,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.403,0.15,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.16,0.15,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.438,0.15,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.403,0.2,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.125,0.2,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.472,0.2,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.403,0.25,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.125,0.25,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.472,0.25,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.403,0.3,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.125,0.3,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.472,0.3,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.403,0.35,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.125,0.35,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.472,0.35,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.426,0.4,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.107,0.4,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.466,0.4,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.426,0.45,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.107,0.45,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.466,0.45,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.426,0.5,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.107,0.5,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.466,0.5,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.426,0.55,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.107,0.55,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.466,0.55,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.426,0.6,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.107,0.6,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.466,0.6,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.43,0.65,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.092,0.65,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.478,0.65,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.43,0.7,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.092,0.7,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.478,0.7,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.43,0.75,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.092,0.75,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.478,0.75,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.43,0.8,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.092,0.8,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.478,0.8,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.43,0.85,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.077,0.85,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.493,0.85,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.43,0.9,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.077,0.9,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.493,0.9,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.43,0.95,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.077,0.95,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.493,0.95,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.43,0.975,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.077,0.975,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.493,0.975,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.43,0.99,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.077,0.99,8,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.493,0.99,8,"1, 2, 3, 4"
+QRA,Case convolution,0.498,,12,"1, 2, 3, 4"
+QRA,Rt,0.043,,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.01,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.01,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.01,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.025,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.025,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.025,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.05,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.05,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.05,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.1,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.1,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.1,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.15,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.15,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.15,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.2,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.2,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.2,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.25,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.25,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.25,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.3,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.3,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.3,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.35,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.35,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.35,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.4,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.4,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.4,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.45,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.45,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.45,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.5,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.5,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.5,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.55,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.55,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.55,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.6,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.6,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.6,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.65,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.65,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.65,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.7,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.7,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.7,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.75,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.75,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.75,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.8,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.8,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.8,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.85,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.85,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.85,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.9,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.9,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.9,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.95,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.95,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.95,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.975,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.975,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.975,12,"1, 2, 3, 4"
+QRA,Case convolution,0.498,0.99,12,"1, 2, 3, 4"
+QRA,Rt,0.043,0.99,12,"1, 2, 3, 4"
+QRA,Timeseries,0.459,0.99,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.045,,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.459,,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.01,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.054,0.01,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.449,0.01,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.025,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.054,0.025,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.449,0.025,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.05,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.054,0.05,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.449,0.05,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.1,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.054,0.1,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.449,0.1,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.15,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.054,0.15,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.449,0.15,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.2,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.054,0.2,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.449,0.2,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.25,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.054,0.25,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.449,0.25,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.3,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.054,0.3,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.449,0.3,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.35,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.054,0.35,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.449,0.35,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.4,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.045,0.4,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.459,0.4,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.45,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.045,0.45,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.459,0.45,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.5,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.045,0.5,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.459,0.5,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.55,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.045,0.55,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.459,0.55,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.6,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.045,0.6,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.459,0.6,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.65,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.045,0.65,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.459,0.65,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.7,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.045,0.7,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.459,0.7,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.75,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.045,0.75,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.459,0.75,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.8,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.045,0.8,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.459,0.8,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.85,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.036,0.85,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.468,0.85,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.9,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.036,0.9,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.468,0.9,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.95,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.036,0.95,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.468,0.95,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.975,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.036,0.975,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.468,0.975,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Case convolution,0.496,0.99,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Rt,0.036,0.99,12,"1, 2, 3, 4"
+QRA (weighted quantiles),Timeseries,0.468,0.99,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.47,,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.064,,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.465,,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.457,0.01,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.076,0.01,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.467,0.01,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.457,0.025,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.076,0.025,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.467,0.025,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.457,0.05,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.076,0.05,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.467,0.05,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.457,0.1,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.076,0.1,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.467,0.1,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.457,0.15,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.076,0.15,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.467,0.15,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.457,0.2,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.075,0.2,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.468,0.2,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.457,0.25,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.075,0.25,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.468,0.25,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.457,0.3,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.075,0.3,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.468,0.3,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.457,0.35,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.075,0.35,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.468,0.35,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.47,0.4,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.064,0.4,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.465,0.4,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.47,0.45,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.064,0.45,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.465,0.45,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.47,0.5,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.064,0.5,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.465,0.5,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.47,0.55,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.064,0.55,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.465,0.55,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.47,0.6,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.064,0.6,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.465,0.6,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.479,0.65,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.055,0.65,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.465,0.65,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.479,0.7,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.055,0.7,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.465,0.7,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.479,0.75,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.055,0.75,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.465,0.75,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.479,0.8,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.055,0.8,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.465,0.8,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.479,0.85,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.045,0.85,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.475,0.85,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.479,0.9,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.045,0.9,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.475,0.9,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.479,0.95,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.045,0.95,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.475,0.95,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.479,0.975,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.045,0.975,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.475,0.975,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Case convolution,0.479,0.99,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Rt,0.045,0.99,12,"1, 2, 3, 4"
+QRA (weighted counts and quantiles),Timeseries,0.475,0.99,12,"1, 2, 3, 4"
+QRA,Case convolution,0.495,,2,1
+QRA,Rt,0.066,,2,1
+QRA,Timeseries,0.439,,2,1
+QRA,Case convolution,0.495,0.01,2,1
+QRA,Rt,0.066,0.01,2,1
+QRA,Timeseries,0.439,0.01,2,1
+QRA,Case convolution,0.495,0.025,2,1
+QRA,Rt,0.066,0.025,2,1
+QRA,Timeseries,0.439,0.025,2,1
+QRA,Case convolution,0.495,0.05,2,1
+QRA,Rt,0.066,0.05,2,1
+QRA,Timeseries,0.439,0.05,2,1
+QRA,Case convolution,0.495,0.1,2,1
+QRA,Rt,0.066,0.1,2,1
+QRA,Timeseries,0.439,0.1,2,1
+QRA,Case convolution,0.495,0.15,2,1
+QRA,Rt,0.066,0.15,2,1
+QRA,Timeseries,0.439,0.15,2,1
+QRA,Case convolution,0.495,0.2,2,1
+QRA,Rt,0.066,0.2,2,1
+QRA,Timeseries,0.439,0.2,2,1
+QRA,Case convolution,0.495,0.25,2,1
+QRA,Rt,0.066,0.25,2,1
+QRA,Timeseries,0.439,0.25,2,1
+QRA,Case convolution,0.495,0.3,2,1
+QRA,Rt,0.066,0.3,2,1
+QRA,Timeseries,0.439,0.3,2,1
+QRA,Case convolution,0.495,0.35,2,1
+QRA,Rt,0.066,0.35,2,1
+QRA,Timeseries,0.439,0.35,2,1
+QRA,Case convolution,0.495,0.4,2,1
+QRA,Rt,0.066,0.4,2,1
+QRA,Timeseries,0.439,0.4,2,1
+QRA,Case convolution,0.495,0.45,2,1
+QRA,Rt,0.066,0.45,2,1
+QRA,Timeseries,0.439,0.45,2,1
+QRA,Case convolution,0.495,0.5,2,1
+QRA,Rt,0.066,0.5,2,1
+QRA,Timeseries,0.439,0.5,2,1
+QRA,Case convolution,0.495,0.55,2,1
+QRA,Rt,0.066,0.55,2,1
+QRA,Timeseries,0.439,0.55,2,1
+QRA,Case convolution,0.495,0.6,2,1
+QRA,Rt,0.066,0.6,2,1
+QRA,Timeseries,0.439,0.6,2,1
+QRA,Case convolution,0.495,0.65,2,1
+QRA,Rt,0.066,0.65,2,1
+QRA,Timeseries,0.439,0.65,2,1
+QRA,Case convolution,0.495,0.7,2,1
+QRA,Rt,0.066,0.7,2,1
+QRA,Timeseries,0.439,0.7,2,1
+QRA,Case convolution,0.495,0.75,2,1
+QRA,Rt,0.066,0.75,2,1
+QRA,Timeseries,0.439,0.75,2,1
+QRA,Case convolution,0.495,0.8,2,1
+QRA,Rt,0.066,0.8,2,1
+QRA,Timeseries,0.439,0.8,2,1
+QRA,Case convolution,0.495,0.85,2,1
+QRA,Rt,0.066,0.85,2,1
+QRA,Timeseries,0.439,0.85,2,1
+QRA,Case convolution,0.495,0.9,2,1
+QRA,Rt,0.066,0.9,2,1
+QRA,Timeseries,0.439,0.9,2,1
+QRA,Case convolution,0.495,0.95,2,1
+QRA,Rt,0.066,0.95,2,1
+QRA,Timeseries,0.439,0.95,2,1
+QRA,Case convolution,0.495,0.975,2,1
+QRA,Rt,0.066,0.975,2,1
+QRA,Timeseries,0.439,0.975,2,1
+QRA,Case convolution,0.495,0.99,2,1
+QRA,Rt,0.066,0.99,2,1
+QRA,Timeseries,0.439,0.99,2,1
+QRA (weighted quantiles),Case convolution,0.442,,2,1
+QRA (weighted quantiles),Rt,0.179,,2,1
+QRA (weighted quantiles),Timeseries,0.379,,2,1
+QRA (weighted quantiles),Case convolution,0.328,0.01,2,1
+QRA (weighted quantiles),Rt,0.302,0.01,2,1
+QRA (weighted quantiles),Timeseries,0.37,0.01,2,1
+QRA (weighted quantiles),Case convolution,0.328,0.025,2,1
+QRA (weighted quantiles),Rt,0.302,0.025,2,1
+QRA (weighted quantiles),Timeseries,0.37,0.025,2,1
+QRA (weighted quantiles),Case convolution,0.328,0.05,2,1
+QRA (weighted quantiles),Rt,0.302,0.05,2,1
+QRA (weighted quantiles),Timeseries,0.37,0.05,2,1
+QRA (weighted quantiles),Case convolution,0.328,0.1,2,1
+QRA (weighted quantiles),Rt,0.302,0.1,2,1
+QRA (weighted quantiles),Timeseries,0.37,0.1,2,1
+QRA (weighted quantiles),Case convolution,0.328,0.15,2,1
+QRA (weighted quantiles),Rt,0.302,0.15,2,1
+QRA (weighted quantiles),Timeseries,0.37,0.15,2,1
+QRA (weighted quantiles),Case convolution,0.391,0.2,2,1
+QRA (weighted quantiles),Rt,0.217,0.2,2,1
+QRA (weighted quantiles),Timeseries,0.392,0.2,2,1
+QRA (weighted quantiles),Case convolution,0.391,0.25,2,1
+QRA (weighted quantiles),Rt,0.217,0.25,2,1
+QRA (weighted quantiles),Timeseries,0.392,0.25,2,1
+QRA (weighted quantiles),Case convolution,0.391,0.3,2,1
+QRA (weighted quantiles),Rt,0.217,0.3,2,1
+QRA (weighted quantiles),Timeseries,0.392,0.3,2,1
+QRA (weighted quantiles),Case convolution,0.391,0.35,2,1
+QRA (weighted quantiles),Rt,0.217,0.35,2,1
+QRA (weighted quantiles),Timeseries,0.392,0.35,2,1
+QRA (weighted quantiles),Case convolution,0.442,0.4,2,1
+QRA (weighted quantiles),Rt,0.179,0.4,2,1
+QRA (weighted quantiles),Timeseries,0.379,0.4,2,1
+QRA (weighted quantiles),Case convolution,0.442,0.45,2,1
+QRA (weighted quantiles),Rt,0.179,0.45,2,1
+QRA (weighted quantiles),Timeseries,0.379,0.45,2,1
+QRA (weighted quantiles),Case convolution,0.442,0.5,2,1
+QRA (weighted quantiles),Rt,0.179,0.5,2,1
+QRA (weighted quantiles),Timeseries,0.379,0.5,2,1
+QRA (weighted quantiles),Case convolution,0.442,0.55,2,1
+QRA (weighted quantiles),Rt,0.179,0.55,2,1
+QRA (weighted quantiles),Timeseries,0.379,0.55,2,1
+QRA (weighted quantiles),Case convolution,0.442,0.6,2,1
+QRA (weighted quantiles),Rt,0.179,0.6,2,1
+QRA (weighted quantiles),Timeseries,0.379,0.6,2,1
+QRA (weighted quantiles),Case convolution,0.465,0.65,2,1
+QRA (weighted quantiles),Rt,0.127,0.65,2,1
+QRA (weighted quantiles),Timeseries,0.409,0.65,2,1
+QRA (weighted quantiles),Case convolution,0.465,0.7,2,1
+QRA (weighted quantiles),Rt,0.127,0.7,2,1
+QRA (weighted quantiles),Timeseries,0.409,0.7,2,1
+QRA (weighted quantiles),Case convolution,0.465,0.75,2,1
+QRA (weighted quantiles),Rt,0.127,0.75,2,1
+QRA (weighted quantiles),Timeseries,0.409,0.75,2,1
+QRA (weighted quantiles),Case convolution,0.465,0.8,2,1
+QRA (weighted quantiles),Rt,0.127,0.8,2,1
+QRA (weighted quantiles),Timeseries,0.409,0.8,2,1
+QRA (weighted quantiles),Case convolution,0.496,0.85,2,1
+QRA (weighted quantiles),Rt,0.084,0.85,2,1
+QRA (weighted quantiles),Timeseries,0.42,0.85,2,1
+QRA (weighted quantiles),Case convolution,0.496,0.9,2,1
+QRA (weighted quantiles),Rt,0.084,0.9,2,1
+QRA (weighted quantiles),Timeseries,0.42,0.9,2,1
+QRA (weighted quantiles),Case convolution,0.496,0.95,2,1
+QRA (weighted quantiles),Rt,0.084,0.95,2,1
+QRA (weighted quantiles),Timeseries,0.42,0.95,2,1
+QRA (weighted quantiles),Case convolution,0.496,0.975,2,1
+QRA (weighted quantiles),Rt,0.084,0.975,2,1
+QRA (weighted quantiles),Timeseries,0.42,0.975,2,1
+QRA (weighted quantiles),Case convolution,0.496,0.99,2,1
+QRA (weighted quantiles),Rt,0.084,0.99,2,1
+QRA (weighted quantiles),Timeseries,0.42,0.99,2,1
+QRA (weighted counts and quantiles),Case convolution,0.51,,2,1
+QRA (weighted counts and quantiles),Rt,0.103,,2,1
+QRA (weighted counts and quantiles),Timeseries,0.388,,2,1
+QRA (weighted counts and quantiles),Case convolution,0.423,0.01,2,1
+QRA (weighted counts and quantiles),Rt,0.207,0.01,2,1
+QRA (weighted counts and quantiles),Timeseries,0.37,0.01,2,1
+QRA (weighted counts and quantiles),Case convolution,0.423,0.025,2,1
+QRA (weighted counts and quantiles),Rt,0.207,0.025,2,1
+QRA (weighted counts and quantiles),Timeseries,0.37,0.025,2,1
+QRA (weighted counts and quantiles),Case convolution,0.423,0.05,2,1
+QRA (weighted counts and quantiles),Rt,0.207,0.05,2,1
+QRA (weighted counts and quantiles),Timeseries,0.37,0.05,2,1
+QRA (weighted counts and quantiles),Case convolution,0.423,0.1,2,1
+QRA (weighted counts and quantiles),Rt,0.207,0.1,2,1
+QRA (weighted counts and quantiles),Timeseries,0.37,0.1,2,1
+QRA (weighted counts and quantiles),Case convolution,0.423,0.15,2,1
+QRA (weighted counts and quantiles),Rt,0.207,0.15,2,1
+QRA (weighted counts and quantiles),Timeseries,0.37,0.15,2,1
+QRA (weighted counts and quantiles),Case convolution,0.48,0.2,2,1
+QRA (weighted counts and quantiles),Rt,0.125,0.2,2,1
+QRA (weighted counts and quantiles),Timeseries,0.395,0.2,2,1
+QRA (weighted counts and quantiles),Case convolution,0.48,0.25,2,1
+QRA (weighted counts and quantiles),Rt,0.125,0.25,2,1
+QRA (weighted counts and quantiles),Timeseries,0.395,0.25,2,1
+QRA (weighted counts and quantiles),Case convolution,0.48,0.3,2,1
+QRA (weighted counts and quantiles),Rt,0.125,0.3,2,1
+QRA (weighted counts and quantiles),Timeseries,0.395,0.3,2,1
+QRA (weighted counts and quantiles),Case convolution,0.48,0.35,2,1
+QRA (weighted counts and quantiles),Rt,0.125,0.35,2,1
+QRA (weighted counts and quantiles),Timeseries,0.395,0.35,2,1
+QRA (weighted counts and quantiles),Case convolution,0.51,0.4,2,1
+QRA (weighted counts and quantiles),Rt,0.103,0.4,2,1
+QRA (weighted counts and quantiles),Timeseries,0.388,0.4,2,1
+QRA (weighted counts and quantiles),Case convolution,0.51,0.45,2,1
+QRA (weighted counts and quantiles),Rt,0.103,0.45,2,1
+QRA (weighted counts and quantiles),Timeseries,0.388,0.45,2,1
+QRA (weighted counts and quantiles),Case convolution,0.51,0.5,2,1
+QRA (weighted counts and quantiles),Rt,0.103,0.5,2,1
+QRA (weighted counts and quantiles),Timeseries,0.388,0.5,2,1
+QRA (weighted counts and quantiles),Case convolution,0.51,0.55,2,1
+QRA (weighted counts and quantiles),Rt,0.103,0.55,2,1
+QRA (weighted counts and quantiles),Timeseries,0.388,0.55,2,1
+QRA (weighted counts and quantiles),Case convolution,0.51,0.6,2,1
+QRA (weighted counts and quantiles),Rt,0.103,0.6,2,1
+QRA (weighted counts and quantiles),Timeseries,0.388,0.6,2,1
+QRA (weighted counts and quantiles),Case convolution,0.555,0.65,2,1
+QRA (weighted counts and quantiles),Rt,0.068,0.65,2,1
+QRA (weighted counts and quantiles),Timeseries,0.376,0.65,2,1
+QRA (weighted counts and quantiles),Case convolution,0.555,0.7,2,1
+QRA (weighted counts and quantiles),Rt,0.068,0.7,2,1
+QRA (weighted counts and quantiles),Timeseries,0.376,0.7,2,1
+QRA (weighted counts and quantiles),Case convolution,0.555,0.75,2,1
+QRA (weighted counts and quantiles),Rt,0.068,0.75,2,1
+QRA (weighted counts and quantiles),Timeseries,0.376,0.75,2,1
+QRA (weighted counts and quantiles),Case convolution,0.555,0.8,2,1
+QRA (weighted counts and quantiles),Rt,0.068,0.8,2,1
+QRA (weighted counts and quantiles),Timeseries,0.376,0.8,2,1
+QRA (weighted counts and quantiles),Case convolution,0.625,0.85,2,1
+QRA (weighted counts and quantiles),Rt,0.039,0.85,2,1
+QRA (weighted counts and quantiles),Timeseries,0.336,0.85,2,1
+QRA (weighted counts and quantiles),Case convolution,0.625,0.9,2,1
+QRA (weighted counts and quantiles),Rt,0.039,0.9,2,1
+QRA (weighted counts and quantiles),Timeseries,0.336,0.9,2,1
+QRA (weighted counts and quantiles),Case convolution,0.625,0.95,2,1
+QRA (weighted counts and quantiles),Rt,0.039,0.95,2,1
+QRA (weighted counts and quantiles),Timeseries,0.336,0.95,2,1
+QRA (weighted counts and quantiles),Case convolution,0.625,0.975,2,1
+QRA (weighted counts and quantiles),Rt,0.039,0.975,2,1
+QRA (weighted counts and quantiles),Timeseries,0.336,0.975,2,1
+QRA (weighted counts and quantiles),Case convolution,0.625,0.99,2,1
+QRA (weighted counts and quantiles),Rt,0.039,0.99,2,1
+QRA (weighted counts and quantiles),Timeseries,0.336,0.99,2,1
+QRA,Case convolution,0.403,,4,1
+QRA,Rt,0.094,,4,1
+QRA,Timeseries,0.502,,4,1
+QRA,Case convolution,0.403,0.01,4,1
+QRA,Rt,0.094,0.01,4,1
+QRA,Timeseries,0.502,0.01,4,1
+QRA,Case convolution,0.403,0.025,4,1
+QRA,Rt,0.094,0.025,4,1
+QRA,Timeseries,0.502,0.025,4,1
+QRA,Case convolution,0.403,0.05,4,1
+QRA,Rt,0.094,0.05,4,1
+QRA,Timeseries,0.502,0.05,4,1
+QRA,Case convolution,0.403,0.1,4,1
+QRA,Rt,0.094,0.1,4,1
+QRA,Timeseries,0.502,0.1,4,1
+QRA,Case convolution,0.403,0.15,4,1
+QRA,Rt,0.094,0.15,4,1
+QRA,Timeseries,0.502,0.15,4,1
+QRA,Case convolution,0.403,0.2,4,1
+QRA,Rt,0.094,0.2,4,1
+QRA,Timeseries,0.502,0.2,4,1
+QRA,Case convolution,0.403,0.25,4,1
+QRA,Rt,0.094,0.25,4,1
+QRA,Timeseries,0.502,0.25,4,1
+QRA,Case convolution,0.403,0.3,4,1
+QRA,Rt,0.094,0.3,4,1
+QRA,Timeseries,0.502,0.3,4,1
+QRA,Case convolution,0.403,0.35,4,1
+QRA,Rt,0.094,0.35,4,1
+QRA,Timeseries,0.502,0.35,4,1
+QRA,Case convolution,0.403,0.4,4,1
+QRA,Rt,0.094,0.4,4,1
+QRA,Timeseries,0.502,0.4,4,1
+QRA,Case convolution,0.403,0.45,4,1
+QRA,Rt,0.094,0.45,4,1
+QRA,Timeseries,0.502,0.45,4,1
+QRA,Case convolution,0.403,0.5,4,1
+QRA,Rt,0.094,0.5,4,1
+QRA,Timeseries,0.502,0.5,4,1
+QRA,Case convolution,0.403,0.55,4,1
+QRA,Rt,0.094,0.55,4,1
+QRA,Timeseries,0.502,0.55,4,1
+QRA,Case convolution,0.403,0.6,4,1
+QRA,Rt,0.094,0.6,4,1
+QRA,Timeseries,0.502,0.6,4,1
+QRA,Case convolution,0.403,0.65,4,1
+QRA,Rt,0.094,0.65,4,1
+QRA,Timeseries,0.502,0.65,4,1
+QRA,Case convolution,0.403,0.7,4,1
+QRA,Rt,0.094,0.7,4,1
+QRA,Timeseries,0.502,0.7,4,1
+QRA,Case convolution,0.403,0.75,4,1
+QRA,Rt,0.094,0.75,4,1
+QRA,Timeseries,0.502,0.75,4,1
+QRA,Case convolution,0.403,0.8,4,1
+QRA,Rt,0.094,0.8,4,1
+QRA,Timeseries,0.502,0.8,4,1
+QRA,Case convolution,0.403,0.85,4,1
+QRA,Rt,0.094,0.85,4,1
+QRA,Timeseries,0.502,0.85,4,1
+QRA,Case convolution,0.403,0.9,4,1
+QRA,Rt,0.094,0.9,4,1
+QRA,Timeseries,0.502,0.9,4,1
+QRA,Case convolution,0.403,0.95,4,1
+QRA,Rt,0.094,0.95,4,1
+QRA,Timeseries,0.502,0.95,4,1
+QRA,Case convolution,0.403,0.975,4,1
+QRA,Rt,0.094,0.975,4,1
+QRA,Timeseries,0.502,0.975,4,1
+QRA,Case convolution,0.403,0.99,4,1
+QRA,Rt,0.094,0.99,4,1
+QRA,Timeseries,0.502,0.99,4,1
+QRA (weighted quantiles),Case convolution,0.369,,4,1
+QRA (weighted quantiles),Rt,0.154,,4,1
+QRA (weighted quantiles),Timeseries,0.476,,4,1
+QRA (weighted quantiles),Case convolution,0.268,0.01,4,1
+QRA (weighted quantiles),Rt,0.284,0.01,4,1
+QRA (weighted quantiles),Timeseries,0.448,0.01,4,1
+QRA (weighted quantiles),Case convolution,0.268,0.025,4,1
+QRA (weighted quantiles),Rt,0.284,0.025,4,1
+QRA (weighted quantiles),Timeseries,0.448,0.025,4,1
+QRA (weighted quantiles),Case convolution,0.268,0.05,4,1
+QRA (weighted quantiles),Rt,0.284,0.05,4,1
+QRA (weighted quantiles),Timeseries,0.448,0.05,4,1
+QRA (weighted quantiles),Case convolution,0.268,0.1,4,1
+QRA (weighted quantiles),Rt,0.284,0.1,4,1
+QRA (weighted quantiles),Timeseries,0.448,0.1,4,1
+QRA (weighted quantiles),Case convolution,0.268,0.15,4,1
+QRA (weighted quantiles),Rt,0.284,0.15,4,1
+QRA (weighted quantiles),Timeseries,0.448,0.15,4,1
+QRA (weighted quantiles),Case convolution,0.337,0.2,4,1
+QRA (weighted quantiles),Rt,0.2,0.2,4,1
+QRA (weighted quantiles),Timeseries,0.463,0.2,4,1
+QRA (weighted quantiles),Case convolution,0.337,0.25,4,1
+QRA (weighted quantiles),Rt,0.2,0.25,4,1
+QRA (weighted quantiles),Timeseries,0.463,0.25,4,1
+QRA (weighted quantiles),Case convolution,0.337,0.3,4,1
+QRA (weighted quantiles),Rt,0.2,0.3,4,1
+QRA (weighted quantiles),Timeseries,0.463,0.3,4,1
+QRA (weighted quantiles),Case convolution,0.337,0.35,4,1
+QRA (weighted quantiles),Rt,0.2,0.35,4,1
+QRA (weighted quantiles),Timeseries,0.463,0.35,4,1
+QRA (weighted quantiles),Case convolution,0.369,0.4,4,1
+QRA (weighted quantiles),Rt,0.154,0.4,4,1
+QRA (weighted quantiles),Timeseries,0.476,0.4,4,1
+QRA (weighted quantiles),Case convolution,0.369,0.45,4,1
+QRA (weighted quantiles),Rt,0.154,0.45,4,1
+QRA (weighted quantiles),Timeseries,0.476,0.45,4,1
+QRA (weighted quantiles),Case convolution,0.369,0.5,4,1
+QRA (weighted quantiles),Rt,0.154,0.5,4,1
+QRA (weighted quantiles),Timeseries,0.476,0.5,4,1
+QRA (weighted quantiles),Case convolution,0.369,0.55,4,1
+QRA (weighted quantiles),Rt,0.154,0.55,4,1
+QRA (weighted quantiles),Timeseries,0.476,0.55,4,1
+QRA (weighted quantiles),Case convolution,0.369,0.6,4,1
+QRA (weighted quantiles),Rt,0.154,0.6,4,1
+QRA (weighted quantiles),Timeseries,0.476,0.6,4,1
+QRA (weighted quantiles),Case convolution,0.406,0.65,4,1
+QRA (weighted quantiles),Rt,0.127,0.65,4,1
+QRA (weighted quantiles),Timeseries,0.467,0.65,4,1
+QRA (weighted quantiles),Case convolution,0.406,0.7,4,1
+QRA (weighted quantiles),Rt,0.127,0.7,4,1
+QRA (weighted quantiles),Timeseries,0.467,0.7,4,1
+QRA (weighted quantiles),Case convolution,0.406,0.75,4,1
+QRA (weighted quantiles),Rt,0.127,0.75,4,1
+QRA (weighted quantiles),Timeseries,0.467,0.75,4,1
+QRA (weighted quantiles),Case convolution,0.406,0.8,4,1
+QRA (weighted quantiles),Rt,0.127,0.8,4,1
+QRA (weighted quantiles),Timeseries,0.467,0.8,4,1
+QRA (weighted quantiles),Case convolution,0.36,0.85,4,1
+QRA (weighted quantiles),Rt,0.091,0.85,4,1
+QRA (weighted quantiles),Timeseries,0.549,0.85,4,1
+QRA (weighted quantiles),Case convolution,0.36,0.9,4,1
+QRA (weighted quantiles),Rt,0.091,0.9,4,1
+QRA (weighted quantiles),Timeseries,0.549,0.9,4,1
+QRA (weighted quantiles),Case convolution,0.36,0.95,4,1
+QRA (weighted quantiles),Rt,0.091,0.95,4,1
+QRA (weighted quantiles),Timeseries,0.549,0.95,4,1
+QRA (weighted quantiles),Case convolution,0.36,0.975,4,1
+QRA (weighted quantiles),Rt,0.091,0.975,4,1
+QRA (weighted quantiles),Timeseries,0.549,0.975,4,1
+QRA (weighted quantiles),Case convolution,0.36,0.99,4,1
+QRA (weighted quantiles),Rt,0.091,0.99,4,1
+QRA (weighted quantiles),Timeseries,0.549,0.99,4,1
+QRA (weighted counts and quantiles),Case convolution,0.499,,4,1
+QRA (weighted counts and quantiles),Rt,0.022,,4,1
+QRA (weighted counts and quantiles),Timeseries,0.479,,4,1
+QRA (weighted counts and quantiles),Case convolution,0.44,0.01,4,1
+QRA (weighted counts and quantiles),Rt,0.112,0.01,4,1
+QRA (weighted counts and quantiles),Timeseries,0.448,0.01,4,1
+QRA (weighted counts and quantiles),Case convolution,0.44,0.025,4,1
+QRA (weighted counts and quantiles),Rt,0.112,0.025,4,1
+QRA (weighted counts and quantiles),Timeseries,0.448,0.025,4,1
+QRA (weighted counts and quantiles),Case convolution,0.44,0.05,4,1
+QRA (weighted counts and quantiles),Rt,0.112,0.05,4,1
+QRA (weighted counts and quantiles),Timeseries,0.448,0.05,4,1
+QRA (weighted counts and quantiles),Case convolution,0.44,0.1,4,1
+QRA (weighted counts and quantiles),Rt,0.112,0.1,4,1
+QRA (weighted counts and quantiles),Timeseries,0.448,0.1,4,1
+QRA (weighted counts and quantiles),Case convolution,0.44,0.15,4,1
+QRA (weighted counts and quantiles),Rt,0.112,0.15,4,1
+QRA (weighted counts and quantiles),Timeseries,0.448,0.15,4,1
+QRA (weighted counts and quantiles),Case convolution,0.499,0.2,4,1
+QRA (weighted counts and quantiles),Rt,0.032,0.2,4,1
+QRA (weighted counts and quantiles),Timeseries,0.468,0.2,4,1
+QRA (weighted counts and quantiles),Case convolution,0.499,0.25,4,1
+QRA (weighted counts and quantiles),Rt,0.032,0.25,4,1
+QRA (weighted counts and quantiles),Timeseries,0.468,0.25,4,1
+QRA (weighted counts and quantiles),Case convolution,0.499,0.3,4,1
+QRA (weighted counts and quantiles),Rt,0.032,0.3,4,1
+QRA (weighted counts and quantiles),Timeseries,0.468,0.3,4,1
+QRA (weighted counts and quantiles),Case convolution,0.499,0.35,4,1
+QRA (weighted counts and quantiles),Rt,0.032,0.35,4,1
+QRA (weighted counts and quantiles),Timeseries,0.468,0.35,4,1
+QRA (weighted counts and quantiles),Case convolution,0.499,0.4,4,1
+QRA (weighted counts and quantiles),Rt,0.022,0.4,4,1
+QRA (weighted counts and quantiles),Timeseries,0.479,0.4,4,1
+QRA (weighted counts and quantiles),Case convolution,0.499,0.45,4,1
+QRA (weighted counts and quantiles),Rt,0.022,0.45,4,1
+QRA (weighted counts and quantiles),Timeseries,0.479,0.45,4,1
+QRA (weighted counts and quantiles),Case convolution,0.499,0.5,4,1
+QRA (weighted counts and quantiles),Rt,0.022,0.5,4,1
+QRA (weighted counts and quantiles),Timeseries,0.479,0.5,4,1
+QRA (weighted counts and quantiles),Case convolution,0.499,0.55,4,1
+QRA (weighted counts and quantiles),Rt,0.022,0.55,4,1
+QRA (weighted counts and quantiles),Timeseries,0.479,0.55,4,1
+QRA (weighted counts and quantiles),Case convolution,0.499,0.6,4,1
+QRA (weighted counts and quantiles),Rt,0.022,0.6,4,1
+QRA (weighted counts and quantiles),Timeseries,0.479,0.6,4,1
+QRA (weighted counts and quantiles),Case convolution,0.504,0.65,4,1
+QRA (weighted counts and quantiles),Rt,0.018,0.65,4,1
+QRA (weighted counts and quantiles),Timeseries,0.478,0.65,4,1
+QRA (weighted counts and quantiles),Case convolution,0.504,0.7,4,1
+QRA (weighted counts and quantiles),Rt,0.018,0.7,4,1
+QRA (weighted counts and quantiles),Timeseries,0.478,0.7,4,1
+QRA (weighted counts and quantiles),Case convolution,0.504,0.75,4,1
+QRA (weighted counts and quantiles),Rt,0.018,0.75,4,1
+QRA (weighted counts and quantiles),Timeseries,0.478,0.75,4,1
+QRA (weighted counts and quantiles),Case convolution,0.504,0.8,4,1
+QRA (weighted counts and quantiles),Rt,0.018,0.8,4,1
+QRA (weighted counts and quantiles),Timeseries,0.478,0.8,4,1
+QRA (weighted counts and quantiles),Case convolution,0.491,0.85,4,1
+QRA (weighted counts and quantiles),Rt,0,0.85,4,1
+QRA (weighted counts and quantiles),Timeseries,0.509,0.85,4,1
+QRA (weighted counts and quantiles),Case convolution,0.491,0.9,4,1
+QRA (weighted counts and quantiles),Rt,0,0.9,4,1
+QRA (weighted counts and quantiles),Timeseries,0.509,0.9,4,1
+QRA (weighted counts and quantiles),Case convolution,0.491,0.95,4,1
+QRA (weighted counts and quantiles),Rt,0,0.95,4,1
+QRA (weighted counts and quantiles),Timeseries,0.509,0.95,4,1
+QRA (weighted counts and quantiles),Case convolution,0.491,0.975,4,1
+QRA (weighted counts and quantiles),Rt,0,0.975,4,1
+QRA (weighted counts and quantiles),Timeseries,0.509,0.975,4,1
+QRA (weighted counts and quantiles),Case convolution,0.491,0.99,4,1
+QRA (weighted counts and quantiles),Rt,0,0.99,4,1
+QRA (weighted counts and quantiles),Timeseries,0.509,0.99,4,1
+QRA,Case convolution,0.488,,8,1
+QRA,Rt,0.097,,8,1
+QRA,Timeseries,0.415,,8,1
+QRA,Case convolution,0.488,0.01,8,1
+QRA,Rt,0.097,0.01,8,1
+QRA,Timeseries,0.415,0.01,8,1
+QRA,Case convolution,0.488,0.025,8,1
+QRA,Rt,0.097,0.025,8,1
+QRA,Timeseries,0.415,0.025,8,1
+QRA,Case convolution,0.488,0.05,8,1
+QRA,Rt,0.097,0.05,8,1
+QRA,Timeseries,0.415,0.05,8,1
+QRA,Case convolution,0.488,0.1,8,1
+QRA,Rt,0.097,0.1,8,1
+QRA,Timeseries,0.415,0.1,8,1
+QRA,Case convolution,0.488,0.15,8,1
+QRA,Rt,0.097,0.15,8,1
+QRA,Timeseries,0.415,0.15,8,1
+QRA,Case convolution,0.488,0.2,8,1
+QRA,Rt,0.097,0.2,8,1
+QRA,Timeseries,0.415,0.2,8,1
+QRA,Case convolution,0.488,0.25,8,1
+QRA,Rt,0.097,0.25,8,1
+QRA,Timeseries,0.415,0.25,8,1
+QRA,Case convolution,0.488,0.3,8,1
+QRA,Rt,0.097,0.3,8,1
+QRA,Timeseries,0.415,0.3,8,1
+QRA,Case convolution,0.488,0.35,8,1
+QRA,Rt,0.097,0.35,8,1
+QRA,Timeseries,0.415,0.35,8,1
+QRA,Case convolution,0.488,0.4,8,1
+QRA,Rt,0.097,0.4,8,1
+QRA,Timeseries,0.415,0.4,8,1
+QRA,Case convolution,0.488,0.45,8,1
+QRA,Rt,0.097,0.45,8,1
+QRA,Timeseries,0.415,0.45,8,1
+QRA,Case convolution,0.488,0.5,8,1
+QRA,Rt,0.097,0.5,8,1
+QRA,Timeseries,0.415,0.5,8,1
+QRA,Case convolution,0.488,0.55,8,1
+QRA,Rt,0.097,0.55,8,1
+QRA,Timeseries,0.415,0.55,8,1
+QRA,Case convolution,0.488,0.6,8,1
+QRA,Rt,0.097,0.6,8,1
+QRA,Timeseries,0.415,0.6,8,1
+QRA,Case convolution,0.488,0.65,8,1
+QRA,Rt,0.097,0.65,8,1
+QRA,Timeseries,0.415,0.65,8,1
+QRA,Case convolution,0.488,0.7,8,1
+QRA,Rt,0.097,0.7,8,1
+QRA,Timeseries,0.415,0.7,8,1
+QRA,Case convolution,0.488,0.75,8,1
+QRA,Rt,0.097,0.75,8,1
+QRA,Timeseries,0.415,0.75,8,1
+QRA,Case convolution,0.488,0.8,8,1
+QRA,Rt,0.097,0.8,8,1
+QRA,Timeseries,0.415,0.8,8,1
+QRA,Case convolution,0.488,0.85,8,1
+QRA,Rt,0.097,0.85,8,1
+QRA,Timeseries,0.415,0.85,8,1
+QRA,Case convolution,0.488,0.9,8,1
+QRA,Rt,0.097,0.9,8,1
+QRA,Timeseries,0.415,0.9,8,1
+QRA,Case convolution,0.488,0.95,8,1
+QRA,Rt,0.097,0.95,8,1
+QRA,Timeseries,0.415,0.95,8,1
+QRA,Case convolution,0.488,0.975,8,1
+QRA,Rt,0.097,0.975,8,1
+QRA,Timeseries,0.415,0.975,8,1
+QRA,Case convolution,0.488,0.99,8,1
+QRA,Rt,0.097,0.99,8,1
+QRA,Timeseries,0.415,0.99,8,1
+QRA (weighted quantiles),Case convolution,0.479,,8,1
+QRA (weighted quantiles),Rt,0.116,,8,1
+QRA (weighted quantiles),Timeseries,0.405,,8,1
+QRA (weighted quantiles),Case convolution,0.479,0.01,8,1
+QRA (weighted quantiles),Rt,0.173,0.01,8,1
+QRA (weighted quantiles),Timeseries,0.348,0.01,8,1
+QRA (weighted quantiles),Case convolution,0.479,0.025,8,1
+QRA (weighted quantiles),Rt,0.173,0.025,8,1
+QRA (weighted quantiles),Timeseries,0.348,0.025,8,1
+QRA (weighted quantiles),Case convolution,0.479,0.05,8,1
+QRA (weighted quantiles),Rt,0.173,0.05,8,1
+QRA (weighted quantiles),Timeseries,0.348,0.05,8,1
+QRA (weighted quantiles),Case convolution,0.479,0.1,8,1
+QRA (weighted quantiles),Rt,0.173,0.1,8,1
+QRA (weighted quantiles),Timeseries,0.348,0.1,8,1
+QRA (weighted quantiles),Case convolution,0.479,0.15,8,1
+QRA (weighted quantiles),Rt,0.173,0.15,8,1
+QRA (weighted quantiles),Timeseries,0.348,0.15,8,1
+QRA (weighted quantiles),Case convolution,0.479,0.2,8,1
+QRA (weighted quantiles),Rt,0.136,0.2,8,1
+QRA (weighted quantiles),Timeseries,0.384,0.2,8,1
+QRA (weighted quantiles),Case convolution,0.479,0.25,8,1
+QRA (weighted quantiles),Rt,0.136,0.25,8,1
+QRA (weighted quantiles),Timeseries,0.384,0.25,8,1
+QRA (weighted quantiles),Case convolution,0.479,0.3,8,1
+QRA (weighted quantiles),Rt,0.136,0.3,8,1
+QRA (weighted quantiles),Timeseries,0.384,0.3,8,1
+QRA (weighted quantiles),Case convolution,0.479,0.35,8,1
+QRA (weighted quantiles),Rt,0.136,0.35,8,1
+QRA (weighted quantiles),Timeseries,0.384,0.35,8,1
+QRA (weighted quantiles),Case convolution,0.479,0.4,8,1
+QRA (weighted quantiles),Rt,0.116,0.4,8,1
+QRA (weighted quantiles),Timeseries,0.405,0.4,8,1
+QRA (weighted quantiles),Case convolution,0.479,0.45,8,1
+QRA (weighted quantiles),Rt,0.116,0.45,8,1
+QRA (weighted quantiles),Timeseries,0.405,0.45,8,1
+QRA (weighted quantiles),Case convolution,0.479,0.5,8,1
+QRA (weighted quantiles),Rt,0.116,0.5,8,1
+QRA (weighted quantiles),Timeseries,0.405,0.5,8,1
+QRA (weighted quantiles),Case convolution,0.479,0.55,8,1
+QRA (weighted quantiles),Rt,0.116,0.55,8,1
+QRA (weighted quantiles),Timeseries,0.405,0.55,8,1
+QRA (weighted quantiles),Case convolution,0.479,0.6,8,1
+QRA (weighted quantiles),Rt,0.116,0.6,8,1
+QRA (weighted quantiles),Timeseries,0.405,0.6,8,1
+QRA (weighted quantiles),Case convolution,0.484,0.65,8,1
+QRA (weighted quantiles),Rt,0.099,0.65,8,1
+QRA (weighted quantiles),Timeseries,0.417,0.65,8,1
+QRA (weighted quantiles),Case convolution,0.484,0.7,8,1
+QRA (weighted quantiles),Rt,0.099,0.7,8,1
+QRA (weighted quantiles),Timeseries,0.417,0.7,8,1
+QRA (weighted quantiles),Case convolution,0.484,0.75,8,1
+QRA (weighted quantiles),Rt,0.099,0.75,8,1
+QRA (weighted quantiles),Timeseries,0.417,0.75,8,1
+QRA (weighted quantiles),Case convolution,0.484,0.8,8,1
+QRA (weighted quantiles),Rt,0.099,0.8,8,1
+QRA (weighted quantiles),Timeseries,0.417,0.8,8,1
+QRA (weighted quantiles),Case convolution,0.484,0.85,8,1
+QRA (weighted quantiles),Rt,0.083,0.85,8,1
+QRA (weighted quantiles),Timeseries,0.433,0.85,8,1
+QRA (weighted quantiles),Case convolution,0.484,0.9,8,1
+QRA (weighted quantiles),Rt,0.083,0.9,8,1
+QRA (weighted quantiles),Timeseries,0.433,0.9,8,1
+QRA (weighted quantiles),Case convolution,0.484,0.95,8,1
+QRA (weighted quantiles),Rt,0.083,0.95,8,1
+QRA (weighted quantiles),Timeseries,0.433,0.95,8,1
+QRA (weighted quantiles),Case convolution,0.484,0.975,8,1
+QRA (weighted quantiles),Rt,0.083,0.975,8,1
+QRA (weighted quantiles),Timeseries,0.433,0.975,8,1
+QRA (weighted quantiles),Case convolution,0.484,0.99,8,1
+QRA (weighted quantiles),Rt,0.083,0.99,8,1
+QRA (weighted quantiles),Timeseries,0.433,0.99,8,1
+QRA (weighted counts and quantiles),Case convolution,0.426,,8,1
+QRA (weighted counts and quantiles),Rt,0.107,,8,1
+QRA (weighted counts and quantiles),Timeseries,0.466,,8,1
+QRA (weighted counts and quantiles),Case convolution,0.403,0.01,8,1
+QRA (weighted counts and quantiles),Rt,0.16,0.01,8,1
+QRA (weighted counts and quantiles),Timeseries,0.438,0.01,8,1
+QRA (weighted counts and quantiles),Case convolution,0.403,0.025,8,1
+QRA (weighted counts and quantiles),Rt,0.16,0.025,8,1
+QRA (weighted counts and quantiles),Timeseries,0.438,0.025,8,1
+QRA (weighted counts and quantiles),Case convolution,0.403,0.05,8,1
+QRA (weighted counts and quantiles),Rt,0.16,0.05,8,1
+QRA (weighted counts and quantiles),Timeseries,0.438,0.05,8,1
+QRA (weighted counts and quantiles),Case convolution,0.403,0.1,8,1
+QRA (weighted counts and quantiles),Rt,0.16,0.1,8,1
+QRA (weighted counts and quantiles),Timeseries,0.438,0.1,8,1
+QRA (weighted counts and quantiles),Case convolution,0.403,0.15,8,1
+QRA (weighted counts and quantiles),Rt,0.16,0.15,8,1
+QRA (weighted counts and quantiles),Timeseries,0.438,0.15,8,1
+QRA (weighted counts and quantiles),Case convolution,0.403,0.2,8,1
+QRA (weighted counts and quantiles),Rt,0.125,0.2,8,1
+QRA (weighted counts and quantiles),Timeseries,0.472,0.2,8,1
+QRA (weighted counts and quantiles),Case convolution,0.403,0.25,8,1
+QRA (weighted counts and quantiles),Rt,0.125,0.25,8,1
+QRA (weighted counts and quantiles),Timeseries,0.472,0.25,8,1
+QRA (weighted counts and quantiles),Case convolution,0.403,0.3,8,1
+QRA (weighted counts and quantiles),Rt,0.125,0.3,8,1
+QRA (weighted counts and quantiles),Timeseries,0.472,0.3,8,1
+QRA (weighted counts and quantiles),Case convolution,0.403,0.35,8,1
+QRA (weighted counts and quantiles),Rt,0.125,0.35,8,1
+QRA (weighted counts and quantiles),Timeseries,0.472,0.35,8,1
+QRA (weighted counts and quantiles),Case convolution,0.426,0.4,8,1
+QRA (weighted counts and quantiles),Rt,0.107,0.4,8,1
+QRA (weighted counts and quantiles),Timeseries,0.466,0.4,8,1
+QRA (weighted counts and quantiles),Case convolution,0.426,0.45,8,1
+QRA (weighted counts and quantiles),Rt,0.107,0.45,8,1
+QRA (weighted counts and quantiles),Timeseries,0.466,0.45,8,1
+QRA (weighted counts and quantiles),Case convolution,0.426,0.5,8,1
+QRA (weighted counts and quantiles),Rt,0.107,0.5,8,1
+QRA (weighted counts and quantiles),Timeseries,0.466,0.5,8,1
+QRA (weighted counts and quantiles),Case convolution,0.426,0.55,8,1
+QRA (weighted counts and quantiles),Rt,0.107,0.55,8,1
+QRA (weighted counts and quantiles),Timeseries,0.466,0.55,8,1
+QRA (weighted counts and quantiles),Case convolution,0.426,0.6,8,1
+QRA (weighted counts and quantiles),Rt,0.107,0.6,8,1
+QRA (weighted counts and quantiles),Timeseries,0.466,0.6,8,1
+QRA (weighted counts and quantiles),Case convolution,0.43,0.65,8,1
+QRA (weighted counts and quantiles),Rt,0.092,0.65,8,1
+QRA (weighted counts and quantiles),Timeseries,0.478,0.65,8,1
+QRA (weighted counts and quantiles),Case convolution,0.43,0.7,8,1
+QRA (weighted counts and quantiles),Rt,0.092,0.7,8,1
+QRA (weighted counts and quantiles),Timeseries,0.478,0.7,8,1
+QRA (weighted counts and quantiles),Case convolution,0.43,0.75,8,1
+QRA (weighted counts and quantiles),Rt,0.092,0.75,8,1
+QRA (weighted counts and quantiles),Timeseries,0.478,0.75,8,1
+QRA (weighted counts and quantiles),Case convolution,0.43,0.8,8,1
+QRA (weighted counts and quantiles),Rt,0.092,0.8,8,1
+QRA (weighted counts and quantiles),Timeseries,0.478,0.8,8,1
+QRA (weighted counts and quantiles),Case convolution,0.43,0.85,8,1
+QRA (weighted counts and quantiles),Rt,0.077,0.85,8,1
+QRA (weighted counts and quantiles),Timeseries,0.493,0.85,8,1
+QRA (weighted counts and quantiles),Case convolution,0.43,0.9,8,1
+QRA (weighted counts and quantiles),Rt,0.077,0.9,8,1
+QRA (weighted counts and quantiles),Timeseries,0.493,0.9,8,1
+QRA (weighted counts and quantiles),Case convolution,0.43,0.95,8,1
+QRA (weighted counts and quantiles),Rt,0.077,0.95,8,1
+QRA (weighted counts and quantiles),Timeseries,0.493,0.95,8,1
+QRA (weighted counts and quantiles),Case convolution,0.43,0.975,8,1
+QRA (weighted counts and quantiles),Rt,0.077,0.975,8,1
+QRA (weighted counts and quantiles),Timeseries,0.493,0.975,8,1
+QRA (weighted counts and quantiles),Case convolution,0.43,0.99,8,1
+QRA (weighted counts and quantiles),Rt,0.077,0.99,8,1
+QRA (weighted counts and quantiles),Timeseries,0.493,0.99,8,1
+QRA,Case convolution,0.498,,12,1
+QRA,Rt,0.043,,12,1
+QRA,Timeseries,0.459,,12,1
+QRA,Case convolution,0.498,0.01,12,1
+QRA,Rt,0.043,0.01,12,1
+QRA,Timeseries,0.459,0.01,12,1
+QRA,Case convolution,0.498,0.025,12,1
+QRA,Rt,0.043,0.025,12,1
+QRA,Timeseries,0.459,0.025,12,1
+QRA,Case convolution,0.498,0.05,12,1
+QRA,Rt,0.043,0.05,12,1
+QRA,Timeseries,0.459,0.05,12,1
+QRA,Case convolution,0.498,0.1,12,1
+QRA,Rt,0.043,0.1,12,1
+QRA,Timeseries,0.459,0.1,12,1
+QRA,Case convolution,0.498,0.15,12,1
+QRA,Rt,0.043,0.15,12,1
+QRA,Timeseries,0.459,0.15,12,1
+QRA,Case convolution,0.498,0.2,12,1
+QRA,Rt,0.043,0.2,12,1
+QRA,Timeseries,0.459,0.2,12,1
+QRA,Case convolution,0.498,0.25,12,1
+QRA,Rt,0.043,0.25,12,1
+QRA,Timeseries,0.459,0.25,12,1
+QRA,Case convolution,0.498,0.3,12,1
+QRA,Rt,0.043,0.3,12,1
+QRA,Timeseries,0.459,0.3,12,1
+QRA,Case convolution,0.498,0.35,12,1
+QRA,Rt,0.043,0.35,12,1
+QRA,Timeseries,0.459,0.35,12,1
+QRA,Case convolution,0.498,0.4,12,1
+QRA,Rt,0.043,0.4,12,1
+QRA,Timeseries,0.459,0.4,12,1
+QRA,Case convolution,0.498,0.45,12,1
+QRA,Rt,0.043,0.45,12,1
+QRA,Timeseries,0.459,0.45,12,1
+QRA,Case convolution,0.498,0.5,12,1
+QRA,Rt,0.043,0.5,12,1
+QRA,Timeseries,0.459,0.5,12,1
+QRA,Case convolution,0.498,0.55,12,1
+QRA,Rt,0.043,0.55,12,1
+QRA,Timeseries,0.459,0.55,12,1
+QRA,Case convolution,0.498,0.6,12,1
+QRA,Rt,0.043,0.6,12,1
+QRA,Timeseries,0.459,0.6,12,1
+QRA,Case convolution,0.498,0.65,12,1
+QRA,Rt,0.043,0.65,12,1
+QRA,Timeseries,0.459,0.65,12,1
+QRA,Case convolution,0.498,0.7,12,1
+QRA,Rt,0.043,0.7,12,1
+QRA,Timeseries,0.459,0.7,12,1
+QRA,Case convolution,0.498,0.75,12,1
+QRA,Rt,0.043,0.75,12,1
+QRA,Timeseries,0.459,0.75,12,1
+QRA,Case convolution,0.498,0.8,12,1
+QRA,Rt,0.043,0.8,12,1
+QRA,Timeseries,0.459,0.8,12,1
+QRA,Case convolution,0.498,0.85,12,1
+QRA,Rt,0.043,0.85,12,1
+QRA,Timeseries,0.459,0.85,12,1
+QRA,Case convolution,0.498,0.9,12,1
+QRA,Rt,0.043,0.9,12,1
+QRA,Timeseries,0.459,0.9,12,1
+QRA,Case convolution,0.498,0.95,12,1
+QRA,Rt,0.043,0.95,12,1
+QRA,Timeseries,0.459,0.95,12,1
+QRA,Case convolution,0.498,0.975,12,1
+QRA,Rt,0.043,0.975,12,1
+QRA,Timeseries,0.459,0.975,12,1
+QRA,Case convolution,0.498,0.99,12,1
+QRA,Rt,0.043,0.99,12,1
+QRA,Timeseries,0.459,0.99,12,1
+QRA (weighted quantiles),Case convolution,0.496,,12,1
+QRA (weighted quantiles),Rt,0.045,,12,1
+QRA (weighted quantiles),Timeseries,0.459,,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.01,12,1
+QRA (weighted quantiles),Rt,0.054,0.01,12,1
+QRA (weighted quantiles),Timeseries,0.449,0.01,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.025,12,1
+QRA (weighted quantiles),Rt,0.054,0.025,12,1
+QRA (weighted quantiles),Timeseries,0.449,0.025,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.05,12,1
+QRA (weighted quantiles),Rt,0.054,0.05,12,1
+QRA (weighted quantiles),Timeseries,0.449,0.05,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.1,12,1
+QRA (weighted quantiles),Rt,0.054,0.1,12,1
+QRA (weighted quantiles),Timeseries,0.449,0.1,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.15,12,1
+QRA (weighted quantiles),Rt,0.054,0.15,12,1
+QRA (weighted quantiles),Timeseries,0.449,0.15,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.2,12,1
+QRA (weighted quantiles),Rt,0.054,0.2,12,1
+QRA (weighted quantiles),Timeseries,0.449,0.2,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.25,12,1
+QRA (weighted quantiles),Rt,0.054,0.25,12,1
+QRA (weighted quantiles),Timeseries,0.449,0.25,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.3,12,1
+QRA (weighted quantiles),Rt,0.054,0.3,12,1
+QRA (weighted quantiles),Timeseries,0.449,0.3,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.35,12,1
+QRA (weighted quantiles),Rt,0.054,0.35,12,1
+QRA (weighted quantiles),Timeseries,0.449,0.35,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.4,12,1
+QRA (weighted quantiles),Rt,0.045,0.4,12,1
+QRA (weighted quantiles),Timeseries,0.459,0.4,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.45,12,1
+QRA (weighted quantiles),Rt,0.045,0.45,12,1
+QRA (weighted quantiles),Timeseries,0.459,0.45,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.5,12,1
+QRA (weighted quantiles),Rt,0.045,0.5,12,1
+QRA (weighted quantiles),Timeseries,0.459,0.5,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.55,12,1
+QRA (weighted quantiles),Rt,0.045,0.55,12,1
+QRA (weighted quantiles),Timeseries,0.459,0.55,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.6,12,1
+QRA (weighted quantiles),Rt,0.045,0.6,12,1
+QRA (weighted quantiles),Timeseries,0.459,0.6,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.65,12,1
+QRA (weighted quantiles),Rt,0.045,0.65,12,1
+QRA (weighted quantiles),Timeseries,0.459,0.65,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.7,12,1
+QRA (weighted quantiles),Rt,0.045,0.7,12,1
+QRA (weighted quantiles),Timeseries,0.459,0.7,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.75,12,1
+QRA (weighted quantiles),Rt,0.045,0.75,12,1
+QRA (weighted quantiles),Timeseries,0.459,0.75,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.8,12,1
+QRA (weighted quantiles),Rt,0.045,0.8,12,1
+QRA (weighted quantiles),Timeseries,0.459,0.8,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.85,12,1
+QRA (weighted quantiles),Rt,0.036,0.85,12,1
+QRA (weighted quantiles),Timeseries,0.468,0.85,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.9,12,1
+QRA (weighted quantiles),Rt,0.036,0.9,12,1
+QRA (weighted quantiles),Timeseries,0.468,0.9,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.95,12,1
+QRA (weighted quantiles),Rt,0.036,0.95,12,1
+QRA (weighted quantiles),Timeseries,0.468,0.95,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.975,12,1
+QRA (weighted quantiles),Rt,0.036,0.975,12,1
+QRA (weighted quantiles),Timeseries,0.468,0.975,12,1
+QRA (weighted quantiles),Case convolution,0.496,0.99,12,1
+QRA (weighted quantiles),Rt,0.036,0.99,12,1
+QRA (weighted quantiles),Timeseries,0.468,0.99,12,1
+QRA (weighted counts and quantiles),Case convolution,0.47,,12,1
+QRA (weighted counts and quantiles),Rt,0.064,,12,1
+QRA (weighted counts and quantiles),Timeseries,0.465,,12,1
+QRA (weighted counts and quantiles),Case convolution,0.457,0.01,12,1
+QRA (weighted counts and quantiles),Rt,0.076,0.01,12,1
+QRA (weighted counts and quantiles),Timeseries,0.467,0.01,12,1
+QRA (weighted counts and quantiles),Case convolution,0.457,0.025,12,1
+QRA (weighted counts and quantiles),Rt,0.076,0.025,12,1
+QRA (weighted counts and quantiles),Timeseries,0.467,0.025,12,1
+QRA (weighted counts and quantiles),Case convolution,0.457,0.05,12,1
+QRA (weighted counts and quantiles),Rt,0.076,0.05,12,1
+QRA (weighted counts and quantiles),Timeseries,0.467,0.05,12,1
+QRA (weighted counts and quantiles),Case convolution,0.457,0.1,12,1
+QRA (weighted counts and quantiles),Rt,0.076,0.1,12,1
+QRA (weighted counts and quantiles),Timeseries,0.467,0.1,12,1
+QRA (weighted counts and quantiles),Case convolution,0.457,0.15,12,1
+QRA (weighted counts and quantiles),Rt,0.076,0.15,12,1
+QRA (weighted counts and quantiles),Timeseries,0.467,0.15,12,1
+QRA (weighted counts and quantiles),Case convolution,0.457,0.2,12,1
+QRA (weighted counts and quantiles),Rt,0.075,0.2,12,1
+QRA (weighted counts and quantiles),Timeseries,0.468,0.2,12,1
+QRA (weighted counts and quantiles),Case convolution,0.457,0.25,12,1
+QRA (weighted counts and quantiles),Rt,0.075,0.25,12,1
+QRA (weighted counts and quantiles),Timeseries,0.468,0.25,12,1
+QRA (weighted counts and quantiles),Case convolution,0.457,0.3,12,1
+QRA (weighted counts and quantiles),Rt,0.075,0.3,12,1
+QRA (weighted counts and quantiles),Timeseries,0.468,0.3,12,1
+QRA (weighted counts and quantiles),Case convolution,0.457,0.35,12,1
+QRA (weighted counts and quantiles),Rt,0.075,0.35,12,1
+QRA (weighted counts and quantiles),Timeseries,0.468,0.35,12,1
+QRA (weighted counts and quantiles),Case convolution,0.47,0.4,12,1
+QRA (weighted counts and quantiles),Rt,0.064,0.4,12,1
+QRA (weighted counts and quantiles),Timeseries,0.465,0.4,12,1
+QRA (weighted counts and quantiles),Case convolution,0.47,0.45,12,1
+QRA (weighted counts and quantiles),Rt,0.064,0.45,12,1
+QRA (weighted counts and quantiles),Timeseries,0.465,0.45,12,1
+QRA (weighted counts and quantiles),Case convolution,0.47,0.5,12,1
+QRA (weighted counts and quantiles),Rt,0.064,0.5,12,1
+QRA (weighted counts and quantiles),Timeseries,0.465,0.5,12,1
+QRA (weighted counts and quantiles),Case convolution,0.47,0.55,12,1
+QRA (weighted counts and quantiles),Rt,0.064,0.55,12,1
+QRA (weighted counts and quantiles),Timeseries,0.465,0.55,12,1
+QRA (weighted counts and quantiles),Case convolution,0.47,0.6,12,1
+QRA (weighted counts and quantiles),Rt,0.064,0.6,12,1
+QRA (weighted counts and quantiles),Timeseries,0.465,0.6,12,1
+QRA (weighted counts and quantiles),Case convolution,0.479,0.65,12,1
+QRA (weighted counts and quantiles),Rt,0.055,0.65,12,1
+QRA (weighted counts and quantiles),Timeseries,0.465,0.65,12,1
+QRA (weighted counts and quantiles),Case convolution,0.479,0.7,12,1
+QRA (weighted counts and quantiles),Rt,0.055,0.7,12,1
+QRA (weighted counts and quantiles),Timeseries,0.465,0.7,12,1
+QRA (weighted counts and quantiles),Case convolution,0.479,0.75,12,1
+QRA (weighted counts and quantiles),Rt,0.055,0.75,12,1
+QRA (weighted counts and quantiles),Timeseries,0.465,0.75,12,1
+QRA (weighted counts and quantiles),Case convolution,0.479,0.8,12,1
+QRA (weighted counts and quantiles),Rt,0.055,0.8,12,1
+QRA (weighted counts and quantiles),Timeseries,0.465,0.8,12,1
+QRA (weighted counts and quantiles),Case convolution,0.479,0.85,12,1
+QRA (weighted counts and quantiles),Rt,0.045,0.85,12,1
+QRA (weighted counts and quantiles),Timeseries,0.475,0.85,12,1
+QRA (weighted counts and quantiles),Case convolution,0.479,0.9,12,1
+QRA (weighted counts and quantiles),Rt,0.045,0.9,12,1
+QRA (weighted counts and quantiles),Timeseries,0.475,0.9,12,1
+QRA (weighted counts and quantiles),Case convolution,0.479,0.95,12,1
+QRA (weighted counts and quantiles),Rt,0.045,0.95,12,1
+QRA (weighted counts and quantiles),Timeseries,0.475,0.95,12,1
+QRA (weighted counts and quantiles),Case convolution,0.479,0.975,12,1
+QRA (weighted counts and quantiles),Rt,0.045,0.975,12,1
+QRA (weighted counts and quantiles),Timeseries,0.475,0.975,12,1
+QRA (weighted counts and quantiles),Case convolution,0.479,0.99,12,1
+QRA (weighted counts and quantiles),Rt,0.045,0.99,12,1
+QRA (weighted counts and quantiles),Timeseries,0.475,0.99,12,1
+QRA,Case convolution,0.778,,2,2
+QRA,Rt,0.011,,2,2
+QRA,Timeseries,0.211,,2,2
+QRA,Case convolution,0.778,0.01,2,2
+QRA,Rt,0.011,0.01,2,2
+QRA,Timeseries,0.211,0.01,2,2
+QRA,Case convolution,0.778,0.025,2,2
+QRA,Rt,0.011,0.025,2,2
+QRA,Timeseries,0.211,0.025,2,2
+QRA,Case convolution,0.778,0.05,2,2
+QRA,Rt,0.011,0.05,2,2
+QRA,Timeseries,0.211,0.05,2,2
+QRA,Case convolution,0.778,0.1,2,2
+QRA,Rt,0.011,0.1,2,2
+QRA,Timeseries,0.211,0.1,2,2
+QRA,Case convolution,0.778,0.15,2,2
+QRA,Rt,0.011,0.15,2,2
+QRA,Timeseries,0.211,0.15,2,2
+QRA,Case convolution,0.778,0.2,2,2
+QRA,Rt,0.011,0.2,2,2
+QRA,Timeseries,0.211,0.2,2,2
+QRA,Case convolution,0.778,0.25,2,2
+QRA,Rt,0.011,0.25,2,2
+QRA,Timeseries,0.211,0.25,2,2
+QRA,Case convolution,0.778,0.3,2,2
+QRA,Rt,0.011,0.3,2,2
+QRA,Timeseries,0.211,0.3,2,2
+QRA,Case convolution,0.778,0.35,2,2
+QRA,Rt,0.011,0.35,2,2
+QRA,Timeseries,0.211,0.35,2,2
+QRA,Case convolution,0.778,0.4,2,2
+QRA,Rt,0.011,0.4,2,2
+QRA,Timeseries,0.211,0.4,2,2
+QRA,Case convolution,0.778,0.45,2,2
+QRA,Rt,0.011,0.45,2,2
+QRA,Timeseries,0.211,0.45,2,2
+QRA,Case convolution,0.778,0.5,2,2
+QRA,Rt,0.011,0.5,2,2
+QRA,Timeseries,0.211,0.5,2,2
+QRA,Case convolution,0.778,0.55,2,2
+QRA,Rt,0.011,0.55,2,2
+QRA,Timeseries,0.211,0.55,2,2
+QRA,Case convolution,0.778,0.6,2,2
+QRA,Rt,0.011,0.6,2,2
+QRA,Timeseries,0.211,0.6,2,2
+QRA,Case convolution,0.778,0.65,2,2
+QRA,Rt,0.011,0.65,2,2
+QRA,Timeseries,0.211,0.65,2,2
+QRA,Case convolution,0.778,0.7,2,2
+QRA,Rt,0.011,0.7,2,2
+QRA,Timeseries,0.211,0.7,2,2
+QRA,Case convolution,0.778,0.75,2,2
+QRA,Rt,0.011,0.75,2,2
+QRA,Timeseries,0.211,0.75,2,2
+QRA,Case convolution,0.778,0.8,2,2
+QRA,Rt,0.011,0.8,2,2
+QRA,Timeseries,0.211,0.8,2,2
+QRA,Case convolution,0.778,0.85,2,2
+QRA,Rt,0.011,0.85,2,2
+QRA,Timeseries,0.211,0.85,2,2
+QRA,Case convolution,0.778,0.9,2,2
+QRA,Rt,0.011,0.9,2,2
+QRA,Timeseries,0.211,0.9,2,2
+QRA,Case convolution,0.778,0.95,2,2
+QRA,Rt,0.011,0.95,2,2
+QRA,Timeseries,0.211,0.95,2,2
+QRA,Case convolution,0.778,0.975,2,2
+QRA,Rt,0.011,0.975,2,2
+QRA,Timeseries,0.211,0.975,2,2
+QRA,Case convolution,0.778,0.99,2,2
+QRA,Rt,0.011,0.99,2,2
+QRA,Timeseries,0.211,0.99,2,2
+QRA (weighted quantiles),Case convolution,0.769,,2,2
+QRA (weighted quantiles),Rt,0.043,,2,2
+QRA (weighted quantiles),Timeseries,0.188,,2,2
+QRA (weighted quantiles),Case convolution,0.659,0.01,2,2
+QRA (weighted quantiles),Rt,0.081,0.01,2,2
+QRA (weighted quantiles),Timeseries,0.26,0.01,2,2
+QRA (weighted quantiles),Case convolution,0.659,0.025,2,2
+QRA (weighted quantiles),Rt,0.081,0.025,2,2
+QRA (weighted quantiles),Timeseries,0.26,0.025,2,2
+QRA (weighted quantiles),Case convolution,0.659,0.05,2,2
+QRA (weighted quantiles),Rt,0.081,0.05,2,2
+QRA (weighted quantiles),Timeseries,0.26,0.05,2,2
+QRA (weighted quantiles),Case convolution,0.659,0.1,2,2
+QRA (weighted quantiles),Rt,0.081,0.1,2,2
+QRA (weighted quantiles),Timeseries,0.26,0.1,2,2
+QRA (weighted quantiles),Case convolution,0.659,0.15,2,2
+QRA (weighted quantiles),Rt,0.081,0.15,2,2
+QRA (weighted quantiles),Timeseries,0.26,0.15,2,2
+QRA (weighted quantiles),Case convolution,0.72,0.2,2,2
+QRA (weighted quantiles),Rt,0.064,0.2,2,2
+QRA (weighted quantiles),Timeseries,0.216,0.2,2,2
+QRA (weighted quantiles),Case convolution,0.72,0.25,2,2
+QRA (weighted quantiles),Rt,0.064,0.25,2,2
+QRA (weighted quantiles),Timeseries,0.216,0.25,2,2
+QRA (weighted quantiles),Case convolution,0.72,0.3,2,2
+QRA (weighted quantiles),Rt,0.064,0.3,2,2
+QRA (weighted quantiles),Timeseries,0.216,0.3,2,2
+QRA (weighted quantiles),Case convolution,0.72,0.35,2,2
+QRA (weighted quantiles),Rt,0.064,0.35,2,2
+QRA (weighted quantiles),Timeseries,0.216,0.35,2,2
+QRA (weighted quantiles),Case convolution,0.769,0.4,2,2
+QRA (weighted quantiles),Rt,0.043,0.4,2,2
+QRA (weighted quantiles),Timeseries,0.188,0.4,2,2
+QRA (weighted quantiles),Case convolution,0.769,0.45,2,2
+QRA (weighted quantiles),Rt,0.043,0.45,2,2
+QRA (weighted quantiles),Timeseries,0.188,0.45,2,2
+QRA (weighted quantiles),Case convolution,0.769,0.5,2,2
+QRA (weighted quantiles),Rt,0.043,0.5,2,2
+QRA (weighted quantiles),Timeseries,0.188,0.5,2,2
+QRA (weighted quantiles),Case convolution,0.769,0.55,2,2
+QRA (weighted quantiles),Rt,0.043,0.55,2,2
+QRA (weighted quantiles),Timeseries,0.188,0.55,2,2
+QRA (weighted quantiles),Case convolution,0.769,0.6,2,2
+QRA (weighted quantiles),Rt,0.043,0.6,2,2
+QRA (weighted quantiles),Timeseries,0.188,0.6,2,2
+QRA (weighted quantiles),Case convolution,0.793,0.65,2,2
+QRA (weighted quantiles),Rt,0.008,0.65,2,2
+QRA (weighted quantiles),Timeseries,0.199,0.65,2,2
+QRA (weighted quantiles),Case convolution,0.793,0.7,2,2
+QRA (weighted quantiles),Rt,0.008,0.7,2,2
+QRA (weighted quantiles),Timeseries,0.199,0.7,2,2
+QRA (weighted quantiles),Case convolution,0.793,0.75,2,2
+QRA (weighted quantiles),Rt,0.008,0.75,2,2
+QRA (weighted quantiles),Timeseries,0.199,0.75,2,2
+QRA (weighted quantiles),Case convolution,0.793,0.8,2,2
+QRA (weighted quantiles),Rt,0.008,0.8,2,2
+QRA (weighted quantiles),Timeseries,0.199,0.8,2,2
+QRA (weighted quantiles),Case convolution,0.771,0.85,2,2
+QRA (weighted quantiles),Rt,0,0.85,2,2
+QRA (weighted quantiles),Timeseries,0.229,0.85,2,2
+QRA (weighted quantiles),Case convolution,0.771,0.9,2,2
+QRA (weighted quantiles),Rt,0,0.9,2,2
+QRA (weighted quantiles),Timeseries,0.229,0.9,2,2
+QRA (weighted quantiles),Case convolution,0.771,0.95,2,2
+QRA (weighted quantiles),Rt,0,0.95,2,2
+QRA (weighted quantiles),Timeseries,0.229,0.95,2,2
+QRA (weighted quantiles),Case convolution,0.771,0.975,2,2
+QRA (weighted quantiles),Rt,0,0.975,2,2
+QRA (weighted quantiles),Timeseries,0.229,0.975,2,2
+QRA (weighted quantiles),Case convolution,0.771,0.99,2,2
+QRA (weighted quantiles),Rt,0,0.99,2,2
+QRA (weighted quantiles),Timeseries,0.229,0.99,2,2
+QRA (weighted counts and quantiles),Case convolution,0.671,,2,2
+QRA (weighted counts and quantiles),Rt,0.021,,2,2
+QRA (weighted counts and quantiles),Timeseries,0.309,,2,2
+QRA (weighted counts and quantiles),Case convolution,0.549,0.01,2,2
+QRA (weighted counts and quantiles),Rt,0.068,0.01,2,2
+QRA (weighted counts and quantiles),Timeseries,0.383,0.01,2,2
+QRA (weighted counts and quantiles),Case convolution,0.549,0.025,2,2
+QRA (weighted counts and quantiles),Rt,0.068,0.025,2,2
+QRA (weighted counts and quantiles),Timeseries,0.383,0.025,2,2
+QRA (weighted counts and quantiles),Case convolution,0.549,0.05,2,2
+QRA (weighted counts and quantiles),Rt,0.068,0.05,2,2
+QRA (weighted counts and quantiles),Timeseries,0.383,0.05,2,2
+QRA (weighted counts and quantiles),Case convolution,0.549,0.1,2,2
+QRA (weighted counts and quantiles),Rt,0.068,0.1,2,2
+QRA (weighted counts and quantiles),Timeseries,0.383,0.1,2,2
+QRA (weighted counts and quantiles),Case convolution,0.549,0.15,2,2
+QRA (weighted counts and quantiles),Rt,0.068,0.15,2,2
+QRA (weighted counts and quantiles),Timeseries,0.383,0.15,2,2
+QRA (weighted counts and quantiles),Case convolution,0.619,0.2,2,2
+QRA (weighted counts and quantiles),Rt,0.045,0.2,2,2
+QRA (weighted counts and quantiles),Timeseries,0.337,0.2,2,2
+QRA (weighted counts and quantiles),Case convolution,0.619,0.25,2,2
+QRA (weighted counts and quantiles),Rt,0.045,0.25,2,2
+QRA (weighted counts and quantiles),Timeseries,0.337,0.25,2,2
+QRA (weighted counts and quantiles),Case convolution,0.619,0.3,2,2
+QRA (weighted counts and quantiles),Rt,0.045,0.3,2,2
+QRA (weighted counts and quantiles),Timeseries,0.337,0.3,2,2
+QRA (weighted counts and quantiles),Case convolution,0.619,0.35,2,2
+QRA (weighted counts and quantiles),Rt,0.045,0.35,2,2
+QRA (weighted counts and quantiles),Timeseries,0.337,0.35,2,2
+QRA (weighted counts and quantiles),Case convolution,0.671,0.4,2,2
+QRA (weighted counts and quantiles),Rt,0.021,0.4,2,2
+QRA (weighted counts and quantiles),Timeseries,0.309,0.4,2,2
+QRA (weighted counts and quantiles),Case convolution,0.671,0.45,2,2
+QRA (weighted counts and quantiles),Rt,0.021,0.45,2,2
+QRA (weighted counts and quantiles),Timeseries,0.309,0.45,2,2
+QRA (weighted counts and quantiles),Case convolution,0.671,0.5,2,2
+QRA (weighted counts and quantiles),Rt,0.021,0.5,2,2
+QRA (weighted counts and quantiles),Timeseries,0.309,0.5,2,2
+QRA (weighted counts and quantiles),Case convolution,0.671,0.55,2,2
+QRA (weighted counts and quantiles),Rt,0.021,0.55,2,2
+QRA (weighted counts and quantiles),Timeseries,0.309,0.55,2,2
+QRA (weighted counts and quantiles),Case convolution,0.671,0.6,2,2
+QRA (weighted counts and quantiles),Rt,0.021,0.6,2,2
+QRA (weighted counts and quantiles),Timeseries,0.309,0.6,2,2
+QRA (weighted counts and quantiles),Case convolution,0.714,0.65,2,2
+QRA (weighted counts and quantiles),Rt,0,0.65,2,2
+QRA (weighted counts and quantiles),Timeseries,0.286,0.65,2,2
+QRA (weighted counts and quantiles),Case convolution,0.714,0.7,2,2
+QRA (weighted counts and quantiles),Rt,0,0.7,2,2
+QRA (weighted counts and quantiles),Timeseries,0.286,0.7,2,2
+QRA (weighted counts and quantiles),Case convolution,0.714,0.75,2,2
+QRA (weighted counts and quantiles),Rt,0,0.75,2,2
+QRA (weighted counts and quantiles),Timeseries,0.286,0.75,2,2
+QRA (weighted counts and quantiles),Case convolution,0.714,0.8,2,2
+QRA (weighted counts and quantiles),Rt,0,0.8,2,2
+QRA (weighted counts and quantiles),Timeseries,0.286,0.8,2,2
+QRA (weighted counts and quantiles),Case convolution,0.633,0.85,2,2
+QRA (weighted counts and quantiles),Rt,0,0.85,2,2
+QRA (weighted counts and quantiles),Timeseries,0.367,0.85,2,2
+QRA (weighted counts and quantiles),Case convolution,0.633,0.9,2,2
+QRA (weighted counts and quantiles),Rt,0,0.9,2,2
+QRA (weighted counts and quantiles),Timeseries,0.367,0.9,2,2
+QRA (weighted counts and quantiles),Case convolution,0.633,0.95,2,2
+QRA (weighted counts and quantiles),Rt,0,0.95,2,2
+QRA (weighted counts and quantiles),Timeseries,0.367,0.95,2,2
+QRA (weighted counts and quantiles),Case convolution,0.633,0.975,2,2
+QRA (weighted counts and quantiles),Rt,0,0.975,2,2
+QRA (weighted counts and quantiles),Timeseries,0.367,0.975,2,2
+QRA (weighted counts and quantiles),Case convolution,0.633,0.99,2,2
+QRA (weighted counts and quantiles),Rt,0,0.99,2,2
+QRA (weighted counts and quantiles),Timeseries,0.367,0.99,2,2
+QRA,Case convolution,0.601,,4,2
+QRA,Rt,0.002,,4,2
+QRA,Timeseries,0.397,,4,2
+QRA,Case convolution,0.601,0.01,4,2
+QRA,Rt,0.002,0.01,4,2
+QRA,Timeseries,0.397,0.01,4,2
+QRA,Case convolution,0.601,0.025,4,2
+QRA,Rt,0.002,0.025,4,2
+QRA,Timeseries,0.397,0.025,4,2
+QRA,Case convolution,0.601,0.05,4,2
+QRA,Rt,0.002,0.05,4,2
+QRA,Timeseries,0.397,0.05,4,2
+QRA,Case convolution,0.601,0.1,4,2
+QRA,Rt,0.002,0.1,4,2
+QRA,Timeseries,0.397,0.1,4,2
+QRA,Case convolution,0.601,0.15,4,2
+QRA,Rt,0.002,0.15,4,2
+QRA,Timeseries,0.397,0.15,4,2
+QRA,Case convolution,0.601,0.2,4,2
+QRA,Rt,0.002,0.2,4,2
+QRA,Timeseries,0.397,0.2,4,2
+QRA,Case convolution,0.601,0.25,4,2
+QRA,Rt,0.002,0.25,4,2
+QRA,Timeseries,0.397,0.25,4,2
+QRA,Case convolution,0.601,0.3,4,2
+QRA,Rt,0.002,0.3,4,2
+QRA,Timeseries,0.397,0.3,4,2
+QRA,Case convolution,0.601,0.35,4,2
+QRA,Rt,0.002,0.35,4,2
+QRA,Timeseries,0.397,0.35,4,2
+QRA,Case convolution,0.601,0.4,4,2
+QRA,Rt,0.002,0.4,4,2
+QRA,Timeseries,0.397,0.4,4,2
+QRA,Case convolution,0.601,0.45,4,2
+QRA,Rt,0.002,0.45,4,2
+QRA,Timeseries,0.397,0.45,4,2
+QRA,Case convolution,0.601,0.5,4,2
+QRA,Rt,0.002,0.5,4,2
+QRA,Timeseries,0.397,0.5,4,2
+QRA,Case convolution,0.601,0.55,4,2
+QRA,Rt,0.002,0.55,4,2
+QRA,Timeseries,0.397,0.55,4,2
+QRA,Case convolution,0.601,0.6,4,2
+QRA,Rt,0.002,0.6,4,2
+QRA,Timeseries,0.397,0.6,4,2
+QRA,Case convolution,0.601,0.65,4,2
+QRA,Rt,0.002,0.65,4,2
+QRA,Timeseries,0.397,0.65,4,2
+QRA,Case convolution,0.601,0.7,4,2
+QRA,Rt,0.002,0.7,4,2
+QRA,Timeseries,0.397,0.7,4,2
+QRA,Case convolution,0.601,0.75,4,2
+QRA,Rt,0.002,0.75,4,2
+QRA,Timeseries,0.397,0.75,4,2
+QRA,Case convolution,0.601,0.8,4,2
+QRA,Rt,0.002,0.8,4,2
+QRA,Timeseries,0.397,0.8,4,2
+QRA,Case convolution,0.601,0.85,4,2
+QRA,Rt,0.002,0.85,4,2
+QRA,Timeseries,0.397,0.85,4,2
+QRA,Case convolution,0.601,0.9,4,2
+QRA,Rt,0.002,0.9,4,2
+QRA,Timeseries,0.397,0.9,4,2
+QRA,Case convolution,0.601,0.95,4,2
+QRA,Rt,0.002,0.95,4,2
+QRA,Timeseries,0.397,0.95,4,2
+QRA,Case convolution,0.601,0.975,4,2
+QRA,Rt,0.002,0.975,4,2
+QRA,Timeseries,0.397,0.975,4,2
+QRA,Case convolution,0.601,0.99,4,2
+QRA,Rt,0.002,0.99,4,2
+QRA,Timeseries,0.397,0.99,4,2
+QRA (weighted quantiles),Case convolution,0.62,,4,2
+QRA (weighted quantiles),Rt,0.052,,4,2
+QRA (weighted quantiles),Timeseries,0.329,,4,2
+QRA (weighted quantiles),Case convolution,0.512,0.01,4,2
+QRA (weighted quantiles),Rt,0.106,0.01,4,2
+QRA (weighted quantiles),Timeseries,0.382,0.01,4,2
+QRA (weighted quantiles),Case convolution,0.512,0.025,4,2
+QRA (weighted quantiles),Rt,0.106,0.025,4,2
+QRA (weighted quantiles),Timeseries,0.382,0.025,4,2
+QRA (weighted quantiles),Case convolution,0.512,0.05,4,2
+QRA (weighted quantiles),Rt,0.106,0.05,4,2
+QRA (weighted quantiles),Timeseries,0.382,0.05,4,2
+QRA (weighted quantiles),Case convolution,0.512,0.1,4,2
+QRA (weighted quantiles),Rt,0.106,0.1,4,2
+QRA (weighted quantiles),Timeseries,0.382,0.1,4,2
+QRA (weighted quantiles),Case convolution,0.512,0.15,4,2
+QRA (weighted quantiles),Rt,0.106,0.15,4,2
+QRA (weighted quantiles),Timeseries,0.382,0.15,4,2
+QRA (weighted quantiles),Case convolution,0.581,0.2,4,2
+QRA (weighted quantiles),Rt,0.056,0.2,4,2
+QRA (weighted quantiles),Timeseries,0.363,0.2,4,2
+QRA (weighted quantiles),Case convolution,0.581,0.25,4,2
+QRA (weighted quantiles),Rt,0.056,0.25,4,2
+QRA (weighted quantiles),Timeseries,0.363,0.25,4,2
+QRA (weighted quantiles),Case convolution,0.581,0.3,4,2
+QRA (weighted quantiles),Rt,0.056,0.3,4,2
+QRA (weighted quantiles),Timeseries,0.363,0.3,4,2
+QRA (weighted quantiles),Case convolution,0.581,0.35,4,2
+QRA (weighted quantiles),Rt,0.056,0.35,4,2
+QRA (weighted quantiles),Timeseries,0.363,0.35,4,2
+QRA (weighted quantiles),Case convolution,0.62,0.4,4,2
+QRA (weighted quantiles),Rt,0.052,0.4,4,2
+QRA (weighted quantiles),Timeseries,0.329,0.4,4,2
+QRA (weighted quantiles),Case convolution,0.62,0.45,4,2
+QRA (weighted quantiles),Rt,0.052,0.45,4,2
+QRA (weighted quantiles),Timeseries,0.329,0.45,4,2
+QRA (weighted quantiles),Case convolution,0.62,0.5,4,2
+QRA (weighted quantiles),Rt,0.052,0.5,4,2
+QRA (weighted quantiles),Timeseries,0.329,0.5,4,2
+QRA (weighted quantiles),Case convolution,0.62,0.55,4,2
+QRA (weighted quantiles),Rt,0.052,0.55,4,2
+QRA (weighted quantiles),Timeseries,0.329,0.55,4,2
+QRA (weighted quantiles),Case convolution,0.62,0.6,4,2
+QRA (weighted quantiles),Rt,0.052,0.6,4,2
+QRA (weighted quantiles),Timeseries,0.329,0.6,4,2
+QRA (weighted quantiles),Case convolution,0.617,0.65,4,2
+QRA (weighted quantiles),Rt,0.022,0.65,4,2
+QRA (weighted quantiles),Timeseries,0.361,0.65,4,2
+QRA (weighted quantiles),Case convolution,0.617,0.7,4,2
+QRA (weighted quantiles),Rt,0.022,0.7,4,2
+QRA (weighted quantiles),Timeseries,0.361,0.7,4,2
+QRA (weighted quantiles),Case convolution,0.617,0.75,4,2
+QRA (weighted quantiles),Rt,0.022,0.75,4,2
+QRA (weighted quantiles),Timeseries,0.361,0.75,4,2
+QRA (weighted quantiles),Case convolution,0.617,0.8,4,2
+QRA (weighted quantiles),Rt,0.022,0.8,4,2
+QRA (weighted quantiles),Timeseries,0.361,0.8,4,2
+QRA (weighted quantiles),Case convolution,0.548,0.85,4,2
+QRA (weighted quantiles),Rt,0.009,0.85,4,2
+QRA (weighted quantiles),Timeseries,0.443,0.85,4,2
+QRA (weighted quantiles),Case convolution,0.548,0.9,4,2
+QRA (weighted quantiles),Rt,0.009,0.9,4,2
+QRA (weighted quantiles),Timeseries,0.443,0.9,4,2
+QRA (weighted quantiles),Case convolution,0.548,0.95,4,2
+QRA (weighted quantiles),Rt,0.009,0.95,4,2
+QRA (weighted quantiles),Timeseries,0.443,0.95,4,2
+QRA (weighted quantiles),Case convolution,0.548,0.975,4,2
+QRA (weighted quantiles),Rt,0.009,0.975,4,2
+QRA (weighted quantiles),Timeseries,0.443,0.975,4,2
+QRA (weighted quantiles),Case convolution,0.548,0.99,4,2
+QRA (weighted quantiles),Rt,0.009,0.99,4,2
+QRA (weighted quantiles),Timeseries,0.443,0.99,4,2
+QRA (weighted counts and quantiles),Case convolution,0.521,,4,2
+QRA (weighted counts and quantiles),Rt,0.039,,4,2
+QRA (weighted counts and quantiles),Timeseries,0.441,,4,2
+QRA (weighted counts and quantiles),Case convolution,0.481,0.01,4,2
+QRA (weighted counts and quantiles),Rt,0.144,0.01,4,2
+QRA (weighted counts and quantiles),Timeseries,0.375,0.01,4,2
+QRA (weighted counts and quantiles),Case convolution,0.481,0.025,4,2
+QRA (weighted counts and quantiles),Rt,0.144,0.025,4,2
+QRA (weighted counts and quantiles),Timeseries,0.375,0.025,4,2
+QRA (weighted counts and quantiles),Case convolution,0.481,0.05,4,2
+QRA (weighted counts and quantiles),Rt,0.144,0.05,4,2
+QRA (weighted counts and quantiles),Timeseries,0.375,0.05,4,2
+QRA (weighted counts and quantiles),Case convolution,0.481,0.1,4,2
+QRA (weighted counts and quantiles),Rt,0.144,0.1,4,2
+QRA (weighted counts and quantiles),Timeseries,0.375,0.1,4,2
+QRA (weighted counts and quantiles),Case convolution,0.481,0.15,4,2
+QRA (weighted counts and quantiles),Rt,0.144,0.15,4,2
+QRA (weighted counts and quantiles),Timeseries,0.375,0.15,4,2
+QRA (weighted counts and quantiles),Case convolution,0.548,0.2,4,2
+QRA (weighted counts and quantiles),Rt,0.061,0.2,4,2
+QRA (weighted counts and quantiles),Timeseries,0.392,0.2,4,2
+QRA (weighted counts and quantiles),Case convolution,0.548,0.25,4,2
+QRA (weighted counts and quantiles),Rt,0.061,0.25,4,2
+QRA (weighted counts and quantiles),Timeseries,0.392,0.25,4,2
+QRA (weighted counts and quantiles),Case convolution,0.548,0.3,4,2
+QRA (weighted counts and quantiles),Rt,0.061,0.3,4,2
+QRA (weighted counts and quantiles),Timeseries,0.392,0.3,4,2
+QRA (weighted counts and quantiles),Case convolution,0.548,0.35,4,2
+QRA (weighted counts and quantiles),Rt,0.061,0.35,4,2
+QRA (weighted counts and quantiles),Timeseries,0.392,0.35,4,2
+QRA (weighted counts and quantiles),Case convolution,0.521,0.4,4,2
+QRA (weighted counts and quantiles),Rt,0.039,0.4,4,2
+QRA (weighted counts and quantiles),Timeseries,0.441,0.4,4,2
+QRA (weighted counts and quantiles),Case convolution,0.521,0.45,4,2
+QRA (weighted counts and quantiles),Rt,0.039,0.45,4,2
+QRA (weighted counts and quantiles),Timeseries,0.441,0.45,4,2
+QRA (weighted counts and quantiles),Case convolution,0.521,0.5,4,2
+QRA (weighted counts and quantiles),Rt,0.039,0.5,4,2
+QRA (weighted counts and quantiles),Timeseries,0.441,0.5,4,2
+QRA (weighted counts and quantiles),Case convolution,0.521,0.55,4,2
+QRA (weighted counts and quantiles),Rt,0.039,0.55,4,2
+QRA (weighted counts and quantiles),Timeseries,0.441,0.55,4,2
+QRA (weighted counts and quantiles),Case convolution,0.521,0.6,4,2
+QRA (weighted counts and quantiles),Rt,0.039,0.6,4,2
+QRA (weighted counts and quantiles),Timeseries,0.441,0.6,4,2
+QRA (weighted counts and quantiles),Case convolution,0.514,0.65,4,2
+QRA (weighted counts and quantiles),Rt,0.012,0.65,4,2
+QRA (weighted counts and quantiles),Timeseries,0.474,0.65,4,2
+QRA (weighted counts and quantiles),Case convolution,0.514,0.7,4,2
+QRA (weighted counts and quantiles),Rt,0.012,0.7,4,2
+QRA (weighted counts and quantiles),Timeseries,0.474,0.7,4,2
+QRA (weighted counts and quantiles),Case convolution,0.514,0.75,4,2
+QRA (weighted counts and quantiles),Rt,0.012,0.75,4,2
+QRA (weighted counts and quantiles),Timeseries,0.474,0.75,4,2
+QRA (weighted counts and quantiles),Case convolution,0.514,0.8,4,2
+QRA (weighted counts and quantiles),Rt,0.012,0.8,4,2
+QRA (weighted counts and quantiles),Timeseries,0.474,0.8,4,2
+QRA (weighted counts and quantiles),Case convolution,0.455,0.85,4,2
+QRA (weighted counts and quantiles),Rt,0,0.85,4,2
+QRA (weighted counts and quantiles),Timeseries,0.545,0.85,4,2
+QRA (weighted counts and quantiles),Case convolution,0.455,0.9,4,2
+QRA (weighted counts and quantiles),Rt,0,0.9,4,2
+QRA (weighted counts and quantiles),Timeseries,0.545,0.9,4,2
+QRA (weighted counts and quantiles),Case convolution,0.455,0.95,4,2
+QRA (weighted counts and quantiles),Rt,0,0.95,4,2
+QRA (weighted counts and quantiles),Timeseries,0.545,0.95,4,2
+QRA (weighted counts and quantiles),Case convolution,0.455,0.975,4,2
+QRA (weighted counts and quantiles),Rt,0,0.975,4,2
+QRA (weighted counts and quantiles),Timeseries,0.545,0.975,4,2
+QRA (weighted counts and quantiles),Case convolution,0.455,0.99,4,2
+QRA (weighted counts and quantiles),Rt,0,0.99,4,2
+QRA (weighted counts and quantiles),Timeseries,0.545,0.99,4,2
+QRA,Case convolution,0.55,,8,2
+QRA,Rt,0.027,,8,2
+QRA,Timeseries,0.423,,8,2
+QRA,Case convolution,0.55,0.01,8,2
+QRA,Rt,0.027,0.01,8,2
+QRA,Timeseries,0.423,0.01,8,2
+QRA,Case convolution,0.55,0.025,8,2
+QRA,Rt,0.027,0.025,8,2
+QRA,Timeseries,0.423,0.025,8,2
+QRA,Case convolution,0.55,0.05,8,2
+QRA,Rt,0.027,0.05,8,2
+QRA,Timeseries,0.423,0.05,8,2
+QRA,Case convolution,0.55,0.1,8,2
+QRA,Rt,0.027,0.1,8,2
+QRA,Timeseries,0.423,0.1,8,2
+QRA,Case convolution,0.55,0.15,8,2
+QRA,Rt,0.027,0.15,8,2
+QRA,Timeseries,0.423,0.15,8,2
+QRA,Case convolution,0.55,0.2,8,2
+QRA,Rt,0.027,0.2,8,2
+QRA,Timeseries,0.423,0.2,8,2
+QRA,Case convolution,0.55,0.25,8,2
+QRA,Rt,0.027,0.25,8,2
+QRA,Timeseries,0.423,0.25,8,2
+QRA,Case convolution,0.55,0.3,8,2
+QRA,Rt,0.027,0.3,8,2
+QRA,Timeseries,0.423,0.3,8,2
+QRA,Case convolution,0.55,0.35,8,2
+QRA,Rt,0.027,0.35,8,2
+QRA,Timeseries,0.423,0.35,8,2
+QRA,Case convolution,0.55,0.4,8,2
+QRA,Rt,0.027,0.4,8,2
+QRA,Timeseries,0.423,0.4,8,2
+QRA,Case convolution,0.55,0.45,8,2
+QRA,Rt,0.027,0.45,8,2
+QRA,Timeseries,0.423,0.45,8,2
+QRA,Case convolution,0.55,0.5,8,2
+QRA,Rt,0.027,0.5,8,2
+QRA,Timeseries,0.423,0.5,8,2
+QRA,Case convolution,0.55,0.55,8,2
+QRA,Rt,0.027,0.55,8,2
+QRA,Timeseries,0.423,0.55,8,2
+QRA,Case convolution,0.55,0.6,8,2
+QRA,Rt,0.027,0.6,8,2
+QRA,Timeseries,0.423,0.6,8,2
+QRA,Case convolution,0.55,0.65,8,2
+QRA,Rt,0.027,0.65,8,2
+QRA,Timeseries,0.423,0.65,8,2
+QRA,Case convolution,0.55,0.7,8,2
+QRA,Rt,0.027,0.7,8,2
+QRA,Timeseries,0.423,0.7,8,2
+QRA,Case convolution,0.55,0.75,8,2
+QRA,Rt,0.027,0.75,8,2
+QRA,Timeseries,0.423,0.75,8,2
+QRA,Case convolution,0.55,0.8,8,2
+QRA,Rt,0.027,0.8,8,2
+QRA,Timeseries,0.423,0.8,8,2
+QRA,Case convolution,0.55,0.85,8,2
+QRA,Rt,0.027,0.85,8,2
+QRA,Timeseries,0.423,0.85,8,2
+QRA,Case convolution,0.55,0.9,8,2
+QRA,Rt,0.027,0.9,8,2
+QRA,Timeseries,0.423,0.9,8,2
+QRA,Case convolution,0.55,0.95,8,2
+QRA,Rt,0.027,0.95,8,2
+QRA,Timeseries,0.423,0.95,8,2
+QRA,Case convolution,0.55,0.975,8,2
+QRA,Rt,0.027,0.975,8,2
+QRA,Timeseries,0.423,0.975,8,2
+QRA,Case convolution,0.55,0.99,8,2
+QRA,Rt,0.027,0.99,8,2
+QRA,Timeseries,0.423,0.99,8,2
+QRA (weighted quantiles),Case convolution,0.55,,8,2
+QRA (weighted quantiles),Rt,0.03,,8,2
+QRA (weighted quantiles),Timeseries,0.419,,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.01,8,2
+QRA (weighted quantiles),Rt,0.043,0.01,8,2
+QRA (weighted quantiles),Timeseries,0.406,0.01,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.025,8,2
+QRA (weighted quantiles),Rt,0.043,0.025,8,2
+QRA (weighted quantiles),Timeseries,0.406,0.025,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.05,8,2
+QRA (weighted quantiles),Rt,0.043,0.05,8,2
+QRA (weighted quantiles),Timeseries,0.406,0.05,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.1,8,2
+QRA (weighted quantiles),Rt,0.043,0.1,8,2
+QRA (weighted quantiles),Timeseries,0.406,0.1,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.15,8,2
+QRA (weighted quantiles),Rt,0.043,0.15,8,2
+QRA (weighted quantiles),Timeseries,0.406,0.15,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.2,8,2
+QRA (weighted quantiles),Rt,0.034,0.2,8,2
+QRA (weighted quantiles),Timeseries,0.415,0.2,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.25,8,2
+QRA (weighted quantiles),Rt,0.034,0.25,8,2
+QRA (weighted quantiles),Timeseries,0.415,0.25,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.3,8,2
+QRA (weighted quantiles),Rt,0.034,0.3,8,2
+QRA (weighted quantiles),Timeseries,0.415,0.3,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.35,8,2
+QRA (weighted quantiles),Rt,0.034,0.35,8,2
+QRA (weighted quantiles),Timeseries,0.415,0.35,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.4,8,2
+QRA (weighted quantiles),Rt,0.03,0.4,8,2
+QRA (weighted quantiles),Timeseries,0.419,0.4,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.45,8,2
+QRA (weighted quantiles),Rt,0.03,0.45,8,2
+QRA (weighted quantiles),Timeseries,0.419,0.45,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.5,8,2
+QRA (weighted quantiles),Rt,0.03,0.5,8,2
+QRA (weighted quantiles),Timeseries,0.419,0.5,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.55,8,2
+QRA (weighted quantiles),Rt,0.03,0.55,8,2
+QRA (weighted quantiles),Timeseries,0.419,0.55,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.6,8,2
+QRA (weighted quantiles),Rt,0.03,0.6,8,2
+QRA (weighted quantiles),Timeseries,0.419,0.6,8,2
+QRA (weighted quantiles),Case convolution,0.552,0.65,8,2
+QRA (weighted quantiles),Rt,0.027,0.65,8,2
+QRA (weighted quantiles),Timeseries,0.42,0.65,8,2
+QRA (weighted quantiles),Case convolution,0.552,0.7,8,2
+QRA (weighted quantiles),Rt,0.027,0.7,8,2
+QRA (weighted quantiles),Timeseries,0.42,0.7,8,2
+QRA (weighted quantiles),Case convolution,0.552,0.75,8,2
+QRA (weighted quantiles),Rt,0.027,0.75,8,2
+QRA (weighted quantiles),Timeseries,0.42,0.75,8,2
+QRA (weighted quantiles),Case convolution,0.552,0.8,8,2
+QRA (weighted quantiles),Rt,0.027,0.8,8,2
+QRA (weighted quantiles),Timeseries,0.42,0.8,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.85,8,2
+QRA (weighted quantiles),Rt,0.023,0.85,8,2
+QRA (weighted quantiles),Timeseries,0.426,0.85,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.9,8,2
+QRA (weighted quantiles),Rt,0.023,0.9,8,2
+QRA (weighted quantiles),Timeseries,0.426,0.9,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.95,8,2
+QRA (weighted quantiles),Rt,0.023,0.95,8,2
+QRA (weighted quantiles),Timeseries,0.426,0.95,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.975,8,2
+QRA (weighted quantiles),Rt,0.023,0.975,8,2
+QRA (weighted quantiles),Timeseries,0.426,0.975,8,2
+QRA (weighted quantiles),Case convolution,0.55,0.99,8,2
+QRA (weighted quantiles),Rt,0.023,0.99,8,2
+QRA (weighted quantiles),Timeseries,0.426,0.99,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,,8,2
+QRA (weighted counts and quantiles),Rt,0.035,,8,2
+QRA (weighted counts and quantiles),Timeseries,0.47,,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.01,8,2
+QRA (weighted counts and quantiles),Rt,0.05,0.01,8,2
+QRA (weighted counts and quantiles),Timeseries,0.456,0.01,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.025,8,2
+QRA (weighted counts and quantiles),Rt,0.05,0.025,8,2
+QRA (weighted counts and quantiles),Timeseries,0.456,0.025,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.05,8,2
+QRA (weighted counts and quantiles),Rt,0.05,0.05,8,2
+QRA (weighted counts and quantiles),Timeseries,0.456,0.05,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.1,8,2
+QRA (weighted counts and quantiles),Rt,0.05,0.1,8,2
+QRA (weighted counts and quantiles),Timeseries,0.456,0.1,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.15,8,2
+QRA (weighted counts and quantiles),Rt,0.05,0.15,8,2
+QRA (weighted counts and quantiles),Timeseries,0.456,0.15,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.2,8,2
+QRA (weighted counts and quantiles),Rt,0.04,0.2,8,2
+QRA (weighted counts and quantiles),Timeseries,0.466,0.2,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.25,8,2
+QRA (weighted counts and quantiles),Rt,0.04,0.25,8,2
+QRA (weighted counts and quantiles),Timeseries,0.466,0.25,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.3,8,2
+QRA (weighted counts and quantiles),Rt,0.04,0.3,8,2
+QRA (weighted counts and quantiles),Timeseries,0.466,0.3,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.35,8,2
+QRA (weighted counts and quantiles),Rt,0.04,0.35,8,2
+QRA (weighted counts and quantiles),Timeseries,0.466,0.35,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.4,8,2
+QRA (weighted counts and quantiles),Rt,0.035,0.4,8,2
+QRA (weighted counts and quantiles),Timeseries,0.47,0.4,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.45,8,2
+QRA (weighted counts and quantiles),Rt,0.035,0.45,8,2
+QRA (weighted counts and quantiles),Timeseries,0.47,0.45,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.5,8,2
+QRA (weighted counts and quantiles),Rt,0.035,0.5,8,2
+QRA (weighted counts and quantiles),Timeseries,0.47,0.5,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.55,8,2
+QRA (weighted counts and quantiles),Rt,0.035,0.55,8,2
+QRA (weighted counts and quantiles),Timeseries,0.47,0.55,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.6,8,2
+QRA (weighted counts and quantiles),Rt,0.035,0.6,8,2
+QRA (weighted counts and quantiles),Timeseries,0.47,0.6,8,2
+QRA (weighted counts and quantiles),Case convolution,0.496,0.65,8,2
+QRA (weighted counts and quantiles),Rt,0.032,0.65,8,2
+QRA (weighted counts and quantiles),Timeseries,0.471,0.65,8,2
+QRA (weighted counts and quantiles),Case convolution,0.496,0.7,8,2
+QRA (weighted counts and quantiles),Rt,0.032,0.7,8,2
+QRA (weighted counts and quantiles),Timeseries,0.471,0.7,8,2
+QRA (weighted counts and quantiles),Case convolution,0.496,0.75,8,2
+QRA (weighted counts and quantiles),Rt,0.032,0.75,8,2
+QRA (weighted counts and quantiles),Timeseries,0.471,0.75,8,2
+QRA (weighted counts and quantiles),Case convolution,0.496,0.8,8,2
+QRA (weighted counts and quantiles),Rt,0.032,0.8,8,2
+QRA (weighted counts and quantiles),Timeseries,0.471,0.8,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.85,8,2
+QRA (weighted counts and quantiles),Rt,0.028,0.85,8,2
+QRA (weighted counts and quantiles),Timeseries,0.478,0.85,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.9,8,2
+QRA (weighted counts and quantiles),Rt,0.028,0.9,8,2
+QRA (weighted counts and quantiles),Timeseries,0.478,0.9,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.95,8,2
+QRA (weighted counts and quantiles),Rt,0.028,0.95,8,2
+QRA (weighted counts and quantiles),Timeseries,0.478,0.95,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.975,8,2
+QRA (weighted counts and quantiles),Rt,0.028,0.975,8,2
+QRA (weighted counts and quantiles),Timeseries,0.478,0.975,8,2
+QRA (weighted counts and quantiles),Case convolution,0.494,0.99,8,2
+QRA (weighted counts and quantiles),Rt,0.028,0.99,8,2
+QRA (weighted counts and quantiles),Timeseries,0.478,0.99,8,2
+QRA,Case convolution,0.523,,12,2
+QRA,Rt,0.012,,12,2
+QRA,Timeseries,0.465,,12,2
+QRA,Case convolution,0.523,0.01,12,2
+QRA,Rt,0.012,0.01,12,2
+QRA,Timeseries,0.465,0.01,12,2
+QRA,Case convolution,0.523,0.025,12,2
+QRA,Rt,0.012,0.025,12,2
+QRA,Timeseries,0.465,0.025,12,2
+QRA,Case convolution,0.523,0.05,12,2
+QRA,Rt,0.012,0.05,12,2
+QRA,Timeseries,0.465,0.05,12,2
+QRA,Case convolution,0.523,0.1,12,2
+QRA,Rt,0.012,0.1,12,2
+QRA,Timeseries,0.465,0.1,12,2
+QRA,Case convolution,0.523,0.15,12,2
+QRA,Rt,0.012,0.15,12,2
+QRA,Timeseries,0.465,0.15,12,2
+QRA,Case convolution,0.523,0.2,12,2
+QRA,Rt,0.012,0.2,12,2
+QRA,Timeseries,0.465,0.2,12,2
+QRA,Case convolution,0.523,0.25,12,2
+QRA,Rt,0.012,0.25,12,2
+QRA,Timeseries,0.465,0.25,12,2
+QRA,Case convolution,0.523,0.3,12,2
+QRA,Rt,0.012,0.3,12,2
+QRA,Timeseries,0.465,0.3,12,2
+QRA,Case convolution,0.523,0.35,12,2
+QRA,Rt,0.012,0.35,12,2
+QRA,Timeseries,0.465,0.35,12,2
+QRA,Case convolution,0.523,0.4,12,2
+QRA,Rt,0.012,0.4,12,2
+QRA,Timeseries,0.465,0.4,12,2
+QRA,Case convolution,0.523,0.45,12,2
+QRA,Rt,0.012,0.45,12,2
+QRA,Timeseries,0.465,0.45,12,2
+QRA,Case convolution,0.523,0.5,12,2
+QRA,Rt,0.012,0.5,12,2
+QRA,Timeseries,0.465,0.5,12,2
+QRA,Case convolution,0.523,0.55,12,2
+QRA,Rt,0.012,0.55,12,2
+QRA,Timeseries,0.465,0.55,12,2
+QRA,Case convolution,0.523,0.6,12,2
+QRA,Rt,0.012,0.6,12,2
+QRA,Timeseries,0.465,0.6,12,2
+QRA,Case convolution,0.523,0.65,12,2
+QRA,Rt,0.012,0.65,12,2
+QRA,Timeseries,0.465,0.65,12,2
+QRA,Case convolution,0.523,0.7,12,2
+QRA,Rt,0.012,0.7,12,2
+QRA,Timeseries,0.465,0.7,12,2
+QRA,Case convolution,0.523,0.75,12,2
+QRA,Rt,0.012,0.75,12,2
+QRA,Timeseries,0.465,0.75,12,2
+QRA,Case convolution,0.523,0.8,12,2
+QRA,Rt,0.012,0.8,12,2
+QRA,Timeseries,0.465,0.8,12,2
+QRA,Case convolution,0.523,0.85,12,2
+QRA,Rt,0.012,0.85,12,2
+QRA,Timeseries,0.465,0.85,12,2
+QRA,Case convolution,0.523,0.9,12,2
+QRA,Rt,0.012,0.9,12,2
+QRA,Timeseries,0.465,0.9,12,2
+QRA,Case convolution,0.523,0.95,12,2
+QRA,Rt,0.012,0.95,12,2
+QRA,Timeseries,0.465,0.95,12,2
+QRA,Case convolution,0.523,0.975,12,2
+QRA,Rt,0.012,0.975,12,2
+QRA,Timeseries,0.465,0.975,12,2
+QRA,Case convolution,0.523,0.99,12,2
+QRA,Rt,0.012,0.99,12,2
+QRA,Timeseries,0.465,0.99,12,2
+QRA (weighted quantiles),Case convolution,0.523,,12,2
+QRA (weighted quantiles),Rt,0.012,,12,2
+QRA (weighted quantiles),Timeseries,0.465,,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.01,12,2
+QRA (weighted quantiles),Rt,0.012,0.01,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.01,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.025,12,2
+QRA (weighted quantiles),Rt,0.012,0.025,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.025,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.05,12,2
+QRA (weighted quantiles),Rt,0.012,0.05,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.05,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.1,12,2
+QRA (weighted quantiles),Rt,0.012,0.1,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.1,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.15,12,2
+QRA (weighted quantiles),Rt,0.012,0.15,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.15,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.2,12,2
+QRA (weighted quantiles),Rt,0.012,0.2,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.2,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.25,12,2
+QRA (weighted quantiles),Rt,0.012,0.25,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.25,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.3,12,2
+QRA (weighted quantiles),Rt,0.012,0.3,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.3,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.35,12,2
+QRA (weighted quantiles),Rt,0.012,0.35,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.35,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.4,12,2
+QRA (weighted quantiles),Rt,0.012,0.4,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.4,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.45,12,2
+QRA (weighted quantiles),Rt,0.012,0.45,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.45,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.5,12,2
+QRA (weighted quantiles),Rt,0.012,0.5,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.5,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.55,12,2
+QRA (weighted quantiles),Rt,0.012,0.55,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.55,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.6,12,2
+QRA (weighted quantiles),Rt,0.012,0.6,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.6,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.65,12,2
+QRA (weighted quantiles),Rt,0.012,0.65,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.65,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.7,12,2
+QRA (weighted quantiles),Rt,0.012,0.7,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.7,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.75,12,2
+QRA (weighted quantiles),Rt,0.012,0.75,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.75,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.8,12,2
+QRA (weighted quantiles),Rt,0.012,0.8,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.8,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.85,12,2
+QRA (weighted quantiles),Rt,0.012,0.85,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.85,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.9,12,2
+QRA (weighted quantiles),Rt,0.012,0.9,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.9,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.95,12,2
+QRA (weighted quantiles),Rt,0.012,0.95,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.95,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.975,12,2
+QRA (weighted quantiles),Rt,0.012,0.975,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.975,12,2
+QRA (weighted quantiles),Case convolution,0.523,0.99,12,2
+QRA (weighted quantiles),Rt,0.012,0.99,12,2
+QRA (weighted quantiles),Timeseries,0.465,0.99,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,,12,2
+QRA (weighted counts and quantiles),Rt,0.011,,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,,12,2
+QRA (weighted counts and quantiles),Case convolution,0.551,0.01,12,2
+QRA (weighted counts and quantiles),Rt,0.015,0.01,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.01,12,2
+QRA (weighted counts and quantiles),Case convolution,0.551,0.025,12,2
+QRA (weighted counts and quantiles),Rt,0.015,0.025,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.025,12,2
+QRA (weighted counts and quantiles),Case convolution,0.551,0.05,12,2
+QRA (weighted counts and quantiles),Rt,0.015,0.05,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.05,12,2
+QRA (weighted counts and quantiles),Case convolution,0.551,0.1,12,2
+QRA (weighted counts and quantiles),Rt,0.015,0.1,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.1,12,2
+QRA (weighted counts and quantiles),Case convolution,0.551,0.15,12,2
+QRA (weighted counts and quantiles),Rt,0.015,0.15,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.15,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.2,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.2,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.2,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.25,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.25,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.25,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.3,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.3,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.3,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.35,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.35,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.35,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.4,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.4,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.4,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.45,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.45,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.45,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.5,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.5,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.5,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.55,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.55,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.55,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.6,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.6,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.6,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.65,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.65,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.65,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.7,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.7,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.7,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.75,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.75,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.75,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.8,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.8,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.8,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.85,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.85,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.85,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.9,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.9,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.9,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.95,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.95,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.95,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.975,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.975,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.975,12,2
+QRA (weighted counts and quantiles),Case convolution,0.555,0.99,12,2
+QRA (weighted counts and quantiles),Rt,0.011,0.99,12,2
+QRA (weighted counts and quantiles),Timeseries,0.434,0.99,12,2
+QRA,Case convolution,0.205,,4,4
+QRA,Rt,0.121,,4,4
+QRA,Timeseries,0.673,,4,4
+QRA,Case convolution,0.205,0.01,4,4
+QRA,Rt,0.121,0.01,4,4
+QRA,Timeseries,0.673,0.01,4,4
+QRA,Case convolution,0.205,0.025,4,4
+QRA,Rt,0.121,0.025,4,4
+QRA,Timeseries,0.673,0.025,4,4
+QRA,Case convolution,0.205,0.05,4,4
+QRA,Rt,0.121,0.05,4,4
+QRA,Timeseries,0.673,0.05,4,4
+QRA,Case convolution,0.205,0.1,4,4
+QRA,Rt,0.121,0.1,4,4
+QRA,Timeseries,0.673,0.1,4,4
+QRA,Case convolution,0.205,0.15,4,4
+QRA,Rt,0.121,0.15,4,4
+QRA,Timeseries,0.673,0.15,4,4
+QRA,Case convolution,0.205,0.2,4,4
+QRA,Rt,0.121,0.2,4,4
+QRA,Timeseries,0.673,0.2,4,4
+QRA,Case convolution,0.205,0.25,4,4
+QRA,Rt,0.121,0.25,4,4
+QRA,Timeseries,0.673,0.25,4,4
+QRA,Case convolution,0.205,0.3,4,4
+QRA,Rt,0.121,0.3,4,4
+QRA,Timeseries,0.673,0.3,4,4
+QRA,Case convolution,0.205,0.35,4,4
+QRA,Rt,0.121,0.35,4,4
+QRA,Timeseries,0.673,0.35,4,4
+QRA,Case convolution,0.205,0.4,4,4
+QRA,Rt,0.121,0.4,4,4
+QRA,Timeseries,0.673,0.4,4,4
+QRA,Case convolution,0.205,0.45,4,4
+QRA,Rt,0.121,0.45,4,4
+QRA,Timeseries,0.673,0.45,4,4
+QRA,Case convolution,0.205,0.5,4,4
+QRA,Rt,0.121,0.5,4,4
+QRA,Timeseries,0.673,0.5,4,4
+QRA,Case convolution,0.205,0.55,4,4
+QRA,Rt,0.121,0.55,4,4
+QRA,Timeseries,0.673,0.55,4,4
+QRA,Case convolution,0.205,0.6,4,4
+QRA,Rt,0.121,0.6,4,4
+QRA,Timeseries,0.673,0.6,4,4
+QRA,Case convolution,0.205,0.65,4,4
+QRA,Rt,0.121,0.65,4,4
+QRA,Timeseries,0.673,0.65,4,4
+QRA,Case convolution,0.205,0.7,4,4
+QRA,Rt,0.121,0.7,4,4
+QRA,Timeseries,0.673,0.7,4,4
+QRA,Case convolution,0.205,0.75,4,4
+QRA,Rt,0.121,0.75,4,4
+QRA,Timeseries,0.673,0.75,4,4
+QRA,Case convolution,0.205,0.8,4,4
+QRA,Rt,0.121,0.8,4,4
+QRA,Timeseries,0.673,0.8,4,4
+QRA,Case convolution,0.205,0.85,4,4
+QRA,Rt,0.121,0.85,4,4
+QRA,Timeseries,0.673,0.85,4,4
+QRA,Case convolution,0.205,0.9,4,4
+QRA,Rt,0.121,0.9,4,4
+QRA,Timeseries,0.673,0.9,4,4
+QRA,Case convolution,0.205,0.95,4,4
+QRA,Rt,0.121,0.95,4,4
+QRA,Timeseries,0.673,0.95,4,4
+QRA,Case convolution,0.205,0.975,4,4
+QRA,Rt,0.121,0.975,4,4
+QRA,Timeseries,0.673,0.975,4,4
+QRA,Case convolution,0.205,0.99,4,4
+QRA,Rt,0.121,0.99,4,4
+QRA,Timeseries,0.673,0.99,4,4
+QRA (weighted quantiles),Case convolution,0.247,,4,4
+QRA (weighted quantiles),Rt,0.121,,4,4
+QRA (weighted quantiles),Timeseries,0.632,,4,4
+QRA (weighted quantiles),Case convolution,0.381,0.01,4,4
+QRA (weighted quantiles),Rt,0.077,0.01,4,4
+QRA (weighted quantiles),Timeseries,0.541,0.01,4,4
+QRA (weighted quantiles),Case convolution,0.381,0.025,4,4
+QRA (weighted quantiles),Rt,0.077,0.025,4,4
+QRA (weighted quantiles),Timeseries,0.541,0.025,4,4
+QRA (weighted quantiles),Case convolution,0.381,0.05,4,4
+QRA (weighted quantiles),Rt,0.077,0.05,4,4
+QRA (weighted quantiles),Timeseries,0.541,0.05,4,4
+QRA (weighted quantiles),Case convolution,0.381,0.1,4,4
+QRA (weighted quantiles),Rt,0.077,0.1,4,4
+QRA (weighted quantiles),Timeseries,0.541,0.1,4,4
+QRA (weighted quantiles),Case convolution,0.381,0.15,4,4
+QRA (weighted quantiles),Rt,0.077,0.15,4,4
+QRA (weighted quantiles),Timeseries,0.541,0.15,4,4
+QRA (weighted quantiles),Case convolution,0.293,0.2,4,4
+QRA (weighted quantiles),Rt,0.132,0.2,4,4
+QRA (weighted quantiles),Timeseries,0.574,0.2,4,4
+QRA (weighted quantiles),Case convolution,0.293,0.25,4,4
+QRA (weighted quantiles),Rt,0.132,0.25,4,4
+QRA (weighted quantiles),Timeseries,0.574,0.25,4,4
+QRA (weighted quantiles),Case convolution,0.293,0.3,4,4
+QRA (weighted quantiles),Rt,0.132,0.3,4,4
+QRA (weighted quantiles),Timeseries,0.574,0.3,4,4
+QRA (weighted quantiles),Case convolution,0.293,0.35,4,4
+QRA (weighted quantiles),Rt,0.132,0.35,4,4
+QRA (weighted quantiles),Timeseries,0.574,0.35,4,4
+QRA (weighted quantiles),Case convolution,0.247,0.4,4,4
+QRA (weighted quantiles),Rt,0.121,0.4,4,4
+QRA (weighted quantiles),Timeseries,0.632,0.4,4,4
+QRA (weighted quantiles),Case convolution,0.247,0.45,4,4
+QRA (weighted quantiles),Rt,0.121,0.45,4,4
+QRA (weighted quantiles),Timeseries,0.632,0.45,4,4
+QRA (weighted quantiles),Case convolution,0.247,0.5,4,4
+QRA (weighted quantiles),Rt,0.121,0.5,4,4
+QRA (weighted quantiles),Timeseries,0.632,0.5,4,4
+QRA (weighted quantiles),Case convolution,0.247,0.55,4,4
+QRA (weighted quantiles),Rt,0.121,0.55,4,4
+QRA (weighted quantiles),Timeseries,0.632,0.55,4,4
+QRA (weighted quantiles),Case convolution,0.247,0.6,4,4
+QRA (weighted quantiles),Rt,0.121,0.6,4,4
+QRA (weighted quantiles),Timeseries,0.632,0.6,4,4
+QRA (weighted quantiles),Case convolution,0.207,0.65,4,4
+QRA (weighted quantiles),Rt,0.121,0.65,4,4
+QRA (weighted quantiles),Timeseries,0.672,0.65,4,4
+QRA (weighted quantiles),Case convolution,0.207,0.7,4,4
+QRA (weighted quantiles),Rt,0.121,0.7,4,4
+QRA (weighted quantiles),Timeseries,0.672,0.7,4,4
+QRA (weighted quantiles),Case convolution,0.207,0.75,4,4
+QRA (weighted quantiles),Rt,0.121,0.75,4,4
+QRA (weighted quantiles),Timeseries,0.672,0.75,4,4
+QRA (weighted quantiles),Case convolution,0.207,0.8,4,4
+QRA (weighted quantiles),Rt,0.121,0.8,4,4
+QRA (weighted quantiles),Timeseries,0.672,0.8,4,4
+QRA (weighted quantiles),Case convolution,0.17,0.85,4,4
+QRA (weighted quantiles),Rt,0.1,0.85,4,4
+QRA (weighted quantiles),Timeseries,0.73,0.85,4,4
+QRA (weighted quantiles),Case convolution,0.17,0.9,4,4
+QRA (weighted quantiles),Rt,0.1,0.9,4,4
+QRA (weighted quantiles),Timeseries,0.73,0.9,4,4
+QRA (weighted quantiles),Case convolution,0.17,0.95,4,4
+QRA (weighted quantiles),Rt,0.1,0.95,4,4
+QRA (weighted quantiles),Timeseries,0.73,0.95,4,4
+QRA (weighted quantiles),Case convolution,0.17,0.975,4,4
+QRA (weighted quantiles),Rt,0.1,0.975,4,4
+QRA (weighted quantiles),Timeseries,0.73,0.975,4,4
+QRA (weighted quantiles),Case convolution,0.17,0.99,4,4
+QRA (weighted quantiles),Rt,0.1,0.99,4,4
+QRA (weighted quantiles),Timeseries,0.73,0.99,4,4
+QRA (weighted counts and quantiles),Case convolution,0.162,,4,4
+QRA (weighted counts and quantiles),Rt,0.102,,4,4
+QRA (weighted counts and quantiles),Timeseries,0.736,,4,4
+QRA (weighted counts and quantiles),Case convolution,0.303,0.01,4,4
+QRA (weighted counts and quantiles),Rt,0.224,0.01,4,4
+QRA (weighted counts and quantiles),Timeseries,0.473,0.01,4,4
+QRA (weighted counts and quantiles),Case convolution,0.303,0.025,4,4
+QRA (weighted counts and quantiles),Rt,0.224,0.025,4,4
+QRA (weighted counts and quantiles),Timeseries,0.473,0.025,4,4
+QRA (weighted counts and quantiles),Case convolution,0.303,0.05,4,4
+QRA (weighted counts and quantiles),Rt,0.224,0.05,4,4
+QRA (weighted counts and quantiles),Timeseries,0.473,0.05,4,4
+QRA (weighted counts and quantiles),Case convolution,0.303,0.1,4,4
+QRA (weighted counts and quantiles),Rt,0.224,0.1,4,4
+QRA (weighted counts and quantiles),Timeseries,0.473,0.1,4,4
+QRA (weighted counts and quantiles),Case convolution,0.303,0.15,4,4
+QRA (weighted counts and quantiles),Rt,0.224,0.15,4,4
+QRA (weighted counts and quantiles),Timeseries,0.473,0.15,4,4
+QRA (weighted counts and quantiles),Case convolution,0.193,0.2,4,4
+QRA (weighted counts and quantiles),Rt,0.11,0.2,4,4
+QRA (weighted counts and quantiles),Timeseries,0.697,0.2,4,4
+QRA (weighted counts and quantiles),Case convolution,0.193,0.25,4,4
+QRA (weighted counts and quantiles),Rt,0.11,0.25,4,4
+QRA (weighted counts and quantiles),Timeseries,0.697,0.25,4,4
+QRA (weighted counts and quantiles),Case convolution,0.193,0.3,4,4
+QRA (weighted counts and quantiles),Rt,0.11,0.3,4,4
+QRA (weighted counts and quantiles),Timeseries,0.697,0.3,4,4
+QRA (weighted counts and quantiles),Case convolution,0.193,0.35,4,4
+QRA (weighted counts and quantiles),Rt,0.11,0.35,4,4
+QRA (weighted counts and quantiles),Timeseries,0.697,0.35,4,4
+QRA (weighted counts and quantiles),Case convolution,0.162,0.4,4,4
+QRA (weighted counts and quantiles),Rt,0.102,0.4,4,4
+QRA (weighted counts and quantiles),Timeseries,0.736,0.4,4,4
+QRA (weighted counts and quantiles),Case convolution,0.162,0.45,4,4
+QRA (weighted counts and quantiles),Rt,0.102,0.45,4,4
+QRA (weighted counts and quantiles),Timeseries,0.736,0.45,4,4
+QRA (weighted counts and quantiles),Case convolution,0.162,0.5,4,4
+QRA (weighted counts and quantiles),Rt,0.102,0.5,4,4
+QRA (weighted counts and quantiles),Timeseries,0.736,0.5,4,4
+QRA (weighted counts and quantiles),Case convolution,0.162,0.55,4,4
+QRA (weighted counts and quantiles),Rt,0.102,0.55,4,4
+QRA (weighted counts and quantiles),Timeseries,0.736,0.55,4,4
+QRA (weighted counts and quantiles),Case convolution,0.162,0.6,4,4
+QRA (weighted counts and quantiles),Rt,0.102,0.6,4,4
+QRA (weighted counts and quantiles),Timeseries,0.736,0.6,4,4
+QRA (weighted counts and quantiles),Case convolution,0.135,0.65,4,4
+QRA (weighted counts and quantiles),Rt,0.102,0.65,4,4
+QRA (weighted counts and quantiles),Timeseries,0.763,0.65,4,4
+QRA (weighted counts and quantiles),Case convolution,0.135,0.7,4,4
+QRA (weighted counts and quantiles),Rt,0.102,0.7,4,4
+QRA (weighted counts and quantiles),Timeseries,0.763,0.7,4,4
+QRA (weighted counts and quantiles),Case convolution,0.135,0.75,4,4
+QRA (weighted counts and quantiles),Rt,0.102,0.75,4,4
+QRA (weighted counts and quantiles),Timeseries,0.763,0.75,4,4
+QRA (weighted counts and quantiles),Case convolution,0.135,0.8,4,4
+QRA (weighted counts and quantiles),Rt,0.102,0.8,4,4
+QRA (weighted counts and quantiles),Timeseries,0.763,0.8,4,4
+QRA (weighted counts and quantiles),Case convolution,0.11,0.85,4,4
+QRA (weighted counts and quantiles),Rt,0.083,0.85,4,4
+QRA (weighted counts and quantiles),Timeseries,0.806,0.85,4,4
+QRA (weighted counts and quantiles),Case convolution,0.11,0.9,4,4
+QRA (weighted counts and quantiles),Rt,0.083,0.9,4,4
+QRA (weighted counts and quantiles),Timeseries,0.806,0.9,4,4
+QRA (weighted counts and quantiles),Case convolution,0.11,0.95,4,4
+QRA (weighted counts and quantiles),Rt,0.083,0.95,4,4
+QRA (weighted counts and quantiles),Timeseries,0.806,0.95,4,4
+QRA (weighted counts and quantiles),Case convolution,0.11,0.975,4,4
+QRA (weighted counts and quantiles),Rt,0.083,0.975,4,4
+QRA (weighted counts and quantiles),Timeseries,0.806,0.975,4,4
+QRA (weighted counts and quantiles),Case convolution,0.11,0.99,4,4
+QRA (weighted counts and quantiles),Rt,0.083,0.99,4,4
+QRA (weighted counts and quantiles),Timeseries,0.806,0.99,4,4
+QRA,Case convolution,0.383,,8,4
+QRA,Rt,0.015,,8,4
+QRA,Timeseries,0.603,,8,4
+QRA,Case convolution,0.383,0.01,8,4
+QRA,Rt,0.015,0.01,8,4
+QRA,Timeseries,0.603,0.01,8,4
+QRA,Case convolution,0.383,0.025,8,4
+QRA,Rt,0.015,0.025,8,4
+QRA,Timeseries,0.603,0.025,8,4
+QRA,Case convolution,0.383,0.05,8,4
+QRA,Rt,0.015,0.05,8,4
+QRA,Timeseries,0.603,0.05,8,4
+QRA,Case convolution,0.383,0.1,8,4
+QRA,Rt,0.015,0.1,8,4
+QRA,Timeseries,0.603,0.1,8,4
+QRA,Case convolution,0.383,0.15,8,4
+QRA,Rt,0.015,0.15,8,4
+QRA,Timeseries,0.603,0.15,8,4
+QRA,Case convolution,0.383,0.2,8,4
+QRA,Rt,0.015,0.2,8,4
+QRA,Timeseries,0.603,0.2,8,4
+QRA,Case convolution,0.383,0.25,8,4
+QRA,Rt,0.015,0.25,8,4
+QRA,Timeseries,0.603,0.25,8,4
+QRA,Case convolution,0.383,0.3,8,4
+QRA,Rt,0.015,0.3,8,4
+QRA,Timeseries,0.603,0.3,8,4
+QRA,Case convolution,0.383,0.35,8,4
+QRA,Rt,0.015,0.35,8,4
+QRA,Timeseries,0.603,0.35,8,4
+QRA,Case convolution,0.383,0.4,8,4
+QRA,Rt,0.015,0.4,8,4
+QRA,Timeseries,0.603,0.4,8,4
+QRA,Case convolution,0.383,0.45,8,4
+QRA,Rt,0.015,0.45,8,4
+QRA,Timeseries,0.603,0.45,8,4
+QRA,Case convolution,0.383,0.5,8,4
+QRA,Rt,0.015,0.5,8,4
+QRA,Timeseries,0.603,0.5,8,4
+QRA,Case convolution,0.383,0.55,8,4
+QRA,Rt,0.015,0.55,8,4
+QRA,Timeseries,0.603,0.55,8,4
+QRA,Case convolution,0.383,0.6,8,4
+QRA,Rt,0.015,0.6,8,4
+QRA,Timeseries,0.603,0.6,8,4
+QRA,Case convolution,0.383,0.65,8,4
+QRA,Rt,0.015,0.65,8,4
+QRA,Timeseries,0.603,0.65,8,4
+QRA,Case convolution,0.383,0.7,8,4
+QRA,Rt,0.015,0.7,8,4
+QRA,Timeseries,0.603,0.7,8,4
+QRA,Case convolution,0.383,0.75,8,4
+QRA,Rt,0.015,0.75,8,4
+QRA,Timeseries,0.603,0.75,8,4
+QRA,Case convolution,0.383,0.8,8,4
+QRA,Rt,0.015,0.8,8,4
+QRA,Timeseries,0.603,0.8,8,4
+QRA,Case convolution,0.383,0.85,8,4
+QRA,Rt,0.015,0.85,8,4
+QRA,Timeseries,0.603,0.85,8,4
+QRA,Case convolution,0.383,0.9,8,4
+QRA,Rt,0.015,0.9,8,4
+QRA,Timeseries,0.603,0.9,8,4
+QRA,Case convolution,0.383,0.95,8,4
+QRA,Rt,0.015,0.95,8,4
+QRA,Timeseries,0.603,0.95,8,4
+QRA,Case convolution,0.383,0.975,8,4
+QRA,Rt,0.015,0.975,8,4
+QRA,Timeseries,0.603,0.975,8,4
+QRA,Case convolution,0.383,0.99,8,4
+QRA,Rt,0.015,0.99,8,4
+QRA,Timeseries,0.603,0.99,8,4
+QRA (weighted quantiles),Case convolution,0.419,,8,4
+QRA (weighted quantiles),Rt,0,,8,4
+QRA (weighted quantiles),Timeseries,0.581,,8,4
+QRA (weighted quantiles),Case convolution,0.463,0.01,8,4
+QRA (weighted quantiles),Rt,0.003,0.01,8,4
+QRA (weighted quantiles),Timeseries,0.534,0.01,8,4
+QRA (weighted quantiles),Case convolution,0.463,0.025,8,4
+QRA (weighted quantiles),Rt,0.003,0.025,8,4
+QRA (weighted quantiles),Timeseries,0.534,0.025,8,4
+QRA (weighted quantiles),Case convolution,0.463,0.05,8,4
+QRA (weighted quantiles),Rt,0.003,0.05,8,4
+QRA (weighted quantiles),Timeseries,0.534,0.05,8,4
+QRA (weighted quantiles),Case convolution,0.463,0.1,8,4
+QRA (weighted quantiles),Rt,0.003,0.1,8,4
+QRA (weighted quantiles),Timeseries,0.534,0.1,8,4
+QRA (weighted quantiles),Case convolution,0.463,0.15,8,4
+QRA (weighted quantiles),Rt,0.003,0.15,8,4
+QRA (weighted quantiles),Timeseries,0.534,0.15,8,4
+QRA (weighted quantiles),Case convolution,0.419,0.2,8,4
+QRA (weighted quantiles),Rt,0.003,0.2,8,4
+QRA (weighted quantiles),Timeseries,0.578,0.2,8,4
+QRA (weighted quantiles),Case convolution,0.419,0.25,8,4
+QRA (weighted quantiles),Rt,0.003,0.25,8,4
+QRA (weighted quantiles),Timeseries,0.578,0.25,8,4
+QRA (weighted quantiles),Case convolution,0.419,0.3,8,4
+QRA (weighted quantiles),Rt,0.003,0.3,8,4
+QRA (weighted quantiles),Timeseries,0.578,0.3,8,4
+QRA (weighted quantiles),Case convolution,0.419,0.35,8,4
+QRA (weighted quantiles),Rt,0.003,0.35,8,4
+QRA (weighted quantiles),Timeseries,0.578,0.35,8,4
+QRA (weighted quantiles),Case convolution,0.419,0.4,8,4
+QRA (weighted quantiles),Rt,0,0.4,8,4
+QRA (weighted quantiles),Timeseries,0.581,0.4,8,4
+QRA (weighted quantiles),Case convolution,0.419,0.45,8,4
+QRA (weighted quantiles),Rt,0,0.45,8,4
+QRA (weighted quantiles),Timeseries,0.581,0.45,8,4
+QRA (weighted quantiles),Case convolution,0.419,0.5,8,4
+QRA (weighted quantiles),Rt,0,0.5,8,4
+QRA (weighted quantiles),Timeseries,0.581,0.5,8,4
+QRA (weighted quantiles),Case convolution,0.419,0.55,8,4
+QRA (weighted quantiles),Rt,0,0.55,8,4
+QRA (weighted quantiles),Timeseries,0.581,0.55,8,4
+QRA (weighted quantiles),Case convolution,0.419,0.6,8,4
+QRA (weighted quantiles),Rt,0,0.6,8,4
+QRA (weighted quantiles),Timeseries,0.581,0.6,8,4
+QRA (weighted quantiles),Case convolution,0.381,0.65,8,4
+QRA (weighted quantiles),Rt,0.026,0.65,8,4
+QRA (weighted quantiles),Timeseries,0.593,0.65,8,4
+QRA (weighted quantiles),Case convolution,0.381,0.7,8,4
+QRA (weighted quantiles),Rt,0.026,0.7,8,4
+QRA (weighted quantiles),Timeseries,0.593,0.7,8,4
+QRA (weighted quantiles),Case convolution,0.381,0.75,8,4
+QRA (weighted quantiles),Rt,0.026,0.75,8,4
+QRA (weighted quantiles),Timeseries,0.593,0.75,8,4
+QRA (weighted quantiles),Case convolution,0.381,0.8,8,4
+QRA (weighted quantiles),Rt,0.026,0.8,8,4
+QRA (weighted quantiles),Timeseries,0.593,0.8,8,4
+QRA (weighted quantiles),Case convolution,0.329,0.85,8,4
+QRA (weighted quantiles),Rt,0.041,0.85,8,4
+QRA (weighted quantiles),Timeseries,0.631,0.85,8,4
+QRA (weighted quantiles),Case convolution,0.329,0.9,8,4
+QRA (weighted quantiles),Rt,0.041,0.9,8,4
+QRA (weighted quantiles),Timeseries,0.631,0.9,8,4
+QRA (weighted quantiles),Case convolution,0.329,0.95,8,4
+QRA (weighted quantiles),Rt,0.041,0.95,8,4
+QRA (weighted quantiles),Timeseries,0.631,0.95,8,4
+QRA (weighted quantiles),Case convolution,0.329,0.975,8,4
+QRA (weighted quantiles),Rt,0.041,0.975,8,4
+QRA (weighted quantiles),Timeseries,0.631,0.975,8,4
+QRA (weighted quantiles),Case convolution,0.329,0.99,8,4
+QRA (weighted quantiles),Rt,0.041,0.99,8,4
+QRA (weighted quantiles),Timeseries,0.631,0.99,8,4
+QRA (weighted counts and quantiles),Case convolution,0.393,,8,4
+QRA (weighted counts and quantiles),Rt,0.014,,8,4
+QRA (weighted counts and quantiles),Timeseries,0.592,,8,4
+QRA (weighted counts and quantiles),Case convolution,0.435,0.01,8,4
+QRA (weighted counts and quantiles),Rt,0.018,0.01,8,4
+QRA (weighted counts and quantiles),Timeseries,0.546,0.01,8,4
+QRA (weighted counts and quantiles),Case convolution,0.435,0.025,8,4
+QRA (weighted counts and quantiles),Rt,0.018,0.025,8,4
+QRA (weighted counts and quantiles),Timeseries,0.546,0.025,8,4
+QRA (weighted counts and quantiles),Case convolution,0.435,0.05,8,4
+QRA (weighted counts and quantiles),Rt,0.018,0.05,8,4
+QRA (weighted counts and quantiles),Timeseries,0.546,0.05,8,4
+QRA (weighted counts and quantiles),Case convolution,0.435,0.1,8,4
+QRA (weighted counts and quantiles),Rt,0.018,0.1,8,4
+QRA (weighted counts and quantiles),Timeseries,0.546,0.1,8,4
+QRA (weighted counts and quantiles),Case convolution,0.435,0.15,8,4
+QRA (weighted counts and quantiles),Rt,0.018,0.15,8,4
+QRA (weighted counts and quantiles),Timeseries,0.546,0.15,8,4
+QRA (weighted counts and quantiles),Case convolution,0.393,0.2,8,4
+QRA (weighted counts and quantiles),Rt,0.018,0.2,8,4
+QRA (weighted counts and quantiles),Timeseries,0.588,0.2,8,4
+QRA (weighted counts and quantiles),Case convolution,0.393,0.25,8,4
+QRA (weighted counts and quantiles),Rt,0.018,0.25,8,4
+QRA (weighted counts and quantiles),Timeseries,0.588,0.25,8,4
+QRA (weighted counts and quantiles),Case convolution,0.393,0.3,8,4
+QRA (weighted counts and quantiles),Rt,0.018,0.3,8,4
+QRA (weighted counts and quantiles),Timeseries,0.588,0.3,8,4
+QRA (weighted counts and quantiles),Case convolution,0.393,0.35,8,4
+QRA (weighted counts and quantiles),Rt,0.018,0.35,8,4
+QRA (weighted counts and quantiles),Timeseries,0.588,0.35,8,4
+QRA (weighted counts and quantiles),Case convolution,0.393,0.4,8,4
+QRA (weighted counts and quantiles),Rt,0.014,0.4,8,4
+QRA (weighted counts and quantiles),Timeseries,0.592,0.4,8,4
+QRA (weighted counts and quantiles),Case convolution,0.393,0.45,8,4
+QRA (weighted counts and quantiles),Rt,0.014,0.45,8,4
+QRA (weighted counts and quantiles),Timeseries,0.592,0.45,8,4
+QRA (weighted counts and quantiles),Case convolution,0.393,0.5,8,4
+QRA (weighted counts and quantiles),Rt,0.014,0.5,8,4
+QRA (weighted counts and quantiles),Timeseries,0.592,0.5,8,4
+QRA (weighted counts and quantiles),Case convolution,0.393,0.55,8,4
+QRA (weighted counts and quantiles),Rt,0.014,0.55,8,4
+QRA (weighted counts and quantiles),Timeseries,0.592,0.55,8,4
+QRA (weighted counts and quantiles),Case convolution,0.393,0.6,8,4
+QRA (weighted counts and quantiles),Rt,0.014,0.6,8,4
+QRA (weighted counts and quantiles),Timeseries,0.592,0.6,8,4
+QRA (weighted counts and quantiles),Case convolution,0.356,0.65,8,4
+QRA (weighted counts and quantiles),Rt,0.04,0.65,8,4
+QRA (weighted counts and quantiles),Timeseries,0.604,0.65,8,4
+QRA (weighted counts and quantiles),Case convolution,0.356,0.7,8,4
+QRA (weighted counts and quantiles),Rt,0.04,0.7,8,4
+QRA (weighted counts and quantiles),Timeseries,0.604,0.7,8,4
+QRA (weighted counts and quantiles),Case convolution,0.356,0.75,8,4
+QRA (weighted counts and quantiles),Rt,0.04,0.75,8,4
+QRA (weighted counts and quantiles),Timeseries,0.604,0.75,8,4
+QRA (weighted counts and quantiles),Case convolution,0.356,0.8,8,4
+QRA (weighted counts and quantiles),Rt,0.04,0.8,8,4
+QRA (weighted counts and quantiles),Timeseries,0.604,0.8,8,4
+QRA (weighted counts and quantiles),Case convolution,0.307,0.85,8,4
+QRA (weighted counts and quantiles),Rt,0.05,0.85,8,4
+QRA (weighted counts and quantiles),Timeseries,0.643,0.85,8,4
+QRA (weighted counts and quantiles),Case convolution,0.307,0.9,8,4
+QRA (weighted counts and quantiles),Rt,0.05,0.9,8,4
+QRA (weighted counts and quantiles),Timeseries,0.643,0.9,8,4
+QRA (weighted counts and quantiles),Case convolution,0.307,0.95,8,4
+QRA (weighted counts and quantiles),Rt,0.05,0.95,8,4
+QRA (weighted counts and quantiles),Timeseries,0.643,0.95,8,4
+QRA (weighted counts and quantiles),Case convolution,0.307,0.975,8,4
+QRA (weighted counts and quantiles),Rt,0.05,0.975,8,4
+QRA (weighted counts and quantiles),Timeseries,0.643,0.975,8,4
+QRA (weighted counts and quantiles),Case convolution,0.307,0.99,8,4
+QRA (weighted counts and quantiles),Rt,0.05,0.99,8,4
+QRA (weighted counts and quantiles),Timeseries,0.643,0.99,8,4
+QRA,Case convolution,0.326,,12,4
+QRA,Rt,0.02,,12,4
+QRA,Timeseries,0.654,,12,4
+QRA,Case convolution,0.326,0.01,12,4
+QRA,Rt,0.02,0.01,12,4
+QRA,Timeseries,0.654,0.01,12,4
+QRA,Case convolution,0.326,0.025,12,4
+QRA,Rt,0.02,0.025,12,4
+QRA,Timeseries,0.654,0.025,12,4
+QRA,Case convolution,0.326,0.05,12,4
+QRA,Rt,0.02,0.05,12,4
+QRA,Timeseries,0.654,0.05,12,4
+QRA,Case convolution,0.326,0.1,12,4
+QRA,Rt,0.02,0.1,12,4
+QRA,Timeseries,0.654,0.1,12,4
+QRA,Case convolution,0.326,0.15,12,4
+QRA,Rt,0.02,0.15,12,4
+QRA,Timeseries,0.654,0.15,12,4
+QRA,Case convolution,0.326,0.2,12,4
+QRA,Rt,0.02,0.2,12,4
+QRA,Timeseries,0.654,0.2,12,4
+QRA,Case convolution,0.326,0.25,12,4
+QRA,Rt,0.02,0.25,12,4
+QRA,Timeseries,0.654,0.25,12,4
+QRA,Case convolution,0.326,0.3,12,4
+QRA,Rt,0.02,0.3,12,4
+QRA,Timeseries,0.654,0.3,12,4
+QRA,Case convolution,0.326,0.35,12,4
+QRA,Rt,0.02,0.35,12,4
+QRA,Timeseries,0.654,0.35,12,4
+QRA,Case convolution,0.326,0.4,12,4
+QRA,Rt,0.02,0.4,12,4
+QRA,Timeseries,0.654,0.4,12,4
+QRA,Case convolution,0.326,0.45,12,4
+QRA,Rt,0.02,0.45,12,4
+QRA,Timeseries,0.654,0.45,12,4
+QRA,Case convolution,0.326,0.5,12,4
+QRA,Rt,0.02,0.5,12,4
+QRA,Timeseries,0.654,0.5,12,4
+QRA,Case convolution,0.326,0.55,12,4
+QRA,Rt,0.02,0.55,12,4
+QRA,Timeseries,0.654,0.55,12,4
+QRA,Case convolution,0.326,0.6,12,4
+QRA,Rt,0.02,0.6,12,4
+QRA,Timeseries,0.654,0.6,12,4
+QRA,Case convolution,0.326,0.65,12,4
+QRA,Rt,0.02,0.65,12,4
+QRA,Timeseries,0.654,0.65,12,4
+QRA,Case convolution,0.326,0.7,12,4
+QRA,Rt,0.02,0.7,12,4
+QRA,Timeseries,0.654,0.7,12,4
+QRA,Case convolution,0.326,0.75,12,4
+QRA,Rt,0.02,0.75,12,4
+QRA,Timeseries,0.654,0.75,12,4
+QRA,Case convolution,0.326,0.8,12,4
+QRA,Rt,0.02,0.8,12,4
+QRA,Timeseries,0.654,0.8,12,4
+QRA,Case convolution,0.326,0.85,12,4
+QRA,Rt,0.02,0.85,12,4
+QRA,Timeseries,0.654,0.85,12,4
+QRA,Case convolution,0.326,0.9,12,4
+QRA,Rt,0.02,0.9,12,4
+QRA,Timeseries,0.654,0.9,12,4
+QRA,Case convolution,0.326,0.95,12,4
+QRA,Rt,0.02,0.95,12,4
+QRA,Timeseries,0.654,0.95,12,4
+QRA,Case convolution,0.326,0.975,12,4
+QRA,Rt,0.02,0.975,12,4
+QRA,Timeseries,0.654,0.975,12,4
+QRA,Case convolution,0.326,0.99,12,4
+QRA,Rt,0.02,0.99,12,4
+QRA,Timeseries,0.654,0.99,12,4
+QRA (weighted quantiles),Case convolution,0.327,,12,4
+QRA (weighted quantiles),Rt,0.021,,12,4
+QRA (weighted quantiles),Timeseries,0.653,,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.01,12,4
+QRA (weighted quantiles),Rt,0.023,0.01,12,4
+QRA (weighted quantiles),Timeseries,0.65,0.01,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.025,12,4
+QRA (weighted quantiles),Rt,0.023,0.025,12,4
+QRA (weighted quantiles),Timeseries,0.65,0.025,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.05,12,4
+QRA (weighted quantiles),Rt,0.023,0.05,12,4
+QRA (weighted quantiles),Timeseries,0.65,0.05,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.1,12,4
+QRA (weighted quantiles),Rt,0.023,0.1,12,4
+QRA (weighted quantiles),Timeseries,0.65,0.1,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.15,12,4
+QRA (weighted quantiles),Rt,0.023,0.15,12,4
+QRA (weighted quantiles),Timeseries,0.65,0.15,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.2,12,4
+QRA (weighted quantiles),Rt,0.023,0.2,12,4
+QRA (weighted quantiles),Timeseries,0.65,0.2,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.25,12,4
+QRA (weighted quantiles),Rt,0.023,0.25,12,4
+QRA (weighted quantiles),Timeseries,0.65,0.25,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.3,12,4
+QRA (weighted quantiles),Rt,0.023,0.3,12,4
+QRA (weighted quantiles),Timeseries,0.65,0.3,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.35,12,4
+QRA (weighted quantiles),Rt,0.023,0.35,12,4
+QRA (weighted quantiles),Timeseries,0.65,0.35,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.4,12,4
+QRA (weighted quantiles),Rt,0.021,0.4,12,4
+QRA (weighted quantiles),Timeseries,0.653,0.4,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.45,12,4
+QRA (weighted quantiles),Rt,0.021,0.45,12,4
+QRA (weighted quantiles),Timeseries,0.653,0.45,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.5,12,4
+QRA (weighted quantiles),Rt,0.021,0.5,12,4
+QRA (weighted quantiles),Timeseries,0.653,0.5,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.55,12,4
+QRA (weighted quantiles),Rt,0.021,0.55,12,4
+QRA (weighted quantiles),Timeseries,0.653,0.55,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.6,12,4
+QRA (weighted quantiles),Rt,0.021,0.6,12,4
+QRA (weighted quantiles),Timeseries,0.653,0.6,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.65,12,4
+QRA (weighted quantiles),Rt,0.021,0.65,12,4
+QRA (weighted quantiles),Timeseries,0.653,0.65,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.7,12,4
+QRA (weighted quantiles),Rt,0.021,0.7,12,4
+QRA (weighted quantiles),Timeseries,0.653,0.7,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.75,12,4
+QRA (weighted quantiles),Rt,0.021,0.75,12,4
+QRA (weighted quantiles),Timeseries,0.653,0.75,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.8,12,4
+QRA (weighted quantiles),Rt,0.021,0.8,12,4
+QRA (weighted quantiles),Timeseries,0.653,0.8,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.85,12,4
+QRA (weighted quantiles),Rt,0.018,0.85,12,4
+QRA (weighted quantiles),Timeseries,0.655,0.85,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.9,12,4
+QRA (weighted quantiles),Rt,0.018,0.9,12,4
+QRA (weighted quantiles),Timeseries,0.655,0.9,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.95,12,4
+QRA (weighted quantiles),Rt,0.018,0.95,12,4
+QRA (weighted quantiles),Timeseries,0.655,0.95,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.975,12,4
+QRA (weighted quantiles),Rt,0.018,0.975,12,4
+QRA (weighted quantiles),Timeseries,0.655,0.975,12,4
+QRA (weighted quantiles),Case convolution,0.327,0.99,12,4
+QRA (weighted quantiles),Rt,0.018,0.99,12,4
+QRA (weighted quantiles),Timeseries,0.655,0.99,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,,12,4
+QRA (weighted counts and quantiles),Rt,0.027,,12,4
+QRA (weighted counts and quantiles),Timeseries,0.627,,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.01,12,4
+QRA (weighted counts and quantiles),Rt,0.03,0.01,12,4
+QRA (weighted counts and quantiles),Timeseries,0.624,0.01,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.025,12,4
+QRA (weighted counts and quantiles),Rt,0.03,0.025,12,4
+QRA (weighted counts and quantiles),Timeseries,0.624,0.025,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.05,12,4
+QRA (weighted counts and quantiles),Rt,0.03,0.05,12,4
+QRA (weighted counts and quantiles),Timeseries,0.624,0.05,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.1,12,4
+QRA (weighted counts and quantiles),Rt,0.03,0.1,12,4
+QRA (weighted counts and quantiles),Timeseries,0.624,0.1,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.15,12,4
+QRA (weighted counts and quantiles),Rt,0.03,0.15,12,4
+QRA (weighted counts and quantiles),Timeseries,0.624,0.15,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.2,12,4
+QRA (weighted counts and quantiles),Rt,0.03,0.2,12,4
+QRA (weighted counts and quantiles),Timeseries,0.624,0.2,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.25,12,4
+QRA (weighted counts and quantiles),Rt,0.03,0.25,12,4
+QRA (weighted counts and quantiles),Timeseries,0.624,0.25,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.3,12,4
+QRA (weighted counts and quantiles),Rt,0.03,0.3,12,4
+QRA (weighted counts and quantiles),Timeseries,0.624,0.3,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.35,12,4
+QRA (weighted counts and quantiles),Rt,0.03,0.35,12,4
+QRA (weighted counts and quantiles),Timeseries,0.624,0.35,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.4,12,4
+QRA (weighted counts and quantiles),Rt,0.027,0.4,12,4
+QRA (weighted counts and quantiles),Timeseries,0.627,0.4,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.45,12,4
+QRA (weighted counts and quantiles),Rt,0.027,0.45,12,4
+QRA (weighted counts and quantiles),Timeseries,0.627,0.45,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.5,12,4
+QRA (weighted counts and quantiles),Rt,0.027,0.5,12,4
+QRA (weighted counts and quantiles),Timeseries,0.627,0.5,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.55,12,4
+QRA (weighted counts and quantiles),Rt,0.027,0.55,12,4
+QRA (weighted counts and quantiles),Timeseries,0.627,0.55,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.6,12,4
+QRA (weighted counts and quantiles),Rt,0.027,0.6,12,4
+QRA (weighted counts and quantiles),Timeseries,0.627,0.6,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.65,12,4
+QRA (weighted counts and quantiles),Rt,0.027,0.65,12,4
+QRA (weighted counts and quantiles),Timeseries,0.627,0.65,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.7,12,4
+QRA (weighted counts and quantiles),Rt,0.027,0.7,12,4
+QRA (weighted counts and quantiles),Timeseries,0.627,0.7,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.75,12,4
+QRA (weighted counts and quantiles),Rt,0.027,0.75,12,4
+QRA (weighted counts and quantiles),Timeseries,0.627,0.75,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.8,12,4
+QRA (weighted counts and quantiles),Rt,0.027,0.8,12,4
+QRA (weighted counts and quantiles),Timeseries,0.627,0.8,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.85,12,4
+QRA (weighted counts and quantiles),Rt,0.024,0.85,12,4
+QRA (weighted counts and quantiles),Timeseries,0.63,0.85,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.9,12,4
+QRA (weighted counts and quantiles),Rt,0.024,0.9,12,4
+QRA (weighted counts and quantiles),Timeseries,0.63,0.9,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.95,12,4
+QRA (weighted counts and quantiles),Rt,0.024,0.95,12,4
+QRA (weighted counts and quantiles),Timeseries,0.63,0.95,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.975,12,4
+QRA (weighted counts and quantiles),Rt,0.024,0.975,12,4
+QRA (weighted counts and quantiles),Timeseries,0.63,0.975,12,4
+QRA (weighted counts and quantiles),Case convolution,0.346,0.99,12,4
+QRA (weighted counts and quantiles),Rt,0.024,0.99,12,4
+QRA (weighted counts and quantiles),Timeseries,0.63,0.99,12,4
