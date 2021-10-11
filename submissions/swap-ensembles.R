@@ -9,16 +9,18 @@ swap <- list(
   # "mean" = c(
   #
   # ),
-  # "median" = c(
-  # 
-  # )
+  "median" = c(
+    "Colorado"
+  )
+  ,
   # 
   "Timeseries" = c(
   "Ohio"
   )
+  # ,
   # 
   # "Rt" = c(
-  #   "Florida"
+  #   "Colorado"
   # )
   #,
   # "Case convolution" = c(
