@@ -10,13 +10,13 @@ swap <- list(
   #
   # ),
   "median" = c(
-    "Colorado"
+    "Arkansas"
   )
-  ,
-  # 
-  "Timeseries" = c(
-  "Ohio"
-  )
+  # ,
+  # # 
+  # "Timeseries" = c(
+  # "Ohio"
+  # )
   # ,
   # 
   # "Rt" = c(
