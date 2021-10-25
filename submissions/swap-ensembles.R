@@ -10,7 +10,8 @@ swap <- list(
   #
   # ),
   "median" = c(
-    "Arkansas"
+    "Arkansas",
+    "Ohio"
   )
   # ,
   # # 
