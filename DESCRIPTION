@@ -40,7 +40,7 @@ Imports:
 Remotes:
     epiforecasts/EpiNow2,
     epiforecasts/scoringutils,
-    ryantibs/quantgen/R-package/quantgen
+    ryantibs/quantgen/quantgen
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
