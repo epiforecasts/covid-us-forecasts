@@ -9,10 +9,12 @@ swap <- list(
   # "mean" = c(
   #
   # ),
-  "median" = c(
-    "Arkansas",
+  "median" = c( #illinois, indiana, michigan, nebraska - qra uncertainty too wide but central OK
+    "Arizona",
+    "California",
     "Iowa",
-    "New Hampshire"
+    "Ohio",
+    "Pennsylvania"
   )
   # ,
   # # 
