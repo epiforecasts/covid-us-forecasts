@@ -12,8 +12,9 @@ library(future.apply)
 target_date <- as.Date(readRDS(here("data", "target_date.rds")))
 
 # Training ----------------------------------------------------------------
-train_windows <- c(2, 4, 8, 12)
-train_horizons <- list(1:4, 1, 2, 4)
+# use only the default QRA we include in visualisation/submission:
+train_windows <- 4 # c(2, 4, 8, 12)
+train_horizons <- 4 # list(1:4, 1, 2, 4)
 
 # Observations ------------------------------------------------------------
 # requires Rt model to have been fit for this period
@@ -41,36 +42,12 @@ source(here("ensembles", "utils", "weighted-tools.R"))
 ensembles <- expand.grid(windows = train_windows, horizons = train_horizons)
 ensembles <- as.data.table(ensembles)[, id := 1:.N]
 
-# prune grid of impossible combinations
-ensembles <- ensembles[, min_horizon := map(horizons, min)][windows >= min_horizon]
-
-# use only the default QRA we include in visualisation/submission:
-ensembles <- ensembles[horizons == "4" & windows == 4]
-
-###
-# set run grid in parallel
-plan("multisession", earlySignal = TRUE)
-ensembles <- future_lapply(split(ensembles, by = "id"), run_ensemble_grid,
-                           train_forecasts = train_forecasts, obs = obs,
-                           target_date = target_date, forecasts = current_forecasts,
-                           verbose = TRUE,
-                           future.globals = c("ensemble_grid", "extract_training_data",
-                                              "ensemble"),
-                           future.packages = c("data.table", "lubridate", "quantgen",
-                                               "purrr", "stringr"),
-                           future.seed = TRUE)
-plan("sequential")
-
-### 
-# 
-# or run sequentially
-# ensembles <- purrr::map(split(ensembles, by = "id"),
-#                             ~ run_ensemble_grid(.x, 
-#                                                 train_forecasts = train_forecasts, 
-#                                                 obs = obs, 
-#                                                 target_date = target_date, 
-#                                                 forecasts = current_forecasts,
-#                                                 verbose = TRUE))
+ensembles <- run_ensemble_grid(ensembles, 
+                               train_forecasts = train_forecasts,
+                               obs = obs,
+                               target_date = target_date,
+                               forecasts = current_forecasts,
+                               verbose = TRUE)
 # organise output
 ensembles <- transpose(ensembles)
 ensembles$weights <- rbindlist(ensembles$weights)
