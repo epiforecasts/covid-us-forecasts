@@ -70,8 +70,10 @@ knitr::include_graphics(here::here("evaluation", "plots",
 ## Weights
 
 ```{r weights, message=FALSE, fig.width=4, fig.height=2}
-weights <- readr::read_csv(here::here("ensembles", "data", "weighted", "weights", 
-                              paste0(target_date, ".csv"))) %>%
+weights_path <- here::here("ensembles", "data", "weighted", "weights", 
+                              paste0(target_date, ".csv"))
+if (file.exists(weights_path)) {
+  weights <- readr::read_csv(weights_path) %>%
   filter(horizons == "4", window == 4, ensemble == "QRA", is.na(quantile))
 
 library(ggplot2)
@@ -81,6 +83,8 @@ weights %>%
   labs(x = "Ensemble weight", y = NULL) +
   scale_fill_viridis_d(option = 7) +
   theme_classic()
+} else {cat("No QRA weights saved, QRA likely not run")}
+
 
 ```
 

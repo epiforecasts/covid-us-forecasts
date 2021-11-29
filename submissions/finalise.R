@@ -62,11 +62,13 @@ error_message <- c(error_message,
                           outer_diverge_locations[!outer_diverge_locations %in% central_diverge_locations]))
 
 # Use QRA by default ------------------------------------------------------
-submission <- submission[(window == 4 & horizons == "4" & model == "QRA")]
+if ("window" %in% names(submission)) {
+  submission <- submission[(window == 4 & horizons == "4" & model == "QRA")]
+}
 
 # Convert -----------------------------------------------------------------
 submission <- submission[, 
- c("window", "model", "horizons", "submission_date") := NULL]
+                         c("window", "model", "horizons", "submission_date") := NULL]
 submission <- submission[, value := as.integer(value)]
 
 # # Replace some states with a single model ---------------------------------
