@@ -61,10 +61,10 @@ error_message <- c(error_message,
                    list("Check diverging models: Following locations have models with central estimates >10x median:" = 
                           outer_diverge_locations[!outer_diverge_locations %in% central_diverge_locations]))
 
-# Use QRA by default ------------------------------------------------------
+# Use QRA by default, or median if absent -----------------------------------
 if ("window" %in% names(submission)) {
   submission <- submission[(window == 4 & horizons == "4" & model == "QRA")]
-}
+} else {submission <- submission[(model == "median")]}
 
 # Convert -----------------------------------------------------------------
 submission <- submission[, 
