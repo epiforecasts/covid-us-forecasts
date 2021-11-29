@@ -7,7 +7,9 @@ forecast_date <- readRDS(here("data", "target_date.rds"))
 
 # Load target forecasts ---------------------------------------------------
 load_forecast <- function(model, date = forecast_date, sub_dir = "") {
-  fread(here("ensembles", "data", model, sub_dir, paste0(date, ".csv")))
+  path <- here("ensembles", "data", model, sub_dir, paste0(date, ".csv"))
+  if (file.exists(path)) {fread(path)
+  } else {NULL}
 }
 unweighted <- load_forecast("unweighted")
 weighted <- load_forecast("weighted", sub_dir = "forecasts")
