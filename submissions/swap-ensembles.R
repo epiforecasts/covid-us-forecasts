@@ -9,14 +9,13 @@ swap <- list(
   # "mean" = c(
   #
   # ),
-  "median" = c( 
-    "Florida", "Iowa", "Michigan", "Missouri"
-  )
+  # "median" = c( 
+  # )
   # ,
   # # 
-  # "Timeseries" = c(
-  # "Ohio"
-  # )
+  "Timeseries" = c(
+   "Kansas"
+  )
   # ,
   # 
   # "Rt" = c(
