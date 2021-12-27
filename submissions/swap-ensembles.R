@@ -13,18 +13,18 @@ swap <- list(
   # )
   # ,
   # # 
-  "Timeseries" = c(
-   "Iowa"
-  )
+  # "Timeseries" = c(
+  #  "Iowa"
+  # )
   # ,
   # 
   # "Rt" = c(
   #   "Colorado"
   # )
   #,
-  # "Case convolution" = c(
-  # 
-  # )
+  "Case convolution" = c(
+    "Tennessee"
+  )
 )
 
 saveRDS(swap, here("submissions", "submission-notes", paste0(target_date, "-swap-ensemble.rds")))
