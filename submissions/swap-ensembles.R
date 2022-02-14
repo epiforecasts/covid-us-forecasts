@@ -2,7 +2,7 @@
 library(here)
 
 target_date <- as.Date(readRDS(here("data", "target_date.rds")))
-state_codes <- readRDS("C:/Users/kaths/GitHub/covid-us-forecasts/data/state_codes.rds")
+state_codes <- readRDS(here("data", "state_codes.rds"))
 
 # Add state - model combinations here
 swap <- list(
