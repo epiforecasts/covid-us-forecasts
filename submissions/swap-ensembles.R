@@ -13,15 +13,14 @@ swap <- list(
   # )
   # ,
   # # 
-  "Timeseries" = c(
-   "Tennessee"
-  )
+  # "Timeseries" = c(
+  #  "Tennessee"
+  # )
   # ,
   # 
-  # "Rt" = c(
-  #   "Montana",
-  #   "Tennessee"
-  # )
+  "Rt" = c(
+    "Florida"
+  )
   #,
   # "Case convolution" = c(
   #   ""
